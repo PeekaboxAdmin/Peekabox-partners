@@ -14,7 +14,7 @@ const AccountPage: React.FC = () => {
       <div>
         <h2>Account Created Successfully!</h2>
         <p>You can now add a brand.</p>
-        <button onClick={handleAddBrand}>Add Brand</button> {/* Button to navigate to Brand Form */}
+        <button onClick={handleAddBrand}>Add Brand</button>
       </div>
     </div>
   );

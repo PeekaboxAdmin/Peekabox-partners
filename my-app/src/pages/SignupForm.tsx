@@ -14,7 +14,7 @@ const SignupForm: React.FC = () => {
   const [accountData, setAccountData] = useState<any>(null);
   const [brandData, setBrandData] = useState<any>(null);
   const [branchData, setBranchData] = useState<any>(null);
-  const [totalStores, setTotalStores] = useState<number | null>(null); // New state for total stores
+  const [totalStores, setTotalStores] = useState<number | null>(null);
 
   const handleAccountNext = (data: any) => {
     setAccountData(data);
@@ -22,7 +22,7 @@ const SignupForm: React.FC = () => {
 
   const handleBrandNext = (data: any) => {
     setBrandData(data);
-    setTotalStores(data.totalStores); // Store the total number of stores
+    setTotalStores(data.totalStores);
   };
 
   const handleBranchNext = (data: any) => {

@@ -7,11 +7,11 @@ const SurpriseBagCreated: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAddMoreSurpriseBags = () => {
-    navigate('/SurpriseBag'); // Navigate back to the Brand Form to add another brand
+    navigate('/SurpriseBag');
   };
 
   const handleGoToDashboard = () => {
-    navigate('/dashboard'); // Navigate to the dashboard (ensure this route exists)
+    navigate('/dashboard');
   };
 
   
