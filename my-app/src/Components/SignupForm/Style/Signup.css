@@ -1,0 +1,22 @@
+.terms {
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+  
+  .terms a {
+    color: #0b4b2c;
+    text-decoration: none;
+  }
+
+  .find-store {
+    text-align: center;
+    font-weight: 700;
+    
+  }
+  
+  .find-store a {
+    text-decoration: none;
+    color: #ff80b4;
+  }
