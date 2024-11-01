@@ -15,7 +15,7 @@ export interface BrandData {
 const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext }) => {
   const navigate = useNavigate();
 
-  // State for form fields with initial values from localStorage
+
   const [brandName, setBrandName] = useState(() => localStorage.getItem('brandName') || '');
   const [email, setEmail] = useState(() => localStorage.getItem('email') || '');
   const [businessRegNum, setBusinessRegNum] = useState(() => localStorage.getItem('businessRegNum') || '');
@@ -28,7 +28,6 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     return storedValue ? Number(storedValue) : 0;
   });
 
-  // Load logo and banner URLs if they exist in localStorage
   useEffect(() => {
     const logoUrl = localStorage.getItem('logo');
     const bannerUrl = localStorage.getItem('banner');
@@ -36,7 +35,7 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     if (bannerUrl) setBanner(new File([bannerUrl], 'banner'));
   }, []);
 
-  // Store data in localStorage when a field changes
+
   useEffect(() => {
     localStorage.setItem('brandName', brandName);
     localStorage.setItem('email', email);
@@ -46,7 +45,7 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     localStorage.setItem('totalStores', totalStores.toString());
   }, [brandName, email, businessRegNum, description, hqLocation, totalStores]);
 
-  // File handler with URL storage in localStorage
+
   const handleFileChange = (setFile: React.Dispatch<React.SetStateAction<File | null>>, storageKey: string) => 
     (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -56,7 +55,7 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     }
   };
 
-  // Submit handler
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const brandData: BrandData = { brandName, email, businessRegNum, logo, banner, description, hqLocation, totalStores };
@@ -68,7 +67,7 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     
   };
 
-  // Total Stores input handler
+
   const handleTotalStore = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Math.max(0, Number(e.target.value));
     setTotalStores(newValue);

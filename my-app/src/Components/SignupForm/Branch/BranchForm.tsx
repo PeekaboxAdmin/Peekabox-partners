@@ -83,7 +83,7 @@ const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[
     console.log('Branches Data:', branches);
     onNext(branches);
 
-    // Clear local storage here
+
     localStorage.removeItem('brandName');
     localStorage.removeItem('email');
     localStorage.removeItem('businessRegNum');

@@ -5,7 +5,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../Image';
 import Heading from '../../Heading';
 import Button from '../../Button';
-import SignupImage from '../../Login/Style/images/Signup.png'; // Adjust path as necessary
+import SignupImage from '../../Login/Style/images/Signup.png';
 import SearchBar from '../../SearchBar';
 
 // import '../../Login/Style/Login.css'
@@ -34,7 +34,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
     setLoading(true);
     setErrorMessage('');
 
-    const emailExists = await mockVerifyEmail(email.trim()); // Trim whitespace
+    const emailExists = await mockVerifyEmail(email.trim());
     if (emailExists) {
       setIsEmailVerified(true);
     } else {
@@ -50,10 +50,10 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
 
     const accountData = { email, password };
 
-    // Simulate login process (replace with actual API call)
+
     console.log('Account Data:', accountData);
     onNext(accountData);
-    navigate('/account'); // Redirect to account page
+    navigate('/account');
     setLoading(false);
   };
 
