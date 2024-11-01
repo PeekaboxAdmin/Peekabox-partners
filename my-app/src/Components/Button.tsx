@@ -10,7 +10,7 @@ const Button: React.FC<CustomButtonProps> = ({ label, loading }) => {
   return (
     <div className="login-button-container">
       <button
-        type="submit" // Keep it as submit for form submission
+        type="submit"
         disabled={loading}
         className="login-button"
       >

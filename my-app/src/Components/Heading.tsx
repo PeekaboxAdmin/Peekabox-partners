@@ -1,4 +1,4 @@
-// src/components/Heading.tsx
+
 import React from 'react';
 import './Login/Style/Login.css';
 

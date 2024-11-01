@@ -13,7 +13,7 @@ body {
 }
 
 .left-section {
-    flex: 1.3;
+    flex: 1.5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,9 +25,10 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 20px;
+    margin-top: 70px;
 }
 
 .container {
@@ -225,12 +226,23 @@ input {
     .left-section {
         height: auto;
         position: relative;
+        order: 2;
+    }
+
+    .right-section {
+        order: 1;
+        margin-top: 30px;
+        padding: 15px;
     }
 
     .screenshot {
         height: auto;
         min-height: 50vh;
         max-width: 100%;
+    }
+
+    .heading {
+        font-size: 36px;
     }
 
     .login-form {
@@ -254,7 +266,12 @@ input {
 
 @media (max-width: 480px) {
     .heading {
-        font-size: 36px;
+        font-size: 28px;
+    }
+
+    .right-section {
+        margin-top: 10px;
+        padding: 10px;
     }
 
     label {

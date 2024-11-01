@@ -25,7 +25,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
   };
 
   const mockVerifyEmail = async (email: string) => {
-    // Simulate an API call to check if the email exists
+
     return email === "batoul@gmail.com"; 
   };
 

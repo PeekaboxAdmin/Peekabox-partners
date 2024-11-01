@@ -1,12 +1,12 @@
-// AccountPage.tsx
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AccountPage: React.FC = () => {
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   const handleAddBrand = () => {
-    navigate('/brand'); // Navigate to the Brand Form
+    navigate('/brand');
   };
 
   return (

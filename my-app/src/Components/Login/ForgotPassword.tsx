@@ -1,4 +1,4 @@
-// src/components/ForgotPassword.tsx
+
 import React from 'react';
 import './Style/Login.css';
 
