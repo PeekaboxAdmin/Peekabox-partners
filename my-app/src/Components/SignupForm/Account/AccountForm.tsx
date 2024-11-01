@@ -68,10 +68,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
             <div className="heading-container">
               <Heading title="Sign up your business"
                        subtitle="Find your store and get started in a few minutes!" />
-              <SearchBar />
-              <div className="already-registered">
-                Already registered? <Link to="/login">Sign in</Link>
-              </div>
+              
             </div>
             
             <div className="input-group">
@@ -82,6 +79,9 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <div className="already-registered">
+                Already registered? <Link to="/login">Sign in</Link>
+              </div>
             </div>
 
             <Button
