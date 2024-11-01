@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../Image';
@@ -70,7 +70,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
                        subtitle="Find your store and get started in a few minutes!" />
               <SearchBar />
               <div className="already-registered">
-                Already registered? <a href="/sign-in">Sign in</a>
+                Already registered? <Link to="/login">Sign in</Link>
               </div>
             </div>
             
