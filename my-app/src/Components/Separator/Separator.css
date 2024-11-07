@@ -1,0 +1,41 @@
+
+.separator {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    margin: 20px 0;
+}
+
+.separator hr {
+    flex: 1;
+    border: none;
+    border-top: 0.5px solid #adafb6;
+}
+
+.separator span {
+    margin: 0 10px;
+    color: #adafb6;
+    font-size: 10px;
+}
+
+@media (max-width: 768px) {
+    .separator {
+        width: 70%;
+        margin: 15px 0;
+    }
+
+    .separator span {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .separator {
+        width: 90%; 
+        margin: 10px 0; 
+    }
+
+    .separator span {
+        font-size: 14px; 
+    }
+}

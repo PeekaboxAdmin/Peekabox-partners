@@ -1,0 +1,48 @@
+
+.login-button-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.login-button {
+    width: 100%;
+    padding: 8px;
+    background-color: #194d33;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #143d28;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-button-container {
+        width: 90%;
+        margin: 15px auto;
+    }
+
+    .login-button {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-button-container {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    .login-button {
+        padding: 12px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,101 @@
+/* Custom Checkbox */
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -8px 0;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 50px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-input {
+    display: none;
+    appearance: none;
+    outline: none;
+}
+
+.checkbox-background {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.checkbox-background::after {
+    content: '';
+    display: none;
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-input:checked + .checkbox-background {
+    background-color: #ff80b4 !important;
+    border-color: #ff80b4 !important;
+}
+
+.checkbox-input:checked + .checkbox-background::after {
+    display: block;
+}
+
+.checkbox-text {
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: -0.28px;
+    margin-left: 8px;
+    color: #000000;
+}
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .checkbox-label {
+        margin-left: 30px; /* Reduce left margin on smaller screens */
+    }
+
+    .checkbox-text {
+        font-size: 10px; /* Reduce font size on smaller screens */
+    }
+
+    .options-row {
+        justify-content: flex-start; /* Align items to the start for better spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .options-row {
+        flex-direction: column; /* Stack the checkboxes vertically on very small screens */
+        align-items: flex-start; /* Align checkboxes to the left */
+    }
+
+    .checkbox-label {
+        margin-left: 0; /* Remove left margin for better spacing */
+        margin-bottom: 8px; /* Add space between checkboxes when stacked */
+    }
+
+    .checkbox-text {
+        font-size: 9px; /* Further reduce font size on very small screens */
+    }
+}

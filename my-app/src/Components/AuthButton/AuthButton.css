@@ -1,0 +1,56 @@
+
+.auth-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 65px;
+    padding: 7px;
+    background-color: #ebedf4;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #2b3674;
+    cursor: pointer;
+    transition: width 0.3s ease, height 0.3s ease, font-size 0.3s ease;
+}
+
+.auth-icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+
+@media (max-width: 768px) {
+    .auth-button {
+        width: 200px;
+        height: 55px;
+        font-size: 9px;
+        padding: 6px;
+    }
+
+    .auth-icon {
+        width: 8px;
+        height: 8px;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-button {
+        width: 150px;
+        height: 45px;
+        font-size: 8px;
+        padding: 5px;
+    }
+
+    .auth-icon {
+        width: 6px;
+        height: 6px;
+        margin-right: 6px;
+    }
+}
