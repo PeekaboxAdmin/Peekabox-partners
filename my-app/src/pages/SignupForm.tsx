@@ -6,6 +6,8 @@ import BranchForm from '../Components/SignupForm/Branch/BranchForm';
 import SurpriseBagForm from '../Components/SignupForm/SurpriseBag/SurpriseBagForm';
 import AccountPage from '../pages/AccountPage';
 import BrandCreated from '../pages/BrandCreated';
+import VerifyEmail from '../Components/SignupForm/Account/VerifyEmail';
+import Password from '../Components/SignupForm/Account/Password';
 
 import SurpriseBagCreated from '../pages/SurpriseBagCreated';
 import Login from '../Components/Login/Login'
@@ -15,6 +17,7 @@ const SignupForm: React.FC = () => {
   const [brandData, setBrandData] = useState<any>(null);
   const [branchData, setBranchData] = useState<any>(null);
   const [totalStores, setTotalStores] = useState<number | null>(null);
+  const [password, setPassword] = useState<string>(''); // Manage password state
 
   const handleAccountNext = (data: any) => {
     setAccountData(data);
@@ -27,6 +30,10 @@ const SignupForm: React.FC = () => {
 
   const handleBranchNext = (data: any) => {
     setBranchData(data);
+  };
+
+  const handlePasswordChange = (newPassword: string) => {
+    setPassword(newPassword); // Update password state
   };
 
   return (
@@ -42,6 +49,10 @@ const SignupForm: React.FC = () => {
           />
           
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/Verify-Email" element={<VerifyEmail/>} />
+          <Route path="/Password" element={<Password password={password} onChange={handlePasswordChange} />} />
+          
+
           
           <Route path="/brand-created" element={<BrandCreated />} />
           

@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Image from '../../Image';
-import Heading from '../../Heading';
-import Button from '../../Button';
-import SignupImage from '../../Login/Style/images/Signup.png';
-import SearchBar from '../../SearchBar';
+import { useNavigate, Link } from 'react-router-dom';
+import Image from '../../Image/Image';
+import Heading from '../../Heading/Heading';
+import Button from '../../Button/Button';
 
-// import '../../Login/Style/Login.css'
+import SignupImage from '../../../assets/images/Signup.png'
+import Separator from '../../Separator/Separator';
+import AuthButton from '../../AuthButton/AuthButton';
+
 import '../Style/Signup.css';
 
-const AccountForm: React.FC<{ onNext: (account: { email: string; password: string }) => void }> = ({ onNext }) => {
+const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = ({ onNext }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
+  // Mock email verification
   const mockVerifyEmail = async (email: string) => {
-
-    return email === "batoul@gmail.com"; 
+    return email === 'batoul@gmail.com'; // Mock condition for email
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -36,24 +28,13 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
 
     const emailExists = await mockVerifyEmail(email.trim());
     if (emailExists) {
-      setIsEmailVerified(true);
+      // Call onNext with the email
+      onNext({ email: email.trim() });
+      // Navigate to the verification page
+      navigate('/Verify-Email');
     } else {
       setErrorMessage('Email not found. Please sign up.');
     }
-    setLoading(false);
-  };
-
-  const handlePasswordSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setErrorMessage('');
-
-    const accountData = { email, password };
-
-
-    console.log('Account Data:', accountData);
-    onNext(accountData);
-    navigate('/account');
     setLoading(false);
   };
 
@@ -63,68 +44,35 @@ const AccountForm: React.FC<{ onNext: (account: { email: string; password: strin
         <Image imageSrc={SignupImage} />
       </div>
       <div className="right-section">
-        {!isEmailVerified ? (
-          <form onSubmit={handleEmailSubmit} className="login-form">
-            <div className="heading-container">
-              <Heading title="Sign up your business"
-                       subtitle="Find your store and get started in a few minutes!" />
-              
-            </div>
-            
-            <div className="input-group">
-              <label>Email *</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <div className="already-registered">
-                Already registered? <Link to="/login">Sign in</Link>
-              </div>
-            </div>
-
-            <Button
-              label="Continue"
-              loading={loading}
+        <form onSubmit={handleEmailSubmit} className="login-form">
+          <div className="heading-container">
+            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" />
+          </div>
+          <div className="input-group">
+            <input
+              placeholder="Enter your email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          </form>
-        ) : (
-          <form onSubmit={handlePasswordSubmit} className="login-form">
-            <div className="heading-container">
-              <Heading title="Enter your Password" subtitle="" />
+            <div className="already-registered">
+              Already registered? <Link to="/login">Sign in</Link>
             </div>
-            <div className="input-group password-input">
-              <label>Password *</label>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={togglePasswordVisibility}
-              >
-                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-              </button>
-            </div>
-            <Button
-              label="Create Account"
-              loading={loading}
-            />
-            
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          </form>
-        )}
-        <p className="terms">
-          By continuing, you agree to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms and Conditions</a>
-        </p>
-        <p className="find-store">
-          <a href="/">Can't find your store?</a>
-        </p>
+          </div>
+          <Button label="Continue" loading={loading} />
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        </form>
+        <Separator />
+        <AuthButton />
+        <div className="bottom-links">
+          <p className="terms">
+            By continuing, you agree to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms and Conditions</a>
+          </p>
+          <p className="find-store">
+            <a href="/">Can't find your store?</a>
+          </p>
+        </div>
       </div>
     </div>
   );

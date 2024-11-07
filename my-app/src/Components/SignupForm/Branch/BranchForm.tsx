@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import BranchDetails, { BranchData } from './BranchDetails';
 import { SurpriseBagData } from '../SurpriseBag/SurpriseBagForm';
 

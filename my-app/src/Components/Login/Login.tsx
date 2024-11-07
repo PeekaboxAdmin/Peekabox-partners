@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Image from '../Image';
-import Heading from '../Heading';
+import Image from '../Image/Image';
+import Heading from '../Heading/Heading';
 import ForgotPassword from './ForgotPassword';
-import Button from '../Button';
-import login from '../Login/Style/images/login.png';
+import Button from '../Button/Button';
+import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel'
+
+import login from '../../assets/images/login.png'
 import './Style/Login.css';
 
 const Login: React.FC = () => {
@@ -81,11 +83,12 @@ const Login: React.FC = () => {
         {!isEmailVerified ? (
           <form onSubmit={handleEmailSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Sign in to your account" subtitle="" />
+              <Heading title="Sign in to your account" subtitle="Welcome Back!Let's get you Signed In" />
             </div>
             <div className="input-group">
-              <label>Email Address *</label>
+              
               <input
+              placeholder='Enter your Email'
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -93,7 +96,7 @@ const Login: React.FC = () => {
               />
             </div>
             <Button
-              label="Verify Email"
+              label="Countinue"
               loading={loading}
             />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -101,11 +104,12 @@ const Login: React.FC = () => {
         ) : (
           <form onSubmit={handleSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Enter your Password" subtitle="" />
+              <Heading title="Enter your Password" subtitle="Let's Keep It Safe - Enter Your Password" />
             </div>
             <div className="input-group password-input">
-              <label>Password *</label>
+              
               <input
+              placeholder='Password'
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -119,9 +123,14 @@ const Login: React.FC = () => {
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
-            <ForgotPassword />
+            
+            <div className="options-row">
+                        <CheckboxWithLabel />
+                        <ForgotPassword />
+                    </div>
+                    
             <Button
-              label="LOG IN"
+              label="Sign In"
               loading={loading}
             />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
