@@ -7,6 +7,7 @@ import Button from '../../Button/Button';
 import SignupImage from '../../../assets/images/Signup.png'
 import Separator from '../../Separator/Separator';
 import AuthButton from '../../AuthButton/AuthButton';
+import FooterLinks from '../../FooterLink/FooterLinks';
 
 import '../Style/Signup.css';
 
@@ -65,14 +66,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         </form>
         <Separator />
         <AuthButton />
-        <div className="bottom-links">
-          <p className="terms">
-            By continuing, you agree to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms and Conditions</a>
-          </p>
-          <p className="find-store">
-            <a href="/">Can't find your store?</a>
-          </p>
-        </div>
+        <FooterLinks text1="By continuing, you agree to our" text2="Privacy Policy" and="and" text3="Terms and Conditions" dawonLink="Can't find your store?"/>
       </div>
     </div>
   );

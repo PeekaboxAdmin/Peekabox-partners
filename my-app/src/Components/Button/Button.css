@@ -15,7 +15,9 @@
     font-weight: 500;
     cursor: pointer;
     box-sizing: border-box;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
+ 
 }
 
 .login-button:hover {
@@ -25,7 +27,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .login-button-container {
-        width: 90%;
+        width: 80%;
         margin: 15px auto;
     }
 
@@ -37,7 +39,7 @@
 
 @media (max-width: 480px) {
     .login-button-container {
-        width: 95%;
+        width: 80%;
         margin: 10px auto;
     }
 

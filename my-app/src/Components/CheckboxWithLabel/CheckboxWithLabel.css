@@ -1,10 +1,10 @@
-/* Custom Checkbox */
+
 .options-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: -8px 0;
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    margin-top: -45px;
+    flex-wrap: wrap; 
 }
 
 .checkbox-label {
@@ -42,10 +42,10 @@
     content: '';
     display: none;
     position: absolute;
-    width: 6px;
-    height: 10px;
+    width: 3px;
+    height: 7px;
     border: solid white;
-    border-width: 0 2px 2px 0;
+    border-width: 0 1px 1px 0;
     transform: rotate(45deg);
 }
 
@@ -69,33 +69,42 @@
 
 
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .checkbox-label {
-        margin-left: 30px; /* Reduce left margin on smaller screens */
+        margin-left: -55px; 
+        margin-right: 60px;
     }
 
     .checkbox-text {
-        font-size: 10px; /* Reduce font size on smaller screens */
+        font-size: 10px;
     }
 
     .options-row {
-        justify-content: flex-start; /* Align items to the start for better spacing */
-    }
+        margin-top: -40px; 
+        margin-right: 10px;
+        
+      
+        gap: 10px; 
+        justify-content: space-around; 
+      }
+     
 }
 
 @media (max-width: 480px) {
     .options-row {
-        flex-direction: column; /* Stack the checkboxes vertically on very small screens */
-        align-items: flex-start; /* Align checkboxes to the left */
-    }
+        flex-direction: column; 
+        align-items: flex-start;
+        margin-top: -45px;
+        gap: 15px;
+      }
 
     .checkbox-label {
-        margin-left: 0; /* Remove left margin for better spacing */
-        margin-bottom: 8px; /* Add space between checkboxes when stacked */
+        margin-left: 45px; 
+        margin-bottom: -30px; 
     }
 
     .checkbox-text {
-        font-size: 9px; /* Further reduce font size on very small screens */
+        font-size: 9px;
     }
 }

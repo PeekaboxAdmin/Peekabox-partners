@@ -8,14 +8,14 @@
 }
 
 .heading {
-    font-weight: 800;
-    font-size: 48px;
+    font-weight: 700;
+    font-size: 30px;
     letter-spacing: 0;
     color: #000000;
 }
 
 .title {
-    font-weight: 800;
+    font-weight:700;
     font-size: 30px;
     letter-spacing: 0;
     color: #000000;
@@ -24,13 +24,13 @@
 
 .subtitle {
     font-weight: 500;
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 0;
     color: #373737;
     margin: 10px 0;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .heading {
         font-size: 40px; 

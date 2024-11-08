@@ -5,17 +5,18 @@ import Heading from '../../Heading/Heading';
 import Button from '../../Button/Button';
 import SignupImage from '../../../assets/images/Signup.png'
 import VerificationCodeInput from '../../VerificationCodeInput/VerificationCodeInput';
+import FooterLinks from '../../FooterLink/FooterLinks';
 import '../Style/Signup.css';
 
 const VerifyEmail: React.FC = () => {
   const navigate = useNavigate();
-  const [verificationCode, setVerificationCode] = useState<string>(''); // State to hold the full code input
+  const [verificationCode, setVerificationCode] = useState<string>(''); 
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // Mock function to verify the code
+
   const mockVerifyCode = async (code: string) => {
-    return code === '1234'; // Mock condition for a correct code
+    return code === '1234'; 
   };
 
   const handleCodeSubmit = async (e: React.FormEvent) => {
@@ -46,20 +47,14 @@ const VerifyEmail: React.FC = () => {
           </div>
           <VerificationCodeInput 
             value={verificationCode} 
-            onChange={setVerificationCode} // Directly updates the verificationCode
+            onChange={setVerificationCode} 
           />
           <Button label="Verify" loading={loading} />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         
-        <div className="bottom-links1">
-          <p className="terms">
-            Didn't get it? Send me a new email
-          </p>
-          <p className="find-store">
-            <a href="/">Try another method to verify?</a>
-          </p>
-        </div>
+        
+        <FooterLinks text1=" Didn't get it? " text2="Send me a new email" and="" text3="" dawonLink="Try another method to verify?"/>
       </div>
     </div>
   );

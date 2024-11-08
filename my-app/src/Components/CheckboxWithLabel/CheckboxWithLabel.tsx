@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CheckboxWithLabel.css'
+import './CheckboxWithLabel.css';
 
 function CheckboxWithLabel() {
     const [isChecked, setIsChecked] = useState(false);
@@ -17,13 +17,11 @@ function CheckboxWithLabel() {
                     onChange={handleCheckboxChange} 
                     className="checkbox-input"
                 />
-                <span className={`checkbox-background ${isChecked ? 'checked' : ''}`}>
-                    {isChecked && <img src="https://placeholder.pics/svg/10x10" alt="checkmark" />}
-                </span>
+                <span className={`checkbox-background ${isChecked ? 'checked' : ''}`} />
                 <span className="checkbox-text">Keep me logged in</span>
             </div>
         </label>
     );
 }
 
-export default CheckboxWithLabel
+export default CheckboxWithLabel;

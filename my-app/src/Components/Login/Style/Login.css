@@ -1,13 +1,17 @@
-/* General Styles */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
     overflow: hidden;
 }
 
-/* Layout */
+
+
 .login-page {
     display: flex;
     flex-direction: row;
@@ -30,7 +34,7 @@ body {
     align-items: center;
 }
 
-/* Login Form */
+
 .login-form {
     width: 100%;
     max-width: 600px;
@@ -45,6 +49,7 @@ body {
     position: relative;
     width: 80%;
     margin: 15px auto;
+    margin-bottom: 50px;
 }
 
 label {
@@ -61,6 +66,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 10px;
     margin: 0;
+    
     box-sizing: border-box;
 }
 
@@ -80,18 +86,18 @@ input {
     color: #8f8f8f;
 }
 
-/* Forgot Password Link */
+
 .forgot-password-link {
     font-weight: 500;
     font-size: 12px;
     color: #ff80b4;
     letter-spacing: -0.14px;
     text-decoration: none;
-    margin-right: 50px;
-    transition: font-size 0.2s ease, margin-right 0.2s ease; /* Smooth transition */
+    margin-right: 50px; 
+    transition: font-size 0.2s ease, margin-right 0.2s ease; 
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .login-page {
         flex-direction: column;
@@ -114,14 +120,14 @@ input {
         width: 80%;
     }
 
-    /* Adjust forgot password link for medium screens */
     .forgot-password-link {
-        font-size: 11px; /* Reduce font size */
-        margin-right: 30px; /* Reduce margin */
+        font-size: 12px;
+        margin-right: -50px ;  
+        margin-left: 10px; 
     }
 
     .bottom-links {
-        padding: 50px; /* Reduced padding */
+        padding: 50px; 
     }
 }
 
@@ -140,12 +146,14 @@ input {
     }
 
     .bottom-links {
-        padding: 20px; /* Further reduced padding */
+        padding: 20px; 
     }
 
-    /* Further adjustments for small screens */
+    
     .forgot-password-link {
-        font-size: 10px; /* Further reduce font size */
-        margin-right: 20px; /* Reduce margin */
+        font-size: 10px; 
+        margin-right: -700px ;  
+        margin-left: 300px;
+        
     }
 }

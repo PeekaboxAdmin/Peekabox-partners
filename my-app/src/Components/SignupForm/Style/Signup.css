@@ -16,7 +16,8 @@
 
 /* Already Registered */
 .already-registered {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: -40px;
     text-align: right;
     width: 100%;
     max-width: 510px;
@@ -27,49 +28,24 @@
 
 .already-registered a {
     color: #ff80b4;
-    font-weight: 500;
+    font-weight: 550;
     text-decoration: none;
     font-size: 12px;
 }
 
-/* Bottom Links */
-.bottom-links {
-    text-align: center;
-    padding: 200px 10px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    width: 100%;
-}
 
-.bottom-links1 {
-    text-align: center;
-    padding: 210px 10px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    width: 100%;
-}
 
-.terms, .find-store {
-    font-size: 12px;
-    margin: 10px 0;
-}
 
-.terms a {
-    color: #0b4b2c;
-    text-decoration: underline;
-}
 
-.find-store a {
-    color: #ff80b4;
-    text-decoration: none;
-}
+
 
 /* Password Criteria */
 .password-criteria {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 20px auto;
+    margin: 10px auto;
+    margin-top: -25px;
     max-width: 400px;
     margin-right: 10px;
 }
@@ -92,15 +68,13 @@
     transform: rotate(45deg);
     margin-right: 10px;
 }
-
-
-  
+ 
 
 .verifyEmailSpan {
     color: #ff80b4; 
     position: relative; 
     font-size: 12px; 
-    top: -20px;
+    top: -30px;
   }
   
   .verifyEmailSpan::after {
@@ -118,7 +92,7 @@
 
  
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     
 
@@ -127,18 +101,17 @@
         text-align: center;
     }
 
-    .bottom-links {
-        padding: 80px 20px;
-    }
+    
 
     .password-criteria {
-        max-width: 90%;
-        margin-right: auto;
-    }
-
-    .password-criteria div {
+        max-width: 90%; 
+        margin-top: -15px;
+        margin-left: 65px;;
+      }
+    
+      .password-criteria div {
         font-size: 11px;
-    }
+      }
 
     .checkmark {
         width: 3px;
@@ -146,37 +119,29 @@
         margin-right: 8px;
     }
 
-    .terms, .find-store {
-        font-size: 11px;
-    }
+    
 }
 
 @media (max-width: 480px) {
     
 
-    .bottom-links {
-        padding: 60px 10px;
-        font-size: 10px;
-    }
-
+  
     .password-criteria {
-        max-width: 100%;
-        margin-right: 0;
-    }
-
-    .password-criteria div {
+        max-width: 100%; 
+        margin-top: 0; 
+        margin-left: 50px;
+      }
+    
+      .password-criteria div {
         font-size: 10px;
-    }
-
+      }
     .checkmark {
         width: 3px;
         height: 10px;
         margin-right: 8px;
     }
 
-    .terms, .find-store {
-        font-size: 10px;
-    }
+    
 
     .already-registered {
         font-size: 10px;
