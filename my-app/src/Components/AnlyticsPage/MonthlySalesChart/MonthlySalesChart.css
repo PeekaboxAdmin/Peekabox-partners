@@ -1,0 +1,36 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; 
+}
+
+.chart-container {
+  max-width: 800px;
+  
+  padding: 16px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 16px;
+  background-color: #0b4619;
+  color: white;
+  border-radius: 20px 20px 0 0;
+  margin: -16px -16px 16px;
+  padding-left: 50px; 
+}
+
+.chart-wrapper {
+  width: 741px;
+  height: 448px;
+  position: relative;
+ 
+}
