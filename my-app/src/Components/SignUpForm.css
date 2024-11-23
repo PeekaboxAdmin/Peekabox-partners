@@ -1,0 +1,181 @@
+/* Body and background styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f54ea2, #ff7676);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    width: 600px;
+    margin-top: 20px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: start;
+  }
+  
+  /* Logo and Header Styling */
+  .logo {
+    width: 100px;
+    margin: 0 auto 20px;
+  }
+  
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 30px;
+  }
+  
+  /* Form input styles */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: #f54ea2;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  /* Button styling */
+  .submit-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #f54ea2, #ff7676);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .submit-button:hover {
+    background: linear-gradient(135deg, #ff7676, #f54ea2);
+  }
+
+  .next-button{
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #f54ea2, #ff7676);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .next-button:hover {
+    background: linear-gradient(135deg, #ff7676, #f54ea2);
+  }
+
+  .prev-button{
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #f54ea2, #ff7676);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .prev-button:hover {
+    background: linear-gradient(135deg, #ff7676, #f54ea2);
+  }
+  
+  /* Progress bar hidden for now */
+  .progress-bar {
+    display: none;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 480px) {
+    .container {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 22px;
+    }
+  }
+  
+
+.save-button{
+    background-color: #ff7676;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.later-button{
+    background-color: #d51515;
+    padding: 10px;
+    margin: 5px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.collapsible{
+    width: 100%;
+    background-color: #ff7676;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+}
