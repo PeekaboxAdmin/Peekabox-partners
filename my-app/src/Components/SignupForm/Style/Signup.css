@@ -1,0 +1,149 @@
+/* Remove default input styles (for password reveal icons) */
+.password-input input::-ms-reveal,
+.password-input input::-ms-clear {
+  display: none;
+}
+
+.password-input input::-webkit-contacts-auto-fill-button,
+.password-input input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  height: 0;
+  width: 0;
+  margin: 0;
+}
+
+/* Already Registered */
+.already-registered {
+    margin-top: 5px;
+    margin-bottom: -40px;
+    text-align: right;
+    width: 100%;
+    max-width: 510px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+}
+
+.already-registered a {
+    color: #ff80b4;
+    font-weight: 550;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+/* Password Criteria */
+.password-criteria {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px auto;
+    margin-top: -25px;
+    max-width: 400px;
+    margin-right: 10px;
+}
+
+.password-criteria div {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #ff80b4;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.checkmark {
+    display: inline-block;
+    width: 4px;
+    height: 12px;
+    border: 5px solid #ff80b4;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    margin-right: 10px;
+}
+ 
+
+.verifyEmailSpan {
+    color: #ff80b4; 
+    position: relative; 
+    font-size: 12px; 
+    top: -30px;
+  }
+  
+  .verifyEmailSpan::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px; 
+    background-color: #ff80b4;
+  }
+  
+ 
+  
+
+ 
+
+
+@media (max-width: 768px) {
+    
+
+    .already-registered {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    
+
+    .password-criteria {
+        max-width: 90%; 
+        margin-top: -15px;
+        margin-left: 65px;;
+      }
+    
+      .password-criteria div {
+        font-size: 11px;
+      }
+
+    .checkmark {
+        width: 3px;
+        height: 10px;
+        margin-right: 8px;
+    }
+
+    
+}
+
+@media (max-width: 480px) {
+    
+
+  
+    .password-criteria {
+        max-width: 100%; 
+        margin-top: 0; 
+        margin-left: 50px;
+      }
+    
+      .password-criteria div {
+        font-size: 10px;
+      }
+    .checkmark {
+        width: 3px;
+        height: 10px;
+        margin-right: 8px;
+    }
+
+    
+
+    .already-registered {
+        font-size: 10px;
+    }
+}

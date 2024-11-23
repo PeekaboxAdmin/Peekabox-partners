@@ -1,0 +1,45 @@
+.bottom-links {
+    text-align: center;
+    padding: 150px 10px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+
+.TopLink, .Dawon-Link {
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.TopLink a {
+    color: #0b4b2c;
+    text-decoration: underline;
+}
+
+.Dawon-Link a {
+    color: #ff80b4;
+    text-decoration: none;
+}
+
+
+@media (max-width: 768px) {
+    .bottom-links {
+        padding: 50px 10px; 
+    }
+    
+    .TopLink, .Dawon-Link {
+        font-size: 11px; 
+    }
+}
+
+
+@media (max-width: 480px) {
+    .bottom-links {
+        padding: 20px 5px; 
+    }
+    
+    .TopLink, .Dawon-Link {
+        font-size: 10px; 
+    }
+}

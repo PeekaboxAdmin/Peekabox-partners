@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/App.tsx
 import React, { useState } from 'react';
 import { Chart, registerables } from 'chart.js';
@@ -20,6 +21,26 @@ interface Notification {
     time: string;
     icon: any;
 }
+=======
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import SignupForm from './pages/SignupForm';
+
+const App: React.FC = () => {
+ 
+
+
+  return (
+   
+    <>
+    <SignupForm/>
+    
+
+    
+    </>
+  );
+};
+>>>>>>> b66c300b70e0bc51dbe42c58cdb3a2fc106557c1
 
 // Define the type for orders
 interface Order {

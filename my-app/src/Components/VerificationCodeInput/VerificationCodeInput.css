@@ -1,0 +1,73 @@
+/* OTP Input Styles */
+.otp-input {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.otp-input .otp {
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border: 1px solid rgb(69, 67, 67);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: linear-gradient(
+        to bottom, 
+        transparent 80%, /* Starting position of the transparent area */
+        black 80%, /* Starting position of the black line */
+        black 80%, /* Ending position of the black line */
+        transparent 82% /* Ending position of the transparent area */
+    );
+    background-size: 30% 100%; /* Shorten the line to 30% of the width */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .otp-input {
+        gap: 15px;
+    }
+
+    .otp-input .otp {
+        width: 60px;
+        height: 60px;
+        font-size: 14px;
+        background: linear-gradient(
+            to bottom, 
+            transparent 75%, /* Adjusted line position */
+            black 75%, /* Adjusted line position */
+            black 77%, /* Adjusted line length */
+            transparent 77% /* Adjusted transparent area */
+        );
+        background-size: 30% 100%; /* Shorten the line to 30% of the width */
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+@media (max-width: 480px) {
+    .otp-input {
+        gap: 10px;
+    }
+
+    .otp-input .otp {
+        width: 50px;
+        height: 50px;
+        font-size: 12px;
+        background: linear-gradient(
+            to bottom, 
+            transparent 70%, 
+            black 70%, 
+            black 72%, 
+            transparent 72% 
+        );
+        background-size: 30% 100%; 
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

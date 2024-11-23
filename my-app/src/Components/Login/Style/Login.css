@@ -1,0 +1,159 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+
+
+.login-page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.login-form {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80%;
+    margin: 15px auto;
+    margin-bottom: 50px;
+}
+
+label {
+    align-self: flex-start;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 0;
+    
+    box-sizing: border-box;
+}
+
+.password-input {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 55%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    color: #8f8f8f;
+}
+
+
+.forgot-password-link {
+    font-weight: 500;
+    font-size: 12px;
+    color: #ff80b4;
+    letter-spacing: -0.14px;
+    text-decoration: none;
+    margin-right: 50px; 
+    transition: font-size 0.2s ease, margin-right 0.2s ease; 
+}
+
+
+@media (max-width: 768px) {
+    .login-page {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .right-section {
+        order: 1;
+        margin-top: 30px;
+        padding: 15px;
+    }
+
+    .login-form {
+        width: 90%;
+        max-width: none;
+    }
+
+    .input-group {
+        width: 80%;
+    }
+
+    .forgot-password-link {
+        font-size: 12px;
+        margin-right: -50px ;  
+        margin-left: 10px; 
+    }
+
+    .bottom-links {
+        padding: 50px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .right-section {
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .bottom-links {
+        padding: 20px; 
+    }
+
+    
+    .forgot-password-link {
+        font-size: 10px; 
+        margin-right: -700px ;  
+        margin-left: 300px;
+        
+    }
+}
