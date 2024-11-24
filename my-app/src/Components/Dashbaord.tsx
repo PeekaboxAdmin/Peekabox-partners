@@ -173,12 +173,12 @@ const Dashboard: React.FC<DashboardProps> = ({
 
                 
 
-                <div className="OverViewcard">
+               {/* <div className="OverViewcard">
                     <h2>Sales</h2>
                     <Bar data={overviewData} />
                     <button className="seeall">Go to insights</button>
-                </div>
-            </section>
+                </div> */}
+            </section> 
         </div>
     );
 };

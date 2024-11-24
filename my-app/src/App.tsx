@@ -1,6 +1,4 @@
-// src/App.tsx
 import React, { useState } from 'react';
-import { Chart, registerables } from 'chart.js';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashbaord';
@@ -11,6 +9,7 @@ import StoreInfo from './Components/StoreManagement';
 import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
 import './App.css';
+
 import { faHamburger, faQuestion, faSubway } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -32,21 +31,17 @@ interface Order {
     address: string;
     datePlaced: string;
     quantity: number;
-    pickUpTime?: string; // Optional properties for SurpriseOrder compatibility
+    pickUpTime?: string;
     receipt?: string;
 }
 
-// SurpriseOrder extends Order with required fields
+// Extend Order to define SurpriseOrder with required fields
 interface SurpriseOrder extends Order {
     pickUpTime: string;
     receipt: string;
 }
 
-// Register Chart.js components
-Chart.register(...registerables);
-
 const App: React.FC = () => {
-    const [activeSection, setActiveSection] = useState<string>('dashboard');
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
     const [orders, setOrders] = useState<Order[]>([
@@ -56,77 +51,83 @@ const App: React.FC = () => {
         { id: 4, status: 'Pending', amount: '20 AED', customerName: 'Tom Brown', address: '456 Pine St, Dubai', datePlaced: '2023-10-22 17:15', quantity: 1 },
     ]);
 
-    // Hardcoded notifications
     const notifications: Notification[] = [
         { id: 1, text: 'New order received: Pizza', read: false, time: 'Just now', icon: faSubway },
         { id: 2, text: 'Order completed: Burger', read: false, time: '5 minutes ago', icon: faHamburger },
         { id: 3, text: 'New feedback received for Sushi', read: false, time: '10 minutes ago', icon: faQuestion },
     ];
 
-    const unreadNotificationsCount = notifications.filter(n => !n.read).length;
-    const completedOrdersCount = orders.filter(order => order.status === 'Completed').length;
+    const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
+    const completedOrdersCount = orders.filter((order) => order.status === 'Completed').length;
 
-    const handleToggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
-    // Action handlers for order status updates
-    const markAsCompleted = (id: number) => {
-        setOrders(orders.map(order => (order.id === id ? { ...order, status: 'Completed' } : order)));
-    };
-
-    const markAsPending = (id: number) => {
-        setOrders(orders.map(order => (order.id === id ? { ...order, status: 'Pending' } : order)));
-    };
-
-    const cancelAndRefund = (id: number) => {
-        setOrders(orders.map(order => (order.id === id ? { ...order, status: 'Canceled' } : order)));
-    };
-
-    // Convert Order[] to SurpriseOrder[] by adding default values for missing properties
-    const ordersWithDefaults: SurpriseOrder[] = orders.map(order => ({
+    // Convert Order[] to SurpriseOrder[] with defaults
+    const surpriseOrders: SurpriseOrder[] = orders.map((order) => ({
         ...order,
         pickUpTime: order.pickUpTime || 'Not set',
         receipt: order.receipt || 'No receipt',
     }));
 
+    const handleToggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const markAsCompleted = (id: number) => {
+        setOrders((prevOrders) =>
+            prevOrders.map((order) => (order.id === id ? { ...order, status: 'Completed' } : order))
+        );
+    };
+
+    const markAsPending = (id: number) => {
+        setOrders((prevOrders) =>
+            prevOrders.map((order) => (order.id === id ? { ...order, status: 'Pending' } : order))
+        );
+    };
+
+    const cancelAndRefund = (id: number) => {
+        setOrders((prevOrders) =>
+            prevOrders.map((order) => (order.id === id ? { ...order, status: 'Canceled' } : order))
+        );
+    };
+
     return (
         <Router>
             <div className="App">
-                <Sidebar
-                    isOpen={isSidebarOpen}
-                    onToggle={handleToggleSidebar}
-                    onNavClick={(section) => setActiveSection(section)}
-                />
+                <Sidebar isOpen={isSidebarOpen} onToggle={handleToggleSidebar} onNavClick={() => {}} />
                 <div className={`content ${isSidebarOpen ? 'shifted' : ''}`}>
-                    {activeSection === 'dashboard' && (
-                        <Dashboard
-                            orders={orders}
-                            notifications={notifications}
-                            completedOrdersCount={completedOrdersCount}
-                            unreadNotificationsCount={unreadNotificationsCount}
-                            handleToggleSidebar={handleToggleSidebar}
-                            markAsCompleted={markAsCompleted}
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Dashboard
+                                    orders={orders}
+                                    notifications={notifications}
+                                    completedOrdersCount={completedOrdersCount}
+                                    unreadNotificationsCount={unreadNotificationsCount}
+                                    handleToggleSidebar={handleToggleSidebar}
+                                    markAsCompleted={markAsCompleted}
+                                />
+                            }
                         />
-                    )}
-                    {activeSection === 'surpriseBox' && <SurpriseBoxManagement />}
-                    {activeSection === 'orderManagement' && (
-                        <OrderManagement
-                            surpriseOrders={ordersWithDefaults}
-                            markAsCompleted={markAsCompleted}
-                            markAsPending={markAsPending}
-                            cancelAndRefund={cancelAndRefund}
+                        <Route
+                            path="/orderManagement"
+                            element={
+                                <OrderManagement
+                                    surpriseOrders={surpriseOrders}
+                                    markAsCompleted={markAsCompleted}
+                                    markAsPending={markAsPending}
+                                    cancelAndRefund={cancelAndRefund}
+                                />
+                            }
                         />
-                    )}
-                    {activeSection === 'customerFeedback' && <CustomerFeedback />}
-                    {activeSection === 'storeManagement' && <StoreInfo />}
-                    {activeSection === 'incomePayment' && <IncomeAndPayment />}
+                        <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
+                        <Route path="/customerFeedback" element={<CustomerFeedback />} />
+                        <Route path="/storeManagement" element={<StoreInfo />} />
+                        <Route path="/incomePayment" element={<IncomeAndPayment />} />
+                        {<Route path="/signup" element={<SignupForm />} />}
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
                 </div>
             </div>
-            <Routes>
-                <Route path="/signup" element={<SignupForm />} />
-                <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
         </Router>
     );
 };

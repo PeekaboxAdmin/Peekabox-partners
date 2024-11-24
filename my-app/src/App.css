@@ -1,9 +1,11 @@
-<<<<<<< HEAD
 /* App container styling */
 .App {
   display: flex;
+  flex-direction: column;
   font-family: 'Arial', sans-serif;
   background-color: white;
+  height: 100vh;
+  overflow: auto; /* Allow scrolling */
 }
 
 /* Content styling - Account for sidebar */
