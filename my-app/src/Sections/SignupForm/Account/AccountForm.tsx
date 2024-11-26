@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Image from '../../Image/Image';
-import Heading from '../../Heading/Heading';
-import Button from '../../Button/Button';
+import Image from '../../../Components/Image/Image';
+import Heading from '../../../Components/Heading/Heading';
+import Button from '../../../Components/Button/Button';
 
 import SignupImage from '../../../assets/images/Signup.png'
-import Separator from '../../Separator/Separator';
-import AuthButton from '../../AuthButton/AuthButton';
-import FooterLinks from '../../FooterLink/FooterLinks';
+import Separator from '../../../Components/Separator/Separator';
+import AuthButton from '../../../Components/AuthButton/AuthButton';
+import FooterLinks from '../../../Components/FooterLink/FooterLinks';
 
 import '../Style/Signup.css';
 
@@ -29,9 +29,9 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
 
     const emailExists = await mockVerifyEmail(email.trim());
     if (emailExists) {
-      // Call onNext with the email
+      
       onNext({ email: email.trim() });
-      // Navigate to the verification page
+     
       navigate('/Verify-Email');
     } else {
       setErrorMessage('Email not found. Please sign up.');
@@ -47,7 +47,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       <div className="right-section">
         <form onSubmit={handleEmailSubmit} className="login-form">
           <div className="heading-container">
-            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" />
+            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" className='heading-container' />
           </div>
           <div className="input-group">
             <input
@@ -61,7 +61,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
               Already registered? <Link to="/login">Sign in</Link>
             </div>
           </div>
-          <Button label="Continue" loading={loading} />
+          <Button label="Continue" loading={loading} className='Green-button' />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         <Separator />

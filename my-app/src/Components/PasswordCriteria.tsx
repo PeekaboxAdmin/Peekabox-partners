@@ -1,8 +1,12 @@
 // PasswordCriteria.tsx
 import React from 'react';
 
-import '../../Login/Style/Login.css'
-import '../Style/Signup.css';
+
+
+import '../Sections/Login/Style/Login.css'
+
+
+import '../Sections/SignupForm/Style/Signup.css'
 
 
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Image from '../../Image/Image';
-import Heading from '../../Heading/Heading';
-import Button from '../../Button/Button';
+import Image from '../../../Components/Image/Image';
+import Heading from '../../../Components/Heading/Heading';
+import Button from '../../../Components/Button/Button';
 import SignupImage from '../../../assets/images/Signup.png'
-import VerificationCodeInput from '../../VerificationCodeInput/VerificationCodeInput';
-import FooterLinks from '../../FooterLink/FooterLinks';
+import VerificationCodeInput from '../../../Components/VerificationCodeInput/VerificationCodeInput';
+import FooterLinks from '../../../Components/FooterLink/FooterLinks';
 import '../Style/Signup.css';
 
 const VerifyEmail: React.FC = () => {
@@ -42,14 +42,14 @@ const VerifyEmail: React.FC = () => {
       <div className="right-section">
         <form onSubmit={handleCodeSubmit} className="login-form">
           <div className="heading-container">
-            <Heading title="Verify Your Email" subtitle="Almost There! Type in Your Verification Code" />
+            <Heading title="Verify Your Email" subtitle="Almost There! Type in Your Verification Code" className='heading-container' />
             <span className="verifyEmailSpan">Batoul@gmail.com</span>
           </div>
           <VerificationCodeInput 
             value={verificationCode} 
             onChange={setVerificationCode} 
           />
-          <Button label="Verify" loading={loading} />
+          <Button label="Verify" loading={loading}  className='Green-button' />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         

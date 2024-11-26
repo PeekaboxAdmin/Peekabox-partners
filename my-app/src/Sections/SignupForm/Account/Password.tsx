@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Image from '../../Image/Image';
-import Heading from '../../Heading/Heading';
-import Button from '../../Button/Button';
+import Image from '../../../Components/Image/Image';
+import Heading from '../../../Components/Heading/Heading';
+import Button from '../../../Components/Button/Button';
 import SignupImage from '../../../assets/images/Signup.png'
-import PasswordCriteria from '../Account/PasswordCriteria';
+import PasswordCriteria from '../../../Components/PasswordCriteria';
 import '../Style/Signup.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
       <div className="right-section">
         <form className="login-form" onSubmit={handleFormSubmit}>
           <div className="heading-container">
-            <Heading title="Create a Password" subtitle="Almost Done! Set Up Your Password" />
+            <Heading title="Create a Password" subtitle="Almost Done! Set Up Your Password" className='heading-container' />
           </div>
           <div className="input-group password-input">
             <input
@@ -71,7 +71,7 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
           </div>
           <PasswordCriteria />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          <Button label="Continue"  />
+          <Button label="Continue"  className='Green-button'  />
         </form>
       </div>
     </div>

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Image from '../Image/Image';
-import Heading from '../Heading/Heading';
+import Image from '../../Components/Image/Image';
+import Heading from '../../Components/Heading/Heading';
 import ForgotPassword from './ForgotPassword';
-import Button from '../Button/Button';
-import CheckboxWithLabel from '../CheckboxWithLabel/CheckboxWithLabel'
+import Button from '../../Components/Button/Button';
+import CheckboxWithLabel from '../../Components/CheckboxWithLabel/CheckboxWithLabel'
 
 import login from '../../assets/images/login.png'
 import './Style/Login.css';
@@ -83,7 +83,7 @@ const Login: React.FC = () => {
         {!isEmailVerified ? (
           <form onSubmit={handleEmailSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Sign in to your account" subtitle="Welcome Back!Let's get you Signed In" />
+              <Heading title="Sign in to your account" subtitle="Welcome Back!Let's get you Signed In" className='heading-container' />
             </div>
             <div className="input-group">
               
@@ -98,13 +98,14 @@ const Login: React.FC = () => {
             <Button
               label="Countinue"
               loading={loading}
+              className='Green-button'
             />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Enter your Password" subtitle="Let's Keep It Safe - Enter Your Password" />
+              <Heading title="Enter your Password" subtitle="Let's Keep It Safe - Enter Your Password" className='heading-container' />
             </div>
             <div className="input-group password-input">
               
@@ -133,6 +134,7 @@ const Login: React.FC = () => {
             <Button
               label="Sign In"
               loading={loading}
+              className='Green-button'
             />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             
