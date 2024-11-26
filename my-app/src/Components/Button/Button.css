@@ -4,7 +4,7 @@
     margin: 20px auto;
 }
 
-.login-button {
+.Green-button {
     width: 100%;
     padding: 8px;
     background-color: #194d33;
@@ -24,6 +24,31 @@
     background-color: #143d28;
 }
 
+
+.bink-button {
+    background-color: #FF80B4;
+    color: white;
+    padding: 9px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none; /* Ensure no border is applied */
+}
+
+
+
+.download-button:hover {
+    background-color: #FF6099; /* Slightly darker pink when hovered */
+}
+
+.white-button {
+    background-color: white;
+    color: #FF80B4; /* Pink color for text */
+    padding: 9px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #FF80B4; /* Pink border */
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .login-button-container {
@@ -31,10 +56,29 @@
         margin: 15px auto;
     }
 
-    .login-button {
+    .Green-button {
         padding: 10px;
         font-size: 13px;
     }
+
+    .bink-button {
+   
+        padding: 8px 30px;
+        border-radius: 8px;
+        font-size: 12px;
+       
+    }
+
+    .white-button {
+    
+        padding: 8px 30px;
+        border-radius: 8px;
+        font-size: 12px;
+       
+    }
+
+
+    
 }
 
 @media (max-width: 480px) {
@@ -43,8 +87,26 @@
         margin: 10px auto;
     }
 
-    .login-button {
+    .Green-button {
         padding: 12px;
         font-size: 12px;
     }
+
+    
+.bink-button {
+   
+    padding: 6px 20px;
+    border-radius: 8px;
+    font-size: 12px;
+   
+}
+
+.white-button {
+    
+    padding: 6px 20px;
+    font-size: 12px;
+   
+}
+
+   
 }

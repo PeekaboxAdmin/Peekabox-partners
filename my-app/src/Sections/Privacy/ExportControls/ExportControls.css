@@ -1,0 +1,121 @@
+@media screen and (max-width: 768px) {
+    .export-controls {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center; 
+      gap: 8px; 
+    }
+  
+    .bink-button {
+     
+      padding: 10px 16px;
+      width: auto;
+      margin-left: -60px;
+    }
+  
+    .dropdown {
+      display: flex;
+      justify-content: flex-end; 
+      flex-grow: 1;
+      margin-top: -65px;
+      margin-right: 50px; 
+      margin-bottom: 10px;
+    }
+  
+    .dropdown-button {
+      text-align: left; 
+      padding: 8px 16px; 
+      border-radius: 8px;
+      width: auto; 
+      min-width: 300px; 
+    }
+  
+   
+    .chevron-container {
+      position: absolute;
+      right: 0; 
+    }
+  }
+  
+
+  @media screen and (max-width: 480px) {
+    .export-controls {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      gap: 8px; 
+    }
+  
+    .bink-button {
+     
+  
+      width: auto; 
+      margin-left: -45px;
+    }
+  
+    .dropdown {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 1; 
+      margin-top: -55px;
+      margin-right: 20px; 
+      margin-bottom: 10px;
+    }
+  
+    .dropdown-button {
+      text-align: left; 
+      padding: 8px 11px; 
+      border-radius: 8px;
+      width: auto;
+      min-width: 170px; 
+  
+    }
+  
+    
+    .chevron-container {
+      position: absolute;
+      right: 0; 
+    }
+  }
+
+
+
+  @media screen and (max-width: 400px) {
+    .export-controls {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      gap: 4px; 
+    }
+  
+    .bink-button {
+     
+  
+      width: auto; 
+      margin-left: -45px;
+    }
+  
+    .dropdown {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 1; 
+      margin-top: -50px;
+      margin-right:50px; 
+      margin-bottom: 10px;
+    }
+  
+    .dropdown-button {
+      text-align: left; 
+      padding: 8px 11px; 
+      border-radius: 8px;
+      width: auto;
+      min-width: 140px; 
+  
+    }
+  
+    
+    .chevron-container {
+      position: absolute;
+      right: 0; 
+    }
+  }

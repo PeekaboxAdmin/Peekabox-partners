@@ -1,0 +1,270 @@
+/* Privacy-container */
+.Privacy-container {
+  width: 100%;
+  max-width: 949px;
+  margin: 0 auto;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+
+.Privacy-header-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10px;
+  margin-top: -70px;
+}
+
+
+.Privacy-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1px;
+  flex-grow: 1;
+  margin-left: 175px;
+}
+
+.Privacy-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  margin-bottom: -4px;
+}
+
+.Privacy-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.Privacy-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.Privacy-description {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 12px;
+  margin: 0;
+}
+
+
+.Privacy-switch {
+  margin-right: 350px;
+  margin-top: 37px;
+}
+
+.switch-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.switch-input {
+  display: none;
+}
+
+.switch-track {
+  width: 28px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  background-color: #d1d5db;
+  border-radius: 50px;
+  padding: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.switch-track.checked {
+  background-color: #FF80B4;
+}
+
+.switch-thumb {
+  background-color: white;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.switch-track.checked .switch-thumb {
+  transform: translateX(17px);
+}
+
+
+@media (max-width: 1024px) {
+  .Privacy-container {
+    max-width: 600px;
+    padding: 5px 15px;
+
+    margin-top: -40px;
+    margin-left: 130px; 
+  }
+
+  .Privacy-header-content {
+    margin-left: 0;
+    margin-top: -50px;
+  }
+
+  .Privacy-content {
+    margin-left: 0;
+  }
+
+  .Privacy-switch {
+    margin-right: 70px;
+    margin-top: 40px; 
+  }
+}
+
+
+
+  @media (max-width: 768px) {
+    .Privacy-header-content {
+      margin-top: -30px;
+    }
+  
+    .Privacy-title {
+      font-size: 13px;
+    }
+  
+    
+  
+  
+    .Privacy-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 10px; 
+      width: 100%; 
+    }
+  
+    .Privacy-item-details {
+      display: flex;
+      flex-direction: column; 
+      gap: 4px; 
+    }
+  
+    .Privacy-description {
+      font-size: 11px; 
+      flex-grow: 1;
+      white-space: normal; 
+      word-wrap: break-word;
+    }
+  
+    .Privacy-switch {
+      margin-right: 150px;
+      margin-top: 35px; 
+  }
+}
+
+
+
+@media (max-width: 480px) {
+
+  .Privacy-container {
+    max-width: 600px;
+    padding: 5px 15px;
+
+    margin-top: -40px;
+    margin-left: 100px; 
+  }
+  .Privacy-header-content {
+    margin-top: -30px;
+  }
+
+  .Privacy-title {
+    font-size: 13px;
+  }
+
+ 
+
+
+  .Privacy-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 10px; 
+    width: 100%; 
+  }
+
+  .Privacy-item-details {
+    display: flex;
+    flex-direction: column; 
+    gap: 4px; 
+  }
+
+  .Privacy-description {
+    font-size: 11px; 
+    flex-grow: 1;
+    white-space: normal; 
+    word-wrap: break-word;
+  }
+
+  .Privacy-switch {
+    margin-right: 100px;
+    margin-top: 35px; 
+}
+}
+
+@media (max-width: 400px) {
+
+  .Privacy-container {
+    max-width: 400px;
+    padding: 5px 15px;
+
+    margin-top: -40px;
+    margin-left: 100px; 
+  }
+  .Privacy-header-content {
+    margin-top: -30px;
+  }
+
+  .Privacy-title {
+    font-size: 13px;
+  }
+
+ 
+
+
+  .Privacy-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 10px; 
+    width: 100%; 
+  }
+
+  .Privacy-item-details {
+    display: flex;
+    flex-direction: column; 
+    gap: 4px; 
+  }
+
+  .Privacy-description {
+    font-size: 11px; 
+    flex-grow: 1;
+    white-space: normal; 
+    word-wrap: break-word;
+  }
+
+  .Privacy-switch {
+    margin-right: 90px;
+    margin-top: 35px; 
+}
+}
+
+  
+  
