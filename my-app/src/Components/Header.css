@@ -1,0 +1,49 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: pink; /* Light text */
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    border: none;
+    margin-right: 50px;
+  }
+  
+  .logo-text {
+    color: pink;
+    font-size: 1.5rem; /* Optional: adjust font size for better appearance */
+    font-weight: bold;
+    padding: 5px; /* Adjust as needed or remove for less space around the letter */
+  }
+  
+  .nav {
+    display: flex;
+    gap: 30px;
+    margin-left: 20px; /* Add margin to create space between logo and nav */
+  }
+  
+  .nav-item {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  .nav-item:hover {
+    color: #4CAF50; /* Hover color */
+  }
+  
+  .search {
+    margin-left: auto; /* Pushes search to the far right */
+  }
+  
+  .search-input {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+  }
+  

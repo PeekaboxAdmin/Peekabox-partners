@@ -1,0 +1,341 @@
+/* Dashboard container */
+.dashboard {
+    position:relative ;
+  }
+  
+  /* Surprise Bags section styling */
+  /* Surprise Bags Section */
+.surprise-bags {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.surprise-bags h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.surprise-bags-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+}
+
+.surprise-bag-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 260px;
+    padding: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.surprise-bag-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.surprise-bag-card h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 0 6px;
+}
+
+.surprise-bag-card p {
+    font-size: 0.9em;
+    color: #555;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.surprise-bag-card p svg {
+    margin-right: 6px;
+    color: #888;
+}
+
+/* Price Styling */
+.surprise-bag-card .price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #ec407a; /* AED Pink color */
+    margin-top: auto;
+    text-align: right;
+}
+
+/* Availability Badge */
+.badge {
+    display:inline-block;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    border-radius: 12px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Badge Colors */
+.badge.available {
+    background-color: #4caf50; /* Green for available */
+}
+
+.badge.sold-out {
+    background-color: #f44336; /* Red for sold out */
+}
+
+/* Date and Availability Section */
+.availability-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Example of small icons with text */
+.surprise-bag-card .small-icon {
+    margin-right: 5px;
+    color: #888;
+}
+
+  
+  /* Notifications Section */
+.notification-card {
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-card h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #1b5e20;
+    padding: 12px 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+.notification-card ul{
+    padding: 10px;
+}
+
+.notification-count {
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    color: #333;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.notification-count span {
+    background-color: #ec407a; /* Pink badge color */
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 4px 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Notification List Styling */
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item .notification-icon {
+    font-size: 1.5em;
+    color: #ec407a; /* Icon color */
+    margin-right: 12px;
+}
+
+.notification-item .notification-text {
+    flex: 1;
+    font-size: 1em;
+    color: #333;
+}
+
+.notification-item .notification-text span {
+    font-weight: bold;
+    color: #ec407a; /* Highlight color for item name */
+}
+
+.notification-item .notification-time {
+    font-size: 0.9em;
+    color: #666;
+    white-space: nowrap;
+}
+
+.notification-item .notification-arrow {
+    font-size: 1em;
+    color: #888;
+}
+
+/* Read/Unread State */
+.notification-item.unread .notification-text {
+    font-weight: bold;
+}
+
+.notification-item.read .notification-text {
+    color: #888;
+    font-weight: normal;
+}
+
+  
+
+
+
+
+  /* Order Management Table Styles */
+.orderdash {
+    width: 800px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.orderdash h2 {
+    background-color: #1b5e20; /* Dark green */
+    color: #ffffff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.orderdash table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.orderdash th {
+    text-align: left;
+    padding: 8px;
+    color: #ec407a; /* Pink color for headers */
+    font-weight: bold;
+    font-size: 1em;
+    background-color: #f5f5f5;
+}
+
+.orderdash td {
+    padding: 10px;
+    font-size: 0.95em;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.orderdash tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Status Badge Styles */
+.badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 0.85em;
+    text-align: center;
+}
+
+/* Status Colors */
+.badge.collected {
+    background-color: #4caf50; /* Green for collected */
+}
+
+.badge.pending {
+    background-color: #ff9800; /* Orange for pending */
+}
+
+.badge.canceled {
+    background-color: #f44336; /* Red for canceled */
+}
+
+/* Complete Button Style */
+.complete-btn {
+    padding: 6px 12px;
+    background-color: #1976d2; /* Blue */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.complete-btn:hover {
+    background-color: #1565c0; /* Darker blue */
+}
+
+/* Action Button */
+.orderdash .action-btn {
+    padding: 6px 12px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.orderdash .action-btn:hover {
+    background-color: #388e3c; /* Darker green */
+}
+
+
+.first-grid {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr; /* Creates two equal-width columns */
+    gap: 20px; /* Optional: Adds space between columns */
+    margin-top: 20px;
+}
+
+.OverViewcard{
+   width: 90%;
+   height: 100%;
+   padding: 10px;
+   margin-top: 20px;
+}
+
+
+.OverViewcard h2 {
+    background-color: #1b5e20; /* Dark green */
+    color: #ffffff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.seeall{
+    padding: 8px;
+    font-size: 30sp;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: pink;
+    border: none;
+    margin-left: 10px;
+}
+

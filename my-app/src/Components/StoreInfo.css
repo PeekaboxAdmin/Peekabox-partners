@@ -1,0 +1,176 @@
+/* src/StoreInfo.css */
+
+.store-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.store-logo {
+  width: 100%;
+  height: 100px;
+  display: block;
+  margin: 0 auto 0;
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.store-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-detail-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  align-items: flex-start;
+}
+
+.horizontal-flex-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  gap: 20px; /* Adds spacing between columns */
+}
+
+.store-details h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.store-details p {
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.4;
+}
+
+.store-detail-container h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.store-detail-container p {
+  margin: 0;
+}
+
+.edit-form {
+  margin-top: 20px;
+}
+
+.edit-form label {
+  display: block;
+  margin: 12px 0 4px;
+  font-weight: bold;
+  color: #444;
+  text-align: left;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Category row layout */
+.category-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.category-item {
+  margin: 5px 10px;
+  font-size: 1rem;
+}
+
+.flex-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  gap: 20px; /* Adds spacing between columns */
+}
+
+.store-detail-container {
+  margin: 10px 0;
+}
+
+.store-details h5 {
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.store-details p {
+  color: #555;
+}
+
+.edit-form .category-row {
+  margin-top: 15px;
+}
+
+.edit-form .category-item input {
+  margin-right: 8px;
+}
+
+.edit-form input[type="radio"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.edit-form .category-item {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.store-detail-container {
+  margin-bottom: 15px;
+}
+
+.store-details button {
+  margin-top: 20px;
+}
+
+.store-details h3 {
+  margin-top: 15px;
+}
+
+.store-details h4 {
+  margin-bottom: 20px;
+}
+
+.store-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.category-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.category-item {
+  margin-bottom: 15px;
+}
+
+
+.editbtnst{
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: pink;
+  color:white;
+  border-radius: 10px;
+  margin-top: 10px;
+}

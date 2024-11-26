@@ -1,0 +1,150 @@
+/* Toggle Button Styling */
+.toggle-btn {
+  background-color: transparent;
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  padding: 10px; /* Padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-bottom: 20px; /* Space below button */
+}
+
+/* Sidebar Title */
+h2 {
+  margin-top: 0; /* Remove default margin */
+  color: pink; /* Title text color */
+}
+
+/* Sidebar List Styling */
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove default padding */
+}
+
+li {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center items vertically */
+  padding: 10px; /* Inner padding */
+  cursor: pointer; /* Pointer cursor */
+  color: black; /* Menu item text color */
+  transition: background-color 0.2s; /* Transition for hover */
+}
+
+li:hover {
+  background-color: gainsboro; /* Highlight on hover */
+}
+
+/* Icon Color */
+.sideBar li svg, .menu-btn svg {
+  color: pink; /* Icons only are pink */
+}
+
+li > svg {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+
+
+/* Sidebar Container Styling */
+.sideBar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+.sideBar.collapsed {
+  width: 60px;
+}
+
+.sideBar.expanded {
+  width: 250px;
+}
+
+/* Menu Button Styling */
+.menu-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: pink;
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+  height: 50px;
+}
+
+.menu-btn:hover {
+  color: pink;
+}
+
+.expanded .menu-btn {
+  display: block;
+}
+
+.expanded .menu-btn:not(:first-child) {
+  display: none;
+}
+
+/* Round Image Button Styling */
+.image-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start; /* Center the image and label */
+}
+
+.round-image {
+  border-radius: 100%; /* Make the image round */
+  width: 50px; /* Default width */
+  height: 50px; /* Default height */
+  background-color: pink;
+  object-fit: cover; /* Ensure the image covers the whole area */
+  transition: width 0.3s, height 0.3s; /* Smooth transition */
+}
+
+/* Label Styling Under the Image with Bottom Border Only */
+.image-label {
+  margin-top: 8px; /* Space between image and label */
+  font-size: 14px;
+  color: pink;
+  border-bottom: 1px solid lightgray; /* Border only at the bottom */
+  padding: 2px 6px;
+  text-align: center;
+}
+
+/* Adjust styling when sidebar is expanded */
+.sideBar.expanded .image-btn {
+  margin-bottom: 20px;
+}
+
+.sideBar.expanded .round-image {
+  width: 80px; /* Increase size when expanded */
+  height: 80px;
+  transition: width 0.3s, height 0.3s;
+}
+
+.sideBar.collapsed .image-btn {
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+/* Label under the image when expanded */
+.namelabel {
+  display: none; /* Default to hidden */
+  font-size: 16px;
+  color: black;
+  margin-top: 4px;
+}
+
+/* Show namelabel only when sidebar is expanded */
+.sideBar.expanded .namelabel {
+  display: inline; /* Show only when expanded */
+}
