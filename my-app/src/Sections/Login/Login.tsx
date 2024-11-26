@@ -63,7 +63,7 @@ const Login: React.FC = () => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         console.log('Login successful:', data);
-        navigate('/dashboard');
+        navigate('/signup/dashboard');
       } else {
         setErrorMessage(data.message || 'Login failed. Please try again.');
       }

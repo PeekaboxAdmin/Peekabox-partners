@@ -10,6 +10,8 @@ import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
 import './App.css';
 
+
+
 import { faHamburger, faQuestion, faSubway } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -66,6 +68,7 @@ const App: React.FC = () => {
         pickUpTime: order.pickUpTime || 'Not set',
         receipt: order.receipt || 'No receipt',
     }));
+  
 
     const handleToggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -88,6 +91,8 @@ const App: React.FC = () => {
             prevOrders.map((order) => (order.id === id ? { ...order, status: 'Canceled' } : order))
         );
     };
+
+   
 
     return (
         <Router>
@@ -123,7 +128,8 @@ const App: React.FC = () => {
                         <Route path="/customerFeedback" element={<CustomerFeedback />} />
                         <Route path="/storeManagement" element={<StoreInfo />} />
                         <Route path="/incomePayment" element={<IncomeAndPayment />} />
-                        {<Route path="/signup" element={<SignupForm />} />}
+                        <Route path="/signup/*" element={<SignupForm />} />
+                       
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </div>

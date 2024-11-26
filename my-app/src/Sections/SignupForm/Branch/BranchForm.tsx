@@ -92,7 +92,7 @@ const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[
     localStorage.removeItem('hqLocation');
     localStorage.removeItem('totalStores');
 
-    navigate('/login');
+    navigate('/signup/login');
   };
 
   return (

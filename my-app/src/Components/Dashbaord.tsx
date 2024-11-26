@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bar } from 'react-chartjs-2';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBox, faShoppingCart, faClock } from '@fortawesome/free-solid-svg-icons';
 import './Dashbaord.css';

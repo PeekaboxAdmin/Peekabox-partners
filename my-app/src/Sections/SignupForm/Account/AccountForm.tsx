@@ -32,7 +32,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       
       onNext({ email: email.trim() });
      
-      navigate('/Verify-Email');
+      navigate('/signup/Verify-Email');
     } else {
       setErrorMessage('Email not found. Please sign up.');
     }
@@ -58,7 +58,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
               required
             />
             <div className="already-registered">
-              Already registered? <Link to="/login">Sign in</Link>
+              Already registered? <Link to="/signup/login">Sign in</Link>
             </div>
           </div>
           <Button label="Continue" loading={loading} className='Green-button' />

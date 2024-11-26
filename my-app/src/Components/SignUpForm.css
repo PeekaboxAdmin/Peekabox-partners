@@ -1,8 +1,8 @@
-/* Body and background styling */
+
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #f54ea2, #ff7676);
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -18,11 +18,7 @@ body {
     text-align: start;
   }
   
-  /* Logo and Header Styling */
-  .logo {
-    width: 100px;
-    margin: 0 auto 20px;
-  }
+  
   
   h1 {
     font-size: 28px;

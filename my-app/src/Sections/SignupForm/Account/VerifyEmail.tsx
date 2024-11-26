@@ -27,7 +27,7 @@ const VerifyEmail: React.FC = () => {
     const codeIsValid = await mockVerifyCode(verificationCode.trim());
     if (codeIsValid) {
       
-      navigate('/password');
+      navigate('/signup/password');
     } else {
       setErrorMessage('Invalid verification code. Please try again.');
     }

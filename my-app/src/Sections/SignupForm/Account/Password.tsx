@@ -35,7 +35,7 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
     e.preventDefault();
 
     if (isPasswordValid(password)) {
-      navigate('/account'); 
+      navigate('/signup/account'); 
     } else {
       setErrorMessage(
         "Password must be at least 12 characters long and contain at least one number and one letter."

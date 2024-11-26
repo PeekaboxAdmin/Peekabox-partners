@@ -61,7 +61,7 @@ const BrandForm: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext })
     const brandData: BrandData = { brandName, email, businessRegNum, logo, banner, description, hqLocation, totalStores };
     console.log('Brand Data:', brandData);
     onNext(brandData);
-    navigate('/brand-created');
+    navigate('/signup/brand-created');
     
     
     

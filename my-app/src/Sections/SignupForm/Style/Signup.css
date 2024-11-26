@@ -35,10 +35,6 @@
 
 
 
-
-
-
-
 /* Password Criteria */
 .password-criteria {
     display: flex;
@@ -47,7 +43,7 @@
     margin: 10px auto;
     margin-top: -25px;
     max-width: 400px;
-    margin-right: 10px;
+    margin-left: 50px;
 }
 
 .password-criteria div {
@@ -128,8 +124,8 @@
   
     .password-criteria {
         max-width: 100%; 
-        margin-top: 0; 
-        margin-left: 50px;
+        margin-top: -30px; 
+        margin-left: 40px;
       }
     
       .password-criteria div {
