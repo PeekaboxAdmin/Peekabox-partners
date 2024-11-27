@@ -24,11 +24,10 @@
     flex-shrink: 0;
 }
 
-
 @media (max-width: 768px) {
     .auth-button {
         width: 200px;
-        height: 40px;
+        height: 30px;
         font-size: 9px;
         padding: 6px;
     }
@@ -43,7 +42,7 @@
 @media (max-width: 480px) {
     .auth-button {
         width: 150px;
-        height: 30px;
+        height: 25px;
         font-size: 8px;
         padding: 5px;
     }
