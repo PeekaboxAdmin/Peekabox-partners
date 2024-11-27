@@ -8,6 +8,7 @@ import CustomerFeedback from './Components/CustomerFeedback';
 import StoreInfo from './Components/StoreManagement';
 import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
+import Setting from './pages/Setting/Setting';
 import './App.css';
 
 
@@ -128,6 +129,7 @@ const App: React.FC = () => {
                         <Route path="/customerFeedback" element={<CustomerFeedback />} />
                         <Route path="/storeManagement" element={<StoreInfo />} />
                         <Route path="/incomePayment" element={<IncomeAndPayment />} />
+                        <Route path="/userManagement" element={<Setting />} />
                         <Route path="/signup/*" element={<SignupForm />} />
                        
                         <Route path="*" element={<Navigate to="/" />} />

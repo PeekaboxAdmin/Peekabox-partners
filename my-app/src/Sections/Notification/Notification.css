@@ -1,57 +1,71 @@
 /* General Notification Container */
-.notification-container {
+.notification-container1 {
   width: 100%;
   max-width: 876px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   font-family: 'Lato', sans-serif;
+  margin-top: 10px;
 }
 
+
 /* Notification Content */
-.notification-content {
+.notification-content1 {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 1px;
   margin-top: -70px;
-  margin-left: 150px;
+  margin-left: 100px;
 }
 
 /* Notification Item */
-.notification-item {
+.notification-item1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1px 0;
   margin-right: 0;
+ 
 }
 
 /* Notification Details */
-.notification-item-details {
+.notification-item-details1 {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  border: none; /* Remove any borders */
+  outline: none; /* Remove focus outlines */
+  background: none; /* Ensure no background color causing a border-like effect */
 }
 
 /* Notification Title */
-.notification-title {
+.notification-title1 {
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 4px;
+  border: none; /* Remove any borders */
+  outline: none; /* Remove focus outlines */
+  background: none; /* Ensure no background color causing a border-like effect */
 }
 
 /* Notification Description */
-.notification-description {
+.notification-description1 {
   font-size: 12px;
   color: #000;
   margin: 0;
+  border: none; /* Remove any borders */
+  outline: none; /* Remove focus outlines */
+  background: none; /* Ensure no background color causing a border-like effect */
 }
 
 /* Switch Container */
-.notification-switch {
-  margin-right: 470px;
-  margin-top: 37px;
+.notification-switch1 {
+  margin-left: 380px;
+  margin-top: -10px;
+  
+
 }
 
 .switch-container {
@@ -94,21 +108,21 @@
 }
 
 @media (max-width: 1024px) {
-  .notification-container {
+  .notification-container1 {
     width: 95%;
     max-width: 750px; 
   }
 
-  .notification-content {
+  .notification-content1 {
     margin-top: -30px;
     margin-left: 20px; 
   }
 
-  .notification-title {
+  .notification-title1 {
     font-size: 0.95rem; 
   }
 
-  .notification-description {
+  .notification-description1 {
     font-size: 0.85rem;
   }
 
@@ -133,16 +147,16 @@
 
 
 @media (max-width: 768px) {
-  .notification-container {
+  .notification-container1 {
     max-width: 600px;
   }
 
-  .notification-content {
+  .notification-content1 {
     margin-top: -70px;
-    margin-left: 90px; 
+    margin-left: 160px; 
   }
 
-  .notification-item {
+  .notification-item1 {
     display: flex; 
     flex-direction: row; 
     align-items: center; 
@@ -151,18 +165,18 @@
     margin-bottom: 15px; 
   }
 
-  .notification-title {
+  .notification-title1 {
     font-size: 14px; 
   }
 
-  .notification-description {
+  .notification-description1 {
     font-size:12PX;
     flex: 1; 
     margin-right: 10px; 
   }
 
   .notification-switch {
-    margin-right: 190px;
+    margin-right: 150px;
     margin-top: 40px;
   }
 
@@ -184,100 +198,58 @@
 
 
 @media (max-width: 480px) {
-  .notification-container {
-    max-width: 600px;
+  .notification-container1 {
+    max-width: 100%; /* Utilize full width for small screens */
+    padding: 10px; /* Add padding for better spacing */
+    margin-left: 10px;
   }
 
-  .notification-content {
-    margin-top: -60px;
-    margin-left: 100px;
+  .notification-content1 {
+    margin-top: 0; /* Remove negative margin */
+    margin-left: 0; /* Reset left margin */
+    gap: 10px; /* Add spacing between items */
   }
 
-  .notification-item {
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
-    justify-content: space-between; 
-    gap: 10px; 
-    margin-bottom: 15px;
+  .notification-item1 {
+    display: flex;
+    flex-direction: row; /* Keep items in a row */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space items out */
+    gap: 10px; /* Add small gap between description and switch */
+    margin-bottom: 10px; /* Reduce bottom margin for compact layout */
   }
 
-  .notification-title {
-    font-size: 14px; 
+  .notification-title1 {
+    font-size: 12px; /* Slightly larger font size for readability */
+    margin-bottom: 4px; /* Add spacing below title */
   }
 
-  .notification-description {
-    font-size: 12px;
-    flex: 1; 
-    margin-right: 10px; 
+  .notification-description1 {
+    font-size: 10px; /* Slightly increase font size for readability */
+    flex: 1; /* Allow description to take up available space */
+    margin-right: 0; /* Remove extra margin to fit content */
   }
 
   .notification-switch {
-    margin-right: 100px;
-    margin-top: 40px; 
+    margin-right: 10px; /* Remove margin */
+    margin-top: 0; /* Align with description */
+    align-self: center; /* Vertically align with description */
+    flex-shrink: 0; /* Prevent the switch from shrinking */
   }
 
   .switch-track {
-    width: 36px;
-    height: 18px;
+    width: 30px; /* Adjust size for smaller screens */
+    height: 16px; /* Match height */
   }
 
   .switch-thumb {
-    width: 16px;
-    height: 16px;
+    width: 14px; /* Adjust size */
+    height: 14px;
   }
 
   .switch-track.checked .switch-thumb {
-    transform: translateX(18px);
+    transform: translateX(14px); /* Adjust transform for new size */
   }
 }
 
 
-@media (max-width: 400px) {
-  .notification-container {
-    max-width: 400px;
-  }
-
-  .notification-content {
-    margin-top: -60px;
-    margin-left: 100px;
-  }
-
-  .notification-item {
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
-    justify-content: space-between; 
-    gap: 10px; 
-    margin-bottom: 15px;
-  }
-
-  .notification-title {
-    font-size: 12px; 
-  }
-
-  .notification-description {
-    font-size: 10px;
-    flex: 1; 
-    margin-right: 10px; 
-  }
-
-  .notification-switch {
-    margin-right: 100px;
-    margin-top: 30px; 
-  }
-
-  .switch-track {
-    width: 36px;
-    height: 18px;
-  }
-
-  .switch-thumb {
-    width: 16px;
-    height: 16px;
-  }
-
-  .switch-track.checked .switch-thumb {
-    transform: translateX(18px);
-  }
-}

@@ -17,15 +17,15 @@ const NotificationItem: React.FC<NotificationSetting> = ({
   enabled,
   onToggle,
 }) => (
-  <div className="notification-item">
-    <div className="notification-item-details">
-      <h4 className="notification-title">{title}</h4>
-      <p className="notification-description">{description}</p>
+  <div className=".notification-item1">
+    <div className="notification-item-details1">
+      <h4 className="notification-title1">{title}</h4>
+      <p className="notification-description1">{description}</p>
     </div>
     <Switch
       checked={enabled}
       onCheckedChange={onToggle}
-      className="notification-switch"
+      className="notification-switch1"
     />
   </div>
 );
@@ -41,9 +41,9 @@ const NotificationSettings: React.FC = () => {
    
    <Heading titleClassName='notification-header' title="Notifications" subtitle='' />
    
-    <div className="notification-container">
+    <div className="notification-container1">
       
-        <div className="notification-content">
+        <div className="notification-content1">
           <NotificationItem
             title="Order Notifications"
             description="Receive alerts for new orders, cancellations, and modifications."

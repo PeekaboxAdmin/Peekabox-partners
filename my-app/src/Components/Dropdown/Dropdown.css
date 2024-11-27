@@ -10,8 +10,8 @@
 .dropdown {
     position: relative;
     flex-grow: 1;
-    padding-right: 270px; 
-    padding-top: 17px;
+    padding-right: 330px; 
+    padding-top: 20px;
 }
 
 .dropdown-button {
@@ -61,7 +61,7 @@
 .dropdown-menu {
     position: absolute;
     width: 100%;
-    max-width: 290px; 
+    max-width: 280px; 
     margin-top: 4px;
     border: 1px solid #ccc;
     border-radius: 8px; 
@@ -77,35 +77,34 @@
     font-size: 0.8rem;
     cursor: pointer;
     white-space: nowrap; 
+    color: #000;
 }
 
 .dropdown-item:hover {
     background-color: #f5f5f5;
 }
 
-
 @media screen and (max-width: 768px) {
-
     .export-controls {
         display: flex;
         flex-direction: column;
-        gap: 12px; 
-        padding: 10px 0; 
-        align-items: stretch; 
+        gap: 12px;
+        padding: 10px 0;
+        align-items: stretch;
     }
 
     .dropdown {
         position: relative;
         flex-grow: 1;
-        padding-right: 0; 
-        padding-top: 10px;
+        padding: 10px 0; /* Adjust padding for better spacing */
     }
 
- 
     .dropdown-button {
         width: 100%;
-        max-width: 100px;
-        padding: 12px 14px; 
+        max-width: 250px; /* Increased max-width for better visibility */
+        padding: 8px 8px; /* Adjusted padding for smaller screens */
+        margin-top: -65px;
+        margin-right: 190px;
         text-align: left;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -114,181 +113,98 @@
         align-items: center;
         cursor: pointer;
         background-color: white;
-        font-size: 12px; 
-       
+        font-size: 12px; /* Slightly larger font size for readability */
     }
 
     .dropdown-menu {
         position: absolute;
-        width: 100%; 
-        max-width: 300px;
-        margin-top: 35px;
+        width: 90%;
+        max-width: 250px; /* Match the dropdown button width */
+        margin-top: 10px; /* Adjust margin for consistency */
         border: 1px solid #ccc;
         border-radius: 8px;
         background-color: white;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 1;
-        font-size: 12px;
+        font-size: 12px; /* Match the button font size */
     }
-    
 
     .dropdown-item {
-        padding: 8px 10px 10px 10px; 
-        font-size: 12px;
+        padding: 8px 12px; /* Adjust padding for better touch interaction */
+        font-size: 12px; /* Match font size for consistency */
         cursor: pointer;
         white-space: nowrap;
+        color:#000
     }
 
     .chevron-container {
         display: flex;
-        align-items: center; 
-        gap: 2px; 
-        height: auto; 
+        align-items: center;
+        gap: 4px; /* Slightly larger gap for better spacing */
+        height: auto;
         position: absolute;
-        right: -200px; 
+        right: 10px; /* Adjusted to stay within the viewport */
     }
 }
+
 @media screen and (max-width: 480px) {
-
     .export-controls {
         display: flex;
-        flex-direction: column; 
-        gap: 8px; 
-        padding: 8px 0; 
-        align-items: stretch; 
+        flex-direction: column;
+        gap: 12px;
+        padding: 10px 0;
+        align-items: stretch;
     }
 
-   
     .dropdown {
         position: relative;
         flex-grow: 1;
-        padding-right: 0; 
-        padding-top: 8px;
+        padding: 10px 0;
+        margin-left: 20px;
     }
 
-
     .dropdown-button {
-        width: 100%; 
-        max-width: 90px;
-        padding: 10px 12px; 
-        text-align: left;
-        border: 1px solid #ccc;
-        border-radius: 6px; 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        background-color: white;
-        font-size: 10px;
+        width: 60%; /* Ensure it takes full available width */
+        max-width: none; /* Remove any width restrictions */
+        padding: 8px 16px; /* Consistent padding */
+        text-align: left; /* Keep text alignment */
+        border: 1px solid #ccc; /* Border for dropdown */
+        border-radius: 8px; /* Rounded corners */
+        display: flex; /* Flexbox for layout */
+        justify-content: space-between; /* Space between elements */
+        align-items: center; /* Center align items */
+        cursor: pointer; /* Pointer cursor for interaction */
+        background-color: white; /* Background color */
+        font-size: 12px; /* Font size for text */
     }
 
     .dropdown-menu {
         position: absolute;
-        width: 100%; 
-        max-width: 165px; 
-        margin-top: 35px; 
+        width: 55%; /* Full width of parent */
+        max-width: none; /* Remove max-width constraint */
+        margin-top: 8px;
         border: 1px solid #ccc;
-        border-radius: 6px; 
+        border-radius: 8px;
         background-color: white;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 1;
-        font-size: 10px;
+        font-size: 12px;
     }
 
-   
     .dropdown-item {
-        padding: 6px 8px; 
-        font-size: 10px; 
+        padding: 10px 12px; /* Slightly larger touch target */
+        font-size: 12px;
         cursor: pointer;
         white-space: nowrap;
+        color: #000;
     }
-
 
     .chevron-container {
         display: flex;
-        align-items: center; 
-        gap: 1px;
-        height: auto; 
-        position: absolute;
-        right: -150px;
-    }
-
-    .dropdown-item:hover {
-        background-color: #f0f0f0;
-    }
-}
-
-
-@media screen and (max-width: 400px) {
-
-    .export-controls {
-        display: flex;
-        flex-direction: column; 
-        gap: 8px; 
-        padding: 8px 0; 
-        align-items: stretch; 
-    }
-
-   
-    .dropdown {
-        position: relative;
-        flex-grow: 1;
-        padding-right: 0; 
-        padding-top: 8px;
-    }
-
-
-    .dropdown-button {
-        width: 100%; 
-        max-width: 8px;
-        padding: 1px 1px; 
-        text-align: left;
-        border: 1px solid #ccc;
-        border-radius: 6px; 
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        cursor: pointer;
-        background-color: white;
-        font-size: 10px;
-    }
-
-    .dropdown-menu {
-        position: absolute;
-        width: 100%; 
-        max-width: 165px; 
-        margin-top: 35px; 
-        border: 1px solid #ccc;
-        border-radius: 6px; 
-        background-color: white;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-        font-size: 10px;
-    }
-
-   
-    .dropdown-item {
-        padding: 6px 8px; 
-        font-size: 10px; 
-        cursor: pointer;
-        white-space: nowrap;
-    }
-
-
-    .chevron-container {
-        display: flex;
-        align-items: center; 
-        gap: 1px;
-        height: auto; 
-        position: absolute;
-        right: -150px;
-    }
-
-    .dropdown-item:hover {
-        background-color: #f0f0f0;
+        gap: 4px;
+        height: auto;
+        position: static; /* Remove absolute positioning */
+        margin-left: auto; /* Push to the right side */
     }
 }
-
-
-
-

@@ -33,7 +33,7 @@
 .notification-header {
     font-size: 14px; /* Adjusted header size */
     font-weight: 400px;
-    margin-left: 200px; /* Space between header and content */
+    margin-left: 50px; /* Space between header and content */
     margin-top: 10px;
   }
 
@@ -51,7 +51,7 @@
     }
     .notification-header {
         font-size: 16px; /* Smaller font size on small screens */
-        margin-left: 1px; /* Reduce left margin on small screens */
+        margin-left: 30px; /* Reduce left margin on small screens */
         margin-top: 20px; /* Reduce top margin on small screens */
       }
 }

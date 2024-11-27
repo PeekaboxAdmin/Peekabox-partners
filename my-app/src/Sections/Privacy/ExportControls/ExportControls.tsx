@@ -16,7 +16,7 @@ const ExportControls: React.FC = ({}) => {
     <div className="export-controls">
       
       <Button label="Download Data" loading={loading} className='bink-button' />
-
+       <div className='dropdown-container1 '>
       <Dropdown
       selectedOption={format}
       options={['CSV', 'Excel', 'JSON']}
@@ -25,6 +25,7 @@ const ExportControls: React.FC = ({}) => {
       buttonLabel="Download Data"
       dropdownType="General"
     />
+    </div>
     </div>
   );
 };

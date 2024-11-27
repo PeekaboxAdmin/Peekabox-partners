@@ -15,7 +15,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 10px;
+  margin-left: -50px;
   margin-top: -70px;
 }
 
@@ -58,7 +58,7 @@
 
 
 .Privacy-switch {
-  margin-right: 350px;
+  margin-right: 400px;
   margin-top: 37px;
 }
 
@@ -108,7 +108,7 @@
     padding: 5px 15px;
 
     margin-top: -40px;
-    margin-left: 130px; 
+    margin-left: 160px; 
   }
 
   .Privacy-header-content {
@@ -163,7 +163,7 @@
     }
   
     .Privacy-switch {
-      margin-right: 150px;
+      margin-right: 140px;
       margin-top: 35px; 
   }
 }
@@ -176,8 +176,8 @@
     max-width: 600px;
     padding: 5px 15px;
 
-    margin-top: -40px;
-    margin-left: 100px; 
+    margin-top: 10px;
+    margin-left: 10px; 
   }
   .Privacy-header-content {
     margin-top: -30px;
@@ -186,8 +186,6 @@
   .Privacy-title {
     font-size: 13px;
   }
-
- 
 
 
   .Privacy-item {
@@ -213,58 +211,8 @@
   }
 
   .Privacy-switch {
-    margin-right: 100px;
-    margin-top: 35px; 
+    margin-right: -100px;
+    margin-top: 50px; 
 }
 }
 
-@media (max-width: 400px) {
-
-  .Privacy-container {
-    max-width: 400px;
-    padding: 5px 15px;
-
-    margin-top: -40px;
-    margin-left: 100px; 
-  }
-  .Privacy-header-content {
-    margin-top: -30px;
-  }
-
-  .Privacy-title {
-    font-size: 13px;
-  }
-
- 
-
-
-  .Privacy-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-    justify-content: space-between; 
-    gap: 10px; 
-    width: 100%; 
-  }
-
-  .Privacy-item-details {
-    display: flex;
-    flex-direction: column; 
-    gap: 4px; 
-  }
-
-  .Privacy-description {
-    font-size: 11px; 
-    flex-grow: 1;
-    white-space: normal; 
-    word-wrap: break-word;
-  }
-
-  .Privacy-switch {
-    margin-right: 90px;
-    margin-top: 35px; 
-}
-}
-
-  
-  

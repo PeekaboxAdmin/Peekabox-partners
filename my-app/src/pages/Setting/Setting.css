@@ -20,7 +20,7 @@
 .title-left {
   font-size: 24px; /* Header font size */
   font-weight: bold; /* Make it bold */
-  margin-left: 200px;
+  margin-left: 50px;
 }
 
 .button-container {
@@ -40,7 +40,7 @@
 @media (max-width: 768px) {
   .title-left {
     font-size: 20px; /* Adjust title size for smaller screens */
-    margin-left: 5px;
+    margin-left: 30px;
 
   }
 

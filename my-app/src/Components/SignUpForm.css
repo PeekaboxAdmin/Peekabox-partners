@@ -1,13 +1,4 @@
-/* Body and background styling */
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #f54ea2, #ff7676);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
+
   .container {
     width: 600px;
     margin-top: 20px;

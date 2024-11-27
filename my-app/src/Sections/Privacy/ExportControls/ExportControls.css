@@ -12,23 +12,12 @@
       width: auto;
       margin-left: -60px;
     }
-  
-    .dropdown {
-      display: flex;
-      justify-content: flex-end; 
-      flex-grow: 1;
-      margin-top: -65px;
-      margin-right: 50px; 
-      margin-bottom: 10px;
+    .dropdown-container1 {
+      margin-left: -50px;
+      margin-top: 0px;
+      
     }
-  
-    .dropdown-button {
-      text-align: left; 
-      padding: 8px 16px; 
-      border-radius: 8px;
-      width: auto; 
-      min-width: 300px; 
-    }
+ 
   
    
     .chevron-container {
@@ -45,7 +34,11 @@
       align-items: center;
       gap: 8px; 
     }
-  
+  .dropdown-container1 {
+    margin-left: 170px;
+    margin-top: 3px;
+    
+  }
     .bink-button {
      
   
@@ -53,23 +46,7 @@
       margin-left: -45px;
     }
   
-    .dropdown {
-      display: flex;
-      justify-content: flex-end;
-      flex-grow: 1; 
-      margin-top: -55px;
-      margin-right: 20px; 
-      margin-bottom: 10px;
-    }
   
-    .dropdown-button {
-      text-align: left; 
-      padding: 8px 11px; 
-      border-radius: 8px;
-      width: auto;
-      min-width: 170px; 
-  
-    }
   
     
     .chevron-container {
@@ -80,42 +57,4 @@
 
 
 
-  @media screen and (max-width: 400px) {
-    .export-controls {
-      display: flex;
-      justify-content: space-between; 
-      align-items: center;
-      gap: 4px; 
-    }
   
-    .bink-button {
-     
-  
-      width: auto; 
-      margin-left: -45px;
-    }
-  
-    .dropdown {
-      display: flex;
-      justify-content: flex-end;
-      flex-grow: 1; 
-      margin-top: -50px;
-      margin-right:50px; 
-      margin-bottom: 10px;
-    }
-  
-    .dropdown-button {
-      text-align: left; 
-      padding: 8px 11px; 
-      border-radius: 8px;
-      width: auto;
-      min-width: 140px; 
-  
-    }
-  
-    
-    .chevron-container {
-      position: absolute;
-      right: 0; 
-    }
-  }
