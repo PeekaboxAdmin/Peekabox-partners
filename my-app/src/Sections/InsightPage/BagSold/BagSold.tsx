@@ -42,19 +42,19 @@ const BagSold = () => {
 
   return (
     <div className="container">
-      <h2 className="title">Bag Sold by Category</h2>
-      <div className="subtitle">Monthly
+      <h2 className="title1">Bag Sold by Category</h2>
+      <div className="subtitle1">Monthly
       <svg className="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
       <path d="M12 17l-5-5h10z" />
 
           </svg>
       </div>
       <div className="chart-container">
-        <PieChart width={300} height={250}>
+        <PieChart width={300} height={230}>
           <Pie
             data={data}
-            cx="50%"
-            cy="50%"
+            cx="60%"
+            cy="60%"
             innerRadius={0}
             outerRadius={80}
             paddingAngle={0}

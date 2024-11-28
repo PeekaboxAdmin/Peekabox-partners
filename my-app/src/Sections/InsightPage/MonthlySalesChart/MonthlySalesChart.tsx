@@ -22,9 +22,9 @@ const data = [
 
 const MonthlySalesChart = () => {
   return (
-    <div className="chart-container">
-      <h2 className="chart-title">Monthly Net Sales</h2>
-      <div className="chart-wrapper">
+    <div className="chart-container2">
+      <h2 className="chart-title2">Monthly Net Sales</h2>
+      <div className="chart-wrapper2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
@@ -34,7 +34,7 @@ const MonthlySalesChart = () => {
             <CartesianGrid
               horizontal={true}
               vertical={false}
-              strokeDasharray="3 3"
+              strokeDasharray="1 1"
               stroke="#82889880"
             />
             <XAxis

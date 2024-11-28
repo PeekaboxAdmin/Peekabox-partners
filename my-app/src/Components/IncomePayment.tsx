@@ -1,5 +1,11 @@
 import React from 'react';
 import './IncomeAndPayment.css';
+import BagSold from '../Sections/InsightPage/BagSold/BagSold';
+import CO2ReductionChart from '../Sections/InsightPage/CO2ReductionChart/CO2ReductionChart';
+import MonthlySalesChart from'../Sections/InsightPage/MonthlySalesChart/MonthlySalesChart';
+import Calendar from '../Sections/InsightPage/Calendar/Calender';
+import BestSellingTable from '../Sections/InsightPage/BestSellingTable/BestSellingTable';
+
 
 const IncomePayment: React.FC = () => {
   return (
@@ -19,22 +25,24 @@ const IncomePayment: React.FC = () => {
       <div className="income-payment-main-content">
         <div className="income-payment-left-panel">
           <ChartCard title="Monthly Net Sales">
-            <div className="income-payment-line-chart-placeholder">Line Chart</div>
+            <MonthlySalesChart/>
           </ChartCard>
 
-          <ChartCard title="CO2 Reduction (kg)">
-            <div className="income-payment-bar-chart-placeholder">Bar Chart</div>
+          <ChartCard title="">
+            <CO2ReductionChart/>
           </ChartCard>
         </div>
 
         <div className="income-payment-right-panel">
-          <CalendarCard />
+          <Calendar />
+          <BagSold/>
 
-          <PieChartCard title="Bag Sold by Category">
-            <div className="income-payment-pie-chart-placeholder">Pie Chart</div>
+          <PieChartCard title="">
+         <BestSellingTable/>
+            
           </PieChartCard>
 
-          <TableCard title="Best-Selling Item Revenue" />
+         {/*<TableCard title="Best-Selling Item Revenue" />*/}
         </div>
       </div>
     </div>

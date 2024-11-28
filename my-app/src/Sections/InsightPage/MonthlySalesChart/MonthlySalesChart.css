@@ -1,14 +1,9 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0; 
-}
 
-.chart-container {
-  max-width: 800px;
+
+.chart-container2 {
+  max-width: 850px;
+  max-height: 300px;
+
   
   padding: 16px;
   background-color: white;
@@ -17,7 +12,7 @@ body {
   
 }
 
-.chart-title {
+.chart-title2 {
   font-size: 1.25rem;
   font-weight: bold;
   padding: 16px;
@@ -28,9 +23,39 @@ body {
   padding-left: 50px; 
 }
 
-.chart-wrapper {
-  width: 741px;
-  height: 448px;
+.chart-wrapper2 {
+  width: 500px;
+  height: 280px;
   position: relative;
  
+}
+
+@media (max-width: 768px) {
+  .chart-container2 {
+    max-width: 100%; /* Ensure it takes full width on smaller screens */
+    padding: 8px; /* Reduce padding on smaller screens */
+  }
+
+  .chart-title2 {
+    font-size: 1rem; /* Slightly smaller font size for smaller screens */
+    padding-left: 30px; /* Adjust padding for the title */
+  }
+
+  .chart-wrapper2 {
+    width: 100%; /* Make the chart wrapper take full width on smaller screens */
+    max-width: 90%; /* Ensure it doesn't exceed the screen width */
+    height: 200px; /* Adjust height to fit on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-title2 {
+    font-size: 0.9rem; /* Smaller font for very small screens */
+    padding-left: 20px;
+  }
+
+  .chart-wrapper2 {
+    max-width: 100%; /* Full width for very small screens */
+    height: 180px; /* Reduce the height further for smaller devices */
+  }
 }

@@ -18,21 +18,21 @@ const data: DataPoint[] = [
 
 const CO2ReductionChart: React.FC = () => {
   return (
-    <div className="chart-container">
-      <div className="chart-header">
+    <div className="chart-container1">
+      <div className="chart-header1">
        
-        <div className="chart-left-header">
-          <div className="chart-header-content">
-            <div className="writing-mode-vertical">
-              <h3 className="chart-title">CO₂ Reduction (Kg)</h3>
+        <div className="chart-left-header1">
+          <div className="chart-header-content1">
+            <div className="writing-mode-vertical1">
+              <h3 className="chart-title1">CO₂ Reduction (Kg)</h3>
             </div>
           </div>
         </div>
 
         {/* Chart Section */}
-        <div className="chart-right-section">
-          <div className="chart-percentage">
-            <span className="percentage-text">▲ +2.45%</span>
+        <div className="chart-right-section1">
+          <div className="chart-percentage1">
+            <span className="percentage-text1">▲ +2.45%</span>
           </div>
           
           <ResponsiveContainer width="100%" height={250}>
@@ -58,11 +58,11 @@ const CO2ReductionChart: React.FC = () => {
                 dataKey="category"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#828898', fontSize: 12 ,fontWeight:'600px'}}
+                tick={{ fill: '#828898', fontSize: 8 ,fontWeight:'800px'}}
                 interval={0}
                 angle={0}
                 textAnchor="middle"
-                dy={20}
+                dy={2}
               />
               
               <YAxis
@@ -85,7 +85,7 @@ const CO2ReductionChart: React.FC = () => {
                 <LabelList 
                   dataKey="value"
                   position="top" 
-                  fontSize={14}
+                  fontSize={12}
                   fill="#A1A9BC" 
                 />
               </Bar>
