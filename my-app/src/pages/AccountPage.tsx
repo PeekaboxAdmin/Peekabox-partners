@@ -6,7 +6,7 @@ const AccountPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAddBrand = () => {
-    navigate('/brand');
+    navigate('/signup/brand');
   };
 
   return (

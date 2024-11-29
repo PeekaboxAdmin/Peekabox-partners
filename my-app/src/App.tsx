@@ -132,7 +132,6 @@ const App: React.FC = () => {
                         <Route path="/incomePayment" element={<IncomeAndPayment />} />
                         <Route path="/userManagement" element={<Setting />} />
                         <Route path="/signup/*" element={<SignupForm />} />
-                       
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </div>

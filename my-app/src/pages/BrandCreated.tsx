@@ -9,11 +9,11 @@ const BrandCreated: React.FC = () => {
  
 
   const handleGoToDashboard = () => {
-    navigate('/dashboard');
+    navigate('/signup/dashboard');
   };
 
   const handleAddBranches = () => {
-    navigate('/branches');
+    navigate('/signup/branches');
   };
 
   return (

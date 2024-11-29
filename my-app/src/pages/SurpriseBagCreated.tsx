@@ -7,11 +7,11 @@ const SurpriseBagCreated: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAddMoreSurpriseBags = () => {
-    navigate('/SurpriseBag');
+    navigate('/signup/SurpriseBag');
   };
 
   const handleGoToDashboard = () => {
-    navigate('/dashboard');
+    navigate('/signup/dashboard');
   };
 
   
