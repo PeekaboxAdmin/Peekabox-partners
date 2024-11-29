@@ -9,6 +9,7 @@ import StoreInfo from './Components/StoreManagement';
 import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
 import Setting from './pages/Setting/Setting';
+import PaymentPage from './Sections/PaymentPage/PaymentPage';
 import './App.css';
 
 

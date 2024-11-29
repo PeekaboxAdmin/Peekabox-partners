@@ -1,0 +1,158 @@
+.calendar {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    
+    margin-top: 80px;
+  }
+  
+  .calendar-header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 70px;
+    margin-bottom: 5px;
+}
+
+.month {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0; 
+    color:  #FF80B4;
+    background-color: #F4F7FE;
+    ;
+    border-radius: 5rem;
+    padding: 5px 10px;
+
+}
+
+.year {
+    font-size: 14px;
+    color: gray;
+    margin: 0; 
+    color:#0b4619
+}
+  
+  .days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: white;
+    padding: 5px 0;
+  }
+  
+  .day-of-week {
+    text-align: center;
+    font-size: 14px;
+    color: #0b4619;
+  }
+  
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+  }
+  
+  .day {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #fff;
+  }
+  
+  .day.current-month {
+    background-color: #fff;
+  }
+  
+  .day.other-month {
+    background-color: white;
+    color:  #A3AED0;
+    ;
+  }
+  
+  .day.selected {
+    background-color: #FF80B4; 
+    color: white;
+    border-radius: 50%; 
+    width: 10px;
+    height: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin: auto; 
+  }
+
+  /*month*/
+  .month-container {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .dropdownm {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 200%;
+  }
+  
+  .dropdown-itemm {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .dropdown-itemm:hover {
+    background-color: #f0f0f0;
+  }
+
+  /*year*/
+  .year-container {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .dropdowny {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .dropdown-itemy {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .dropdown-itemy:hover {
+    background-color: #f0f0f0;
+  }
+  .chevronY {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+    stroke-width: 3;
+    fill: none;
+    stroke:#FF80B4 ; ;
+}
+  
+.chevronM {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+    stroke-width: 3;
+    fill: none;
+    
+    stroke:#A3AED0 ;
+}
