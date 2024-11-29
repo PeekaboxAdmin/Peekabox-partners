@@ -24,7 +24,7 @@ const IncomePayment: React.FC = () => {
 
       <div className="income-payment-main-content">
         <div className="income-payment-left-panel">
-          <ChartCard title="Monthly Net Sales">
+          <ChartCard title="">
             <MonthlySalesChart/>
           </ChartCard>
 
