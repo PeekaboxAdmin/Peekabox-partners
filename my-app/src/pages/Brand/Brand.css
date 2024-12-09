@@ -1,0 +1,98 @@
+.titleR {
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 10px;
+  }
+  .button-t {
+    display: flex; /* Arrange buttons in a row */
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 20px; /* Space between buttons */
+    margin: 400px 0 0 calc(600px + 150px); /* Adjust spacing for sidebar (250px) */
+    transition: margin-left 0.3s; /* Smooth transition when the sidebar opens/closes */
+}
+  .create-button,
+  .back-button {
+    background-color: #FF80B4;
+    color: white;
+    padding: 8px 50px; /* Adjust padding for better responsiveness */
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #FF80B4; /* Pink border */
+    font-size: 16px; /* Adjust text size */
+  }
+  
+  .back-button {
+    background-color: white;
+    color: #FF80B4; /* Pink color for text */
+  }
+  
+  .progress-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  
+  @media (max-width: 1200px) {
+    .button-t {
+        margin: 400px 0 0 calc(300px + 200px); /* Adjust for smaller sidebar */
+    }
+  
+    .create-button,
+    .back-button {
+      padding: 8px 25px; /* Reduce button padding */
+      font-size: 14px; /* Adjust font size */
+    }
+  }
+
+
+
+  @media (max-width: 768px) {
+    .progress-indicators {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding-top: 10px;
+      }
+
+      .button-t {
+        margin: 250px 20px 0 300px; /* Adjust margin for smaller screens */
+        justify-content: center; /* Center buttons for better UX */
+    }
+    
+      .create-button,
+      .back-button {
+        padding: 6px 20px; /* Further reduce button padding */
+        font-size: 12px; /* Adjust font size */
+      }
+
+  }
+
+
+  @media (max-width: 480px) {
+    .progress-indicators {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding-top: 50px;
+      }
+
+      .button-t {
+        margin: 150px 10px 0 10px; /* Compact spacing for mobile */
+        flex-direction: column; /* Stack buttons vertically for mobile */
+        align-items: center;
+    }
+    
+      .create-button,
+      .back-button {
+        padding: 5px 15px; /* Minimal padding for mobile */
+        font-size: 12px; /* Maintain readability */
+      }
+  }
+
+  
+  

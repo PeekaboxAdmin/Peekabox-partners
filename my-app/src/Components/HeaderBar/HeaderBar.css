@@ -1,0 +1,42 @@
+.header-bar {
+    background-color: #0B4B2C; /* Dark green color */
+    color: white;
+    width: calc(100% - 41px); /* Adjust based on sidebar width */
+    max-width: 1200px;
+    height: 50px;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 20px;
+    margin: 0 auto; /* Centers the header bar horizontally */
+    margin-left: 0px; /* Align with sidebar */
+    transition: margin-left 0.3s, width 0.3s; /* Smooth transition for sidebar interactions */
+}
+
+/* Media Queries for Responsiveness */
+
+/* For screens smaller than 1200px (large screens) */
+@media (max-width: 1200px) {
+    .header-bar {
+        width: calc(100% - 42px); /* Adjust width for a smaller sidebar */
+        margin-left: 0px;
+    }
+}
+
+/* For screens smaller than 768px (tablets or small screens) */
+@media (max-width: 768px) {
+    .header-bar {
+        width: 93%; /* Full width on smaller screens */
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-bar {
+        width: 93%; /* Adjust width to 95% for tablets */
+        font-size: 16px; /* Reduce font size further */
+        padding: 6px 12px; /* Adjust padding */
+    }
+}
+
+

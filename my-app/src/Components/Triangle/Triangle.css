@@ -1,0 +1,40 @@
+/* Triangle container with responsive adjustments */
+.triangle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 50px); /* Adjust based on sidebar width */
+    max-width: 1300px;
+    height: 600px;
+    border-radius: 20px 20px 0px 0px;
+    background-color: #f0f0f0; /* Adjust as needed */
+    margin-left: 50px; /* Adjust margin to account for sidebar */
+    transition: margin-left 0.3s, width 0.3s; /* Smooth transition when sidebar opens/closes */
+}
+
+/* Media Queries */
+
+@media (max-width: 1200px) {
+    .triangle-container {
+        width: calc(100% - 200px); /* Sidebar might be narrower on smaller screens */
+        margin-left: 50px;
+        height: 70vh; /* Adjust height */
+    }
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+    .triangle-container {
+        width: 100%; /* Full width when sidebar might be hidden */
+        margin-left: 0;
+        height: 70vh; /* Adjust height */
+    }
+}
+
+@media (max-width: 480px) {
+    .triangle-container {
+        width: 100%; /* Full width for mobile screens */
+        margin-left: 0;
+        height: 70vh; /* Adjust height */
+    }
+}
