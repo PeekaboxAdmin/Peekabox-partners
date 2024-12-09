@@ -1,0 +1,11 @@
+.testimonials {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .testimonials p {
+    font-style: italic;
+    margin: 0.5rem 0;
+    color: #333333;
+  }
+  

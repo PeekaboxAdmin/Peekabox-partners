@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashbaord';
 import SurpriseBoxManagement from './Components/SurpriseBox';
@@ -11,6 +11,7 @@ import SignupForm from './pages/SignupForm';
 import Setting from './pages/Setting/Setting';
 
 //import NotificationPage from './pages/NotifcationPage/NotifcationPage';
+import HomePage from './InformationWebsite/HomePage';
 import './App.css';
 
 
@@ -47,9 +48,8 @@ interface SurpriseOrder extends Order {
     receipt: string;
 }
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-
     const [orders, setOrders] = useState<Order[]>([
         { id: 1, status: 'Completed', amount: '15 AED', customerName: 'Alice Johnson', address: '123 Elm St, Dubai', datePlaced: '2023-10-20 14:30', quantity: 2 },
         { id: 2, status: 'Completed', amount: '10 AED', customerName: 'John Smith', address: '45 Maple Ave, Dubai', datePlaced: '2023-10-21 09:15', quantity: 1 },
@@ -66,13 +66,11 @@ const App: React.FC = () => {
     const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
     const completedOrdersCount = orders.filter((order) => order.status === 'Completed').length;
 
-    // Convert Order[] to SurpriseOrder[] with defaults
     const surpriseOrders: SurpriseOrder[] = orders.map((order) => ({
         ...order,
         pickUpTime: order.pickUpTime || 'Not set',
         receipt: order.receipt || 'No receipt',
     }));
-  
 
     const handleToggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -96,51 +94,60 @@ const App: React.FC = () => {
         );
     };
 
-   
+    // Determine if sidebar should be displayed
+    const location = useLocation();
+    const noSidebarRoutes = ['/signup', '/HomePage'];
+    const showSidebar = !noSidebarRoutes.some((path) => location.pathname.startsWith(path));
 
     return (
-        <Router>
-            <div className="App">
+        <div className="App">
+            {showSidebar && (
                 <Sidebar isOpen={isSidebarOpen} onToggle={handleToggleSidebar} onNavClick={() => {}} />
-                <div className={`content ${isSidebarOpen ? 'shifted' : ''}`}>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <Dashboard
-                                    orders={orders}
-                                    notifications={notifications}
-                                    completedOrdersCount={completedOrdersCount}
-                                    unreadNotificationsCount={unreadNotificationsCount}
-                                    handleToggleSidebar={handleToggleSidebar}
-                                    markAsCompleted={markAsCompleted}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/orderManagement"
-                            element={
-                                <OrderManagement
-                                    surpriseOrders={surpriseOrders}
-                                    markAsCompleted={markAsCompleted}
-                                    markAsPending={markAsPending}
-                                    cancelAndRefund={cancelAndRefund}
-                                />
-                            }
-                        />
-                        <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
-                        <Route path="/customerFeedback" element={<CustomerFeedback />} />
-                        <Route path="/storeManagement" element={<StoreInfo />} />
-                        <Route path="/incomePayment" element={<IncomeAndPayment />} />
-                       <Route path="/userManagement" element={<Setting />} />
-                        {/*<Route path="/userManagement" element={<NotificationPage />} />*/}
-                        <Route path="/signup/*" element={<SignupForm />} />
-                        <Route path="*" element={<Navigate to="/" />} />
-                    </Routes>
-                </div>
+            )}
+            <div className={`content ${isSidebarOpen && showSidebar ? 'shifted' : ''}`}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Dashboard
+                                orders={orders}
+                                notifications={notifications}
+                                completedOrdersCount={completedOrdersCount}
+                                unreadNotificationsCount={unreadNotificationsCount}
+                                handleToggleSidebar={handleToggleSidebar}
+                                markAsCompleted={markAsCompleted}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/orderManagement"
+                        element={
+                            <OrderManagement
+                                surpriseOrders={surpriseOrders}
+                                markAsCompleted={markAsCompleted}
+                                markAsPending={markAsPending}
+                                cancelAndRefund={cancelAndRefund}
+                            />
+                        }
+                    />
+                    <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
+                    <Route path="/customerFeedback" element={<CustomerFeedback />} />
+                    <Route path="/storeManagement" element={<StoreInfo />} />
+                    <Route path="/incomePayment" element={<IncomeAndPayment />} />
+                    <Route path="/userManagement" element={<Setting />} />
+                    <Route path="/signup/*" element={<SignupForm />} />
+                    <Route path="/HomePage" element={<HomePage />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
             </div>
-        </Router>
+        </div>
     );
 };
+
+const App: React.FC = () => (
+    <Router>
+        <AppContent />
+    </Router>
+);
 
 export default App;

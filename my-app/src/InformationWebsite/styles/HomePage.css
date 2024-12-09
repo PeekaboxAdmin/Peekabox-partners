@@ -1,0 +1,20 @@
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: auto; /* Allows vertical scrolling */
+  }
+  
+  .hero-section {
+    flex: 1; /* Ensures the Hero section takes appropriate space */
+    min-height: 90vh; /* Covers the viewport height */
+  }
+  
+  .features-section,
+  .testimonials,
+  .footer {
+    flex: none; /* Ensures these sections don't stretch */
+    padding: 2rem 1rem;
+    background-color: #f9f9f9;
+  }
+  
