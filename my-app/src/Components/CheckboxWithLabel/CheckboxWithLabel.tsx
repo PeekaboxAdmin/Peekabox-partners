@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './CheckboxWithLabel.css';
 
-function CheckboxWithLabel() {
-    const [isChecked, setIsChecked] = useState(false);
+type CheckboxWithLabelProps = {
+  label: string; // Text to display next to the checkbox
+  checked: boolean; // Whether the checkbox is checked
+  onChange: (checked: boolean) => void; // Callback for when the checkbox value changes
+  className?: string; // Optional class for custom styling
+};
 
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    };
-
-    return (
-        <label className="checkbox-label">
-            <div className="checkbox-container">
-                <input 
-                    type="checkbox" 
-                    checked={isChecked} 
-                    onChange={handleCheckboxChange} 
-                    className="checkbox-input"
-                />
-                <span className={`checkbox-background ${isChecked ? 'checked' : ''}`} />
-                <span className="checkbox-text">Keep me logged in</span>
-            </div>
-        </label>
-    );
-}
+const CheckboxWithLabel: React.FC<CheckboxWithLabelProps> = ({
+  label,
+  checked,
+  onChange,
+  className = '',
+}) => {
+  return (
+    <label className={`checkbox-label ${className}`}>
+      <div className="checkbox-container">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+          className="checkbox-input accent-pinkCustom" // Use Tailwind's accent class for custom colors
+        />
+        <span className={`checkbox-background ${checked ? 'checked' : ''}`} />
+        <span className="checkbox-text">{label}</span>
+      </div>
+    </label>
+  );
+};
 
 export default CheckboxWithLabel;
