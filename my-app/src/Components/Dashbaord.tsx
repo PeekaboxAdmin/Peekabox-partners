@@ -5,6 +5,8 @@ import './Dashbaord.css';
 import Header from '../Components/Header';
 import Logo from './Images/burger.jpg';
 import SalesChart from './SalesChart';
+import { useNavigate } from 'react-router-dom';
+
 
 interface Order {
     id: number;
@@ -42,6 +44,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     markAsCompleted
 }) => {
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
     const toggleSidebar = () => {
         setSidebarExpanded(!sidebarExpanded);
@@ -51,8 +54,8 @@ const Dashboard: React.FC<DashboardProps> = ({
     // Mock data for the "Surprise Bags" section
     const surpriseBags = [
         { title: "Banana Puddings", quantity: "3", price: "12.00", time: "Today 13:00 - 15:00", imgSrc: Logo },
-        { title: "Cookies", quantity: "6", price: "8.50", time: "Tomorrow 12:00 - 13:30", imgSrc: Logo },
-        { title: "Combo Pack", quantity: "4", price: "15.00", time: "Tomorrow 17:30 - 18:30", imgSrc: Logo },
+        { title: "Cookies", quantity: "6", price: "8.50", time: "Today  12:00 - 13:30", imgSrc: Logo },
+        { title: "Combo Pack", quantity: "4", price: "15.00", time: "Today 17:30 - 18:30", imgSrc: Logo },
     ];
 
     const [activeMenu, setActiveMenu] = useState<number | null>(null);
@@ -81,22 +84,20 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 <p>
                                     <FontAwesomeIcon icon={faBox} /> Sold 3 out of 5 
                                 </p>
-                                <p>
-                                    <FontAwesomeIcon icon={faBox} /> {bag.quantity} items
-                                </p>
 
-                                <div className='price-availability-container'>
-                                <p>
-                                    <FontAwesomeIcon icon={faClock} /> Available - {bag.time}
-                                </p>
-
-                                    <h3 className="price"> AED {bag.price}</h3>
-                            </div>
+                                <div className="price-availability-container">
+                                 <p className='avail-info'>
+                                 <FontAwesomeIcon icon={faClock} /> Available - {bag.time}
+                                  </p>
+                                  <span className="price">
+                                  AED {bag.price}
+                                  </span>
+                                  </div>
 
                             </div>
                         ))}
                     </div>
-                    <button className="seeall">All Surprise Boxes</button>
+                    <button onClick={() => navigate('/surpriseBox')} className="seeall">All Surprise Boxes</button>
                 </section>
 
                 {/* Notifications Section */}
@@ -121,7 +122,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </li>
                         ))}
                     </ul>
-                    <button className="seeall">See all</button>
+                    <button onClick={() => navigate('/notifications')}  className="seeall">See all</button>
                 </div>
             </div>
 
@@ -174,7 +175,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         </tbody>
                     </table>
 
-                    <button className="seeall">See All</button>
+                    <button onClick={() => navigate('/orderManagement')}  className="seeall">See All</button>
                 </div>
                 
                 <div className="salesChart">

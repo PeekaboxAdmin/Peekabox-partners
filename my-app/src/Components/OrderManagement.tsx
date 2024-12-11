@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Table.css';
+import Header from './Header';
 
 interface SurpriseOrder {
     id: number;
@@ -84,6 +85,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
 
     return (
         <div className="order-management" style={{ position: 'relative' }}>
+            <Header/>
             <h1>Order Management</h1>
 
             <div className="filters">

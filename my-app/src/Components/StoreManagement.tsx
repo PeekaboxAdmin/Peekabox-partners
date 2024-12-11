@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './StoreInfo.css';
 import Logo from './Images/food.jpg'
+import Header from './Header';
 
 // Type Definitions
 interface Address {
@@ -124,6 +125,8 @@ const StoreInfo: React.FC = () => {
   };
 
   return (
+    <div>
+      <Header/>
     <div className="store-container">
       <img src={Logo} alt="Store Logo" className="store-logo" />
 
@@ -242,6 +245,7 @@ const StoreInfo: React.FC = () => {
           <button type="button" onClick={() => setIsEditing(false)}>Save</button>
         </form>
       )}
+    </div>
     </div>
   );
 };

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faCircleCheck, faCircleXmark, faEdit, faTrash, faPlus, faCubes, faBox } from '@fortawesome/free-solid-svg-icons';
 import './SurpriseBoxManagement.css';
-import Logo from './Images/food.jpg';
+import Logo1 from './Images/food.jpg';
+import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag'; // Import the CreateBagForm component
+import Header from './Header';
 
 type SurpriseBag = {
   id: number;
@@ -77,9 +79,11 @@ const SurpriseBoxManagement: React.FC = () => {
   };
 
   return (
+    <div>
+    <Header/>
     <div className="surprise-bags">
       <div className="Sbanner-image">
-        <img src={Logo} alt="Logo" className="banner-logo" />
+        <img src={Logo1} alt="Logo" className="banner-logo" />
       </div>
 
       <div className="StitleContainer">
@@ -143,6 +147,7 @@ const SurpriseBoxManagement: React.FC = () => {
            
         </div>
       )}
+    </div>
     </div>
   );
 };

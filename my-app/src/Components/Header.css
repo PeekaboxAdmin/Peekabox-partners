@@ -5,11 +5,13 @@
     color: pink; /* Light text */
   }
   
-  .logo {
+  .logoheader {
     display: flex;
     align-items: center;
-    border: none;
+    border: 2px solid pink;
     margin-right: 50px;
+    margin-left: 10px;
+    
   }
   
   .logo-text {

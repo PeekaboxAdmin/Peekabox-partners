@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './CreateBag.css';
-import Logo from './Images/food.jpg';
+import Logo from './Images/burger.jpg';
 
 interface CreateBagFormProps {
   setIsModalOpen: (open: boolean) => void;

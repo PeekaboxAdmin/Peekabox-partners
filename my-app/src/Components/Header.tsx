@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <header className="mainheader">
       {/* Logo or Icon */}
-      <div className="logo">
+      <div className="logoheader">
         <span className="logo-text">Peekabox</span>
       </div>
 

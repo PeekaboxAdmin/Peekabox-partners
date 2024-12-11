@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFlag, faSearch, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import './CustomerFeedback.css';
+import Header from './Header';
 
 interface Review {
     id: number;
@@ -71,7 +72,10 @@ const CustomerFeedback: React.FC = () => {
     };
 
     return (
+        <div>
+            <Header/>
         <div className="feedback-container">
+           
             <h2 className='cusfheading'>Customers' Feedback</h2>
             
             <div className="filter-search-container">
@@ -189,6 +193,7 @@ const CustomerFeedback: React.FC = () => {
                     </div>
                 </div>
             )}
+        </div>
         </div>
     );
 };

@@ -16,13 +16,13 @@ const data: DataPoint[] = [
 
 const SalesChart: React.FC = () => {
   return (
-    <div className="chart-container1">
-      <div className="chart-header1">
+    <div className="chart-container">
+      <div className="chart-header">
         <h3>Sales</h3>
       </div>
 
       {/* Chart Section */}
-      <div className="chart-right-section1">
+      <div className="chart-right-section">
         <ResponsiveContainer width="100%" height={250}>
           <BarChart
             data={data}

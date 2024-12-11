@@ -5,11 +5,13 @@ import CO2ReductionChart from '../Sections/InsightPage/CO2ReductionChart/CO2Redu
 import MonthlySalesChart from'../Sections/InsightPage/MonthlySalesChart/MonthlySalesChart';
 import Calendar from '../Sections/InsightPage/Calendar/Calender';
 import BestSellingTable from '../Sections/InsightPage/BestSellingTable/BestSellingTable';
+import Header from './Header';
 
 
 const IncomePayment: React.FC = () => {
   return (
     <div className="income-payment-container">
+      <Header/>
       <header className="income-payment-header">
         <h1>Insights</h1>
       </header>

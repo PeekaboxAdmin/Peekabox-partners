@@ -1,4 +1,4 @@
-.chart-container1 {
+.chart-container {
     width: 100%;
     min-height: 400px;
     background-color: white; 
@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-.chart-header1 {
+.chart-header {
     display: flex;
     align-items: stretch; /* Ensures equal height for header sections */
     color: white;
@@ -19,7 +19,7 @@
 
 
 
-.chart-right-section1 {
+.chart-right-section {
     flex: 1;
     height: 500px;
     background: none; 
