@@ -9,8 +9,13 @@ import StoreInfo from './Components/StoreManagement';
 import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
 import Setting from './pages/Setting/Setting';
+
+import NotificationPage from './pages/NotifcationPage/NotifcationPage';
 import HomePage from './InformationWebsite/HomePage';
 import './App.css';
+
+
+
 
 import { faHamburger, faQuestion, faSubway } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -132,6 +137,7 @@ const AppContent: React.FC = () => {
                     <Route path="/userManagement" element={<Setting />} />
                     <Route path="/signup/*" element={<SignupForm />} />
                     <Route path="/HomePage" element={<HomePage />} />
+                    <Route path="/notifications" element={<NotificationPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>

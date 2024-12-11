@@ -20,6 +20,9 @@ const Login: React.FC = () => {
   const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  //for checkbox
+  const [isChecked, setIsChecked] = useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -126,7 +129,11 @@ const Login: React.FC = () => {
             </div>
             
             <div className="options-row">
-                        <CheckboxWithLabel />
+            <CheckboxWithLabel
+        label="Keep me logged in"
+        checked={isChecked}
+        onChange={setIsChecked}
+      />
                         <ForgotPassword />
                     </div>
 

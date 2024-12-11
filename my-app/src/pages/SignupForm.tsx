@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import AccountForm from '../Sections/SignupForm/Account/AccountForm';
 import BrandForm from '../Sections/SignupForm/Brand/BrandForm';
+
 import BranchForm from '../Sections/SignupForm/Branch/BranchForm';
+
 import SurpriseBagForm from '../Sections/SignupForm/SurpriseBag/SurpriseBagForm';
 import AccountPage from './AccountPage';
 import BrandCreated from './BrandCreated';
@@ -10,6 +12,7 @@ import VerifyEmail from '../Sections/SignupForm/Account/VerifyEmail';
 import Password from '../Sections/SignupForm/Account/Password';
 import SurpriseBagCreated from '../pages/SurpriseBagCreated';
 import Login from '../Sections/Login/Login';
+import Brand from '../pages/Brand/Brand'
 
 const SignupForm: React.FC = () => {
     const [accountData, setAccountData] = useState<any>(null);
@@ -40,11 +43,12 @@ const SignupForm: React.FC = () => {
             <Route path="/" element={<Outlet />}>
                 <Route index element={<AccountForm onNext={handleAccountNext} />} />
                 <Route path="brand" element={<BrandForm onNext={handleBrandNext} />} />
+              
                 <Route 
                     path="branches" 
                     element={totalStores !== null ? <BranchForm totalStores={totalStores} onNext={handleBranchNext} /> : <Navigate to="/signup/brand" />} 
                 />
-                <Route path="account" element={<AccountPage />} />
+                <Route path="brand1" element={<Brand/>} />
                 <Route path="verify-email" element={<VerifyEmail />} />
                 <Route path="password" element={<Password password={password} onChange={handlePasswordChange} />} />
                 <Route path="brand-created" element={<BrandCreated />} />

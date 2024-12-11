@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
       {/* Navigation */}
       <nav className="nav">
         <a href="#" className="nav-item">About US</a>
-        <a href="#" className="nav-item">Notification</a>
+        <Link to="/notifications" className="nav-item">Notification</Link>
         <a href="#" className="nav-item">FAQ</a>
       </nav>
 

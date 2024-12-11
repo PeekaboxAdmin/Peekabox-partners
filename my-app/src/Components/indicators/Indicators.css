@@ -1,0 +1,13 @@
+.indicator {
+    width: 30px; /* Line width */
+    height: 2px; /* Line height */
+    background-color: #AAAAAA; /* Default (inactive) color */
+    border-radius: 2px; /* Rounded ends for lines */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active indicator styling */
+  .indicator.active {
+    background-color:#0B4B2C;
+    ; /* Highlight current page */
+  }

@@ -8,6 +8,7 @@ const AccountPage: React.FC = () => {
   const handleAddBrand = () => {
     navigate('/signup/brand');
   };
+  
 
   return (
     <div>
