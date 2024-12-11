@@ -21,9 +21,11 @@ ul {
 }
 
 li {
+  font-weight: bold;
   display: flex; /* Use flexbox for alignment */
   align-items: center; /* Center items vertically */
   padding: 10px; /* Inner padding */
+  font-size: 12px; /* Smaller font size */
   cursor: pointer; /* Pointer cursor */
   color: black; /* Menu item text color */
   transition: background-color 0.2s; /* Transition for hover */
@@ -52,15 +54,25 @@ li > svg {
   background-color: white;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transition: width 0.3s;
+  justify-content: space-between; /* Distribute space between elements */
   z-index: 1000; /* Ensure it stays on top of other elements */
 }
 
 .sideBar.collapsed {
-  width: 60px;
+  width: 70px;
 }
 
 .sideBar.expanded {
   width: 250px;
+}
+
+.sidebar-title{
+  color: pink;
+  padding: 10px;
+  width: fit-content;
+  margin-top: 10px;
+  border: 1px solid pink;
+  justify-self: center;
 }
 
 /* Menu Button Styling */
@@ -70,7 +82,6 @@ li > svg {
   cursor: pointer;
   color: pink;
   display: block;
-  margin: 10px 0;
   width: 100%;
   height: 50px;
 }
@@ -88,15 +99,15 @@ li > svg {
 }
 
 /* Round Image Button Styling */
-.image-btn {
+.company-title-section {
   background-color: transparent;
-  border: none;
+  border-radius: 10px;
+  padding-right: 10px;
   cursor: pointer;
-  margin: 10px 0;
-  padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: start; /* Center the image and label */
+  margin-bottom: 15px;
+  border: solid 1px gainsboro;
+  align-items: center; /* Center the image and label */
 }
 
 .round-image {
@@ -109,13 +120,18 @@ li > svg {
 }
 
 /* Label Styling Under the Image with Bottom Border Only */
-.image-label {
-  margin-top: 8px; /* Space between image and label */
-  font-size: 14px;
-  color: pink;
-  border-bottom: 1px solid lightgray; /* Border only at the bottom */
-  padding: 2px 6px;
-  text-align: center;
+.main-label {
+  font-size: 12px;
+  color: lightgray;
+  border-top: 2px solid rgb(226, 223, 223); /* Adjust if you want bottom border */
+  padding: 10px 0;
+  text-align: start;
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  box-sizing: border-box;
+  z-index: 1; /* Place it above other elements */
+
 }
 
 /* Adjust styling when sidebar is expanded */
@@ -137,7 +153,8 @@ li > svg {
 /* Label under the image when expanded */
 .namelabel {
   display: none; /* Default to hidden */
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   color: black;
   margin-top: 4px;
 }
@@ -145,4 +162,15 @@ li > svg {
 /* Show namelabel only when sidebar is expanded */
 .sideBar.expanded .namelabel {
   display: inline; /* Show only when expanded */
+}
+
+/* Ensure the last section is pushed to the bottom */
+.sidebar-last-section {
+  margin-top: auto; /* Push this section to the bottom */
+}
+
+.collapse-btn{
+  border: none;
+  background-color: transparent;
+  color: green;
 }

@@ -221,18 +221,22 @@ const StoreInfo: React.FC = () => {
 
           <h3>Select Category</h3>
           <div className="category-row">
-            {categoryOptions.map((category, index) => (
-              <label key={index} className="category-item">
-                <input
-                  type="radio"
-                  name="category" // Same name for all radio buttons to group them
-                  value={category} // Value is the category name
-                  checked={store.categories[0] === category} // Check if this category is selected
-                  onChange={handleCategoryChange} // Call handleCategoryChange when selected
-                />
-                {category}
-              </label>
-            ))}
+            <label>
+              <select
+                name="category"
+                value={store.categories[0]} // Bind the first category in the array
+                onChange={(e) => setStore(prevStore => ({
+                  ...prevStore,
+                  categories: [e.target.value], // Update the first category
+                }))}
+              >
+                {categoryOptions.map((category, index) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
 
           <button type="button" onClick={() => setIsEditing(false)}>Save</button>

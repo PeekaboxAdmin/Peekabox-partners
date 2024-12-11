@@ -1,0 +1,28 @@
+.chart-container1 {
+    width: 100%;
+    min-height: 400px;
+    background-color: white; 
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header1 {
+    display: flex;
+    align-items: stretch; /* Ensures equal height for header sections */
+    color: white;
+    background-color: darkgreen;
+    justify-content: center;
+}
+
+
+
+.chart-right-section1 {
+    flex: 1;
+    height: 500px;
+    background: none; 
+    padding-top: 1.5rem;
+    padding-right: 1.5rem;
+}

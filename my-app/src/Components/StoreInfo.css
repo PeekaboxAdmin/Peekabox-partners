@@ -2,10 +2,9 @@
 
 .store-container {
   max-width: 600px;
-  margin: 40px auto;
+  margin: auto;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-size: small;
   background-color: white;
   font-family: Arial, sans-serif;
 }
@@ -28,7 +27,7 @@
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  align-items: flex-start;
+  align-items: start;
 }
 
 .horizontal-flex-box {
@@ -122,7 +121,6 @@
 }
 
 .edit-form input[type="radio"] {
-  margin-right: 8px;
   cursor: pointer;
 }
 
@@ -169,7 +167,7 @@
   width: 100%;
   height: 40px;
   border: none;
-  background-color: pink;
+  background-color: palevioletred;
   color:white;
   border-radius: 10px;
   margin-top: 10px;

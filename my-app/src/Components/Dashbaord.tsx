@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBox, faShoppingCart, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faShoppingCart, faClock ,faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import './Dashbaord.css';
 import Header from '../Components/Header';
-import Logo from './Images/burger.jpg'
-
+import Logo from './Images/burger.jpg';
+import SalesChart from './SalesChart';
 
 interface Order {
     id: number;
@@ -49,22 +48,6 @@ const Dashboard: React.FC<DashboardProps> = ({
         handleToggleSidebar();
     };
 
-    const overviewData = {
-        labels: ['Total Sales', 'Food Items Saved', 'Earnings', 'Reviews'],
-        datasets: [
-            {
-                label: 'Statistics',
-                data: [12, 19, 3, 5],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                    'rgba(255, 99, 132, 0.6)',
-                ],
-            },
-        ],
-    };
-
     // Mock data for the "Surprise Bags" section
     const surpriseBags = [
         { title: "Banana Puddings", quantity: "3", price: "12.00", time: "Today 13:00 - 15:00", imgSrc: Logo },
@@ -72,37 +55,52 @@ const Dashboard: React.FC<DashboardProps> = ({
         { title: "Combo Pack", quantity: "4", price: "15.00", time: "Tomorrow 17:30 - 18:30", imgSrc: Logo },
     ];
 
+    const [activeMenu, setActiveMenu] = useState<number | null>(null);
+
+    const toggleMenu = (id: number) => {
+        setActiveMenu(activeMenu === id ? null : id);
+    };
+
+
     return (
         <div className="dashboard">
-        <Header/>
-            <h1>Dasboard</h1>
-            
+            <Header />
+            <h1>Dashboard</h1>
+
             <div className='first-grid'>
-            {/* New Surprise Bags Section */}
-            <section className="surprise-bags">
-                <h2>Your Surprise Bags</h2>
-                <div className="surprise-bags-container">
-                    {surpriseBags.map((bag, index) => (
-                        <div key={index} className="surprise-bag-card">
-                            <img src={bag.imgSrc} alt={bag.title} className="surprise-bag-image" />
-                            <h3>{bag.title}</h3>
-                            <p>
-                                <FontAwesomeIcon icon={faBox} /> {bag.quantity} items
-                            </p>
-                            <p>
-                                <FontAwesomeIcon icon={faShoppingCart} /> Price: ${bag.price}
-                            </p>
-                            <p>
-                                <FontAwesomeIcon icon={faClock} /> Available: {bag.time}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-                <button className="seeall">All Surprise Boxes</button>
-            </section>
-            
-             {/* New Surprise Bags Section */}
-            <div className="card notification-card">
+                {/* Surprise Bags Section */}
+                <section className="dsurprise-bags">
+                    <h2>Your Surprise Bags</h2>
+                    <div className="dsurprise-bags-container">
+                        {surpriseBags.map((bag, index) => (
+                            <div key={index} className="dsurprise-bag-card">
+                                {/* Badge on top-left */}
+                                <div className="dsurprise-bag-badge">Available</div>
+                                <img src={bag.imgSrc} alt={bag.title} className="dsurprise-bag-image" />
+                                <h3>{bag.title}</h3>
+                                <p>
+                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of 5 
+                                </p>
+                                <p>
+                                    <FontAwesomeIcon icon={faBox} /> {bag.quantity} items
+                                </p>
+
+                                <div className='price-availability-container'>
+                                <p>
+                                    <FontAwesomeIcon icon={faClock} /> Available - {bag.time}
+                                </p>
+
+                                    <h3 className="price"> AED {bag.price}</h3>
+                            </div>
+
+                            </div>
+                        ))}
+                    </div>
+                    <button className="seeall">All Surprise Boxes</button>
+                </section>
+
+                {/* Notifications Section */}
+                <div className="notification-card">
                     <h2>Notifications</h2>
                     <div className="notification-count">
                         Unread Notifications: <span>{unreadNotificationsCount}</span>
@@ -125,9 +123,9 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </ul>
                     <button className="seeall">See all</button>
                 </div>
-                </div>
+            </div>
 
-
+            {/* Orders and Sales Chart */}
             <section className="first-grid">
                 <div className="orderdash">
                     <h2>Latest Orders</h2>
@@ -154,14 +152,22 @@ const Dashboard: React.FC<DashboardProps> = ({
                                     <td>{order.quantity}</td>
                                     <td><span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span></td>
                                     <td>
-                                        {order.status !== 'Completed' && (
-                                            <button 
-                                                onClick={() => markAsCompleted(order.id)} 
-                                                className="complete-btn"
+                                        <div className="action-menu-container">
+                                            <button
+                                                className="menu-btn"
+                                                onClick={() => toggleMenu(order.id)}
                                             >
-                                                Mark as Completed
+                                                <FontAwesomeIcon icon={faEllipsisV} />
                                             </button>
-                                        )}
+                                            {activeMenu === order.id && (
+                                                <div className="action-menu">
+                                                    <button onClick={() => console.log(`Cancel Order ${order.id}`)}>Cancel</button>
+                                                    <button onClick={() => console.log(`Refund Order ${order.id}`)}>Refund</button>
+                                                    <button onClick={() => console.log(`Mark Order ${order.id} as Pending`)}>Pending</button>
+                                                    <button onClick={() => console.log(`Mark Order ${order.id} as Delivered`)}>Delivered</button>
+                                                </div>
+                                            )}
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -170,15 +176,12 @@ const Dashboard: React.FC<DashboardProps> = ({
 
                     <button className="seeall">See All</button>
                 </div>
-
                 
+                <div className="salesChart">
+                    <SalesChart />
+                </div>
 
-               {/* <div className="OverViewcard">
-                    <h2>Sales</h2>
-                    <Bar data={overviewData} />
-                    <button className="seeall">Go to insights</button>
-                </div> */}
-            </section> 
+            </section>
         </div>
     );
 };

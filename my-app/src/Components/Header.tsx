@@ -3,7 +3,7 @@ import './Header.css';
 
 const Header: React.FC = () => {
   return (
-    <header className="header">
+    <header className="mainheader">
       {/* Logo or Icon */}
       <div className="logo">
         <span className="logo-text">Peekabox</span>
