@@ -11,7 +11,7 @@
 /* Sidebar Title */
 h2 {
   margin-top: 0; /* Remove default margin */
-  color: pink; /* Title text color */
+  color: #FF80B4; /* Title text color */
 }
 
 /* Sidebar List Styling */
@@ -37,7 +37,7 @@ li:hover {
 
 /* Icon Color */
 .sideBar li svg, .menu-btn svg {
-  color: pink; /* Icons only are pink */
+  color: #FF80B4; /* Icons only are pink */
 }
 
 li > svg {
@@ -67,11 +67,11 @@ li > svg {
 }
 
 .sidebar-title{
-  color: pink;
+  color: #FF80B4;
   padding: 10px;
   width: fit-content;
   margin-top: 10px;
-  border: 1px solid pink;
+  border: 2px solid #FF80B4;
   justify-self: center;
 }
 
@@ -80,7 +80,7 @@ li > svg {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: pink;
+  color: #FF80B4;
   display: block;
   width: 100%;
   height: 50px;
@@ -114,7 +114,7 @@ li > svg {
   border-radius: 100%; /* Make the image round */
   width: 50px; /* Default width */
   height: 50px; /* Default height */
-  background-color: pink;
+  background-color: #FF80B4;
   object-fit: cover; /* Ensure the image covers the whole area */
   transition: width 0.3s, height 0.3s; /* Smooth transition */
 }

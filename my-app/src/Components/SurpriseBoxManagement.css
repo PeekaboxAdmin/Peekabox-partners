@@ -1,6 +1,10 @@
 /* Create Button */
+.surprise-bags-management-conatiner{
+  margin-left: 120px;
+  margin-top: 10px;
+}
 .create-button {
-  background-color: pink;
+  background-color: #FF80B4;
   color: white;
   border: none;
   border-radius: 8px;
@@ -90,7 +94,7 @@
 }
 
 .modal form button[type="submit"] {
-  background-color: #ec407a;
+  background-color: #FF80B4;
   color: white;
 }
 
@@ -102,7 +106,7 @@
 /* Surprise Bags Section */
 .surprise-bags {
   background-color: #f7f7f7;
-  padding: 20px;
+  margin:40px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -111,12 +115,14 @@
   font-size: 1.5em;
   font-weight: bold;
   color: #333;
+  margin-left: 20px;
   margin-bottom: 20px;
 }
 
 .surprise-bags-container {
   display: flex;
   gap: 16px;
+  margin-left: 20px;
   overflow-x: auto;
   padding-bottom: 10px;
 }
@@ -124,6 +130,7 @@
 /* Surprise Bag Card */
 .surprise-bag-card {
   background-color: #ffffff;
+  margin-bottom: 20px;
   border-radius: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 350px;
@@ -199,7 +206,7 @@
 }
 
 .badge1-available {
-  background-color: pink; /* Green for available */
+  background-color: #FF80B4; /* Green for available */
 }
 
 .badge1-sold-out {
@@ -211,10 +218,11 @@
   width: 100%;
   height: 150px;
   position: relative;
-  background-color: pink;
+  background-color: #FF80B4;
   border-bottom: 2px solid #ddd;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
   margin-bottom: 20px;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,6 +245,10 @@
 .filter-input {
   width: 100px;
   margin-left: 5px;
+}
+
+.sminput-container{
+  margin-right: 10px;
 }
 
 /* Price and Availability Section */

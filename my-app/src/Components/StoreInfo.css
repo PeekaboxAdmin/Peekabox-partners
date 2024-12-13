@@ -1,9 +1,13 @@
 /* src/StoreInfo.css */
+.store-Container-main{
+  margin-top: 10px;
+  margin-left: 150px;
+}
 
 .store-container {
   max-width: 600px;
   margin: auto;
-  padding: 20px;
+  padding: 30px;
   font-size: small;
   background-color: white;
   font-family: Arial, sans-serif;

@@ -1,6 +1,10 @@
 /* Dashboard container */
 .dashboard {
     position: relative;
+    margin-left: 150px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 /* Surprise Bags section styling */
@@ -42,7 +46,7 @@
     position: absolute;
     top: 30px;
     left: px;
-    background-color: #ff9ebf; /* Badge color */
+    background-color: #FF80B4; /* Badge color */
     color: white;
     padding: 5px 10px;
     border-top-right-radius: 10px;
@@ -98,7 +102,7 @@
     white-space: nowrap; /* Prevents line break */
     font-size: 15px;
     font-weight: bold;
-    color: #ec407a; /* Pink color for the price */
+    color: #FF80B4; /* Pink color for the price */
     display: inline-block; /* Ensures inline behavior */
 }
 
@@ -167,7 +171,7 @@
 }
 
 .notification-count span {
-    background-color: #ec407a; /* Pink badge color */
+    background-color: #FF80B4; /* Pink badge color */
     color: #ffffff;
     font-weight: bold;
     margin-left: 10px;
@@ -190,7 +194,7 @@
 
 .notification-item .notification-icon {
     font-size: 1.5em;
-    color: #ec407a; /* Icon color */
+    color: #FF80B4; /* Icon color */
     margin-right: 12px;
 }
 
@@ -202,7 +206,7 @@
 
 .notification-item .notification-text span {
     font-weight: bold;
-    color: #ec407a; /* Highlight color for item name */
+    color: #FF80B4; /* Highlight color for item name */
 }
 
 .notification-item .notification-time {
@@ -255,7 +259,7 @@
 .orderdash th {
     text-align: left;
     padding: 8px;
-    color: #ec407a; /* Pink color for headers */
+    color: #FF80B4; /* Pink color for headers */
     font-weight: bold;
     font-size: 1em;
     background-color: #f5f5f5;
@@ -356,7 +360,7 @@
     font-size: 30sp;
     margin-top: 20px;
     border-radius: 10px;
-    background-color: palevioletred;
+    background-color: #FF80B4;
     color: white;
     padding: 10px;
     font-weight: bold;

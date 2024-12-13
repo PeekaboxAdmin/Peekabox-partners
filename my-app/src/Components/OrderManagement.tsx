@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Table.css';
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 interface SurpriseOrder {
     id: number;
@@ -33,6 +34,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
     const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
     const ordersPerPage = 3;
     const filteredOrders = surpriseOrders
@@ -83,10 +85,16 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
         setCurrentPage(1);
     };
 
+    const toggleSidebar = () => {
+        setSidebarExpanded(!sidebarExpanded);
+    };
+
     return (
-        <div className="order-management" style={{ position: 'relative' }}>
+        <div className='orderm-main-container'>
             <Header/>
-            <h1>Order Management</h1>
+            <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+        <div className="order-management">
+            <h3>Order Management</h3>
 
             <div className="filters">
                 <input
@@ -116,6 +124,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Customer Name</th>
                             <th>Address</th>
                             <th>Order Date</th>
@@ -128,7 +137,15 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
                     </thead>
                     <tbody>
                         {currentOrders.map(order => (
-                            <tr key={order.id}>
+                             <tr key={order.id}>
+                             <td>
+                                 <input
+                                     type="checkbox"
+                                     id={`checkbox-${order.id}`}
+                                     value={order.id}
+                                     style={{ cursor: 'pointer' }}
+                                 />
+                             </td>
                                 <td>{order.customerName}</td>
                                 <td>{order.address}</td>
                                 <td>{order.datePlaced}</td>
@@ -180,6 +197,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
                     ))}
                 </div>
             </div>
+        </div>
         </div>
     );
 };

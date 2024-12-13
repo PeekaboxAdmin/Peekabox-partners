@@ -6,6 +6,7 @@ import Logo1 from './Images/food.jpg';
 import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag'; // Import the CreateBagForm component
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 type SurpriseBag = {
   id: number;
@@ -52,6 +53,7 @@ const SurpriseBoxManagement: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalBag, setModalBag] = useState<SurpriseBag | null>(null);
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
   const handleCreate = () => {
     setModalBag(null);
@@ -78,9 +80,14 @@ const SurpriseBoxManagement: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+};
+
   return (
-    <div>
+    <div className='surprise-bags-management-conatiner'>
     <Header/>
+    <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
     <div className="surprise-bags">
       <div className="Sbanner-image">
         <img src={Logo1} alt="Logo" className="banner-logo" />
@@ -88,7 +95,7 @@ const SurpriseBoxManagement: React.FC = () => {
 
       <div className="StitleContainer">
         <h2>Your Surprise Bags</h2>
-        <div>
+        <div className='sminput-container'>
           <button className="create-button" onClick={handleCreate}>
             <FontAwesomeIcon icon={faPlus} /> New Bag
           </button>

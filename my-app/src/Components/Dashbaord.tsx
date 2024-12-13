@@ -6,6 +6,7 @@ import Header from '../Components/Header';
 import Logo from './Images/burger.jpg';
 import SalesChart from './SalesChart';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 
 interface Order {
@@ -31,7 +32,6 @@ interface DashboardProps {
     notifications: Notification[];
     completedOrdersCount: number;
     unreadNotificationsCount: number;
-    handleToggleSidebar: () => void;
     markAsCompleted: (id: number) => void;
 }
 
@@ -40,7 +40,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     notifications,
     completedOrdersCount,
     unreadNotificationsCount,
-    handleToggleSidebar,
     markAsCompleted
 }) => {
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -48,7 +47,6 @@ const Dashboard: React.FC<DashboardProps> = ({
 
     const toggleSidebar = () => {
         setSidebarExpanded(!sidebarExpanded);
-        handleToggleSidebar();
     };
 
     // Mock data for the "Surprise Bags" section
@@ -68,6 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     return (
         <div className="dashboard">
             <Header />
+            <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
             <h1>Dashboard</h1>
 
             <div className='first-grid'>

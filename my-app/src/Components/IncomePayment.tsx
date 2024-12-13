@@ -6,11 +6,19 @@ import MonthlySalesChart from'../Sections/InsightPage/MonthlySalesChart/MonthlyS
 import Calendar from '../Sections/InsightPage/Calendar/Calender';
 import BestSellingTable from '../Sections/InsightPage/BestSellingTable/BestSellingTable';
 import Header from './Header';
+import Sidebar from './Sidebar';
+import { useState } from 'react';
 
 
 const IncomePayment: React.FC = () => {
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+};
+
   return (
     <div className="income-payment-container">
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
       <Header/>
       <header className="income-payment-header">
         <h1>Insights</h1>

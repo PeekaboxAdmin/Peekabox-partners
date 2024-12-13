@@ -49,7 +49,7 @@ interface SurpriseOrder extends Order {
 }
 
 const AppContent: React.FC = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+
     const [orders, setOrders] = useState<Order[]>([
         { id: 1, status: 'Completed', amount: '15 AED', customerName: 'Alice Johnson', address: '123 Elm St, Dubai', datePlaced: '2023-10-20 14:30', quantity: 2 },
         { id: 2, status: 'Completed', amount: '10 AED', customerName: 'John Smith', address: '45 Maple Ave, Dubai', datePlaced: '2023-10-21 09:15', quantity: 1 },
@@ -72,10 +72,6 @@ const AppContent: React.FC = () => {
         receipt: order.receipt || 'No receipt',
     }));
 
-    const handleToggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
     const markAsCompleted = (id: number) => {
         setOrders((prevOrders) =>
             prevOrders.map((order) => (order.id === id ? { ...order, status: 'Completed' } : order))
@@ -94,17 +90,9 @@ const AppContent: React.FC = () => {
         );
     };
 
-    // Determine if sidebar should be displayed
-    const location = useLocation();
-    const noSidebarRoutes = ['/signup', '/HomePage'];
-    const showSidebar = !noSidebarRoutes.some((path) => location.pathname.startsWith(path));
-
     return (
         <div className="App">
-            {showSidebar && (
-                <Sidebar isOpen={isSidebarOpen} onToggle={handleToggleSidebar} onNavClick={() => {}} />
-            )}
-            <div className={`content ${isSidebarOpen && showSidebar ? 'shifted' : ''}`}>
+        
                 <Routes>
                     <Route
                         path="/"
@@ -114,7 +102,6 @@ const AppContent: React.FC = () => {
                                 notifications={notifications}
                                 completedOrdersCount={completedOrdersCount}
                                 unreadNotificationsCount={unreadNotificationsCount}
-                                handleToggleSidebar={handleToggleSidebar}
                                 markAsCompleted={markAsCompleted}
                             />
                         }
@@ -141,7 +128,6 @@ const AppContent: React.FC = () => {
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>
-        </div>
     );
 };
 

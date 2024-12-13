@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import './StoreInfo.css';
 import Logo from './Images/food.jpg'
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 // Type Definitions
 interface Address {
@@ -124,8 +125,14 @@ const StoreInfo: React.FC = () => {
     }));
   };
 
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+};
+
   return (
-    <div>
+    <div className='store-Container-main'>
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
       <Header/>
     <div className="store-container">
       <img src={Logo} alt="Store Logo" className="store-logo" />

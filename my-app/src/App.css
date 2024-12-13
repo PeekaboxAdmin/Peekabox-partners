@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   font-family: 'Arial', sans-serif;
-  background-color: white;
+  background-color:#FDFAF7;;
   height: 100vh;
   overflow: auto; /* Allow scrolling */
 }

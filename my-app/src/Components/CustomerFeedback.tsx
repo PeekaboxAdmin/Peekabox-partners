@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFlag, faSearch, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import './CustomerFeedback.css';
 import Header from './Header';
+import Sidebar from './Sidebar';
+import Logo1 from './Images/food.jpg';
 
 interface Review {
     id: number;
@@ -71,9 +73,15 @@ const CustomerFeedback: React.FC = () => {
         setCurrentPage(page);
     };
 
+    const [sidebarExpanded, setSidebarExpanded] = useState(false);
+    const toggleSidebar = () => {
+        setSidebarExpanded(!sidebarExpanded);
+    };
+
     return (
-        <div>
+        <div className='feebackcontainer-main'>
             <Header/>
+            <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
         <div className="feedback-container">
            
             <h2 className='cusfheading'>Customers' Feedback</h2>
@@ -104,6 +112,7 @@ const CustomerFeedback: React.FC = () => {
             <table className="feedback-table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Order Number</th>
                         <th>Surprise Bag</th>
@@ -111,12 +120,20 @@ const CustomerFeedback: React.FC = () => {
                         <th>Time</th>
                         <th>Ratings</th>
                         <th>Comments</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {currentReviews.map(review => (
                         <tr key={review.id}>
+                                        <td>
+                <input
+                    type="checkbox"
+                    id={`checkbox-${review.id}`}
+                    value={review.id}
+                    style={{ cursor: 'pointer' }}
+                />
+            </td>
+
                             <td>{review.customerName}</td>
                             <td>{review.orderNumber}</td>
                             <td>{review.surpriseBag}</td>
@@ -134,14 +151,6 @@ const CustomerFeedback: React.FC = () => {
                             <td>
                                 <button onClick={() => handleCommentClick(review)} className="comment-button">
                                     <FontAwesomeIcon icon={faCommentDots} />
-                                </button>
-                            </td>
-                            <td>
-                                <button
-                                    className={`report-button ${review.reported ? 'reported' : ''}`}
-                                    onClick={() => handleReportReview(review.id)}
-                                >
-                                    <FontAwesomeIcon icon={faFlag} /> {review.reported ? 'Reported' : 'Report'}
                                 </button>
                             </td>
                         </tr>
@@ -177,9 +186,11 @@ const CustomerFeedback: React.FC = () => {
             {/* Modal for Comments */}
             {selectedReview && (
                 <div className="modal-overlay">
-                    <div className="modal">
+                    <div className="modalreply">
+                        <img className='replyroundeImage' src={Logo1}></img>
                         <h3>Comment by {selectedReview.customerName}</h3>
-                        <p><strong>Comment:</strong> {selectedReview.comment}</p>
+                        <h3>Order 123</h3>
+                        <p>{selectedReview.comment}</p>
                         <textarea
                             value={reply}
                             onChange={handleReplyChange}

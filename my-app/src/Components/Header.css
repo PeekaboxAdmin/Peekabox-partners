@@ -2,20 +2,19 @@
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    color: pink; /* Light text */
+    color: #FF80B4; /* Light text */
   }
   
   .logoheader {
     display: flex;
     align-items: center;
-    border: 2px solid pink;
+    border: 2px solid #FF80B4;
     margin-right: 50px;
-    margin-left: 10px;
     
   }
   
   .logo-text {
-    color: pink;
+    color: #FF80B4;
     font-size: 1.5rem; /* Optional: adjust font size for better appearance */
     font-weight: bold;
     padding: 5px; /* Adjust as needed or remove for less space around the letter */

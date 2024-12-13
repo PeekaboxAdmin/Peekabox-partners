@@ -1,5 +1,10 @@
+
+.Settings-container-m{
+  margin-left: 150px;
+}
 .Settings-container {
   display: flex;
+  background-color: white;
   flex-direction: column; /* Stack elements vertically */
   align-items: stretch; /* Ensure children take full width */
   padding: 20px; /* Add spacing inside the container */
@@ -8,6 +13,7 @@
   box-sizing: border-box; /* Include padding in size calculations */
   position: relative; /* Ensure proper positioning */
   overflow: auto; /* Allow scrolling if content overflows */
+
 }
 
 .separator-line {
