@@ -249,7 +249,8 @@ const StoreInfo: React.FC = () => {
             </label>
           </div>
 
-          <button type="button" onClick={() => setIsEditing(false)}>Save</button>
+          <button className='editbtnst' type="button" onClick={() => setIsEditing(false)}>Save</button>
+          <button className='editbtnst' type="button" onClick={() => setIsEditing(false)}>Cancel</button>
         </form>
       )}
     </div>

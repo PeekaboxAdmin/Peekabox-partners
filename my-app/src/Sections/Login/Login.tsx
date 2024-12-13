@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Image from '../../Components/Image/Image';
 import Heading from '../../Components/Heading/Heading';
 import ForgotPassword from './ForgotPassword';
 import Button from '../../Components/Button/Button';
-import CheckboxWithLabel from '../../Components/CheckboxWithLabel/CheckboxWithLabel'
+import CheckboxWithLabel from '../../Components/CheckboxWithLabel/CheckboxWithLabel';
 
-import login from '../../assets/images/login.png'
+import login from '../../assets/images/login.png';
 import './Style/Login.css';
 
 const Login: React.FC = () => {
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  //for checkbox
+  // Checkbox state
   const [isChecked, setIsChecked] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -28,7 +28,8 @@ const Login: React.FC = () => {
   };
 
   const checkEmailExists = async (email: string) => {
-    return email === "batoul@gmail.com"; 
+    // Mock email verification
+    return email === 'nasif@gmail.com';
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -52,23 +53,15 @@ const Login: React.FC = () => {
 
     const loginData: { email: string; password: string } = { email, password };
 
+    // Mock login request
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        console.log('Login successful:', data);
-        navigate('/signup/dashboard');
+      // Simulate API call
+      if (email === 'nasif@gmail.com' && password === 'password123') {
+        localStorage.setItem('token', 'mockToken123');
+        console.log('Login successful');
+        navigate('/');
       } else {
-        setErrorMessage(data.message || 'Login failed. Please try again.');
+        setErrorMessage('Invalid email or password.');
       }
     } catch (error) {
       setErrorMessage('An error occurred. Please try again later.');
@@ -86,35 +79,37 @@ const Login: React.FC = () => {
         {!isEmailVerified ? (
           <form onSubmit={handleEmailSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Sign in to your account" subtitle="Welcome Back!Let's get you Signed In" className='heading-container' />
+              <Heading
+                title="Sign in to your account"
+                subtitle="Welcome Back! Let's get you Signed In"
+                className="heading-container"
+              />
             </div>
             <div className="input-group">
-              
               <input
-              placeholder='Enter your Email'
+                placeholder="Enter your Email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <Button
-              label="Countinue"
-              loading={loading}
-              className='Green-button'
-            />
+            <Button label="Continue" loading={loading} className="Green-button" />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="login-form">
             <div className="heading-container">
-              <Heading title="Enter your Password" subtitle="Let's Keep It Safe - Enter Your Password" className='heading-container' />
+              <Heading
+                title="Enter your Password"
+                subtitle="Let's Keep It Safe - Enter Your Password"
+                className="heading-container"
+              />
             </div>
             <div className="input-group password-input">
-              
               <input
-              placeholder='Password'
-                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -127,27 +122,18 @@ const Login: React.FC = () => {
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
-            
             <div className="options-row">
-            <CheckboxWithLabel
-        label="Keep me logged in"
-        checked={isChecked}
-        onChange={setIsChecked}
-      />
-                        <ForgotPassword />
-                    </div>
-
-             
-            <Button
-              label="Sign In"
-              loading={loading}
-              className='Green-button'
-            />
+              <CheckboxWithLabel
+                label="Keep me logged in"
+                checked={isChecked}
+                onChange={() => setIsChecked(!isChecked)}
+              />
+              <ForgotPassword />
+            </div>
+            <Button label="Sign In" loading={loading} className="Green-button" />
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-            
           </form>
         )}
-       
       </div>
     </div>
   );

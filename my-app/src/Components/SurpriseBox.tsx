@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faCircleCheck, faCircleXmark, faEdit, faTrash, faPlus, faCubes, faBox } from '@fortawesome/free-solid-svg-icons';
 import './SurpriseBoxManagement.css';
 import Logo1 from './Images/food.jpg';
+import Picture1 from './Images/images.jpg'
 import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag'; // Import the CreateBagForm component
 import Header from './Header';
@@ -47,7 +48,7 @@ const SurpriseBoxManagement: React.FC = () => {
       collectionTime: 'Monday 12:00 - 22:00',
       soldOut: true,
       available: false,
-      imageUrl: Logo,
+      imageUrl: Picture1,
     },
   ]);
 

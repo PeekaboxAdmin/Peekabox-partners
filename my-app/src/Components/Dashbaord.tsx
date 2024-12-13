@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBox, faShoppingCart, faClock ,faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import './Dashbaord.css';
-import Header from '../Components/Header';
+import Header from './Header';
 import Logo from './Images/burger.jpg';
+import Picture1 from './Images/image2.jpg'
+import Picture3 from './Images/images.jpg'
+import Picture2 from './Images/picture1.jpg'
+
 import SalesChart from './SalesChart';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -51,9 +55,9 @@ const Dashboard: React.FC<DashboardProps> = ({
 
     // Mock data for the "Surprise Bags" section
     const surpriseBags = [
-        { title: "Banana Puddings", quantity: "3", price: "12.00", time: "Today 13:00 - 15:00", imgSrc: Logo },
-        { title: "Cookies", quantity: "6", price: "8.50", time: "Today  12:00 - 13:30", imgSrc: Logo },
-        { title: "Combo Pack", quantity: "4", price: "15.00", time: "Today 17:30 - 18:30", imgSrc: Logo },
+        { title: "Chopsi Mystery", quantity: "3", price: "12.00", time: "Today 13:00 - 15:00", imgSrc: Picture1 },
+        { title: "Chowmein Pack", quantity: "6", price: "8.50", time: "Today  12:00 - 13:30", imgSrc: Picture2 },
+        { title: "Combo Pack", quantity: "4", price: "15.00", time: "Today 17:30 - 18:30", imgSrc: Picture3 },
     ];
 
     const [activeMenu, setActiveMenu] = useState<number | null>(null);

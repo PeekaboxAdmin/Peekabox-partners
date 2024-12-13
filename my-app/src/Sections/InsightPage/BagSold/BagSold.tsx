@@ -23,16 +23,16 @@ const BagSold = () => {
 
   const CustomizedLegend = ({ payload }: any) => {
     return (
-      <div className="legend-container">
+      <div className="legend-containerb">
         {payload.map((entry: any, index: number) => (
-          <div key={index} className="legend-item">
+          <div key={index} className="legend-itemb">
             <div
-              className="legend-color"
+              className="legend-colorb"
               style={{ backgroundColor: entry.color }}
             />
-            <div className="legend-text-container">
-              <span className="legend-text">{entry.value}</span>
-              <span className="legend-number">{data[index].value}%</span>
+            <div className="legend-text-containerb">
+              <span className="legend-textb">{entry.value}</span>
+              <span className="legend-numberb">{data[index].value}%</span>
             </div>
           </div>
         ))}
@@ -41,15 +41,15 @@ const BagSold = () => {
   };
 
   return (
-    <div className="container">
-      <h2 className="title1">Bag Sold by Category</h2>
-      <div className="subtitle1">Monthly
-      <svg className="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+    <div className="containerbagsold">
+      <h2 className="title1b">Bag Sold by Category</h2>
+      <div className="subtitle1b">Monthly
+      <svg className="iconb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
       <path d="M12 17l-5-5h10z" />
 
           </svg>
       </div>
-      <div className="chart-container">
+      <div className="chart-containerb">
         <PieChart width={300} height={230}>
           <Pie
             data={data}

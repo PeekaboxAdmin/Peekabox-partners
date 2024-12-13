@@ -1,7 +1,7 @@
 
 
 
-.container {
+.containerbagsold {
   width: 100%;
   max-width: 300px;
   height: 240px;
@@ -11,13 +11,10 @@
   border: 1px solid #e0e0e0; 
   margin-left: 315px;
   margin-top: -290px;
-
-  
-  
 }
 
 
-.title1 {
+.title1b {
   font-size: 10px;
   font-weight: 700; 
   color: #0B4B2C;
@@ -26,7 +23,7 @@
 }
 
 
-.subtitle1 {
+.subtitle1b {
   font-size: 10px;
   font-weight: 700; 
   color: #AAAAAA; 
@@ -35,7 +32,7 @@
 }
 
 
-.icon {
+.iconb {
   margin-left: 50px;
   vertical-align: top;
   margin-top: -15px; 
@@ -43,7 +40,7 @@
 }
 
 
-.chart-container {
+.chart-containerb {
   display: flex;
   justify-content: center;
   height: 190px;
@@ -52,7 +49,7 @@
 }
 
 
-.legend-container {
+.legend-containerb {
   display: flex;
   justify-content: space-around; 
   gap: 1rem;
@@ -64,7 +61,7 @@
 }
 
 
-.legend-item {
+.legend-itemb {
   display: flex;
   flex-direction: row; 
   align-items: center; 
@@ -73,7 +70,7 @@
   
 }
 
-.legend-item:not(:last-child)::after {
+.legend-itemb:not(:last-child)::after {
   content: "";
   position: absolute;
   right: -10px;
@@ -83,7 +80,7 @@
 }
 
 
-.legend-color {
+.legend-colorb {
   width: 0.50rem;
   height: 0.50rem;
   border-radius: 50%;
@@ -92,21 +89,21 @@
 }
 
 
-.legend-text-container {
+.legend-text-containerb {
   display: flex;
   flex-direction: column; 
   align-items: center; 
 }
 
 
-.legend-text {
+.legend-textb {
   font-size: 12px; 
   color: #AAAAAA;
   font-weight: bold;
 }
 
 
-.legend-number {
+.legend-numberb {
   font-size: 18px; 
   color: #000000; 
   margin-top: 0.25rem;
