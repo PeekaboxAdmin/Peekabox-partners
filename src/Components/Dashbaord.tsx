@@ -84,11 +84,11 @@ const Dashboard: React.FC<DashboardProps> = ({
     return (
         <div className="dashboard">
             <Header />
-            {isMobile ? (
+            
                 <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
-            ) : (
+           
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-            )}
+            
 
             <h1>Dashboard</h1>
 
@@ -134,13 +134,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 className={`notification-item ${note.read ? 'read' : 'unread'}`}
                             >
                                 <FontAwesomeIcon icon={note.icon} className="notification-icon" />
-                                {note.text}
+                                {note.text} <span className="notification-time">{note.time}</span>
                                 {note.read ? (
                                     <span className="badge">Read</span>
                                 ) : (
                                     <span className="badge unread">New</span>
                                 )}
-                                <span className="notification-time">{note.time}</span>
                             </li>
                         ))}
                     </ul>

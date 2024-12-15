@@ -254,9 +254,22 @@
     width: 100%;
   }
 
+  .filter-input {
+    margin-bottom: 20px;
+    width: 100%;
+    margin-left: 0;
+  }
+
   .mobile-sidebar{
     display: block;
 }
+
+/* Surprise Bag Card */
+.surprise-bag-card {
+   width: 90%;
+}
+
+
 }
 
 @media (max-width: 480px) {

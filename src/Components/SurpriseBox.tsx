@@ -90,11 +90,11 @@ const SurpriseBoxManagement: React.FC = () => {
   return (
     <div className='surprise-bags-management-conatiner'>
     <Header/>
-    {isMobile ? (
+ 
                 <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
-            ) : (
+      
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-            )}
+          
     <div className="surprise-bags">
       <div className="Sbanner-image">
         <img src={Logo1} alt="Logo" className="banner-logo" />

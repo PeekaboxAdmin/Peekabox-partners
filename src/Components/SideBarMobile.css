@@ -2,6 +2,7 @@
 .mobile-sidebar {
     position: relative;
     z-index: 1000;
+    display: none; /* Hide by default */
 }
 
 /* Hamburger Button */
