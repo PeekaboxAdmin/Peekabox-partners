@@ -85,7 +85,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="dashboard">
             <Header />
             
-                <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
+               {/* <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/> */}
            
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
             

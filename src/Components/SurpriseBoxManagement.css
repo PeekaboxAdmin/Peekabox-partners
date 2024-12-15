@@ -269,6 +269,9 @@
    width: 90%;
 }
 
+ .surprise-bag-card .price {
+    margin-top: 15px;
+  }
 
 }
 
@@ -276,15 +279,21 @@
   /* Mobile Styles */
   .create-button {
     padding: 8px;
-    font-size: 0.9em;
+    font-size: 1em;
   }
 
   .surprise-bag-card {
-    padding: 8px;
+    padding: 15px;
   }
 
   .surprise-bag-card p {
     font-size: 0.7em;
+    gap: 5px;
+    
+  }
+
+  .surprise-bag-card .price {
+    margin-top: 15px;
   }
 
   .modal {

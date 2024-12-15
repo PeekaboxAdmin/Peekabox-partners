@@ -2,29 +2,31 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  color: #FF80B4; /* Light text */
-  flex-wrap: wrap; /* Allow wrapping for mobile */
+  color: #FF80B4;
+  flex-wrap: wrap;
 }
 
 .logoheader {
   display: flex;
   align-items: center;
   border: 2px solid #FF80B4;
-  margin-right: 20px; /* Adjust margin for smaller screens */
+  margin-right: 20px;
 }
+
 
 .logo-text {
   color: #FF80B4;
-  font-size: 1.5rem; /* Optional: adjust font size for better appearance */
+  text-align: center;
+  font-size: 1.5rem;
   font-weight: bold;
-  padding: 5px; /* Adjust as needed or remove for less space around the letter */
+  padding: 5px;
 }
 
 .nav {
   display: flex;
   gap: 30px;
-  margin-left: 20px; /* Add margin to create space between logo and nav */
-  flex-wrap: wrap; /* Allow navigation items to wrap on smaller screens */
+  margin-left: 20px;
+  flex-wrap: wrap;
 }
 
 .nav-item {
@@ -35,11 +37,11 @@
 }
 
 .nav-item:hover {
-  color: #4CAF50; /* Hover color */
+  color: #4CAF50;
 }
 
 .search {
-  margin-left: auto; /* Pushes search to the far right */
+  margin-left: auto;
 }
 
 .search-input {
@@ -49,43 +51,72 @@
   border-radius: 20px;
 }
 
+/* Notification bell icon styles */
+.notification-bell {
+  display: none; /* Hidden by default */
+}
+
+.bell-icon {
+  font-size: 1.5rem;
+  color: #FF80B4;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.bell-icon:hover {
+  color: #4CAF50; /* Hover color */
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .mainheader {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Align items to the start */
+    display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spread items across the header */
+  padding: 10px 20px;
+  color: #FF80B4;
+  flex-wrap: nowrap; /* Prevent wrapping */
   }
 
   .logoheader {
-    margin-bottom: 10px; /* Add spacing between logo and nav for mobile */
+
   }
 
   .nav {
     display: none;
-
   }
 
   .search {
-    width: 100%; /* Take full width on smaller screens */
-    margin: 10px 0; /* Add spacing above and below */
+    display: none;
   }
 
   .search-input {
-    width: 100%; /* Full width input for mobile */
-    box-sizing: border-box; /* Ensure padding doesn't exceed width */
+    width: 100%;
+    box-sizing: border-box;
   }
+
+  /* Show notification bell on mobile */
+  .notification-bell {
+    display: block;
+  }
+
+  
 }
 
 @media (max-width: 480px) {
   .logo-text {
-    font-size: 1.2rem; /* Adjust font size for smaller screens */
+    font-size: 1.2rem;
   }
 
   .nav-item {
-    font-size: 0.9rem; /* Reduce font size for smaller screens */
+    font-size: 0.9rem;
   }
 
   .search-input {
-    font-size: 0.9rem; /* Adjust font size for the input */
+    font-size: 0.9rem;
+  }
+
+  .bell-icon {
+    font-size: 1.3rem; /* Adjust size for smaller screens */
   }
 }
