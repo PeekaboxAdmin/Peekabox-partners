@@ -5,6 +5,7 @@ import './StoreInfo.css';
 import Logo from './Images/food.jpg'
 import Header from './Header';
 import Sidebar from './Sidebar';
+import MobileSidebar from './SideBarMobile';
 
 // Type Definitions
 interface Address {
@@ -49,6 +50,7 @@ interface Store {
 // Main StoreInfo Component
 const StoreInfo: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
+   const [isMobile, setIsMobile] = useState(false); // State for mobile detection
 
   // Initial Hardcoded Data
   const [store, setStore] = useState<Store>({
@@ -132,8 +134,12 @@ const StoreInfo: React.FC = () => {
 
   return (
     <div className='store-Container-main'>
-      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
       <Header/>
+       {isMobile ? (
+                <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
+            ) : (
+                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+            )}
     <div className="store-container">
       <img src={Logo} alt="Store Logo" className="store-logo" />
 

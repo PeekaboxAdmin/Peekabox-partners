@@ -8,6 +8,7 @@ import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag'; // Import the CreateBagForm component
 import Header from './Header';
 import Sidebar from './Sidebar';
+import MobileSidebar from './SideBarMobile';
 
 type SurpriseBag = {
   id: number;
@@ -55,6 +56,7 @@ const SurpriseBoxManagement: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalBag, setModalBag] = useState<SurpriseBag | null>(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
+ const [isMobile, setIsMobile] = useState(false); // State for mobile detection
 
   const handleCreate = () => {
     setModalBag(null);
@@ -88,7 +90,11 @@ const SurpriseBoxManagement: React.FC = () => {
   return (
     <div className='surprise-bags-management-conatiner'>
     <Header/>
-    <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+    {isMobile ? (
+                <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
+            ) : (
+                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+            )}
     <div className="surprise-bags">
       <div className="Sbanner-image">
         <img src={Logo1} alt="Logo" className="banner-logo" />

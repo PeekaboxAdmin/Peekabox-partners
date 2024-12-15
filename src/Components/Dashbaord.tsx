@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBox, faShoppingCart, faClock ,faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faShoppingCart, faClock, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import './Dashbaord.css';
 import Header from './Header';
 import Logo from './Images/burger.jpg';
-import Picture1 from './Images/image2.jpg'
-import Picture3 from './Images/images.jpg'
-import Picture2 from './Images/picture1.jpg'
+import Picture1 from './Images/image2.jpg';
+import Picture3 from './Images/images.jpg';
+import Picture2 from './Images/picture1.jpg';
 
 import SalesChart from './SalesChart';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
-
+import Sidebar from './Sidebar'; // Desktop sidebar
+import MobileSidebar from './SideBarMobile'; // Mobile sidebar
 
 interface Order {
     id: number;
@@ -44,10 +44,25 @@ const Dashboard: React.FC<DashboardProps> = ({
     notifications,
     completedOrdersCount,
     unreadNotificationsCount,
-    markAsCompleted
+    markAsCompleted,
 }) => {
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false); // State for mobile detection
     const navigate = useNavigate(); // Initialize the useNavigate hook
+
+    // Handle screen resizing
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768); // Mobile breakpoint at 768px
+    };
+
+    // Set up event listener for resizing
+    useEffect(() => {
+        handleResize(); // Initial check
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize); // Cleanup on unmount
+        };
+    }, []);
 
     const toggleSidebar = () => {
         setSidebarExpanded(!sidebarExpanded);
@@ -55,9 +70,9 @@ const Dashboard: React.FC<DashboardProps> = ({
 
     // Mock data for the "Surprise Bags" section
     const surpriseBags = [
-        { title: "Chopsi Mystery", quantity: "3", price: "12.00", time: "Today 13:00 - 15:00", imgSrc: Picture1 },
-        { title: "Chowmein Pack", quantity: "6", price: "8.50", time: "Today  12:00 - 13:30", imgSrc: Picture2 },
-        { title: "Combo Pack", quantity: "4", price: "15.00", time: "Today 17:30 - 18:30", imgSrc: Picture3 },
+        { title: 'Chopsi Mystery', quantity: '3', price: '12.00', time: 'Today 13:00 - 15:00', imgSrc: Picture1 },
+        { title: 'Chowmein Pack', quantity: '6', price: '8.50', time: 'Today 12:00 - 13:30', imgSrc: Picture2 },
+        { title: 'Combo Pack', quantity: '4', price: '15.00', time: 'Today 17:30 - 18:30', imgSrc: Picture3 },
     ];
 
     const [activeMenu, setActiveMenu] = useState<number | null>(null);
@@ -66,14 +81,18 @@ const Dashboard: React.FC<DashboardProps> = ({
         setActiveMenu(activeMenu === id ? null : id);
     };
 
-
     return (
         <div className="dashboard">
             <Header />
-            <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+            {isMobile ? (
+                <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
+            ) : (
+                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+            )}
+
             <h1>Dashboard</h1>
 
-            <div className='first-grid'>
+            <div className="first-grid">
                 {/* Surprise Bags Section */}
                 <section className="dsurprise-bags">
                     <h2>Your Surprise Bags</h2>
@@ -85,22 +104,21 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 <img src={bag.imgSrc} alt={bag.title} className="dsurprise-bag-image" />
                                 <h3>{bag.title}</h3>
                                 <p>
-                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of 5 
+                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of 5
                                 </p>
 
                                 <div className="price-availability-container">
-                                 <p className='avail-info'>
-                                 <FontAwesomeIcon icon={faClock} /> Available - {bag.time}
-                                  </p>
-                                  <span className="price">
-                                  AED {bag.price}
-                                  </span>
-                                  </div>
-
+                                    <p className="avail-info">
+                                        <FontAwesomeIcon icon={faClock} /> Available - {bag.time}
+                                    </p>
+                                    <span className="price">AED {bag.price}</span>
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <button onClick={() => navigate('/surpriseBox')} className="seeall">All Surprise Boxes</button>
+                    <button onClick={() => navigate('/surpriseBox')} className="seeall">
+                        All Surprise Boxes
+                    </button>
                 </section>
 
                 {/* Notifications Section */}
@@ -110,7 +128,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         Unread Notifications: <span>{unreadNotificationsCount}</span>
                     </div>
                     <ul>
-                        {notifications.map(note => (
+                        {notifications.map((note) => (
                             <li
                                 key={note.id}
                                 className={`notification-item ${note.read ? 'read' : 'unread'}`}
@@ -125,7 +143,9 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </li>
                         ))}
                     </ul>
-                    <button onClick={() => navigate('/notifications')}  className="seeall">See all</button>
+                    <button onClick={() => navigate('/notifications')} className="seeall">
+                        See all
+                    </button>
                 </div>
             </div>
 
@@ -148,27 +168,52 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map(order => (
+                            {orders.map((order) => (
                                 <tr key={order.id}>
                                     <td>{order.customerName}</td>
                                     <td>{order.address}</td>
                                     <td>{order.datePlaced}</td>
                                     <td>{order.quantity}</td>
-                                    <td><span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span></td>
+                                    <td>
+                                        <span className={`badge ${order.status.toLowerCase()}`}>
+                                            {order.status}
+                                        </span>
+                                    </td>
                                     <td>
                                         <div className="action-menu-container">
-                                            <button
-                                                className="menu-btn"
-                                                onClick={() => toggleMenu(order.id)}
-                                            >
+                                            <button className="menu-btn" onClick={() => toggleMenu(order.id)}>
                                                 <FontAwesomeIcon icon={faEllipsisV} />
                                             </button>
                                             {activeMenu === order.id && (
                                                 <div className="action-menu">
-                                                    <button onClick={() => console.log(`Cancel Order ${order.id}`)}>Cancel</button>
-                                                    <button onClick={() => console.log(`Refund Order ${order.id}`)}>Refund</button>
-                                                    <button onClick={() => console.log(`Mark Order ${order.id} as Pending`)}>Pending</button>
-                                                    <button onClick={() => console.log(`Mark Order ${order.id} as Delivered`)}>Delivered</button>
+                                                    <button
+                                                        onClick={() =>
+                                                            console.log(`Cancel Order ${order.id}`)
+                                                        }
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            console.log(`Refund Order ${order.id}`)
+                                                        }
+                                                    >
+                                                        Refund
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            console.log(`Mark Order ${order.id} as Pending`)
+                                                        }
+                                                    >
+                                                        Pending
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            console.log(`Mark Order ${order.id} as Delivered`)
+                                                        }
+                                                    >
+                                                        Delivered
+                                                    </button>
                                                 </div>
                                             )}
                                         </div>
@@ -178,13 +223,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                         </tbody>
                     </table>
 
-                    <button onClick={() => navigate('/orderManagement')}  className="seeall">See All</button>
+                    <button onClick={() => navigate('/orderManagement')} className="seeall">
+                        See All
+                    </button>
                 </div>
-                
+
                 <div className="salesChart">
                     <SalesChart />
                 </div>
-
             </section>
         </div>
     );

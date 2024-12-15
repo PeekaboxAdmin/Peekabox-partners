@@ -31,7 +31,7 @@
   }
   
   /* Card Image */
-  .card-image {
+  .card-image{
     width: 100%;
     height: 120px;
     object-fit: cover;
@@ -218,5 +218,24 @@
     .nd-Grid {
       flex-direction: column;
     }
+
+     /* Card Styles */
+  .card {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Card Image */
+  .card-image {
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+  }
+
+  .create-bag-form-container {
+    margin-top: 600px
+    
+  }
+
+    
   }
   

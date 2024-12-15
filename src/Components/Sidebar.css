@@ -174,3 +174,21 @@ li > svg {
   background-color: transparent;
   color: green;
 }
+
+
+
+/* Responsivenss -------------------------------------------------------------*/
+/* General Mobile Adjustments */
+@media (max-width: 768px) {
+  .sideBar{
+    display: none;
+  }
+}
+
+/* Smaller screens (e.g., phones) */
+@media (max-width: 480px) {
+  .sideBar{
+    display: none;
+  }
+}
+
