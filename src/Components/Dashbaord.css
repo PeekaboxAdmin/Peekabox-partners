@@ -452,6 +452,7 @@
 
     .notification-card{
         padding: 10px;
+        width: 90%;
     }
 
     /* Notifications Section */
@@ -463,11 +464,24 @@
     .notification-item {
         flex-direction: column; /* Stack text and time vertically */
         align-items: flex-start;
+      
     }
 
-    .notification-item .notification-time {
-        margin-top: 5px;
+    .notification-icon{
+       margin-bottom: 10px;
+
     }
+
+    .notification-time {
+     margin-bottom: 10px;
+     margin-top: 10px;
+    }
+
+    .notification-item .badge{
+        display: none;
+    }
+
+  
 
     /* Order Management Table */
     .orderdash {
