@@ -15,8 +15,8 @@
 /* Filters Section */
 .filter-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-bottom: 20px;
     gap: 20px;
     flex-wrap: wrap;
@@ -263,4 +263,59 @@
 .pagination button:disabled {
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+
+@media (max-width: 769px) {
+
+    .feebackcontainer-main{
+        margin: 0;
+    }
+    
+/* Table Styling */
+.feedback-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    table-layout: fixed;
+}
+
+    /* Mobile Table Styling */
+    .feedback-table table,
+    .feedback-table thead,
+    .feedback-table tbody,
+    .feedback-table th,
+    .feedback-table td,
+    .feedback-table tr {
+        display: block; /* Make the table behave like blocks */
+        margin: 0;
+    }
+
+    .filter-search-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .feedback-table thead {
+        display: none; 
+    }
+
+    .feedback-table tbody td {
+        display: block; 
+        text-align: left;
+    }
+
+    .feedback-table td::before {
+        content: attr(data-label); /* Display the label from the data-label attribute */
+        font-weight: bold; /* Make the label stand out */
+        color: #555; /* Set a consistent label color */
+        flex: 1;
+        flex: 0 0 40%;
+        text-align: left;
+        display: inline-block; /* Ensure it behaves as a block for alignment */
+        margin-right: 10px; /* Add space between the label and the value */
+    }
+    
 }

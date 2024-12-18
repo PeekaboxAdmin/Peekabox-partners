@@ -49,13 +49,8 @@ const IncomePayment: React.FC = () => {
 
           <PieChartCard title="">
 
-      
          <BestSellingTable/>
-         
-            
           </PieChartCard>
-
-         {/*<TableCard title="Best-Selling Item Revenue" />*/}
         </div>
       </div>
     </div>

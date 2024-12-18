@@ -44,6 +44,12 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+  .Settings-container-m{
+    margin:0px;
+  }
+
+
   .title-left {
     font-size: 20px; /* Adjust title size for smaller screens */
     margin-left: 30px;
@@ -65,6 +71,11 @@
 }
 
 @media (max-width: 480px) {
+  .Settings-container-m{
+    margin:0px;
+  }
+
+  
   .Settings-container {
     padding: 10px; /* Reduce padding for small screens */
     gap: 15px; /* Adjust spacing */
@@ -88,6 +99,5 @@
   
  
   }
-
   
 }

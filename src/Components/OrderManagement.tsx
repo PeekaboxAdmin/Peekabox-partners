@@ -37,6 +37,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
     const ordersPerPage = 3;
+
     const filteredOrders = surpriseOrders
         .filter(order => 
             order.customerName.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -91,113 +92,95 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
 
     return (
         <div className='orderm-main-container'>
-            <Header/>
+            <Header />
             <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-        <div className="order-management">
-            <h3>Order Management</h3>
+            <div className="order-management">
+                <h3>Order Management</h3>
 
-            <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Search by name or address"
-                    value={searchText}
-                    onChange={handleSearchChange}
-                    style={{ padding: '8px', width: '200px' }}
-                />
-                <input
-                    type="date"
-                    name="startDate"
-                    value={startDate}
-                    onChange={handleDateChange}
-                    style={{ padding: '8px' }}
-                />
-                <input
-                    type="date"
-                    name="endDate"
-                    value={endDate}
-                    onChange={handleDateChange}
-                    style={{ padding: '8px' }}
-                />
-            </div>
+                {/* Filters */}
+                <div className="filters">
+                    <input
+                        type="text"
+                        placeholder="Search by name or address"
+                        value={searchText}
+                        onChange={handleSearchChange}
+                    />
+                    <input
+                        type="date"
+                        name="startDate"
+                        value={startDate}
+                        onChange={handleDateChange}
+                    />
+                    <input
+                        type="date"
+                        name="endDate"
+                        value={endDate}
+                        onChange={handleDateChange}
+                    />
+                </div>
 
-            <div className="card order-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Customer Name</th>
-                            <th>Address</th>
-                            <th>Order Date</th>
-                            <th>Quantity</th>
-                            <th>Pick-Up Time</th>
-                            <th>Receipt</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentOrders.map(order => (
-                             <tr key={order.id}>
-                             <td>
-                                 <input
-                                     type="checkbox"
-                                     id={`checkbox-${order.id}`}
-                                     value={order.id}
-                                     style={{ cursor: 'pointer' }}
-                                 />
-                             </td>
-                                <td>{order.customerName}</td>
-                                <td>{order.address}</td>
-                                <td>{order.datePlaced}</td>
-                                <td>{order.quantity}</td>
-                                <td>{order.pickUpTime}</td>
-                                <td>{order.receipt}</td>
-                                <td>
-                                <span className={`badge2 ${order.status.toLowerCase()}`}>{order.status}</span>
-                                </td>
-                                <td>
-                                    <div className="actions" style={{ position: 'relative' }}>
-                                        <button
-                                            onClick={() => toggleDropdown(order.id)}
-                                            className="action-btn"
-                                            style={{ background: 'transparent', color: 'black', border: 'none', cursor: 'pointer', fontSize: '20px' }}
-                                        >
+                {/* Table */}
+                <div className="card order-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Customer Name</th>
+                                <th>Address</th>
+                                <th>Order Date</th>
+                                <th>Quantity</th>
+                                <th>Pick-Up Time</th>
+                                <th>Receipt</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentOrders.map(order => (
+                                <tr key={order.id}>
+                                    <td data-label="Select">
+                                        <input type="checkbox" id={`checkbox-${order.id}`} />
+                                    </td>
+                                    <td data-label="Customer Name">{order.customerName}</td>
+                                    <td data-label="Address">{order.address}</td>
+                                    <td data-label="Order Date">{order.datePlaced}</td>
+                                    <td data-label="Quantity">{order.quantity}</td>
+                                    <td data-label="Pick-Up Time">{order.pickUpTime}</td>
+                                    <td data-label="Receipt">{order.receipt}</td>
+                                    <td data-label="Status">
+                                        <span className={`badge2 ${order.status.toLowerCase()}`}>{order.status}</span>
+                                    </td>
+                                    <td data-label="Actions">
+                                        <button onClick={() => toggleDropdown(order.id)} className="action-btn">
                                             •••
                                         </button>
                                         {dropdownOrderId === order.id && (
-                                            <div className="dropdown-menu" style={{ position: 'absolute', backgroundColor: 'black', border: '1px solid #ccc', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', zIndex: 1000, width: '150px', padding: '8px' }} ref={dropdownRef}>
-                                                <button onClick={() => { markAsCompleted(order.id); setDropdownOrderId(null); }} style={{ width: '100%', padding: '8px', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer' }}>Complete</button>
-                                                <button onClick={() => { markAsPending(order.id); setDropdownOrderId(null); }} style={{ width: '100%', padding: '8px', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer' }}>Pending</button>
-                                                <button onClick={() => { cancelAndRefund(order.id); setDropdownOrderId(null); }} style={{ width: '100%', padding: '8px', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer' }}>Cancel and Refund</button>
+                                            <div className="dropdown-menu" ref={dropdownRef}>
+                                                <button onClick={() => markAsCompleted(order.id)}>Complete</button>
+                                                <button onClick={() => markAsPending(order.id)}>Pending</button>
+                                                <button onClick={() => cancelAndRefund(order.id)}>Cancel and Refund</button>
                                             </div>
                                         )}
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
 
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', gap: '8px' }}>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => paginate(index + 1)}
-                            style={{
-                                padding: '8px 12px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                backgroundColor: currentPage === index + 1 ? '#333' : '#f4f4f4',
-                                color: currentPage === index + 1 ? '#fff' : '#333',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
+                    {/* Pagination */}
+                    <div className="pagination-controls">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => paginate(index + 1)}
+                                className={currentPage === index + 1 ? 'active' : ''}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };

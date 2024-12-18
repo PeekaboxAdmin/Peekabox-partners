@@ -75,7 +75,7 @@
   justify-content: space-between; /* Spread items across the header */
   padding: 10px 20px;
   color: #FF80B4;
-  flex-wrap: nowrap; /* Prevent wrapping */
+  flex-wrap: wrap;
   }
 
   .logoheader {
@@ -91,8 +91,7 @@
   }
 
   .search-input {
-    width: 100%;
-    box-sizing: border-box;
+    display: none;
   }
 
   /* Show notification bell on mobile */
@@ -117,6 +116,6 @@
   }
 
   .bell-icon {
-    font-size: 1.3rem; /* Adjust size for smaller screens */
+    font-size: 1.3rem; 
   }
 }

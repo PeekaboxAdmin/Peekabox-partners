@@ -99,8 +99,19 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Main Container */
+.income-payment-container {
+  margin: 0;
+}
   .income-payment-summary-cards,
   .income-payment-main-content {
     flex-direction: column;
+  }
+
+  .income-payment-left-panel,
+  .income-payment-right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
   }
 }

@@ -135,11 +135,11 @@ const StoreInfo: React.FC = () => {
   return (
     <div className='store-Container-main'>
       <Header/>
-       {isMobile ? (
+    
                 <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
-            ) : (
+          
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-            )}
+            
     <div className="store-container">
       <img src={Logo} alt="Store Logo" className="store-logo" />
 

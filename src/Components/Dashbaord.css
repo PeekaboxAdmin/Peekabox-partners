@@ -3,7 +3,6 @@
     position: relative;
     margin-left: 150px;
     margin-top: 20px;
-    margin-right: 20px;
     margin-bottom: 20px;
 }
 
@@ -430,6 +429,11 @@
         margin-right: 30px;
     }
 
+    .dashboard h1{
+        font-size: 1.2rem;
+    }
+
+
    .mobile-sidebar{
     display: block;
    }
@@ -533,6 +537,7 @@
     .dsurprise-bag-card h3 {
         font-size: 1em; /* Smaller font size for headings */
     }
+
 
     .dsurprise-bag-card p {
         font-size: 10px; /* Smaller font for descriptions */

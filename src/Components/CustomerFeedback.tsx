@@ -105,7 +105,7 @@ const CustomerFeedback: React.FC = () => {
 
                 <div className="search-container">
                     <input type="text" placeholder="Search" />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                  
                 </div>
             </div>
 
@@ -134,12 +134,12 @@ const CustomerFeedback: React.FC = () => {
                 />
             </td>
 
-                            <td>{review.customerName}</td>
-                            <td>{review.orderNumber}</td>
-                            <td>{review.surpriseBag}</td>
-                            <td>{review.date}</td>
-                            <td>{review.time}</td>
-                            <td className="rating-cell">
+                            <td data-label="Customer Name">{review.customerName}</td>
+                            <td data-label="Order Number">{review.orderNumber}</td>
+                            <td data-label="Review">{review.surpriseBag}</td>
+                            <td data-label="Date">{review.date}</td>
+                            <td data-label="Time">{review.time}</td>
+                            <td data-label="Rating cells" className="rating-cell">
                                 {[...Array(5)].map((_, i) => (
                                     <FontAwesomeIcon
                                         key={i}

@@ -176,3 +176,27 @@
   border-radius: 10px;
   margin-top: 10px;
 }
+
+
+
+
+@media (max-width: 769px) {
+
+  .store-Container-main{
+    margin: 0;
+  }
+
+  .flex-grid h3{
+    display: none;
+  }
+
+  .flex-grid {
+    grid-template-columns: 1fr; /* Creates two equal-width columns */
+  }
+
+  .store-details h2{
+    margin-top: 30px;
+  }
+
+
+}

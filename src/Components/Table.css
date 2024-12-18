@@ -111,7 +111,7 @@
 }
 
 /* Action Button for Dropdown */
-.actions .action-btn {
+.action-btn {
     background: transparent;
     color: #333;
     border: none;
@@ -128,9 +128,7 @@
     position: absolute;
     background-color: #333;
     color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: none;
     padding: 8px;
     width: 150px;
     z-index: 1000;
@@ -139,7 +137,7 @@
 .dropdown-menu button {
     background: none;
     border: none;
-    color: #fff;
+    color: black;
     padding: 8px;
     width: 100%;
     text-align: left;
@@ -148,7 +146,7 @@
 }
 
 .dropdown-menu button:hover {
-    background-color: #444;
+    background-color: gainsboro;
 }
 
 /* Pagination Controls */
@@ -183,6 +181,11 @@
     .order-management {
         padding: 10px;
     }
+
+    .orderm-main-container{
+    margin-left: 0px;
+    margin-top: 10px;
+}
 
     .filters {
         flex-direction: column;
@@ -223,31 +226,61 @@
 }
 
 /* For Tablets (max-width: 1024px) */
-@media (max-width: 1024px) and (min-width: 769px) {
+@media (max-width: 769px) {
     .order-management {
         padding: 15px;
     }
 
-    .filters {
-        flex-direction: row;
-        gap: 10px;
-        justify-content: flex-start; /* Left align filters */
-    }
+    /* Mobile Table Styling */
+.order-table table,
+.order-table thead,
+.order-table tbody,
+.order-table th,
+.order-table td,
+.order-table tr {
+    display: block; /* Make the table behave like blocks */
+}
 
-    .filters input[type="text"],
-    .filters input[type="date"] {
-        width: 200px; /* Adjust width for tablet screens */
-    }
+.order-table tr {
+    border: 1px solid #ddd;
+    margin-bottom: 15px; /* Space between rows */
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 10px;
+}
 
-    .order-table {
-        padding: 15px;
-    }
 
-    .order-table table th,
-    .order-table table td {
-        padding: 10px;
-        font-size: 0.9em;
-    }
+.order-table td {
+    display: flex; /* Align label and value */
+    justify-content: flex-start; /* Align content to the left */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 8px; /* Small spacing between label and value */
+    padding: 8px 0;
+    text-align: left; /* Align text to the left */
+    font-size: 0.9em;
+    border-bottom: 1px solid #eee;
+}
+
+.order-table td:last-child {
+    border-bottom: none; /* Remove border from last cell */
+}
+
+.order-table td::before {
+    content: attr(data-label); /* Dynamically show the label */
+    font-weight: bold;
+    color: #555;
+    flex: 1;
+    flex: 0 0 40%; /* Reserve 40% width for the label */
+    text-align: left; /* Ensure label text is also aligned left */
+}
+
+.feedback-table th{
+    display: none;
+}
+
+.order-table td {
+    position: relative; /* Ensures dropdown stays within its container */
+}
 
     .dropdown-menu {
         width: 120px;
@@ -259,7 +292,7 @@
 }
 
 /* For Laptops (min-width: 1025px) */
-@media (min-width: 1025px) {
+@media (min-width: 480px) {
     .filters {
         flex-direction: row;
         gap: 15px;
@@ -283,5 +316,42 @@
 
     .pagination-controls button {
         font-size: 1.1em;
+    }
+
+    .order-management h3 {
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
+        margin-left: 20px;
+    }
+}
+
+
+
+/* For Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .filters {
+        justify-content: flex-start; /* Maintain left alignment */
+        gap: 10px;
+        margin-left: 20px;
+    }
+    .order-management h3 {
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
+        margin-left: 20px;
+    }
+}
+
+/* For Laptops (min-width: 1025px) */
+@media (min-width: 1025px) {
+    .filters {
+        justify-content: flex-start; /* Always align filters to the left */
+        gap: 15px;
+        margin-left: 20px;
+    }
+
+    .order-management h3 {
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
+        margin-left: 20px;
     }
 }

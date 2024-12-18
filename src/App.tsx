@@ -11,7 +11,6 @@ import SignupForm from './pages/SignupForm';
 import Setting from './pages/Setting/Setting';
 
 import NotificationPage from './pages/NotifcationPage/NotifcationPage';
-import HomePage from './InformationWebsite/HomePage';
 import './App.css';
 
 
@@ -123,7 +122,6 @@ const AppContent: React.FC = () => {
                     <Route path="/incomePayment" element={<IncomeAndPayment />} />
                     <Route path="/userManagement" element={<Setting />} />
                     <Route path="/signup/*" element={<SignupForm />} />
-                    <Route path="/HomePage" element={<HomePage />} />
                     <Route path="/notifications" element={<NotificationPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
