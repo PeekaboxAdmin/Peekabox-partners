@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import Button from '../../../Components/Button/Button';
+import Input from '../../../Components/Input/Input';
 export interface SurpriseBagData {
   name: string;
   category: string;
@@ -57,20 +58,22 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
   };
 
   return (
-    <div style={{ padding: '10px 0' }}>
-      <input
+    <div className="space-y-4">
+      <Input
         type="text"
         placeholder="Surprise Bag Name"
         value={bag.name}
         onChange={(e) => onChange('name', e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       />
-      <label htmlFor="category">Category</label>
+      <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
       <select
         id="category"
         value={bag.category}
         onChange={(e) => onChange('category', e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         <option value="">Select a category</option>
         <option value="Meals">Meals</option>
@@ -82,11 +85,13 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
         placeholder="Description"
         value={bag.description}
         onChange={(e) => onChange('description', e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       />
       <select
         value={bag.price}
         onChange={(e) => onChange('price', parseFloat(e.target.value))}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         <option value="">Select Price</option>
         {priceOptions.map((option, index) => (
@@ -95,55 +100,75 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
           </option>
         ))}
       </select>
-      <label htmlFor="quantity">Quantity</label>
-      <input
-        id="quantity"
+      <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
+      <Input
+
         type="number"
         placeholder="Quantity"
         value={quantity}
         onChange={HandleQuantity}
         onKeyDown={(e) => e.key === '-' && e.preventDefault()}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       />
-
       <div>
-        <h3>Collection Days</h3>
+        <h3 className="text-lg font-medium">Collection Days</h3>
         {DaysOFtheWeek.map((day, index) => (
-          <div key={index}>
-            <label>
-              <input
-                type="checkbox"
-                checked={bag.CollectionDays.includes(day)}
-                onChange={() => HandleDayChange(day)}
-              />
-              {day}
-            </label>
-            {/* Time Range Inputs */}
+          <div key={index} className="space-y-2">
+            <label className="flex items-center space-x-2">
+  <input
+    type="checkbox"
+    checked={bag.CollectionDays.includes(day)}
+    onChange={() => HandleDayChange(day)}
+    className="h-4 w-4 bg-white border-2 border-gray-300 checked:bg-pink-500 checked:border-pink-500 focus:ring-0"
+  />
+  <span>{day}</span>
+</label>
+
+
             {bag.CollectionDays.includes(day) && (
-              <div style={{ display: 'flex', gap: '10px', marginLeft: '20px' }}>
+              <div className="flex gap-4 ml-6">
                 <input
                   type="time"
                   value={bag.CollectionTime[day]?.start || ''}
                   onChange={(e) => HandleTime(day, 'start', e.target.value)}
                   placeholder="Start Time"
+                  className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
                 <input
                   type="time"
                   value={bag.CollectionTime[day]?.end || ''}
                   onChange={(e) => HandleTime(day, 'end', e.target.value)}
                   placeholder="End Time"
+                  className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
               </div>
             )}
           </div>
         ))}
       </div>
-      <label htmlFor="bannerImage">Banner Image</label>
+      <label htmlFor="bannerImage" className="block text-sm font-medium text-gray-700">Banner Image</label>
       <input
         type="file"
         onChange={(e) => onChange('bannerImage', e.target.files ? e.target.files[0] : null)}
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       />
-      <button type="button" className="delete-button" onClick={onDelete}>Delete Surprise Bag</button>
+
+
+
+      <Button label='Delete Surprise Bag'
+        className="mt-4 bg-DarkGreen text-white py-2 px-4 ml-2 rounded-md hover:bg-DarkGreen focus:outline-none"
+        onClick={onDelete}
+
+      type="button"
+
+
+  />
+
+
+
+
+
     </div>
   );
 };

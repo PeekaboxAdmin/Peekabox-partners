@@ -49,7 +49,9 @@ const VerifyEmail: React.FC = () => {
             value={verificationCode} 
             onChange={setVerificationCode} 
           />
-          <Button label="Verify" loading={loading}  className='Green-button' />
+          <div className='login-button-container'>
+                    <Button label="Verify" loading={loading}  className='Green-button' />
+          </div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         

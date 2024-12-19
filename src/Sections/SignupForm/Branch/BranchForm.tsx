@@ -1,8 +1,12 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import BranchDetails, { BranchData } from './BranchDetails';
 import { SurpriseBagData } from '../SurpriseBag/SurpriseBagForm';
+
+import Button from "../../../Components/Button/Button";
+import Triangle from '../../../Components/Triangle/Triangle';
+import HeaderBar from '../../../Components/HeaderBar/HeaderBar';
 
 const storeTypes = [
   'Restaurant',
@@ -22,6 +26,22 @@ const storeTypes = [
 
 const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[]) => void }> = ({ totalStores, onNext }) => {
   const navigate = useNavigate();
+
+  const HandleBack=()=>{
+    navigate('/signup/brandform')
+
+}
+
+const HandleNext=()=>{
+  navigate('/')
+
+}
+
+
+
+
+
+
   const [branches, setBranches] = useState<BranchData[]>(Array.from({ length: totalStores }, () => ({
     branchName: '',
     managerName: '',
@@ -82,7 +102,6 @@ const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[
     console.log('Branches Data:', branches);
     onNext(branches);
 
-
     localStorage.removeItem('brandName');
     localStorage.removeItem('email');
     localStorage.removeItem('businessRegNum');
@@ -96,25 +115,48 @@ const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Branches</h2>
-      {branches.map((branch, index) => (
-        <BranchDetails
-          key={index}
-          branch={branch}
-          index={index}
-          expanded={expandedBranches[index]}
-          storeTypes={storeTypes}
-          onBranchChange={(field, value) => handleBranchChange(index, field, value)}
-          onSurpriseBagChange={(bagIndex, field, value) => handleSurpriseBagChange(index, bagIndex, field, value)}
-          addSurpriseBag={() => addSurpriseBag(index)}
-          deleteSurpriseBag={(bagIndex) => deleteSurpriseBag(index, bagIndex)}
-          toggleBranchExpansion={() => toggleBranchExpansion(index)}
-        />
-      ))}
-      <button type="button" onClick={() => navigate('/brand')}>Back</button>
-      <button type="submit">Submit & Join</button>
-    </form>
+       <div className="space-y-4">
+    <Triangle>
+      <form onSubmit={handleSubmit}>
+        <div className="w-full flex justify-center">
+          <div className="w-full max-w-4xl">
+            <HeaderBar>
+            Add Branches
+            </HeaderBar>
+          </div>
+        </div>
+
+        {branches.map((branch, index) => (
+          <div key={index} className="mb-6">
+            <BranchDetails
+              branch={branch}
+              index={index}
+              expanded={expandedBranches[index]}
+              storeTypes={storeTypes}
+              onBranchChange={(field, value) => handleBranchChange(index, field, value)}
+              onSurpriseBagChange={(bagIndex, field, value) => handleSurpriseBagChange(index, bagIndex, field, value)}
+              addSurpriseBag={() => addSurpriseBag(index)}
+              deleteSurpriseBag={(bagIndex) => deleteSurpriseBag(index, bagIndex)}
+              toggleBranchExpansion={() => toggleBranchExpansion(index)}
+            />
+          </div>
+        ))}
+
+        <div className="flex justify-end space-x-4 mt-4 px-4 pb-4">
+          <Button label="Back"
+            className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md transition duration-200"
+            onClick={HandleBack}/>
+
+          <Button label="Submit & Join"
+            className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"
+            type="submit"
+            onClick={HandleNext} />
+        </div>
+
+
+      </form>
+      </Triangle>
+      </div>
   );
 };
 
