@@ -412,6 +412,42 @@
     background-color: #f5f5f5;
 }
 
+.quantityb-btn {
+    background-color: #ff80b4;
+    color: white;
+    border: none;
+    padding: 4px 8px; /* Reduced padding */
+    font-size: 10px; /* Smaller font size */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quantityb-btn:hover {
+    background-color: #ff80b4;
+}
+
+.quantityb-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.quantityb-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Add spacing between buttons and number */
+}
+
+.quantityb-controls span {
+    font-size: 12px; /* Optionally reduce the span font size */
+    font-weight: bold;
+    color: #333;
+    min-width: 20px;
+    text-align: center;
+}
+
+
+
 
 
 
