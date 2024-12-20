@@ -4,6 +4,7 @@
   padding: 10px 20px;
   color: #FF80B4;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .logoheader {
@@ -67,19 +68,30 @@
   color: #4CAF50; /* Hover color */
 }
 
-/* Responsive styles */
+/* Responsive styles for mobile */
 @media (max-width: 768px) {
   .mainheader {
-    display: flex;
+    position: sticky; /* Sticks the header at the top while scrolling */
+  top: 0; /* Ensures it stays at the top */
+  z-index: 1000; /* Ensures it is above other elements */
+  background-color: white; /* Add a background color if needed */
+  display: flex;
   align-items: center;
-  justify-content: space-between; /* Spread items across the header */
   padding: 10px 20px;
   color: #FF80B4;
   flex-wrap: wrap;
+  height: 50px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for emphasis */
   }
 
-  .logoheader {
-
+  .logo-text {
+    position: fixed;
+    left: 50%; /* Center horizontally */
+    border: 2px solid #FF80B4;
+    top: 18px; /* Adjust vertical position as needed */
+    transform: translateX(-50%); /* Center horizontally using transform */
+    z-index: 999; /* Ensure it's above other elements */
+    font-size: 1.2rem; /* Adjust font size if necessary */
   }
 
   .nav {
@@ -90,21 +102,25 @@
     display: none;
   }
 
-  .search-input {
-    display: none;
-  }
-
   /* Show notification bell on mobile */
   .notification-bell {
     display: block;
+    position: fixed;
+    right: 20px; /* Fixed to the right */
+    top: 25px; /* Adjust as needed */
+    z-index: 1000; /* Ensure it is above other elements */
   }
-
-  
 }
 
 @media (max-width: 480px) {
   .logo-text {
-    font-size: 1.2rem;
+    position: fixed;
+    left: 50%; /* Center horizontally */
+    border: 2px solid #FF80B4;
+    top: 18px; /* Adjust vertical position as needed */
+    transform: translateX(-50%); /* Center horizontally using transform */
+    z-index: 999; /* Ensure it's above other elements */
+    font-size: 1.2rem; /* Adjust font size if necessary */
   }
 
   .nav-item {
@@ -119,3 +135,7 @@
     font-size: 1.3rem; 
   }
 }
+
+
+
+

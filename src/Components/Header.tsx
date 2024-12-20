@@ -25,11 +25,6 @@ const Header: React.FC = () => {
         <a href="#" className="nav-item">FAQ</a>
       </nav>
 
-      {/* Search bar */}
-      <div className="search">
-        <input type="text" placeholder="Search..." className="search-input" />
-      </div>
-
       {/* Notification bell for mobile view */}
       <div className="notification-bell">
         <Link to="/notifications">

@@ -14,15 +14,14 @@
     background: transparent; /* Pink */
     border: none;
     border-radius: 5px;
-    color: black;
+    color: #FF80B4;
     font-size: 18px;
     padding: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .mhamburger-btn:hover {
-    background: #d7a7be;
+    background: rgb(241, 241, 241);
 }
 
 .msidebar-title{

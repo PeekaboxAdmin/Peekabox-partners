@@ -460,13 +460,16 @@
 @media (max-width: 768px) {
     /* Dashboard container */
     .dashboard {
-        margin-left: 30px;
-        margin-top: 10px;
-        margin-right: 30px;
+      margin: 0;
     }
 
     .dashboard h1{
         font-size: 1.2rem;
+        margin-left: 30px;
+    }
+
+    .first-grid {
+        margin: 30px;
     }
 
 

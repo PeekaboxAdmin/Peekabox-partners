@@ -230,8 +230,7 @@
 @media (max-width: 768px) {
   /* Tablet Styles */
   .surprise-bags-management-conatiner {
-    margin-left: 10px;
-    margin-top: 10px;
+    margin: 0;
     overflow-y: auto;
   }
   .surprise-bags {
