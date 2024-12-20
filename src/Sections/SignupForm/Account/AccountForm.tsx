@@ -61,7 +61,9 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
               Already registered? <Link to="/signup/login">Sign in</Link>
             </div>
           </div>
-          <Button label="Continue" loading={loading} className='Green-button' />
+          <div className='login-button-container'>
+           <Button label="Continue" loading={loading} className='Green-button' />
+          </div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         <Separator />

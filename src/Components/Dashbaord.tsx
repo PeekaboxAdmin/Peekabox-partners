@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBox, faShoppingCart, faClock, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faShoppingCart, faClock, faEllipsisV, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './Dashbaord.css';
 import Header from './Header';
 import Logo from './Images/burger.jpg';
@@ -69,11 +69,11 @@ const Dashboard: React.FC<DashboardProps> = ({
     };
 
     // Mock data for the "Surprise Bags" section
-    const surpriseBags = [
-        { title: 'Chopsi Mystery', quantity: '3', price: '12.00', time: 'Today 13:00 - 15:00', imgSrc: Picture1 },
-        { title: 'Chowmein Pack', quantity: '6', price: '8.50', time: 'Today 12:00 - 13:30', imgSrc: Picture2 },
-        { title: 'Combo Pack', quantity: '4', price: '15.00', time: 'Today 17:30 - 18:30', imgSrc: Picture3 },
-    ];
+    const [surpriseBags, setSurpriseBags] = useState([
+        { id: 1, title: 'Chopsi Mystery', quantity: 3, price: '12.00', time: 'Today 13:00 - 15:00', imgSrc: Picture1 },
+        { id: 2, title: 'Chowmein Pack', quantity: 6, price: '8.50', time: 'Today 12:00 - 13:30', imgSrc: Picture2 },
+        { id: 3, title: 'Combo Pack', quantity: 4, price: '15.00', time: 'Today 17:30 - 18:30', imgSrc: Picture3 },
+    ]);
 
     const [activeMenu, setActiveMenu] = useState<number | null>(null);
 
@@ -81,14 +81,24 @@ const Dashboard: React.FC<DashboardProps> = ({
         setActiveMenu(activeMenu === id ? null : id);
     };
 
+    // Update the quantity of a specific surprise bag
+    const updateQuantity = (id: number, delta: number) => {
+        setSurpriseBags(prevBags =>
+            prevBags.map(bag => {
+                if (bag.id === id) {
+                    const newQuantity = bag.quantity + delta;
+                    return { ...bag, quantity: newQuantity > 0 ? newQuantity : 0 }; // Ensure quantity does not go below 0
+                }
+                return bag;
+            })
+        );
+    };
+
     return (
         <div className="dashboard">
             <Header />
-            
-               {/* <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/> */}
-           
-                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-            
+
+            <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
             <h1>Dashboard</h1>
 
@@ -104,8 +114,20 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 <img src={bag.imgSrc} alt={bag.title} className="dsurprise-bag-image" />
                                 <h3>{bag.title}</h3>
                                 <p>
-                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of 5
+                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of {bag.quantity}
                                 </p>
+                                <div className="quantityb-controls">
+                                    <p>
+                                        <FontAwesomeIcon icon={faBox} /> Items:
+                                    </p>
+                                    <button onClick={() => updateQuantity(bag.id, -1)} className="quantityb-btn">
+                                        <FontAwesomeIcon icon={faMinus} />
+                                    </button>
+                                    <span>{bag.quantity}</span>
+                                    <button onClick={() => updateQuantity(bag.id, 1)} className="quantityb-btn">
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    </button>
+                                </div>
 
                                 <div className="price-availability-container">
                                     <p className="avail-info">

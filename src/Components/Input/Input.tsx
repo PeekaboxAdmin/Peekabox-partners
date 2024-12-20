@@ -1,13 +1,15 @@
 import React from 'react';
 
 interface InputProps {
-  type?: string; // The type of the input, e.g., "text", "email", "password"
-  value: string; // The value of the input
+  type?: 'text' | 'email' | 'password' | 'number' | 'file' | 'url' | 'tel' | 'date' | 'time'; // Restrict to valid input types
+  value: string | number; // Allow both string and number values
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Event handler for input changes
   placeholder?: string; // Placeholder text
   label?: string; // Optional label for the input
   className?: string; // Optional class name for styling
   disabled?: boolean; // Optional flag to disable the input
+  required?: boolean; // Optional flag to make the input required
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void; // Optional onKeyDown handler
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +20,8 @@ const Input: React.FC<InputProps> = ({
   label,
   className,
   disabled = false,
+  required = false,
+  onKeyDown,
 }) => {
   return (
     <div className={`input-container ${className || ''}`}>
@@ -29,6 +33,8 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         className="input-field"
         disabled={disabled}
+        required={required}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

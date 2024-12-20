@@ -36,7 +36,7 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
 
     if (isPasswordValid(password)) {
      {/* navigate('/signup/account'); */}
-     navigate('/signup/brand1');
+     navigate('/signup/Created-Account');
     } else {
       setErrorMessage(
         "Password must be at least 12 characters long and contain at least one number and one letter."
@@ -72,7 +72,9 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
           </div>
           <PasswordCriteria />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          <Button label="Continue"  className='Green-button'  />
+          <div className='login-button-container'>
+                    <Button label="Continue"  className='Green-button'  />
+                    </div>
         </form>
       </div>
     </div>

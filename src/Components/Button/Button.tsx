@@ -6,23 +6,31 @@ import './Button.css'
 interface CustomButtonProps {
   label: string;
   loading?: boolean;
-  className?:string;
-  onClick?: () => void; // Optional onClick handler
+  className?: string;
+  type?: "button" | "submit" | "reset"; // Optional type prop
+  onClick?: () => void;
 }
 
-const Button: React.FC<CustomButtonProps> = ({ label, loading ,className, onClick}) => {
+const Button: React.FC<CustomButtonProps> = ({
+  label,
+  loading = false,
+  className,
+  type, // Optional, no default value
+  onClick,
+}) => {
   return (
-    <div className="login-button-container">
+    //<div className="login-button-container">
       <button
-        type="submit"
+        type={type || undefined} // Pass 'type' only if it's provided
         disabled={loading}
         className={className}
         onClick={onClick}
       >
-        {loading ? 'Loading...' : label}
+        {loading ? "Loading..." : label}
       </button>
-    </div>
+    //</div>
   );
 };
 
 export default Button;
+

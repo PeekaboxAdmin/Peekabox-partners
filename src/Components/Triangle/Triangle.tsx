@@ -1,13 +1,9 @@
-import React,  { PropsWithChildren } from "react";
-import "./Triangle.css";
+import React, { PropsWithChildren } from "react";
 
-const Triangle: React.FC<PropsWithChildren> = ({children}) => {
+const Triangle: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="triangle-container">
-    
-      
-    {children}
-      
+    <div className="max-w-4xl mx-auto p-0 bg-white shadow-md rounded-lg">
+      {children}
     </div>
   );
 };
