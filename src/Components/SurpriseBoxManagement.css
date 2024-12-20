@@ -90,10 +90,10 @@
 }
 
 .surprise-bags-container {
-  display: flex;
-  gap: 16px;
+  display: grid; /* Switch from flex to grid */
+  grid-template-columns: repeat(3, 1fr); /* Create exactly 3 columns of equal width */
+  gap: 16px; /* Add spacing between grid items */
   margin-left: 20px;
-  overflow-x: auto;
   padding-bottom: 10px;
 }
 
@@ -239,9 +239,9 @@
     margin: 10px;
   }
 
-  .surprise-bags-container {
+  .surprise-bags-container{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 3fr));
     gap: 12px;
   }
 
