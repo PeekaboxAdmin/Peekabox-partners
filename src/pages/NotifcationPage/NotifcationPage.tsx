@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Filter from "../../Components/Filter/Filter";
 import NotificationList from '../../Sections/NotificationsPage/NotificationList '
 import Pagination from "../../Components/Pagination/Pagination";
+import Header from "../../Components/Header";
+import Sidebar from "../../Components/Sidebar";
 
 type Notification = {
   id: number;
@@ -59,7 +61,15 @@ const NotificationPage = () => {
     setCurrentPage(page);
   };
 
+    const [sidebarExpanded, setSidebarExpanded] = useState(false);
+      const toggleSidebar = () => {
+          setSidebarExpanded(!sidebarExpanded);
+      };
+
   return (
+    <div className={`flex flex-col ${sidebarExpanded ? 'ml-64' : 'ml-0'}`}>
+      <Header/>
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
     <div className="flex flex-col md:flex-row gap-4 p-4">
       <div className="md:w-1/4 bg-gray-100 p-4 rounded-md">
       
@@ -87,6 +97,7 @@ const NotificationPage = () => {
           onPageChange={handlePageChange}
         />
       </div>
+    </div>
     </div>
   );
 };

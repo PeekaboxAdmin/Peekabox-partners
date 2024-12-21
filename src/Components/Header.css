@@ -106,7 +106,7 @@
   .notification-bell {
     display: block;
     position: fixed;
-    right: 20px; /* Fixed to the right */
+    right: 25px; /* Fixed to the right */
     top: 25px; /* Adjust as needed */
     z-index: 1000; /* Ensure it is above other elements */
   }
