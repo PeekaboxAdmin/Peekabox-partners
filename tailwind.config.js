@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
+
+
+
+
 module.exports = {
   content: [
     "./src/Components/Filter/**/*.{js,ts,jsx,tsx}", // Scan all files in the Filter folder
@@ -12,7 +16,13 @@ module.exports = {
    "./src/Sections/SignupForm/Branch/BranchForm.tsx",
    "./src/Sections/SignupForm/Branch/BranchDetails.tsx",
    "./src/Sections/SignupForm/SurpriseBag/SurpriseBagForm.tsx",
-   "./src/pages/AccountPage.tsx"
+   "./src/Sections/Notification/Notification.tsx",
+   "./src/Sections/Privacy/Privcay.tsx",
+   "./src/Sections/Language/Language.tsx",
+   "./src/pages/Setting/Setting.tsx",
+   "./src/Components/Switch.tsx",
+   "./src/Sections/Privacy/ExportControls.tsx",
+    "./src/Sections/PaymentDetails.tsx",
 
 
   ],

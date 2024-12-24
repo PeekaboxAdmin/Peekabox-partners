@@ -1,43 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import NotificationSettings from '../../Sections/Notification/Notification';
-import LanguageSettings from '../../Sections/Language/Language';
 import PrivacySettings from '../../Sections/Privacy/Privcay';
+import LanguageSettings from '../../Sections/Language/Language';
+import PaymentDetails from '../../Sections/PaymentDetails';
 import Button from '../../Components/Button/Button';
-import './Setting.css';
 import Sidebar from '../../Components/Sidebar';
 import Header from '../../Components/Header';
-import { useState } from 'react';
+import '../../Components/Sidebar.css'
 
-const Setting: React.FC = () => {
+const SettingsPage: React.FC = () => {
 
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
 };
-
   return (
-    <div className="Settings-container-m">
-      <Header/>
-      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-    <div className="Settings-container">
-      <div className="title-left">Settings</div>
-      
-      <NotificationSettings />
-      <div className="separator-line" /> 
+      <div className="main-container">
+        <div className="max-w-6xl mx-auto px-4 py-8">
+        <Header/>
+        <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
-      <PrivacySettings />
-      <div className="separator-line" /> 
+          <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6">
 
-      <LanguageSettings />
-      <div className="button-container">
-        <Button label="Cancel" className="white-button" />
-        <Button label="Save" className="bink-button" />
+            <h1 className="text-2xl font-semibold mb-6 ml-1">Settings</h1>
+
+            <NotificationSettings />
+            <hr className="border-gray-200 my-8" />
+
+            <PrivacySettings />
+            <hr className="border-gray-200 my-8" />
+
+            <LanguageSettings />
+            <hr className="border-gray-200 my-8" />
+
+            <PaymentDetails />
+
+            <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
+              <Button
+                label="Save Changes"
+                className="w-full sm:w-auto px-4 py-2 bg-pinkCustom text-white border-2 border-pinkCustom rounded-lg hover:bg-bg-pinkCustom hover:border-pinkCustom transition-colors"
+              />
+              <Button
+                label="Cancel"
+                className="w-full sm:w-auto px-4 py-2 bg-white border border-pinkCustom rounded-lg text-pinkCustom hover:bg-gray-50 transition-colors"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-  );
+    );
 };
 
-export default Setting;
+export default SettingsPage;
