@@ -115,3 +115,11 @@
     overflow-x: auto;
   }
 }
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  /* Main Container */
+.income-payment-container {
+  margin: 0;
+}
+}

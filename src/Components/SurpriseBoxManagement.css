@@ -90,10 +90,10 @@
 }
 
 .surprise-bags-container {
-  display: flex;
-  gap: 16px;
+  display: grid; /* Switch from flex to grid */
+  grid-template-columns: repeat(3, 1fr); /* Create exactly 3 columns of equal width */
+  gap: 16px; /* Add spacing between grid items */
   margin-left: 20px;
-  overflow-x: auto;
   padding-bottom: 10px;
 }
 
@@ -134,7 +134,7 @@
 
 .surprise-bag-card p {
   font-size: 0.9em;
-  color: #555;
+  color: black;
   margin: 5px 0;
   display: flex;
   align-items: center;
@@ -230,8 +230,7 @@
 @media (max-width: 768px) {
   /* Tablet Styles */
   .surprise-bags-management-conatiner {
-    margin-left: 10px;
-    margin-top: 10px;
+    margin: 0;
     overflow-y: auto;
   }
   .surprise-bags {
@@ -239,9 +238,9 @@
     margin: 10px;
   }
 
-  .surprise-bags-container {
+  .surprise-bags-container{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 3fr));
     gap: 12px;
   }
 

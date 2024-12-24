@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './CreateBag.css';
 import Logo from './Images/burger.jpg';
+import { useNavigate } from 'react-router-dom';
 
 interface CreateBagFormProps {
   setIsModalOpen: (open: boolean) => void;
@@ -26,7 +28,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
   const [allergens, setAllergens] = useState('');
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [startTime, setStartTime] = useState<Date | null>(new Date());
-  const [endTime, setEndTime] = useState<Date | null>(new Date(new Date().getTime() + 60 * 60 * 1000)); // 1 hour later by default
+  const [endTime, setEndTime] = useState<Date | null>(
+    new Date(new Date().getTime() + 60 * 60 * 1000) // 1 hour later by default
+  );
 
   const handleDaySelection = (day: string) => {
     setSelectedDays((prevDays) =>
@@ -34,10 +38,53 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add form submission logic here (e.g., sending data to a server)
-    console.log({ bagName, price, category, numberOfBags, allergens, selectedDays, startTime, endTime });
+  
+    // Explicit data to match the provided JSON structure
+    const data = {
+      storeId: "786b54321a9cd6789bcf1234",
+      storeName: "Leto Abu Mall",
+      name: "Jump Bag",
+      description: "A delicious chicken-filled bag, perfect for a quick meal.",
+      price: {
+        amount: 25.99,
+        currencyCode: "AED",
+      },
+      category: "MEALS",
+      quantity: 50,
+      image: "https://example.com/images/chicken_bag.jpg",
+      allergenInfo: ["NUTS", "DAIRY"],
+      collectionSchedule: {
+        day: "MONDAY",
+        timeWindow: {
+          start: "10:00",
+          end: "18:00",
+        },
+      },
+      isAvailable: true,
+    };
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:8100/api/v1/stores/786b54321a9cd6789bcf1234/product",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Success:", response.data);
+      alert("Bag created successfully!");
+      setIsModalOpen(false); // Close modal on success
+      window.location.reload()
+    } catch (error) {
+      console.error("Error creating bag:");
+      alert("Failed to create the bag. Please try again.");
+    }
   };
 
   return (
@@ -65,61 +112,57 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
               value={bagName}
               onChange={(e) => setBagName(e.target.value)}
             />
-            
-            <div className='nd-Grid'>
-                <div>
-            <label className="label-s">Price</label>
-            <select
-              className="select"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            >
-              <option value="45">AED 45</option>
-              <option value="30">AED 30</option>
-              <option value="15">AED 15</option>
-            </select>
 
-            <label className="label-s">Category</label>
-            <select
-              className="select"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="Surprise Bag">Surprise Bag</option>
-            </select>
+            <div className="nd-Grid">
+              <div>
+                <label className="label-s">Price</label>
+                <select
+                  className="select"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                >
+                  <option value="45">AED 45</option>
+                  <option value="30">AED 30</option>
+                  <option value="15">AED 15</option>
+                </select>
 
-            </div>
-
-            <div>
-
-            <label className="label-s">Quantity Selling per Day</label>
-            <select
-              className="select"
-              value={numberOfBags}
-              onChange={(e) => setNumberOfBags(e.target.value)}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-
-            <label className="label-s">Allergens</label>
-            <input
-              className="input"
-              value={allergens}
-              onChange={(e) => setAllergens(e.target.value)}
-              placeholder="..."
-            />
-
+                <label className="label-s">Category</label>
+                <select
+                  className="select"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="Surprise Bag">Surprise Bag</option>
+                </select>
               </div>
 
+              <div>
+                <label className="label-s">Quantity Selling per Day</label>
+                <select
+                  className="select"
+                  value={numberOfBags}
+                  onChange={(e) => setNumberOfBags(e.target.value)}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+
+                <label className="label-s">Allergens</label>
+                <input
+                  className="input"
+                  value={allergens}
+                  onChange={(e) => setAllergens(e.target.value)}
+                  placeholder="... e.g., NUTS, DAIRY"
+                />
+              </div>
             </div>
-            
-            <label className="label-s" >Image</label>  
+
+            <label className="label-s">Image</label>
             <div className="image-upload">
-            <label className="label-s" >Upload</label>
-            <input id="file-upload" type="file" />
-             </div>
+              <label className="label-s">Upload</label>
+              <input id="file-upload" type="file" />
+            </div>
           </div>
 
           <div className="form-right">
@@ -162,8 +205,16 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
               />
             </div>
             <div>
-            <button className="button" type="submit">Create</button>
-            <button className="button cancel-button" type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
+              <button className="button" type="submit">
+                Create
+              </button>
+              <button
+                className="button cancel-button"
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
