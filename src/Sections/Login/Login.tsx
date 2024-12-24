@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 
   const checkEmailExists = async (email: string) => {
     // Mock email verification
-    return email === 'nasif@gmail.com';
+    return email === 'test@gmail.com';
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
     // Mock login request
     try {
       // Simulate API call
-      if (email === 'nasif@gmail.com' && password === 'password123') {
+      if (email === 'test@gmail.com' && password === 'password123') {
         localStorage.setItem('token', 'mockToken123');
         console.log('Login successful');
         navigate('/');
@@ -94,7 +94,9 @@ const Login: React.FC = () => {
                 required
               />
             </div>
+            <div className='login-button-container'>
             <Button label="Continue" loading={loading} className="Green-button" />
+            </div>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         ) : (
@@ -114,11 +116,15 @@ const Login: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+
               <button
                 type="button"
                 className="toggle-password"
                 onClick={togglePasswordVisibility}
               >
+
+
+
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
@@ -130,7 +136,10 @@ const Login: React.FC = () => {
               />
               <ForgotPassword />
             </div>
+            <div className='login-button-container'>
+
             <Button label="Sign In" loading={loading} className="Green-button" />
+            </div>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         )}
