@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Filter from "../../Components/Filter/Filter";
 import NotificationList from '../../Sections/NotificationsPage/NotificationList '
 import Pagination from "../../Components/Pagination/Pagination";
+import Sidebar from '../../Components/Sidebar';
+import Header from '../../Components/Header';
+
 
 type Notification = {
   id: number;
@@ -12,6 +15,9 @@ type Notification = {
 };
 
 const NotificationPage = () => {
+
+
+
   const [notifications, setNotifications] = useState<Notification[]>([
     { id: 1, type: "New Order", message: "Order #1234 placed", time: "5 mins ago", read: false },
     { id: 2, type: "Cancellation", message: "Order #1235 canceled", time: "10 mins ago", read: false },
@@ -59,36 +65,58 @@ const NotificationPage = () => {
     setCurrentPage(page);
   };
 
-  return (
-    <div className="flex flex-col md:flex-row gap-4 p-4">
-      <div className="md:w-1/4 bg-gray-100 p-4 rounded-md">
-      
-        <Filter
-          filter={filter}
-          setFilter={setFilter}
-          options={["All", "New Order", "Cancellation", "Update"]}
-          label="Notifications"
-        />
-      </div>
+  /*sidebar  */
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+
+    const toggleSidebar = () => {
+      setSidebarExpanded(!sidebarExpanded);
+  };
+
+      return (
+         <div className="main-container">
+                <div className="max-w-6xl mx-auto px-4 py-8">
+                <Header/>
+                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+
+          {/* Main Content Section */}
 
 
-      <div className="md:w-3/4 flex-1 bg-white p-4 rounded-md shadow-md">
-      
-        <NotificationList
-          notifications={displayedNotifications}
-          handleMarkAsRead={handleMarkAsRead}
-          handleDelete={handleDelete}
-        />
-        
-      
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </div>
-    </div>
-  );
-};
 
-export default NotificationPage;
+            <div className="main-container max-w-6xl mx-auto px-4 py-8">
+              <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6">
+                <h1 className="text-2xl font-semibold mb-6 ml-1">Notifications</h1>
+
+                {/* Filter Section */}
+                <div className="bg-gray-50 p-4 rounded-md shadow-md mb-6">
+                  <Filter
+                    filter={filter}
+                    setFilter={setFilter}
+                    options={["All", "New Order", "Cancellation", "Update"]}
+                    label="Notifications"
+                  />
+                </div>
+
+                {/* Notification List Section */}
+                <div className="bg-gray-50 p-4 rounded-md shadow-md">
+                  <NotificationList
+                    notifications={displayedNotifications}
+                    handleMarkAsRead={handleMarkAsRead}
+                    handleDelete={handleDelete}
+                  />
+
+                  {/* Pagination Section */}
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      );
+    };
+
+    export default NotificationPage;

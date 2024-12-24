@@ -44,7 +44,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
       <td className="border px-4 py-2 text-center">{notification.time}</td>
       <td className="border px-4 py-2 text-center">
         
-        <div className="checkbox-container flex justify-center items-center">
+        <div className="checkbox-container flex justify-center items-center" style={{ flexDirection: 'column' }}>
           <CheckboxWithLabel
             label=""
             checked={isChecked}
@@ -52,6 +52,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
             className="checkbox-custom flex items-center"
           />
         </div>
+
       </td>
       <td className="border px-4 py-2 text-center">
         <Button
