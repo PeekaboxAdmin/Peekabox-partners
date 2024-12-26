@@ -119,53 +119,58 @@ const SurpriseBoxManagement: React.FC = () => {
         </div>
 
         <div className="surprise-bags-container">
-          {loading ? (
-            <div className="loading-spinner">Loading...</div>
-          ) : (
-            bags.map((bag) => (
-              <div key={bag.id} className="surprise-bag-card">
-                <div className={`badge1 ${bag.soldOut ? 'badge1-sold-out' : 'badge1-available'}`}>
-                  {bag.soldOut ? 'Sold Out' : 'Available'}
-                </div>
-                <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
-                <h3>{bag.title}</h3>
-                <p>
-                  <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={faBox} /> {bag.packing}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantityPerDay}
-                </p>
-
-                <div className="price-available-section">
-                  <p>
-                    <FontAwesomeIcon icon={bag.soldOut ? faCircleXmark : faCircleCheck} />
-                    {bag.soldOut ? 'Sold Out' : `Available: ${bag.quantity} of 5 sold`}
-                  </p>
-                  <p className="price">
-                    {bag.discount ? (
-                      <>
-                        <span className="original-price">AED {bag.price}</span> AED {bag.price - bag.discount}
-                      </>
-                    ) : (
-                      <>AED {bag.price}</>
-                    )}
-                  </p>
-                </div>
-                <div className="card-actions">
-                  <button onClick={() => handleEdit(bag)}>
-                    <FontAwesomeIcon icon={faEdit} />
-                  </button>
-                  <button onClick={() => handleDelete(bag.id)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
+  {loading ? (
+    <div className="loading-spinner">Loading...</div>
+  ) : bags.length === 0 ? (
+    <div className="empty-bags-message">
+      <p>No surprise bags to display. Add a new bag to get started!</p>
+    </div>
+  ) : (
+    bags.map((bag) => (
+      <div key={bag.id} className="surprise-bag-card">
+        <div className={`badge1 ${bag.soldOut ? 'badge1-sold-out' : 'badge1-available'}`}>
+          {bag.soldOut ? 'Sold Out' : 'Available'}
         </div>
+        <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
+        <h3>{bag.title}</h3>
+        <p>
+          <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+        </p>
+        <p>
+          <FontAwesomeIcon icon={faBox} /> {bag.packing}
+        </p>
+        <p>
+          <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantityPerDay}
+        </p>
+
+        <div className="price-available-section">
+          <p>
+            <FontAwesomeIcon icon={bag.soldOut ? faCircleXmark : faCircleCheck} />
+            {bag.soldOut ? 'Sold Out' : `Available: ${bag.quantity} of 5 sold`}
+          </p>
+          <p className="price">
+            {bag.discount ? (
+              <>
+                <span className="original-price">AED {bag.price}</span> AED {bag.price - bag.discount}
+              </>
+            ) : (
+              <>AED {bag.price}</>
+            )}
+          </p>
+        </div>
+        <div className="card-actions">
+          <button onClick={() => handleEdit(bag)}>
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+          <button onClick={() => handleDelete(bag.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
 
         {isModalOpen && (
           <div className="modal-overlay">
