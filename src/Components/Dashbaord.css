@@ -159,7 +159,8 @@
 }
 
 .notification-card ul {
-    padding: 10px;
+   padding-right: 10px;
+   padding-left: 10px;
 }
 
 .notification-count {
@@ -359,8 +360,8 @@
 
 .seeall {
     padding: 8px;
-    font-size: 30sp;
-    margin-top: 20px;
+    font-size: 12px;
+    margin-top: 10px;
     border-radius: 10px;
     background-color: #FF80B4;
     color: white;

@@ -26,8 +26,6 @@ const IncomePayment: React.FC = () => {
 
       <section className="income-payment-summary-cards">
         <SummaryCard title="Earnings" value="350.48 AED" />
-        <SummaryCard title="Spend this month" value="642.39 AED" />
-        <SummaryCard title="Types" value="-" />
         <SummaryCard title="Sales" value="574.34 AED" percentage="+25%" />
         <SummaryCard title="Total Sold" value="2935" />
       </section>
