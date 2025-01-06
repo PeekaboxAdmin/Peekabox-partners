@@ -19,7 +19,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
 
   // Mock email verification
   const mockVerifyEmail = async (email: string) => {
-    return email === 'batoul@gmail.com'; // Mock condition for email
+    return email === 'test@gmail.com'; // Mock condition for email
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {

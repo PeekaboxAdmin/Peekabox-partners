@@ -114,11 +114,11 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 <img src={bag.imgSrc} alt={bag.title} className="dsurprise-bag-image" />
                                 <h3>{bag.title}</h3>
                                 <p>
-                                    <FontAwesomeIcon icon={faBox} /> Sold 3 out of {bag.quantity}
+                                    {/*<FontAwesomeIcon icon={faBox} /> Sold 3 out of {bag.quantity}*/}
                                 </p>
                                 <div className="quantityb-controls">
                                     <p>
-                                        <FontAwesomeIcon icon={faBox} /> Items:
+                                        <FontAwesomeIcon icon={faBox} /> Items selling :
                                     </p>
                                     <button onClick={() => updateQuantity(bag.id, -1)} className="quantityb-btn">
                                         <FontAwesomeIcon icon={faMinus} />

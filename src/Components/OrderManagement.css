@@ -1,6 +1,7 @@
 /* Order Management Wrapper */
 .orderm-main-container{
     margin-left: 130px;
+    margin-right: 20px;
     margin-top: 10px;
 }
 .order-management {
@@ -8,7 +9,6 @@
     display: flex;
     flex-direction: column;
     margin: 10px auto;
-
     padding: 20px;
     font-family: Arial, sans-serif;
 }
@@ -126,8 +126,6 @@
 /* Dropdown Menu Styling */
 .dropdown-menu {
     position: absolute;
-    background-color: #333;
-    color: #fff;
     border: none;
     padding: 8px;
     width: 150px;
@@ -135,9 +133,8 @@
 }
 
 .dropdown-menu button {
-    background: none;
+    background: white;
     border: none;
-    color: black;
     padding: 8px;
     width: 100%;
     text-align: left;
