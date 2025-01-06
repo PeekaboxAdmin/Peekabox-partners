@@ -20,7 +20,7 @@ const CO2ReductionChart: React.FC = () => {
   return (
     <div className="chart-container1">
       <div className="chart-header1">
-       
+
         <div className="chart-left-header1">
           <div className="chart-header-content1">
             <div className="writing-mode-vertical1">
@@ -34,7 +34,7 @@ const CO2ReductionChart: React.FC = () => {
           <div className="chart-percentage1">
             <span className="percentage-text1">▲ +2.45%</span>
           </div>
-          
+
           <ResponsiveContainer width="100%" height={250}>
             <BarChart
               data={data}
@@ -46,14 +46,14 @@ const CO2ReductionChart: React.FC = () => {
                   <stop offset="80%" stopColor="#0B4B2C" stopOpacity={0.5} />
                 </linearGradient>
               </defs>
-              
+
               <CartesianGrid
                 horizontal={true}
                 vertical={false}
                 stroke="#E5E7EB"
                 strokeDasharray="3 3"
               />
-              
+
               <XAxis
                 dataKey="category"
                 axisLine={false}
@@ -64,7 +64,7 @@ const CO2ReductionChart: React.FC = () => {
                 textAnchor="middle"
                 dy={2}
               />
-              
+
               <YAxis
                 axisLine={false}
                 tickLine={false}
@@ -72,7 +72,7 @@ const CO2ReductionChart: React.FC = () => {
                 domain={[0, 150]}
                 ticks={[0, 50, 100, 150]}
               />
-              
+
               <Bar
                 dataKey="value"
                 radius={[20, 20, 0, 0]}
@@ -81,12 +81,12 @@ const CO2ReductionChart: React.FC = () => {
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill="url(#barGradient)" />
                 ))}
-                
-                <LabelList 
+
+                <LabelList
                   dataKey="value"
-                  position="top" 
+                  position="top"
                   fontSize={12}
-                  fill="#A1A9BC" 
+                  fill="#A1A9BC"
                 />
               </Bar>
 

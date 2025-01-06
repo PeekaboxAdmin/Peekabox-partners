@@ -29,7 +29,7 @@ const BrandForm1: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext }
   const [hqLocation, setHqLocation] = useState(() => localStorage.getItem('hqLocation') || '');
   const [totalStores, setTotalStores] = useState(() => {
     const storedValue = localStorage.getItem('totalStores');
-    return storedValue ? Number(storedValue) : 0;
+    return storedValue ? Number(storedValue) : 1;
   });
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const BrandForm1: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext }
   };
 
   return (
-       <div className="space-y-4">
+       <div className="space-y-6 px-4 sm:px-6 lg:px-8 mt-10">
     <Triangle>
       <HeaderBar>
        Create a Brand

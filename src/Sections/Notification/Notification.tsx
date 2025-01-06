@@ -10,7 +10,7 @@ const NotificationSettings: React.FC = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-12">
-            <h2 className="text-xl font-semibold md:w-64 shrink-0 text-black">Notifications</h2>
+            <h2 className="text-xl font-semibold md:w-64 shrink-0 text-black ">Notifications</h2>
 
             <div className="flex-1 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">

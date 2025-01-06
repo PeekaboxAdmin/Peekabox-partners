@@ -16,16 +16,16 @@ const CheckboxWithLabel: React.FC<CheckboxWithLabelProps> = ({
 }) => {
   return (
     <label className={`checkbox-label ${className}`}>
-      {/*div className="checkbox-container"*/}
+    { /*<div className="checkbox-container">*/}
         <input
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
-          className="checkbox-input accent-pinkCustom" // Use Tailwind's accent class for custom colors
+          className="checkbox-input accent-pinkCustom"
         />
         <span className={`checkbox-background ${checked ? 'checked' : ''}`} />
         <span className="checkbox-text">{label}</span>
-     { /*</div>*/}
+  {  /* </div>*/}
     </label>
   );
 };

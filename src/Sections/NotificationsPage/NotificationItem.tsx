@@ -29,41 +29,32 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   }, [notification.read]);
 
   const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev); 
-    handleMarkAsRead(notification.id); 
+    setIsChecked((prev) => !prev);
+    handleMarkAsRead(notification.id);
   };
 
-  return (
-    <>
-    <tr
-      className={`notification-item ${notification.read ? "bg-gray-100" : "bg-white"}`}
-    >
-      <td className="border px-4 py-2 text-center">{notification.id}</td>
-      <td className="border px-4 py-2 text-center">{notification.type}</td>
-      <td className="border px-4 py-2">{notification.message}</td>
-      <td className="border px-4 py-2 text-center">{notification.time}</td>
-      <td className="border px-4 py-2 text-center">
-        
-        <div className="checkbox-container flex justify-center items-center" style={{ flexDirection: 'column' }}>
-          <CheckboxWithLabel
-            label=""
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-            className="checkbox-custom flex items-center"
-          />
-        </div>
+ return (
+     <tr
+       className={`notification-item ${
+         notification.read ? "bg-gray-100" : "bg-white"
+       }`}
+     >
+       <td className="border px-4 py-2 text-center">{notification.id}</td>
+       <td className="border px-4 py-2 text-center">{notification.type}</td>
+       <td className="border px-4 py-2">{notification.message}</td>
+       <td className="border px-4 py-2 text-center">{notification.time}</td>
+       <td className="border px-4 py-2 text-center">
 
-      </td>
-      <td className="border px-4 py-2 text-center">
-        <Button
-          label="Delete"
-          onClick={() => handleDelete(notification.id)}
-          className="text-white bg-DarkGreen px-3 py-1 rounded hover:bg-DarkGreen"
-        />
-      </td>
-    </tr>
-    </>
-  );
+       </td>
+       <td className="border px-4 py-2 text-center">
+         <Button
+           label="Delete"
+           onClick={() => handleDelete(notification.id)}
+           className="text-white bg-DarkGreen px-3 py-1 rounded hover:bg-DarkGreen"
+         />
+       </td>
+     </tr>
+   );
 };
 
 export default NotificationItem;

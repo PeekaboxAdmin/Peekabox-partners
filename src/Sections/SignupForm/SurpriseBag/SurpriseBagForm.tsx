@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../../Components/Button/Button';
 import Input from '../../../Components/Input/Input';
+
 export interface SurpriseBagData {
   name: string;
   category: string;
@@ -58,7 +59,7 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-4 sm:px-6 lg:px-8">
       <Input
         type="text"
         placeholder="Surprise Bag Name"
@@ -102,7 +103,6 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
       </select>
       <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
       <Input
-
         type="number"
         placeholder="Quantity"
         value={quantity}
@@ -116,31 +116,29 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
         {DaysOFtheWeek.map((day, index) => (
           <div key={index} className="space-y-2">
             <label className="flex items-center space-x-2">
-  <input
-    type="checkbox"
-    checked={bag.CollectionDays.includes(day)}
-    onChange={() => HandleDayChange(day)}
-    className="h-4 w-4 bg-white border-2 border-gray-300 checked:bg-pink-500 checked:border-pink-500 focus:ring-0"
-  />
-  <span>{day}</span>
-</label>
-
-
+              <input
+                type="checkbox"
+                checked={bag.CollectionDays.includes(day)}
+                onChange={() => HandleDayChange(day)}
+                className="h-4 w-4 bg-white border-2 border-gray-300 checked:bg-pink-500 checked:border-pink-500 focus:ring-0"
+              />
+              <span>{day}</span>
+            </label>
             {bag.CollectionDays.includes(day) && (
-              <div className="flex gap-4 ml-6">
+              <div className="flex flex-wrap gap-4 ml-6 sm:ml-8">
                 <input
                   type="time"
                   value={bag.CollectionTime[day]?.start || ''}
                   onChange={(e) => HandleTime(day, 'start', e.target.value)}
                   placeholder="Start Time"
-                  className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
                 <input
                   type="time"
                   value={bag.CollectionTime[day]?.end || ''}
                   onChange={(e) => HandleTime(day, 'end', e.target.value)}
                   placeholder="End Time"
-                  className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  className="w-full sm:w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
               </div>
             )}
@@ -153,22 +151,12 @@ const SurpriseBagForm: React.FC<SurpriseBagFormProps> = ({ bag, onChange, onDele
         onChange={(e) => onChange('bannerImage', e.target.files ? e.target.files[0] : null)}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
       />
-
-
-
-      <Button label='Delete Surprise Bag'
+      <Button
+        label='Delete Surprise Bag'
         className="mt-4 bg-DarkGreen text-white py-2 px-4 ml-2 rounded-md hover:bg-DarkGreen focus:outline-none"
         onClick={onDelete}
-
-      type="button"
-
-
-  />
-
-
-
-
-
+        type="button"
+      />
     </div>
   );
 };

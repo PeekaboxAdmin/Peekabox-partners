@@ -22,17 +22,15 @@ const NotificationList: React.FC<NotificationListProps> = ({
 }) => {
   return (
     <>
-    
-      <ul>
-        {notifications.map((notif) => (
-          <NotificationItem
-            key={notif.id}
-            notification={notif}
-            handleMarkAsRead={handleMarkAsRead}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </ul>
+
+      {notifications.map((notif) => (
+        <NotificationItem
+          key={notif.id}
+          notification={notif}
+          handleMarkAsRead={handleMarkAsRead}
+          handleDelete={handleDelete}
+        />
+      ))}
     </>
   );
 };

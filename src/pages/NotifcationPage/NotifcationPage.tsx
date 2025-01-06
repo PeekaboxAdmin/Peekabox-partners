@@ -6,6 +6,9 @@ import Sidebar from '../../Components/Sidebar';
 import Header from '../../Components/Header';
 
 
+
+
+
 type Notification = {
   id: number;
   type: "New Order" | "Cancellation" | "Update";
@@ -72,19 +75,26 @@ const NotificationPage = () => {
       setSidebarExpanded(!sidebarExpanded);
   };
 
-      return (
-         <div className="main-container">
-                <div className="max-w-6xl mx-auto px-4 py-8">
-                <Header/>
-                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+    return (
+      <div className="min-h-screen bg-gray-50">
+
+
+
+<div className="px-4 sm:px-6 md:px-8 lg:px-16 py-4 max-w-6xl md:max-w-2xl ml-8 lg:max-w-6xl mx-auto">
+            <Header />
+            </div>
+
+        <div className="flex">
+          <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
           {/* Main Content Section */}
+          <div className="flex-1">
 
+            <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-4 max-w-6xl md:max-w-2xl lg:max-w-6xl mx-auto">
 
+              <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6 lg:p-8">
 
-            <div className="main-container max-w-6xl mx-auto px-4 py-8">
-              <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6">
-                <h1 className="text-2xl font-semibold mb-6 ml-1">Notifications</h1>
+                <h1 className="text-2xl font-semibold mb-6 ml-6">Notifications</h1>
 
                 {/* Filter Section */}
                 <div className="bg-gray-50 p-4 rounded-md shadow-md mb-6">
@@ -115,8 +125,8 @@ const NotificationPage = () => {
             </div>
           </div>
         </div>
-
-      );
+      </div>
+    );
     };
 
     export default NotificationPage;

@@ -17,12 +17,14 @@ const SettingsPage: React.FC = () => {
     setSidebarExpanded(!sidebarExpanded);
 };
   return (
-      <div className="main-container">
-        <div className="max-w-6xl mx-auto px-4 py-8">
+
+        <div className="max-w-6xl mx-auto px-4 py-4">
+
         <Header/>
+
         <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
-          <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-2 md:px-28">
 
             <h1 className="text-2xl font-semibold mb-6 ml-1">Settings</h1>
 
@@ -49,7 +51,7 @@ const SettingsPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+
     );
 };
 

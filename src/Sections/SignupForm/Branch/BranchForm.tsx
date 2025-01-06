@@ -115,7 +115,7 @@ const HandleNext=()=>{
   };
 
   return (
-       <div className="space-y-4">
+       <div className="space-y-6 px-4 sm:px-6 lg:px-8 mt-10">
     <Triangle>
       <form onSubmit={handleSubmit}>
         <div className="w-full flex justify-center">

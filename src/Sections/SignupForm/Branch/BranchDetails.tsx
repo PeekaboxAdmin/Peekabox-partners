@@ -50,7 +50,6 @@ const BranchDetails: React.FC<BranchDetailsProps> = ({
       <div className="mt-4 space-y-6">
         {/* Row 1: Branch Name and Manager Name */}
         <div className="flex flex-wrap gap-4">
-
           <Input
             type="text"
             placeholder="Branch Name"
@@ -114,7 +113,7 @@ const BranchDetails: React.FC<BranchDetailsProps> = ({
           placeholder="Description (optional)"
           value={branch.description}
           onChange={(e) => onBranchChange('description', e.target.value)}
-          className="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-grey-500"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-grey-500"
         />
 
         {/* Row 5: Store Type */}

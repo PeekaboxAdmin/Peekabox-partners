@@ -2,8 +2,15 @@
 .income-payment-container {
   font-family: Arial, sans-serif;
   padding: 20px;
+  padding-left:50px;
   max-width: 1200px;
   margin: 0 auto;
+  transition: margin-left 0.3s ease, padding 0.3s ease; /* Smooth transition for sidebar toggle */
+}
+
+.income-payment-container.sidebar-expanded {
+  margin-left: 270px; /* Increased space for the sidebar (260px width + 10px gap) */
+  padding-left: 20px; /* Extra space between sidebar and main content */
 }
 
 .income-payment-header {
@@ -24,6 +31,13 @@
   text-align: center;
   flex: 1;
   min-width: 150px; /* Ensure cards remain visible on smaller screens */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.income-payment-summary-card:hover {
+  background-color: #eaeaea; /* Slightly darker shade */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transform: scale(1.05); /* Slightly enlarge the card */
 }
 
 .income-payment-summary-card h3 {
@@ -97,12 +111,21 @@
   background-color: #f4f4f4;
 }
 
+/* Empty State for Table */
+.income-payment-table-card:empty::before {
+  content: "No data available";
+  color: #999;
+  text-align: center;
+  display: block;
+  padding: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  /* Main Container */
-.income-payment-container {
-  margin: 0;
-}
+  .income-payment-container {
+    margin: 0;
+  }
+
   .income-payment-summary-cards,
   .income-payment-main-content {
     flex-direction: column;
@@ -116,10 +139,8 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 480px) {
-  /* Main Container */
-.income-payment-container {
-  margin: 0;
-}
+  .income-payment-container {
+    margin: 0;
+  }
 }
