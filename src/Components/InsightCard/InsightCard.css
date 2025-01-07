@@ -1,0 +1,94 @@
+/* Card container */
+.earnings-card {
+  position: relative; /* Required for text-container positioning */
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  width: 150px;
+  font-family: "Arial", sans-serif;
+  flex: 1 1 150px;
+  max-width: 180px;
+  min-width: 150px;
+  box-sizing: border-box;
+}
+
+/* Text container at the top-right */
+/* Text container at the top-right */
+.text-container {
+  position: absolute; /* Position it relative to the card */
+  top: 8px; /* Distance from the top of the card */
+  right: 8px; /* Distance from the right of the card */
+  background-color: transparent;
+  display: flex; /* Align items in a row */
+  align-items: center; /* Vertically center text and percentage */
+  font-size: 16px; /* Adjust the font size */
+  color: #333; /* Set text color */
+}
+
+/* Text styling */
+.card-text {
+  font-size: 12px;
+  color: #A3AED0;
+  margin-right: 4px; /* Add spacing between text and percentage */
+}
+
+.percentage-text {
+  font-size: 12px;
+  color: #05CD99; /* Green color for percentage */
+  font-weight: bold;
+}
+
+
+/* Icon container */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe3ee;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+   gap: 4px
+}
+
+/* Icon styling */
+.earnings-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Earnings content */
+.earnings-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.earnings-title {
+  font-size: 12px;
+  color: #888888;
+  margin-bottom: 4px;
+}
+
+.earnings-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #005a43;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column; /* Stack cards vertically on small screens */
+    align-items: center;
+  }
+
+  .earnings-card {
+    width: 90%;
+    max-width: 100%;
+    margin-bottom: 16px; /* Space between stacked cards */
+  }
+}
