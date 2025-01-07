@@ -1,13 +1,13 @@
 import React from "react";
 import "./InsightCard.css";
 
-// Define the types for the props
+
 interface InsightCardProps {
   title: string;
   value: string | number;
   icon?: string; // Optional icon
   text?: string; // Optional text
-  percentage?: string; // Optional percentage text
+  percentage?: string;
 }
 
 const InsightCard: React.FC<InsightCardProps> = ({ title, value, icon, text, percentage }) => {

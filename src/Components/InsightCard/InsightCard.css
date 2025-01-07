@@ -1,6 +1,6 @@
-/* Card container */
+
 .earnings-card {
-  position: relative; /* Required for text-container positioning */
+  position: relative;
   display: flex;
   align-items: center;
   background-color: #ffffff;
@@ -15,34 +15,32 @@
   box-sizing: border-box;
 }
 
-/* Text container at the top-right */
-/* Text container at the top-right */
+
 .text-container {
-  position: absolute; /* Position it relative to the card */
-  top: 8px; /* Distance from the top of the card */
-  right: 8px; /* Distance from the right of the card */
+  position: absolute;
+  top: 8px;
+  right: 8px;
   background-color: transparent;
-  display: flex; /* Align items in a row */
-  align-items: center; /* Vertically center text and percentage */
-  font-size: 16px; /* Adjust the font size */
-  color: #333; /* Set text color */
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
 }
 
-/* Text styling */
+
 .card-text {
   font-size: 12px;
   color: #A3AED0;
-  margin-right: 4px; /* Add spacing between text and percentage */
+  margin-right: 4px;
 }
 
 .percentage-text {
   font-size: 12px;
-  color: #05CD99; /* Green color for percentage */
+  color: #05CD99;
   font-weight: bold;
 }
 
 
-/* Icon container */
 .icon-container {
   display: flex;
   justify-content: center;
@@ -55,13 +53,13 @@
    gap: 4px
 }
 
-/* Icon styling */
+
 .earnings-icon {
   width: 30px;
   height: 30px;
 }
 
-/* Earnings content */
+
 .earnings-content {
   display: flex;
   flex-direction: column;
@@ -79,16 +77,15 @@
   color: #005a43;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   .dashboard {
-    flex-direction: column; /* Stack cards vertically on small screens */
+    flex-direction: column;
     align-items: center;
   }
 
   .earnings-card {
     width: 90%;
     max-width: 100%;
-    margin-bottom: 16px; /* Space between stacked cards */
+    margin-bottom: 16px;
   }
 }

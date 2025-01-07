@@ -27,10 +27,6 @@ const IncomePayment: React.FC = () => {
       <header className="income-payment-header">
         <h1>Insights</h1>
       </header>
-      
-
-
-
 
 
       <section className="cards">
@@ -72,10 +68,7 @@ const IncomePayment: React.FC = () => {
                icon={total}
                text=""
                 />
-        
 
-       
-        
       </section>
 
       <div className="income-payment-main-content">

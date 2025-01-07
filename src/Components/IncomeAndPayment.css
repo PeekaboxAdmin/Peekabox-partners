@@ -122,10 +122,10 @@
 /*card*/
 .cards {
   display: flex;
-  flex-wrap: wrap; /* Allows the cards to wrap */
-  gap: 16px; /* Adds space between cards */
-  justify-content: flex-start; /* Aligns cards to the start of the container */
-  padding: 20px; /* Optional, adds padding around the dashboard */
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  padding: 20px;
 }
 
 
