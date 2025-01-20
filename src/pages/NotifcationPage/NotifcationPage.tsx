@@ -75,58 +75,75 @@ const NotificationPage = () => {
       setSidebarExpanded(!sidebarExpanded);
   };
 
-    return (
-      <div className="min-h-screen bg-gray-50">
+  return (
+    <div className="min-h-screen flex flex-col bg-red overflow-x-hidden">
+      {/* Sidebar and Content */}
+      <div className="flex flex-1 flex-row-reverse lg:flex-row">
+        <Sidebar 
+          isOpen={sidebarExpanded} 
+          onToggle={toggleSidebar} 
+          onNavClick={() => {}}  
+          className={`
+            absolute 
+            sm:w-56 
+            md:w-10 
+            ${sidebarExpanded ? 'block' : 'hidden'} 
+            lg:block 
+            top-0 
+            left-0 
+            z-50
+            ${window.innerWidth === 820 ? 'md:relative' : ''}
+          `}
+        />
 
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col lg:px-24 md:px-4 ">
+          <Header />
 
+          <div className={`
+            p-4 
+            sm:p-6 
+            lg:p-8 
+            mx-auto 
+            w-full
+            md:w-3/4
+            lg:w-full
+            ${window.innerWidth === 820 ? 'md:max-w-2xl' : 'max-w-7xl'}
+          `}>
+            <h1 className="text-2xl font-semibold mb-4">Notifications</h1>
 
-<div className="px-4 sm:px-6 md:px-8 lg:px-16 py-4 max-w-6xl md:max-w-2xl ml-8 lg:max-w-6xl mx-auto">
-            <Header />
+            {/* Filter Section */}
+            <div className="bg-white p-4 rounded-lg shadow mb-6">
+              <Filter
+                filter={filter}
+                setFilter={setFilter}
+                options={["All", "New Order", "Cancellation", "Update"]}
+                label="Notifications"
+              />
             </div>
 
-        <div className="flex">
-          <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+            {/* Notification List */}
+            <div className="bg-white p-4 rounded-lg shadow">
+              <NotificationList
+                notifications={displayedNotifications}
+                handleMarkAsRead={handleMarkAsRead}
+                handleDelete={handleDelete}
+              />
 
-          {/* Main Content Section */}
-          <div className="flex-1">
-
-            <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-4 max-w-6xl md:max-w-2xl lg:max-w-6xl mx-auto">
-
-              <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6 lg:p-8">
-
-                <h1 className="text-2xl font-semibold mb-6 ml-6">Notifications</h1>
-
-                {/* Filter Section */}
-                <div className="bg-gray-50 p-4 rounded-md shadow-md mb-6">
-                  <Filter
-                    filter={filter}
-                    setFilter={setFilter}
-                    options={["All", "New Order", "Cancellation", "Update"]}
-                    label="Notifications"
-                  />
-                </div>
-
-                {/* Notification List Section */}
-                <div className="bg-gray-50 p-4 rounded-md shadow-md">
-                  <NotificationList
-                    notifications={displayedNotifications}
-                    handleMarkAsRead={handleMarkAsRead}
-                    handleDelete={handleDelete}
-                  />
-
-                  {/* Pagination Section */}
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                  />
-                </div>
+              {/* Pagination */}
+              <div className="mt-4">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
     };
 
     export default NotificationPage;
