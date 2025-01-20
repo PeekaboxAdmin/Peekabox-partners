@@ -45,10 +45,11 @@ const Password: React.FC<PasswordProps> = ({ password, onChange }) => {
   };
 
   return (
-    <div className="login-page">
-      <div className="left-section">
-        <Image imageSrc={SignupImage} />
-      </div>
+    <div className="flex flex-col lg:flex-row h-screen">
+      <div
+        className="lg:w-3/5 w-full h-1/2 lg:h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${SignupImage})` }}
+      ></div>
       <div className="right-section">
         <form className="login-form" onSubmit={handleFormSubmit}>
           <div className="heading-container">

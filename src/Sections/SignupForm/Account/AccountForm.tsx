@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';  
 import { useNavigate, Link } from 'react-router-dom';
-import Image from '../../../Components/Image/Image';
-import Heading from '../../../Components/Heading/Heading';
-import Button from '../../../Components/Button/Button';
-
-import SignupImage from '../../../assets/images/Signup.png'
-import Separator from '../../../Components/Separator/Separator';
-import AuthButton from '../../../Components/AuthButton/AuthButton';
-import FooterLinks from '../../../Components/FooterLink/FooterLinks';
-
-import '../Style/Signup.css';
+import Image from '../../../assets/images/Signup.png';
+import googleImage from '../../../assets/images/Google.png';
 
 const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = ({ onNext }) => {
   const navigate = useNavigate();
@@ -29,9 +21,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
 
     const emailExists = await mockVerifyEmail(email.trim());
     if (emailExists) {
-      
       onNext({ email: email.trim() });
-     
       navigate('/signup/Verify-Email');
     } else {
       setErrorMessage('Email not found. Please sign up.');
@@ -40,35 +30,78 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
   };
 
   return (
-    <div className="login-page">
-      <div className="left-section">
-        <Image imageSrc={SignupImage} />
-      </div>
-      <div className="right-section">
-        <form onSubmit={handleEmailSubmit} className="login-form">
-          <div className="heading-container">
-            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" className='heading-container' />
-          </div>
-          <div className="input-group">
+    <div className="flex flex-col lg:flex-row h-screen">
+      {/* Left Side - Image Section */}
+      <div
+        className="lg:w-3/5 w-full h-1/2 lg:h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${Image})` }}
+      ></div>
+
+      {/* Right Side - Form Section */}
+      <div className="lg:w-2/5 w-full flex items-start justify-center bg-white mt-[-100px] lg:mt-0 py-16 px-4">
+        <div className="w-full max-w-md text-center">
+          <h1 className="text-2xl lg:text-3xl font-bold mb-2">Sign up your business</h1>
+          <p className="text-sm lg:text-base text-black mb-8">
+            Enter your email and get started in a few minutes!
+          </p>
+          <form className="space-y-4" onSubmit={handleEmailSubmit}>
             <input
-              placeholder="Enter your email"
               type="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-DarkGreen"
             />
-            <div className="already-registered">
-              Already registered? <Link to="/signup/login">Sign in</Link>
-            </div>
+
+            {/* "Already registered? Sign in" link */}
+            <p className="text-sm text-gray-600 mt-2 text-right">
+              Already registered?{' '}
+              <Link to="/signup/login" className="text-pinkCustom font-semibold">
+                Sign in
+              </Link>
+            </p>
+
+            <button
+              type="submit"
+              className="w-full py-2 bg-DarkGreen text-white rounded-md hover:bg-DarkGreen-hover transition"
+            >
+              Continue
+            </button>
+          </form>
+
+          <div className="flex justify-center items-center my-4">
+            <div className="w-1/3 border-t border-gray-300"></div>
+            <span className="px-2 text-sm text-gray-600">or</span>
+            <div className="w-1/3 border-t border-gray-300"></div>
           </div>
-          <div className='login-button-container'>
-           <Button label="Continue" loading={loading} className='Green-button' />
-          </div>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        </form>
-        <Separator />
-        <AuthButton />
-        <FooterLinks text1="By continuing, you agree to our" text2="Privacy Policy" and="and" text3="Terms and Conditions" dawonLink="Can't find your store?"/>
+
+          <button
+            className="w-3/4 py-1 border border-[#F4F7FE] flex items-center justify-center rounded-md bg-[#F4F7FE] hover:bg-[#F4F7FE] transition duration-200 mx-auto"
+          >
+            <img
+              src={googleImage} 
+              alt="Google"
+              className="w-5 h-5 mr-2"
+            />
+            <span className="text-gray-600">Sign in with Google</span>
+          </button>
+
+          <p className="text-xs text-gray-500 mt-40">
+            By continuing, you agree to our{" "}
+            <a href="#" className="text-DarkGreen underline">
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a href="#" className="text-DarkGreen underline">
+              Terms and Conditions
+            </a>
+          </p>
+          <p className="text-xs text-black mt-2">
+  <a href="#" className="text-pinkCustom">
+    Can’t find your store?
+  </a>
+</p>
+        </div>
       </div>
     </div>
   );

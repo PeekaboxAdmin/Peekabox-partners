@@ -3,7 +3,6 @@
 
 
 
-
 module.exports = {
   content: [
     "./src/Components/Filter/**/*.{js,ts,jsx,tsx}", // Scan all files in the Filter folder
@@ -27,6 +26,9 @@ module.exports = {
    "./src/Sections/Privacy/ExportControls.tsx",
     "./src/Sections/PaymentDetails.tsx",
     "./src/Sections/InsightPage/CO2ReductionChart/CO2ReductionChart.tsx",
+    "./src/Sections/Login/Login.tsx",
+    "./src/Sections/SignupForm/Account/AccountForm.tsx",
+    
 
 
   ],
