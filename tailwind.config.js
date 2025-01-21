@@ -32,6 +32,7 @@ module.exports = {
     "./src/Sections/SignupForm/Account/AccountForm.tsx",
     "./src/Components/Header.tsx",
     "./src/Components/Sidebar.tsx",
+    "./src/Components/Switch.tsx",
     
 
 

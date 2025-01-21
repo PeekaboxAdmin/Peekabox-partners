@@ -97,7 +97,7 @@ const NotificationPage = () => {
         />
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col lg:px-24 md:px-4 ">
+        <div className="flex-1 flex flex-col lg:px-32 md:px-4 ">
           <Header />
 
           <div className={`
