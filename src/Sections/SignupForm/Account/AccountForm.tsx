@@ -22,15 +22,11 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     setLoading(true);
     setErrorMessage('');
 
-    const emailExists = await mockVerifyEmail(email.trim());
-    if (emailExists) {
       
       onNext({ email: email.trim() });
      
       navigate('/signup/Verify-Email');
-    } else {
-      setErrorMessage('Email not found. Please sign up.');
-    }
+    
 
   }
     

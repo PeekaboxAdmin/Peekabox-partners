@@ -57,27 +57,6 @@ const Dashboard: React.FC = () =>
 
 
   const navigate = useNavigate();
-  
-
-  const refresh = async () => {
-  try {
-    await axios.post(
-      'http://localhost:8100/api/v1/stores/auth/refresh',
-      {
-        email: 'test123@gmail.com',
-        password: 'test123456789!',
-      },
-      {
-        withCredentials: true, // Include this as part of the configuration
-      }
-    );
-    console.log('Token refreshed successfully');
-  } catch (refreshError) {
-    console.error('Token refresh failed:', refreshError);
-    // Optionally, redirect to login page
-    window.location.href = '/login';
-  }
-}
 
 
   // Fetch surprise bags from API-----------------------------------------------------------------

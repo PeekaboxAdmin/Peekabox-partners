@@ -6,7 +6,6 @@ import SurpriseBoxManagement from './Components/SurpriseBox';
 import OrderManagement from './Components/OrderManagement';
 import CustomerFeedback from './Components/CustomerFeedback';
 import StoreInfo from './Components/StoreManagement';
-import IncomeAndPayment from './Components/IncomePayment';
 import SignupForm from './pages/SignupForm';
 import SettingsPage from './pages/Setting/Setting';
 import StoreCreate from './Components/StoreCreate'
@@ -27,7 +26,6 @@ const AppContent: React.FC = () => {
                     <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
                     {/*<Route path="/customerFeedback" element={<CustomerFeedback />} />*/}
                     <Route path="/storeManagement" element={<StoreInfo />} />
-                    <Route path="/incomePayment" element={<IncomeAndPayment />} />
                     <Route path="/userManagement" element={<SettingsPage />} />
                     <Route path="/signup/*" element={<SignupForm />} />
                     <Route path="/notifications" element={<NotificationPage />} />
