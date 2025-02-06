@@ -27,10 +27,47 @@ const IncomePayment: React.FC = () => {
         <h1>Insights</h1>
       </header>
 
-      <section className="income-payment-summary-cards">
-        <SummaryCard title="Earnings" value="350.48 AED" />
-        <SummaryCard title="Sales" value="574.34 AED" percentage="+25%" />
-        <SummaryCard title="Total Sold" value="2935" />
+
+      <section className="cards">
+       <InsightCard
+              title="Earnings"
+              value="350.4B AED"
+              icon={EarningsIcon}
+              text=""
+              
+            />
+            <InsightCard
+               title="spend this month"
+               value="642.93 AED"
+               icon={SalesIcon}
+               text=""
+                />
+        <InsightCard
+               title="spend this month"
+               value="Types"
+               icon={SalesIcon}
+               text=""
+                />
+          <InsightCard
+           title="spend this month"
+          value="642.93 AED"
+          icon={SalesIcon}
+          text=""
+          />
+        <InsightCard
+              title="Sales"
+               value="574.34 AED"
+
+               text=" since last month"
+               percentage="+23%"
+                />
+        <InsightCard
+              title="Total Sold"
+              value="2935"
+               icon={total}
+               text=""
+                />
+
       </section>
 
       <div className="income-payment-main-content">

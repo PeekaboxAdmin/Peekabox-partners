@@ -24,10 +24,12 @@ import Logo from './Images/food.jpg';
 interface SidebarProps {
     isOpen: boolean;
     onToggle: () => void;
+    className?: string; // Optional className prop
     onNavClick: (section: string) => void;
+    
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
     const navigate = useNavigate();
     const storeId = useSelector((state: any) => state.storeAuth.Store_id);
     const [store, setStore] = useState<any>(null);

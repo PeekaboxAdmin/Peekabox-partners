@@ -1,120 +1,103 @@
-import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Image from '../../Components/Image/Image';
-import Heading from '../../Components/Heading/Heading';
-import ForgotPassword from './ForgotPassword';
-import Button from '../../Components/Button/Button';
-import CheckboxWithLabel from '../../Components/CheckboxWithLabel/CheckboxWithLabel';
-import loginpic from '../../assets/images/login.png';
-import './Style/Login.css';
-import { useDispatch } from 'react-redux';
-import { setStoreAuth } from '../../GlobalStateManagement/storeAuthSlice';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import l from "../../assets/images/Signup.png";
+import Button from "../../Components/Button/Button";
 
 const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [step, setStep] = useState<"email" | "password">("email"); // Track the current step
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string>('test123@gmail.com');
-  const [password, setPassword] = useState<string>('test123456789!');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const dispatch = useDispatch();
 
-  // Checkbox state
-  const [isChecked, setIsChecked] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleEmailSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (email === "test@example.com") {
+      setStep("password");
+      setError(""); // Clear any previous error
+    } else {
+      setError("Invalid email. Please try again.");
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    setLoading(true);
-    setErrorMessage('');
-    
-    try {
-      const apiurl = process.env.REACT_APP_API_URL
-      const response = await axios.post(
-        `${apiurl}/api/v1/stores/auth/logIn`,
-        { email, password },
-        {
-          withCredentials: true, 
-        }
-      );
-      
-        console.log(response.data.data)
-
-      if (response.status === 200) {
-        const { message , storeAuth } = response.data.data;
-        
-        dispatch(setStoreAuth({  Store_id: storeAuth._id }));
-        
-        // Redirect user after successful login
-        navigate('/');
-      } else {
-        setErrorMessage('Login failed');
-      }
-    } catch (err) {
-      setErrorMessage('An error occurred during login');
-    } finally {
-      setLoading(false);
+    if (password === "password123") {
+      navigate("/dashboard"); // Redirect to the dashboard or home page
+    } else {
+      setError("Invalid password. Please try again.");
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="left-section">
-        <Image imageSrc={loginpic} />
-      </div>
-      <div className="right-section">
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="heading-container">
-            <Heading
-              title="Sign in to your account"
-              subtitle="Welcome Back! Let's get you Signed In"
-              className="heading-container"
-            />
-          </div>
-          <div className="input-group">
-            <input
-              placeholder="Enter your Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group password-input">
-            <input
-              placeholder="Password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-            </button>
-          </div>
-          <div className="options-row">
-            <CheckboxWithLabel
-              label="Keep me logged in"
-              checked={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
-            />
-            <ForgotPassword />
-          </div>
-          <div className='login-button-container'>
-            <Button label="Sign In" loading={loading} className="Green-button" />
-          </div>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        </form>
+    <div className="flex flex-col lg:flex-row h-screen">
+      {/* Left Image Section */}
+      <div
+        className="lg:w-3/5 w-full h-1/2 lg:h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${l})` }}
+      ></div>
+
+      {/* Right Form Section */}
+      <div className="lg:w-2/5 w-full flex items-start justify-center bg-white">
+        <div className="w-full max-w-md px-6 lg:px-16 text-center mt-16 lg:mt-32">
+          <h1 className="text-xl lg:text-2xl font-bold mb-4">
+            {step === "email" ? "Sign up your business" : "Enter your password"}
+          </h1>
+          <p className="text-sm lg:text-base text-gray-600 mb-6">
+            {step === "email"
+              ? "Enter your email and get started in a few minutes!"
+              : "Let’s Keep It Safe - Enter Your Password."}
+          </p>
+
+          {step === "email" ? (
+            <form onSubmit={handleEmailSubmit}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:ring focus:ring-DarkGreen"
+              />
+              {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
+              <Button
+                type="submit"
+                label="Continue"
+                className="w-full py-2 bg-DarkGreen text-white rounded-md hover:bg-DarkGreen-hover"
+              />
+            </form>
+          ) : (
+            <form onSubmit={handlePasswordSubmit}>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:ring focus:ring-DarkGreen"
+              />
+              <div className="flex items-center justify-between mb-4">
+                <label className="flex items-center text-sm text-gray-700 space-x-2">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 border-gray-300 rounded text-DarkGreen focus:ring-DarkGreen"
+                  />
+                  <span>Keep me logged in</span>
+                </label>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-pinkCustom hover:text-pinkCustom-hover"
+                >
+                  Forgot password?
+                </a>
+              </div>
+              {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
+              <Button
+                type="submit"
+                label="Sign In"
+                className="w-full py-2 bg-DarkGreen text-white rounded-md hover:bg-DarkGreen-hover"
+              />
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
