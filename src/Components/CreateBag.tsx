@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './CreateBag.css';
 import Logo from './Images/burger.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import TimePicker from './TimePicker/TimePicker';
 
 interface CreateBagFormProps {
-  setIsModalOpen: (open: boolean) => void;
+  onCancel: (open: boolean) => void;
 }
 
 const daysOfWeek = [
@@ -20,69 +20,82 @@ const daysOfWeek = [
   'Sunday',
 ];
 
-const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
-  const [bagName, setBagName] = useState('Deluxe');
-  const [price, setPrice] = useState('45');
-  const [category, setCategory] = useState('Surprise Bag');
-  const [numberOfBags, setNumberOfBags] = useState('3');
+const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
+  const [bagName, setBagName] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('MEALS');
+  const [numberOfBags, setNumberOfBags] = useState('');
   const [allergens, setAllergens] = useState('');
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
-  const [startTime, setStartTime] = useState<Date | null>(new Date());
-  const [endTime, setEndTime] = useState<Date | null>(
-    new Date(new Date().getTime() + 60 * 60 * 1000) // 1 hour later by default
-  );
+  const [selectedDays, setSelectedDays] = useState<{ day: string; startTime: string; endTime: string }[]>([]);
+
+  const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
   const handleDaySelection = (day: string) => {
-    setSelectedDays((prevDays) =>
-      prevDays.includes(day) ? prevDays.filter((d) => d !== day) : [...prevDays, day]
-    );
+    const existingDay = selectedDays.find(d => d.day === day);
+    if (existingDay) {
+      setSelectedDays(selectedDays.filter(d => d.day !== day));
+    } else {
+      setSelectedDays([ 
+        ...selectedDays, 
+        { day, startTime: '10:00', endTime: '18:00' } 
+      ]);
+    }
   };
 
-  const navigate = useNavigate();
+  const handleTimeChange = (day: string, field: 'startTime' | 'endTime', value: string) => {
+    setSelectedDays(
+      selectedDays.map((d) =>
+        d.day === day ? { ...d, [field]: value } : d
+      )
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    // Explicit data to match the provided JSON structure
+    const allergenArray = allergens.split(',').map((a) => a.trim().toUpperCase());
+  
     const data = {
-      storeId: "786b54321a9cd6789bcf1234",
+      storeId,
       storeName: "Leto Abu Mall",
-      name: "Jump Bag",
+      name: bagName,
       description: "A delicious chicken-filled bag, perfect for a quick meal.",
       price: {
-        amount: 25.99,
+        amount: price,
         currencyCode: "AED",
       },
-      category: "MEALS",
-      quantity: 50,
+      category,
+      quantity: numberOfBags,
       image: "https://example.com/images/chicken_bag.jpg",
-      allergenInfo: ["NUTS", "DAIRY"],
+      allergenInfo: allergenArray,
       collectionSchedule: {
-        day: "MONDAY",
+        day: selectedDays[0].day.toUpperCase(),
         timeWindow: {
-          start: "10:00",
-          end: "18:00",
-        },
+          start: selectedDays[0].startTime,
+          end: selectedDays[0].endTime,
+        }
       },
       isAvailable: true,
     };
   
     try {
+      const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
-        "http://localhost:8100/api/v1/stores/786b54321a9cd6789bcf1234/product",
+        `${apiurl}/api/v1/stores/${storeId}/product`,
         data,
         {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
       console.log("Success:", response.data);
       alert("Bag created successfully!");
-      setIsModalOpen(false); // Close modal on success
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
-      console.error("Error creating bag:");
+      console.log(data);
+      console.error("Error creating bag:", error);
       alert("Failed to create the bag. Please try again.");
     }
   };
@@ -91,15 +104,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
     <div className="create-bag-form-container">
       <div className="header">
         <div className="card">
-          <img className="card-image" src={Logo} alt="Deluxe Bag" />
-          <div className="card-content">
-            <h2 className="card-title">Deluxe</h2>
-            <p className="card-details">0 out of 5 sold</p>
-            <p className="card-details">mon-tuesday 10am - 20pm</p>
-            <div className="price-container">
-              <span className="original-price">AED 45</span> AED 15
-            </div>
-          </div>
+          <img className="card-image" src={Logo} alt="Bag" />
         </div>
       </div>
 
@@ -115,16 +120,12 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
 
             <div className="nd-Grid">
               <div>
-                <label className="label-s">Price</label>
-                <select
-                  className="select"
+                <label className="label-s">Price in AED</label>
+                <input
+                  className="input"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                >
-                  <option value="45">AED 45</option>
-                  <option value="30">AED 30</option>
-                  <option value="15">AED 15</option>
-                </select>
+                />
 
                 <label className="label-s">Category</label>
                 <select
@@ -132,28 +133,28 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option value="Surprise Bag">Surprise Bag</option>
+                  <option value="MEALS">MEALS</option>
+                  <option value="BAKERY">BAKERY</option>
+                  <option value="GROCERY">GROCERY</option>
                 </select>
               </div>
 
               <div>
                 <label className="label-s">Quantity Selling per Day</label>
-                <select
+                <input
                   className="select"
                   value={numberOfBags}
+                  type="number"
                   onChange={(e) => setNumberOfBags(e.target.value)}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                />
 
                 <label className="label-s">Allergens</label>
                 <input
-                  className="input"
+                  className="select"
                   value={allergens}
-                  onChange={(e) => setAllergens(e.target.value)}
-                  placeholder="... e.g., NUTS, DAIRY"
+                  type="text"
+                  placeholder="Eg. NUT, DAIRY"
+                  onChange={(e) => setAllergens(e.target.value.toUpperCase())}
                 />
               </div>
             </div>
@@ -167,51 +168,40 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ setIsModalOpen }) => {
 
           <div className="form-right">
             <label className="label-s">Select Pickup Days</label>
-            <div className="days-list">
-              {daysOfWeek.map((day) => (
-                <label key={day} className="day-option">
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes(day)}
-                    onChange={() => handleDaySelection(day)}
-                  />
-                  {day}
-                </label>
+            <div className="days-grid">
+              {daysOfWeek.map((day, index) => (
+                <div key={index} className="day-option">
+                  <div onClick={() => handleDaySelection(day)}>{day}</div>
+                  {selectedDays.some(d => d.day === day) && (
+                    <div>
+                      <div>
+                        <p>Start Time</p>
+                        <TimePicker
+                          value={selectedDays.find(d => d.day === day)?.startTime || '10:00'}
+                          onChange={(value) => handleTimeChange(day, 'startTime', value)}
+                        />
+                      </div>
+                      <div>
+                        <p>End Time</p>
+                        <TimePicker
+                          value={selectedDays.find(d => d.day === day)?.endTime || '18:00'}
+                          onChange={(value) => handleTimeChange(day, 'endTime', value)}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 
-            <label className="label-s">Select Pickup Time</label>
-            <div className="time-range">
-              <DatePicker
-                selected={startTime}
-                onChange={(date) => setStartTime(date)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                timeCaption="Start Time"
-                dateFormat="h:mm aa"
-                placeholderText="Start Time"
-              />
-              <span className="time-separator">to</span>
-              <DatePicker
-                selected={endTime}
-                onChange={(date) => setEndTime(date)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                timeCaption="End Time"
-                dateFormat="h:mm aa"
-                placeholderText="End Time"
-              />
-            </div>
             <div>
-              <button className="button" type="submit">
+              <button className="button-create" type="submit">
                 Create
               </button>
               <button
                 className="button cancel-button"
                 type="button"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {onCancel(false)}} // Close the form on cancel
               >
                 Cancel
               </button>

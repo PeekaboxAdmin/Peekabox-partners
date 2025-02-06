@@ -8,10 +8,13 @@ import Button from '../../Components/Button/Button';
 import Sidebar from '../../Components/Sidebar';
 import Header from '../../Components/Header';
 import '../../Components/Sidebar.css'
+import { useNavigate } from 'react-router-dom';
+
 
 const SettingsPage: React.FC = () => {
 
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const nav = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
@@ -20,22 +23,20 @@ const SettingsPage: React.FC = () => {
 
         <div className="max-w-6xl mx-auto px-4 py-4">
 
-        <Header/>
-
         <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
           <div className="bg-white rounded-lg border border-gray-200 p-2 md:px-28">
 
             <h1 className="text-2xl font-semibold mb-6 ml-1">Settings</h1>
 
-            <NotificationSettings />
-            <hr className="border-gray-200 my-8" />
+          {/*   <NotificationSettings />
+            <hr className="border-gray-200 my-8" /> */}
 
-            <PrivacySettings />
-            <hr className="border-gray-200 my-8" />
+             <PrivacySettings />
+            <hr className="border-gray-200 my-8" /> 
 
-            <LanguageSettings />
-            <hr className="border-gray-200 my-8" />
+          {/*  <LanguageSettings /> // Not MVP FEATURE 
+            <hr className="border-gray-200 my-8" /> */}
 
             <PaymentDetails />
 
@@ -46,6 +47,7 @@ const SettingsPage: React.FC = () => {
               />
               <Button
                 label="Cancel"
+                onClick={()=> nav('/dashboard')}
                 className="w-full sm:w-auto px-4 py-2 bg-white border border-pinkCustom rounded-lg text-pinkCustom hover:bg-gray-50 transition-colors"
               />
             </div>

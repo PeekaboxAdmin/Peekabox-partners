@@ -30,10 +30,10 @@ const Calendar: React.FC<CalendarProps> = ({
   const [showMonthDropdown, setShowMonthDropdown] = useState(false);
   const [showYearDropdown, setShowYearDropdown] = useState(false);
 
-  const currentCalendar = useMemo(
+ /* const currentCalendar = useMemo(
     () => buildCalendar(currentMonth, currentYear),
     [currentMonth, currentYear]
-  );
+  ); */
 
   const handleMonthChange = (newMonth: number) => {
     setCurrentMonth(newMonth);
@@ -49,13 +49,13 @@ const Calendar: React.FC<CalendarProps> = ({
 
   return (
     <div className="calendar">
-      <div className="calendar-header">
+     {/* <div className="calendar-header">
         <div className="month-container" onClick={() => setShowMonthDropdown(!showMonthDropdown)}>
           <span className="month">{currentCalendar.month}</span>
           <ChevronDown className="chevronY" />
           {showMonthDropdown && (
             <div className="dropdownm">
-              {/* Month dropdown items */}
+            
               {Array.from({ length: 12 }, (_, index) => (
                 <div 
                   key={index} 
@@ -74,7 +74,7 @@ const Calendar: React.FC<CalendarProps> = ({
           <ChevronDown className="chevronM" />
           {showYearDropdown && (
             <div className="dropdowny">
-              {/* Year dropdown items */}
+            
               {Array.from({ length: 20 }, (_, index) => (
                 <div 
                   key={index} 
@@ -108,11 +108,12 @@ const Calendar: React.FC<CalendarProps> = ({
           ))}
         </div>
       </div>
+       */}
     </div>
   );
 };
 
-function buildCalendar(month: number, year: number): CalendarMonth {
+/*function buildCalendar(month: number, year: number): CalendarMonth {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -141,5 +142,7 @@ function buildCalendar(month: number, year: number): CalendarMonth {
     days,
   };
 }
+
+*/
 
 export default Calendar;

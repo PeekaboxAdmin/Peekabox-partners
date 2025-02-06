@@ -1,28 +1,28 @@
-// src/StoreInfo.tsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StoreInfo.css';
-import Logo from './Images/food.jpg'
+import Logo from './Images/food.jpg';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import MobileSidebar from './SideBarMobile';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../GlobalStateManagement/store';
 
 // Type Definitions
 interface Address {
   street: string;
+  area: string;
   city: string;
-  postalCode: string;
   country: string;
 }
 
-interface ContactInfo {
+interface ContactDetails {
   phone: { countryCode: string; number: string };
   email: string;
-  website: string;
 }
 
 interface BusinessHour {
-  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+  day: string; // Day as a string (e.g., "MONDAY")
   open: string;
   close: string;
 }
@@ -34,59 +34,50 @@ interface Location {
 
 interface Store {
   _id: string;
-  brandName: string;
-  branchName: string;
+  name: string;
+  description: string;
   brandId: string;
-  description?: string;
   address: Address;
   location: Location;
-  contactInfo: ContactInfo;
-  businessHours: BusinessHour[];
-  categories: string[];
-  imagesURL: string;
-  isActive: boolean;
+  contactDetails: ContactDetails;
+  operatingHours: BusinessHour[];
+  category: string;
+  image: string;
+  isDeleted: boolean;
 }
 
-// Main StoreInfo Component
 const StoreInfo: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-   const [isMobile, setIsMobile] = useState(false); // State for mobile detection
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [store, setStore] = useState<Store | null>(null);
+  const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
-  // Initial Hardcoded Data
-  const [store, setStore] = useState<Store>({
-    _id: '123456',
-    brandName: 'Example Brand',
-    branchName: 'Downtown',
-    brandId: 'BR123',
-    description: 'A popular downtown branch with a variety of products.',
-    address: {
-      street: '123 Main St',
-      city: 'Example City',
-      postalCode: '12345',
-      country: 'CountryX',
-    },
-    location: {
-      type: 'Point',
-      coordinates: [40.7128, -74.0060],
-    },
-    contactInfo: {
-      phone: { countryCode: '+1', number: '1234567890' },
-      email: 'contact@brand.com',
-      website: 'https://brand.com',
-    },
-    businessHours: [
-      { day: 'Monday', open: '09:00', close: '18:00' },
-      { day: 'Tuesday', open: '09:00', close: '18:00' },
-      { day: 'Wednesday', open: '09:00', close: '18:00' },
-      { day: 'Thursday', open: '09:00', close: '18:00' },
-      { day: 'Friday', open: '09:00', close: '18:00' },
-    ],
-    categories: ['Restaurant'],
-    imagesURL: '"https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Fi0.wp.com%2Fthenutritionadventure.com%2Fwp-content%2Fuploads%2F2017%2F07%2FPourHouseAmericanBurger.jpg%3Fresize%3D5236%252C3490&sp=1731312179T0ed266f82ea2e98570d57b97292796e0f0dfdb596e20399449d7dddfd864905c"',
-    isActive: true,
-  });
+  // Fetch store data from API
+  useEffect(() => {
+    const fetchStoreData = async () => {
+      try {
+        const apiurl = process.env.REACT_APP_API_URL
+        const response = await axios.get(`${apiurl}/api/v1/stores/store/${storeId}`,
+          {
+            withCredentials: true
+          }
+        );
+        if (response.data.success) {
+          console.log(response)
+          setStore(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching store data:", error);
+      }
+    };
 
-  // Predefined categories
+    fetchStoreData();
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarExpanded(!sidebarExpanded);
+  };
+
   const categoryOptions = [
     'Restaurant',
     'Cafe',
@@ -97,169 +88,174 @@ const StoreInfo: React.FC = () => {
     'Pastry Shop',
     'Supermarket',
     'Fruit and Vegetable store',
-    'Other'
+    'Other',
   ];
 
-  // Handle Change in Form Inputs
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    if (!store) return;
     const { name, value } = e.target;
-    setStore(prevStore => ({
-      ...prevStore,
+    setStore({
+      ...store,
       [name]: value,
-    }));
+    });
   };
 
-  // Handle Change for Business Hours
   const handleBusinessHourChange = (index: number, field: 'open' | 'close', value: string) => {
-    const updatedHours = [...store.businessHours];
+    if (!store) return;
+    const updatedHours = [...store.operatingHours];
     updatedHours[index] = { ...updatedHours[index], [field]: value };
-    setStore(prevStore => ({
-      ...prevStore,
-      businessHours: updatedHours,
-    }));
+    setStore({
+      ...store,
+      operatingHours: updatedHours,
+    });
   };
 
-  // Handle Category Selection
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStore(prevStore => ({
-      ...prevStore,
-      categories: [e.target.value],
-    }));
-  };
-
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const toggleSidebar = () => {
-    setSidebarExpanded(!sidebarExpanded);
-};
+  if (!store) {
+    return <div>Loading...</div>; // Wait for store data to load
+  }
 
   return (
-    <div className='store-Container-main'>
-      <Header/>
-    
-                <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar}/>
-          
-                <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-            
-    <div className="store-container">
-      <img src={Logo} alt="Store Logo" className="store-logo" />
+    <div className="store-Container-main">
+      <Header />
+      <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} />
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
-      {!isEditing ? (
-        <div className="store-details">
-          <h2>Store Management</h2>
+      <div className="store-container">
+        <img src={store.image || Logo} alt="Store Logo" className="store-logo" />
 
-          <div className="flex-grid">
-            <div>
-              <h3>Store</h3>
-            </div>
+        {!isEditing ? (
+          <div className="store-details">
+            <h2>Store Management</h2>
 
-            <div className="StoreDinside1">
-              <h3>Store Info</h3>
-
-              <div className="horizontal-flex-box">
-                <div className="store-detail-container">
-                  <h5>Store Name</h5>
-                  <p>{store.brandName} - {store.branchName}</p>
-                </div>
-
-                <div className="store-detail-container">
-                  <h5>Description</h5>
-                  <p>{store.description}</p>
-                </div>
-
-                <div className="store-detail-container">
-                  <h5>Address</h5>
-                  <p>{store.address.street}, {store.address.city}, {store.address.country}</p>
-                </div>
-
-                <div className="store-detail-container">
-                  <h5>Contact</h5>
-                  <p>{store.contactInfo.phone.countryCode} {store.contactInfo.phone.number}</p>
-                </div>
-
-                <div className="store-detail-container">
-                  <h5>Email</h5>
-                  <p>{store.contactInfo.email}</p>
-                </div>
-
-                {/* Category Section Displayed as Other Store Details */}
-                <div className="store-detail-container">
-                  <h5>Category</h5>
-                  <p>{store.categories[0]}</p>
-                </div>
+            <div className="flex-grid">
+              <div>
+                <h3>Store</h3>
               </div>
 
-              <h5>Business Hours:</h5>
-              {store.businessHours.map((hour, index) => (
-                <div key={index}>
-                  <p>{hour.day}:</p> {hour.open} - {hour.close}
+              <div className="StoreDinside1">
+                <h3>Store Info</h3>
+
+                <div className="horizontal-flex-box">
+                  <div className="store-detail-container">
+                    <h5>Store Name</h5>
+                    <p>{store.name}</p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Description</h5>
+                    <p>{store.description}</p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Address</h5>
+                    <p>
+                      {store.address.street}, {store.address.area}, {store.address.city},{' '}
+                      {store.address.country}
+                    </p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Contact</h5>
+                    <p>
+                      {store.contactDetails.phone.countryCode} {store.contactDetails.phone.number}
+                    </p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Email</h5>
+                    <p>{store.contactDetails.email}</p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Category</h5>
+                    <p>{store.category}</p>
+                  </div>
                 </div>
-              ))}
 
-            </div>
-          </div>
-
-          <button className='editbtnst' onClick={() => setIsEditing(true)}>Edit</button>
-        </div>
-      ) : (
-        <form className="edit-form">
-          <label>Brand Name:</label>
-          <input type="text" name="brandName" value={store.brandName} onChange={handleChange} />
-
-          <label>Branch Name:</label>
-          <input type="text" name="branchName" value={store.branchName} onChange={handleChange} />
-
-          <label>Description:</label>
-          <textarea name="description" value={store.description} onChange={handleChange} />
-
-          <label>Street:</label>
-          <input type="text" name="street" value={store.address.street} onChange={handleChange} />
-
-          <label>City:</label>
-          <input type="text" name="city" value={store.address.city} onChange={handleChange} />
-
-          <h3>Edit Business Hours</h3>
-          {store.businessHours.map((hour, index) => (
-            <div key={index}>
-              <label>{hour.day} Open:</label>
-              <input
-                type="time"
-                value={hour.open}
-                onChange={(e) => handleBusinessHourChange(index, 'open', e.target.value)}
-              />
-              <label>{hour.day} Close:</label>
-              <input
-                type="time"
-                value={hour.close}
-                onChange={(e) => handleBusinessHourChange(index, 'close', e.target.value)}
-              />
-            </div>
-          ))}
-
-          <h3>Select Category</h3>
-          <div className="category-row">
-            <label>
-              <select
-                name="category"
-                value={store.categories[0]} // Bind the first category in the array
-                onChange={(e) => setStore(prevStore => ({
-                  ...prevStore,
-                  categories: [e.target.value], // Update the first category
-                }))}
-              >
-                {categoryOptions.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
+                <h5>Operating Hours:</h5>
+                {store.operatingHours.map((hour, index) => (
+                  <div key={index}>
+                    <p>
+                      {hour.day}: {hour.open} - {hour.close}
+                    </p>
+                  </div>
                 ))}
-              </select>
-            </label>
-          </div>
+              </div>
+            </div>
 
-          <button className='editbtnst' type="button" onClick={() => setIsEditing(false)}>Save</button>
-          <button className='editbtnst' type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      )}
-    </div>
+            <button className="editbtnst" onClick={() => setIsEditing(true)}>
+              Edit
+            </button>
+          </div>
+        ) : (
+          <form className="edit-form">
+            <label>Store Name:</label>
+            <input type="text" name="name" value={store.name} onChange={handleChange} />
+
+            <label>Description:</label>
+            <textarea name="description" value={store.description} onChange={handleChange} />
+
+            <label>Street:</label>
+            <input
+              type="text"
+              name="street"
+              value={store.address.street}
+              onChange={handleChange}
+            />
+
+            <label>Area:</label>
+            <input type="text" name="area" value={store.address.area} onChange={handleChange} />
+
+            <label>City:</label>
+            <input type="text" name="city" value={store.address.city} onChange={handleChange} />
+
+            <h3>Edit Operating Hours</h3>
+            {store.operatingHours.map((hour, index) => (
+              <div key={index}>
+                <label>{hour.day} Open:</label>
+                <input
+                  type="time"
+                  value={hour.open}
+                  onChange={(e) => handleBusinessHourChange(index, 'open', e.target.value)}
+                />
+                <label>{hour.day} Close:</label>
+                <input
+                  type="time"
+                  value={hour.close}
+                  onChange={(e) => handleBusinessHourChange(index, 'close', e.target.value)}
+                />
+              </div>
+            ))}
+
+            <label>Category:</label>
+            <select
+              name="category"
+              value={store.category}
+              onChange={(e) =>
+                setStore({
+                  ...store,
+                  category: e.target.value,
+                })
+              }
+            >
+              {categoryOptions.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
+            <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
+              Save
+            </button>
+            <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
+              Cancel
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

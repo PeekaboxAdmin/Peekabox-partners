@@ -63,9 +63,9 @@ const MobileSidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
                             <li onClick={() => handleNavClick('orderManagement')}>
                                 <FontAwesomeIcon icon={faClipboardList} /> Order Management
                             </li>
-                            <li onClick={() => handleNavClick('customerFeedback')}>
+                          {/*  <li onClick={() => handleNavClick('customerFeedback')}>
                                 <FontAwesomeIcon icon={faComments} /> Customer Interaction & Feedback
-                            </li>
+                            </li> */}
                             <li onClick={() => handleNavClick('storeManagement')}>
                                 <FontAwesomeIcon icon={faStore} /> Store Management
                             </li>

@@ -19,7 +19,7 @@ const data: DataPoint[] = [
 const CO2ReductionChart: React.FC = () => {
   return (
     <div className="chart-container1">
-      <div className="chart-header1">
+      {/*<div className="chart-header1">
 
         <div className="chart-left-header1">
           <div className="chart-header-content1">
@@ -29,7 +29,7 @@ const CO2ReductionChart: React.FC = () => {
           </div>
         </div>
 
-        {/* Chart Section */}
+      
         <div className="chart-right-section1">
           <div className="chart-percentage1">
             <span className="percentage-text1">▲ +2.45%</span>
@@ -93,7 +93,7 @@ const CO2ReductionChart: React.FC = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

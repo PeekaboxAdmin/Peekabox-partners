@@ -7,10 +7,6 @@ import Button from "../../Components/Button/Button";
 import Indicators from "../../Components/indicators/indicators";
 
 
-
-
-
-
 const Brand: React.FC = () => {
     const Navigate = useNavigate();
     const HandleAddBrand=()=>{

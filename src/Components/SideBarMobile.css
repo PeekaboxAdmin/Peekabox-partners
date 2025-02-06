@@ -8,14 +8,14 @@
 /* Hamburger Button */
 .mhamburger-btn {
     position: fixed;
-    top: 15px;
+    top: 15px; /* Adjusted from 3px to 15px for better positioning */
     left: 15px;
-    z-index: 1200; 
-    background: transparent; /* Pink */
+    z-index: 1200; /* Ensures the button is above the sidebar overlay */
+    background-color: transparent;
     border: none;
     border-radius: 5px;
     color: #FF80B4;
-    font-size: 18px;
+    font-size: 20px;
     padding: 10px;
     cursor: pointer;
 }
@@ -25,7 +25,7 @@
 }
 
 .msidebar-title{
-    color: #FF80B4;
+ color: #FF80B4;
   padding: 10px;
   width: fit-content;
   font-size: medium;
@@ -109,7 +109,6 @@
 /* Icons in the Sidebar */
 .msidebar-menu li svg {
     color: #ff80b4;
-
 }
 
 .mnamelabel{

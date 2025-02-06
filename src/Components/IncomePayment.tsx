@@ -1,6 +1,6 @@
 import React from 'react';
 import './IncomeAndPayment.css';
-import BagSold from '../Sections/InsightPage/BagSold/BagSold';
+//import BagSold from '../Sections/InsightPage/BagSold/BagSold';
 import CO2ReductionChart from '../Sections/InsightPage/CO2ReductionChart/CO2ReductionChart';
 import MonthlySalesChart from'../Sections/InsightPage/MonthlySalesChart/MonthlySalesChart';
 import Calendar from '../Sections/InsightPage/Calendar/Calender';
@@ -8,6 +8,7 @@ import BestSellingTable from '../Sections/InsightPage/BestSellingTable/BestSelli
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { useState } from 'react';
+import MobileSidebar from './SideBarMobile';
 
 
 const IncomePayment: React.FC = () => {
@@ -18,8 +19,10 @@ const IncomePayment: React.FC = () => {
 
   return (
     <div className="income-payment-container">
-      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
       <Header/>
+      <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} />
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+      <div className="income-payment-container2">
       <header className="income-payment-header">
         <h1>Insights</h1>
       </header>
@@ -36,22 +39,21 @@ const IncomePayment: React.FC = () => {
             <MonthlySalesChart/>
           </ChartCard>
 
-          <ChartCard title="">
+         {/* <ChartCard title="">
             <CO2ReductionChart/>
-          </ChartCard>
+          </ChartCard> */}
         </div>
 
         <div className="income-payment-right-panel">
-          <Calendar />
-          <BagSold/>
 
-          <PieChartCard title="">
+          <PieChartCard title=""> 
 
          <BestSellingTable/>
           </PieChartCard>
         </div>
       </div>
     </div>
+        </div>
   );
 };
 

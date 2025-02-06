@@ -19,7 +19,7 @@ const SignupForm: React.FC = () => {
     const [brandData, setBrandData] = useState<any>(null);
     const [branchData, setBranchData] = useState<any>(null);
     const [totalStores, setTotalStores] = useState<number | null>(null);
-    const [password, setPassword] = useState<string>('');
+   
 
     const handleAccountNext = (data: any) => {
         setAccountData(data);
@@ -34,10 +34,6 @@ const SignupForm: React.FC = () => {
         setBranchData(data);
     };
 
-    const handlePasswordChange = (newPassword: string) => {
-        setPassword(newPassword);
-    };
-
     return (
         <Routes>
             <Route path="/" element={<Outlet />}>
@@ -50,7 +46,7 @@ const SignupForm: React.FC = () => {
                 />
                 <Route path="Created-Account" element={<AccountPage/>} />
                 <Route path="verify-email" element={<VerifyEmail />} />
-                <Route path="password" element={<Password password={password} onChange={handlePasswordChange} />} />
+                <Route path="password" element={<Password/>} />
                 <Route path="brand-created" element={<BrandCreated />} />
                 <Route path="store_surprisebag" element={<SurpriseBagCreated />} />
                 <Route path="login" element={<Login />} />

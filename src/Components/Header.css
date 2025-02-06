@@ -1,141 +1,86 @@
 .mainheader {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Ensures space between logo and other elements */
   padding: 10px 20px;
   color: #FF80B4;
   flex-wrap: wrap;
   position: relative;
+  z-index: 1000;
 }
 
 .logoheader {
   display: flex;
   align-items: center;
-  border: 2px solid #FF80B4;
+  justify-content: center;
   margin-right: 20px;
 }
 
-
 .logo-text {
   color: #FF80B4;
-  text-align: center;
+  border: 2px solid #FF80B4;
+  padding: 10px;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 5px;
+  text-align: center;
 }
 
-.nav {
-  display: flex;
-  gap: 30px;
-  margin-left: 20px;
-  flex-wrap: wrap;
-}
-
-.nav-item {
-  color: black;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-.nav-item:hover {
-  color: #4CAF50;
-}
-
-.search {
-  margin-left: auto;
-}
-
-.search-input {
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-}
-
-/* Notification bell icon styles */
-.notification-bell {
-  display: none; /* Hidden by default */
-}
-
-.bell-icon {
-  font-size: 1.5rem;
-  color: #FF80B4;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.bell-icon:hover {
-  color: #4CAF50; /* Hover color */
-}
-
-/* Responsive styles for mobile */
+/* Mobile Sidebar Toggle */
 @media (max-width: 768px) {
   .mainheader {
-    position: sticky; /* Sticks the header at the top while scrolling */
-  top: 0; /* Ensures it stays at the top */
-  z-index: 1000; /* Ensures it is above other elements */
-  background-color: white; /* Add a background color if needed */
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  color: #FF80B4;
-  flex-wrap: wrap;
-  height: 50px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for emphasis */
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .logoheader {
+    width: 100%;
+    margin-right: 0;
   }
 
   .logo-text {
-    position: fixed;
-    left: 50%; /* Center horizontally */
-    border: 2px solid #FF80B4;
-    top: 18px; /* Adjust vertical position as needed */
-    transform: translateX(-50%); /* Center horizontally using transform */
-    z-index: 999; /* Ensure it's above other elements */
-    font-size: 1.2rem; /* Adjust font size if necessary */
+    font-size: 0.9rem;
+    margin-top: 10px;
   }
 
-  .nav {
-    display: none;
-  }
-
-  .search {
-    display: none;
-  }
-
-  /* Show notification bell on mobile */
   .notification-bell {
-    display: block;
     position: fixed;
-    right: 25px; /* Fixed to the right */
-    top: 25px; /* Adjust as needed */
-    z-index: 1000; /* Ensure it is above other elements */
+    right: 20px;
+    top: 20px;
+    display: block;
+    z-index: 1001;
+  }
+
+  .bell-icon {
+    font-size: 1.5rem;
+    color: #FF80B4;
+    cursor: pointer;
   }
 }
 
 @media (max-width: 480px) {
   .logo-text {
-    position: fixed;
-    left: 50%; /* Center horizontally */
-    border: 2px solid #FF80B4;
-    top: 18px; /* Adjust vertical position as needed */
-    transform: translateX(-50%); /* Center horizontally using transform */
-    z-index: 999; /* Ensure it's above other elements */
-    font-size: 1.2rem; /* Adjust font size if necessary */
-  }
-
-  .nav-item {
-    font-size: 0.9rem;
-  }
-
-  .search-input {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
   .bell-icon {
-    font-size: 1.3rem; 
+    font-size: 1.3rem;
   }
 }
 
+/* Ensures visibility of the notification bell on small screens */
+.notification-bell {
+  display: block;
+}
 
+.bell-icon {
+  transition: color 0.3s;
+}
 
-
+.bell-icon:hover {
+  color: #4CAF50;
+}

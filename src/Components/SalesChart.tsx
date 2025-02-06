@@ -8,10 +8,7 @@ type DataPoint = {
 };
 
 const data: DataPoint[] = [
-  { category: 'Bakery Items', value: 87 },
-  { category: 'Dairy', value: 60 },
-  { category: 'Fruit Bag', value: 110 },
-  { category: 'Meal Bag', value: 75 },
+
 ];
 
 const SalesChart: React.FC = () => {
@@ -66,9 +63,11 @@ const SalesChart: React.FC = () => {
               radius={[20, 20, 0, 0]}
               barSize={30}
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill="url(#barGradient)" />
-              ))}
+              {data.length > 0 && 
+  data.map((entry, index) => (
+    <Cell key={`cell-${index}`} fill="url(#barGradient)" />
+  ))
+}
               <LabelList
                 dataKey="value"
                 fontSize={12}

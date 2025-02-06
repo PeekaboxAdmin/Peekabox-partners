@@ -1,20 +1,16 @@
 /* Main Container */
 .income-payment-container {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  padding-left:50px;
-  max-width: 1200px;
   margin: 0 auto;
-  transition: margin-left 0.3s ease, padding 0.3s ease; /* Smooth transition for sidebar toggle */
+}
+
+.income-payment-container2 {
+  padding: 20px;
 }
 
 .income-payment-container.sidebar-expanded {
   margin-left: 270px; /* Increased space for the sidebar (260px width + 10px gap) */
   padding-left: 20px; /* Extra space between sidebar and main content */
-}
-
-.income-payment-header {
-  margin-bottom: 20px;
 }
 
 /* Summary Cards */
@@ -95,6 +91,8 @@
   overflow-x: auto; /* Allow horizontal scroll for table */
 }
 
+
+
 .income-payment-table {
   width: 100%;
   border-collapse: collapse;
@@ -120,11 +118,11 @@
   padding: 20px;
 }
 
+
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .income-payment-container {
-    margin: 0;
-  }
 
   .income-payment-summary-cards,
   .income-payment-main-content {

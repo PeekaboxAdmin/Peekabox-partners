@@ -1,241 +1,189 @@
-/* Container Styles */
 .create-bag-form-container {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    margin: 30px;
-  }
-  
-  /* Header Styles */
-  .header {
-    background-color: #29672b;
-    padding: 0;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Card Styles */
-  .card {
-    background-color: #fff;
-    border-radius: 10px;
-    margin: 10px;
-    width: 300px;
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Card Image */
-  .card-image{
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-  }
-  
-  /* Card Content */
-  .card-content {
-    padding: 15px;
-  }
-  
-  /* Card Title */
-  .card-title {
-    margin: 0;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  /* Card Details */
-  .card-details {
-    margin: 5px 0;
-    color: #555;
-    font-size: 0.9em;
-  }
-  
-  /* Price Container */
-  .price-container {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #ff69b4;
-  }
-  
-  /* Original Price */
-  .original-price {
-    color: #aaa;
-    text-decoration: line-through;
-    margin-right: 10px;
-  }
-  
-  /* Form Styles */
-  .form {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  /* Form Content Layout */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 60px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow-y: auto; /* Prevents content overflow */
+  background-color: #fff; /* Ensures consistent background color */
+}
+
+/* Header Styles */
+.header {
+  background-color: #29672b;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Form Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.form-left,
+.form-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Input and Select */
+.input,
+.select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #29672b;
+  outline: none;
+}
+
+/* Labels */
+.label-s {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #ec407a;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Days Grid */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.day-option {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.day-option:hover {
+  background-color: #f0f0f0;
+  border-color: #29672b;
+}
+
+.day-option.active {
+  background-color: #e6ffe6;
+  border-color: #29672b;
+}
+
+/* Button Styles */
+.button-create {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #ec407a;
+  margin-top: 17px;
+  margin-bottom: 8px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #215b24;
+}
+
+.cancel-button {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: gray;
+  margin-bottom: 8px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #aaa;
+}
+
+/* Image Upload */
+.image-upload {
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.image-upload:hover {
+  border-color: #29672b;
+}
+
+.image-upload input {
+  display: none;
+}
+
+.image-upload-label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   .form-content {
-    display: flex;
-    gap: 30px;
-  }
-  
-  /* Left Section of the Form */
-  .form-left {
-    flex: 1;
-    display: flex;
     flex-direction: column;
-  }
-  
-  /* Right Section of the Form */
-  .form-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Label */
-  .label-s {
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #ff69b4;
-  }
-  
-  /* Input */
-  .input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  /* Select */
-  .select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-  
-  /* Days List Styling */
-  .days-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .day-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* Time Range Styling */
-  .time-range {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .time-separator {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  /* Button */
-  .button {
-    padding: 10px;
-    background-color: #ff69b4;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-right: 10px;
-  }
-  
-  .button:hover {
-    background-color: #ff69b4;
-  }
-  
-  /* 2nd Grid for Row Layout */
-  .nd-Grid {
-    display: flex;
-    flex-direction: row;
     gap: 20px;
   }
-  
-  /* Image Upload */
-  /* Image Upload Styling */
-.image-upload {
-    margin: 5px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%; /* Adjust width as needed */
-    height: 50px; /* Adjust height as needed */
-    cursor: pointer;
-    background-color: #f9f9f9;
-    text-align: center;
-  }
-  
-  .image-upload:hover {
-    border-color: #007bff; /* Add hover effect */
-  }
-  
-  .image-upload input[type="file"] {
-    display: none; /* Hide the default file input */
-  }
-  
-  .image-upload-label {
-    color: #aaa;
-    font-size: 14px;
-    font-weight: bold;
-    pointer-events: none; /* Prevent label interaction */
-  }
-  
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .form-content {
-      flex-direction: column;
-    }
-  
-    .nd-Grid {
-      flex-direction: column;
-    }
 
-     /* Card Styles */
-  .card {
+  .button {
     width: 100%;
-    height: 100%;
-  }
-  
-  /* Card Image */
-  .card-image {
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover;
   }
 
-  .create-bag-form-container {
-    margin-top: 600px
-    
+  .nd-Grid {
+    flex-direction: column;
+    gap: 15px;
   }
-
-    
-  }
-  
+}
