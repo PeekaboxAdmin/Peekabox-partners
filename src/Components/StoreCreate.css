@@ -1,93 +1,114 @@
 .store-create-container {
-    max-width: 400px; /* Narrow the width for a compact form */
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  background-color: #fff;
+  text-align: center;
+  margin: 50px;
+  padding: 100px;
+}
+
+.store-create-heading {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: palevioletred;
+  font-weight: bold;
+}
+
+.store-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.store-create-content {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+  gap: 1.9rem;
+}
+
+.store-create-label {
+  text-align: left;
+  color: #555;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.op-h-btn{
+  background: palevioletred;
+  border: none;
+  padding: 10px;
+  color: white;
+}
+
+.store-create-input {
+  width: 100%; /* Ensure inputs take full width of their column */
+  font-size: 1rem;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.store-create-input:focus {
+  border-color: #ff7f50;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
+}
+
+textarea.store-create-input {
+  resize: vertical;
+  min-height: 60px;
+}
+
+button.store-create-btn {
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: pink;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button.store-create-btn:hover {
+  background-color: #e0663c;
+}
+
+button.store-create-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.store-operating-hours{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.op-content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .store-create-container {
+    padding: 1.5rem;
   }
-  
-  .store-create-heading {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .store-create-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  
+
   .store-create-label {
-    font-size: 0.95rem;
-    text-align: left;
-    font-weight: 600;
-    color: #555;
+    font-size: 0.85rem;
   }
-  
-  .store-create-input {
-    padding: 0.8rem;
-    width: 100%;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-  }
-  
-  .store-create-input:focus {
-    border-color: #ff7f50;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
-  }
-  
-  textarea.store-create-input {
-    resize: vertical;
-    min-height: 60px;
-  }
-  
+
   button.store-create-btn {
-    padding: 0.8rem;
-    font-size: 1rem;
-    color: #fff;
-    background-color: pink;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    padding: 0.7rem;
   }
-  
-  button.store-create-btn:hover {
-    background-color: #e0663c;
+
+  .store-create-input {
+    font-size: 0.9rem;
+    padding: 0.7rem;
   }
-  
-  button.store-create-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  @media (max-width: 480px) {
-    .store-create-container {
-      padding: 1.5rem;
-    }
-  
-    .store-create-label {
-      font-size: 0.85rem;
-    }
-  
-    button.store-create-btn {
-      font-size: 0.9rem;
-      padding: 0.7rem;
-    }
-  
-    .store-create-input {
-      font-size: 0.9rem;
-      padding: 0.7rem;
-    }
-  }
-  
+}

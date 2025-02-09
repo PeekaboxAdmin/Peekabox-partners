@@ -104,34 +104,29 @@ const IndividualStoreCreate: React.FC = () => {
           handleSubmit();
         }}
       >
-        {/* Store Name */}
-        <label>
-          Store Name:
+        <div className="store-create-content">
+          {/* Store Name */}
           <input
             type="text"
             name="storeName"
             value={storeData.storeName}
             onChange={handleChange}
+            placeholder="Store name"
             required
             className="store-create-input"
           />
-        </label>
 
-        {/* Description */}
-        <label>
-          Description:
+          {/* Description */}
           <textarea
             name="description"
             value={storeData.description}
             onChange={handleChange}
+            placeholder="Store Description"
             required
             className="store-create-input"
           />
-        </label>
 
-        {/* Category */}
-        <label>
-          Category:
+          {/* Category */}
           <select
             name="category"
             value={storeData.category}
@@ -144,98 +139,87 @@ const IndividualStoreCreate: React.FC = () => {
             <option value="Cafe">Cafe</option>
             <option value="Grocery">Grocery</option>
           </select>
-        </label>
 
-        {/* Manager Name */}
-        <label>
-          Manager Name:
+          {/* Manager Name */}
           <input
             type="text"
             name="managerName"
             value={storeData.managerName}
             onChange={handleChange}
+            placeholder="Manager Name"
             required
             className="store-create-input"
           />
-        </label>
 
-        {/* Contact Details */}
-        <label>
-          Email:
+          {/* Contact Details */}
           <input
             type="email"
             name="contactDetails.email"
             value={storeData.contactDetails.email}
             onChange={handleChange}
+            placeholder="Manager Email"
             required
             className="store-create-input"
           />
-        </label>
-        <label>
-          Phone Number:
           <input
             type="text"
             name="contactDetails.phone.number"
             value={storeData.contactDetails.phone.number}
             onChange={handleChange}
+            placeholder="Phone Number"
             required
             className="store-create-input"
           />
-        </label>
 
-        {/* Address */}
-        {['street', 'area', 'city', 'country'].map((field) => (
-          <label key={field}>
-            {field.charAt(0).toUpperCase() + field.slice(1)}:
+          {/* Address */}
+          {['street', 'area', 'city', 'country'].map((field) => (
             <input
+              key={field}
               type="text"
               name={`address.${field}`}
               value={(storeData.address as any)[field]}
               onChange={handleChange}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
               required
               className="store-create-input"
             />
-          </label>
-        ))}
+          ))}
 
-        {/* Operating Hours */}
-        <div className="store-operating-hours">
-          <h3>Operating Hours</h3>
-          {storeData.operatingHours.map((hours, index) => (
-            <div key={index}>
-              <label>
-                Day:
+      
+        </div>
+
+            {/* Operating Hours */}
+            <div className="store-operating-hours">
+            <h3>Operating Hours</h3>
+            {storeData.operatingHours.map((hours, index) => (
+              <div className='op-content' key={index}>
                 <input
                   type="text"
                   value={hours.day}
                   onChange={(e) => handleOperatingHoursChange(index, 'day', e.target.value)}
+                  placeholder="Day"
                   required
                 />
-              </label>
-              <label>
-                Open:
                 <input
                   type="time"
                   value={hours.open}
                   onChange={(e) => handleOperatingHoursChange(index, 'open', e.target.value)}
                   required
+                  placeholder="Open"
                 />
-              </label>
-              <label>
-                Close:
                 <input
                   type="time"
                   value={hours.close}
                   onChange={(e) => handleOperatingHoursChange(index, 'close', e.target.value)}
                   required
+                  placeholder="Close"
                 />
-              </label>
-            </div>
-          ))}
-          <button type="button" onClick={addOperatingHours}>
-            Add Operating Hours
-          </button>
-        </div>
+              </div>
+            ))}
+            <button type="button" className='op-h-btn' onClick={addOperatingHours}>
+              Add Operating Hours
+            </button>
+          </div>
 
         {/* Submit Button */}
         <button type="submit" className="store-create-btn">
