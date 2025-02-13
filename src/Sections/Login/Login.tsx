@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { setStoreAuth } from "../../GlobalStateManagement/storeAuthSlice";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -13,10 +16,14 @@ const Login: React.FC = () => {
       const response = await axios.post(
         "https://api-backend.peekabox.net/api/v1/stores/auth/logIn",
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true, }
       );
       if (response.data.success) {
         alert("Login successful!");
+        const storeId = response.data.data.storeAuth._id;
+
+        // Dispatch an object that matches StoreAuthState
+        dispatch(setStoreAuth({ Store_id: storeId }));
         navigate("/");
       } else {
         alert("Login failed. Please check your credentials.");
