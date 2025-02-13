@@ -31,7 +31,7 @@ const dispatch = useDispatch();
     e.preventDefault();
     setLoading(true);
     setErrorMessage(''); 
-
+   //
     try {
       // API call to verify the OTP
       const response = await axios.post('https://api-backend.peekabox.net/api/v1/stores/auth/verifyOTP', {

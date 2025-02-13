@@ -41,14 +41,33 @@ const IndividualStoreCreate: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL;
+      // Hardcoded data for testing
+      const hardcodedData = {
+        storeId: storeId || '',
+        storeName: 'Sample Store',
+        description: 'This is a sample store.',
+        category: 'Grocery',
+        image: 'sample-image-url.jpg',
+        isAvailable: true,
+        managerName: 'John Doe',
+        contactDetails: { phone: { countryCode: '+1', number: '1234567890' }, email: 'manager@sample.com' },
+        address: { street: '123 Main St', area: 'Central Park', city: 'New York', country: 'USA' },
+        location: { type: 'Point', coordinates: [40.7128, -74.0060] },
+        operatingHours: [
+          { day: 'Monday', open: '09:00', close: '18:00' },
+          { day: 'Tuesday', open: '09:00', close: '18:00' },
+        ],
+      };
+
       const response = await axios.post(
         `${apiUrl}/api/v1/stores/store/${storeId}`,
         {
-          brandId: '60d5ecb8b392f8001f1e1d25', // Replace with dynamic value
-          ...storeData,
+          brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
+          ...hardcodedData,  // Use the hardcoded data
         },
         { withCredentials: true }
       );
+
       alert('Store updated successfully!');
       console.log('Response:', response.data);
       navigate('/dashboard');
@@ -185,14 +204,11 @@ const IndividualStoreCreate: React.FC = () => {
             />
           ))}
 
-      
-        </div>
-
-            {/* Operating Hours */}
-            <div className="store-operating-hours">
+          {/* Operating Hours */}
+          <div className="store-operating-hours">
             <h3>Operating Hours</h3>
             {storeData.operatingHours.map((hours, index) => (
-              <div className='op-content' key={index}>
+              <div className="op-content" key={index}>
                 <input
                   type="text"
                   value={hours.day}
@@ -216,15 +232,16 @@ const IndividualStoreCreate: React.FC = () => {
                 />
               </div>
             ))}
-            <button type="button" className='op-h-btn' onClick={addOperatingHours}>
+            <button type="button" className="op-h-btn" onClick={addOperatingHours}>
               Add Operating Hours
             </button>
           </div>
 
-        {/* Submit Button */}
-        <button type="submit" className="store-create-btn">
-          Update Store
-        </button>
+          {/* Submit Button */}
+          <button type="submit" className="store-create-btn">
+            Update Store
+          </button>
+        </div>
       </form>
     </div>
   );
