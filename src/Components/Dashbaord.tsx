@@ -67,6 +67,7 @@ const Dashboard: React.FC = () =>
         const apiurl = process.env.REACT_APP_API_URL
         const response = await axios.get(
           `${apiurl}/api/v1/stores/6785ba32f6d68eb6561cdca1/products?page=1&limit=30&sort=desc`,
+          { withCredentials: true }
         );
         if (response.data.success) {
           const products = response.data.data.products;
