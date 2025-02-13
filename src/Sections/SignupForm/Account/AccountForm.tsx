@@ -31,7 +31,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
   
       if (response.status === 404) {
         onNext({ email: email.trim() });
-        navigate('/signup/Password');
+        navigate('/signup/Password', { state: { email: email.trim() } });
       } else if (response.status === 200) {
         setErrorMessage('User Found');
       } else {
@@ -41,7 +41,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       // Check if the error is specifically a 404 and handle navigation
       if (error.response?.status === 404) {
         onNext({ email: email.trim() });
-        navigate('/signup/Password');
+        navigate('/signup/Password', { state: { email: email.trim() } });
       } else {
         // Handle other errors
         setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
