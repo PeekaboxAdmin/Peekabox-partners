@@ -1,10 +1,11 @@
-import React, { useState } from 'react';  
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import Image from '../../../Components/Image/Image';
 import Heading from '../../../Components/Heading/Heading';
 import Button from '../../../Components/Button/Button';
 
-import SignupImage from '../../../assets/images/Signup.png'
+import SignupImage from '../../../assets/images/Signup.png';
 import Separator from '../../../Components/Separator/Separator';
 import AuthButton from '../../../Components/AuthButton/AuthButton';
 import FooterLinks from '../../../Components/FooterLink/FooterLinks';
@@ -22,14 +23,25 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     setLoading(true);
     setErrorMessage('');
 
-      
-      onNext({ email: email.trim() });
-     
-      navigate('/signup/Verify-Email');
-    
+    try {
+      // Send email and credentials via POST request
+      const response = await axios.post(
+        'http://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
+        { email: email.trim() },
+      );
 
-  }
-    
+      if (response.data.success) {
+        onNext({ email: email.trim() });
+        navigate('/signup/Password');
+      } else {
+        setErrorMessage('There was an issue with the registration');
+      }
+    } catch (error: any) {
+      setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-page">
@@ -54,12 +66,12 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
             </div>
           </div>
           <div className='login-button-container'>
-           <Button label="Continue" loading={loading} className='Green-button' />
+            <Button label="Continue" loading={loading} className='Green-button' />
           </div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         <Separator />
-        <FooterLinks text1="By continuing, you agree to our" text2="Privacy Policy" and="and" text3="Terms and Conditions" dawonLink="Can't find your store?"/>
+        <FooterLinks text1="By continuing, you agree to our" text2="Privacy Policy" and="and" text3="Terms and Conditions" dawonLink="Can't find your store?" />
       </div>
     </div>
   );
