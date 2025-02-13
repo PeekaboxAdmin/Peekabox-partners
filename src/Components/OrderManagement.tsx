@@ -3,6 +3,7 @@ import axios from "axios";
 import "./OrderManagement.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { useSelector } from 'react-redux';
 
 interface OrderItem {
   productId: string;
@@ -37,13 +38,16 @@ const OrderManagement: React.FC = () => {
   const [surpriseOrders, setSurpriseOrders] = useState<SurpriseOrder[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // Get Store_id from Redux
+  const storeId = useSelector((state: any) => state.storeAuth.Store_id);
+
   // Fetch orders from the API
   const fetchOrders = async (page: number) => {
     setLoading(true);
     try {
       const apiurl = process.env.REACT_APP_API_URL
       const response = await axios.get(
-        `${apiurl}/api/v1/stores/67868526f31080d2abea2171/orders?page=${page}`,
+        `${apiurl}/api/v1/stores/${storeId}/orders?page=${page}`,
         {
           withCredentials: true,
         }

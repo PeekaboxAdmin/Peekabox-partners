@@ -86,7 +86,7 @@ const Login: React.FC = () => {
           {/* Links for additional actions */}
           <div className="flex justify-between items-center mt-4 text-sm">
             <a href="/register" className="text-pink-600 hover:underline">
-              Already registered?
+              New here , click here to register your store ?
             </a>
             <a href="/forgot-password" className="text-pink-600 hover:underline">
               Forgot Password?
