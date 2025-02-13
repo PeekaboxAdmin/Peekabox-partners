@@ -22,38 +22,35 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     e.preventDefault();
     setLoading(true);
     setErrorMessage('');
-
+  
     try {
-      // Send email and credentials via POST request
       const response = await axios.post(
         'https://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
-        { email: email.trim() },
+        { email: email.trim() }
       );
-
-      // Handle response status
+  
       if (response.status === 404) {
-        // Navigate to password page when 404 is received
         onNext({ email: email.trim() });
         navigate('/signup/Password');
       } else if (response.status === 200) {
-        setErrorMessage('Store Found, please login');
+        setErrorMessage('User Found');
       } else {
-        // Handle unexpected response statuses (optional)
-        setErrorMessage('Unexpected response, please try again.');
+        setErrorMessage('Something went wrong. Please try again.');
       }
     } catch (error: any) {
-      // Handle errors only when there's an issue with the request
-      if (error.response) {
-        setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
-      } else if (error.request) {
-        setErrorMessage('No response received from the server.');
+      // Check if the error is specifically a 404 and handle navigation
+      if (error.response?.status === 404) {
+        onNext({ email: email.trim() });
+        navigate('/signup/Password');
       } else {
-        setErrorMessage('An unexpected error occurred.');
+        // Handle other errors
+        setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
       }
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="login-page">
