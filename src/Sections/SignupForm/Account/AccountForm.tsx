@@ -23,7 +23,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     setLoading(true);
     setErrorMessage('');
   
-    //try {
+    try {
       const response = await axios.post(
         'https://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
         { email: email.trim() }
@@ -37,7 +37,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       } else {
         setErrorMessage('Something went wrong. Please try again.');
       }
-   /* } catch (error: any) {
+    } catch (error: any) {
       // Check if the error is specifically a 404 and handle navigation
       if (error.response?.status === 404) {
         onNext({ email: email.trim() });
@@ -48,7 +48,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       }
     } finally {
       setLoading(false);
-    } */
+    }
   };
 
   //
