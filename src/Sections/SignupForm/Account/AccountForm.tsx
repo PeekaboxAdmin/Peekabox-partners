@@ -30,11 +30,11 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         { email: email.trim() },
       );
 
-      if (response.data.success) {
+      if (response.status === 404) {
         onNext({ email: email.trim() });
         navigate('/signup/Password');
-      } else {
-        setErrorMessage('There was an issue with the registration');
+      } else if (response.status === 200){
+        setErrorMessage('Store Found , please login');
       }
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
