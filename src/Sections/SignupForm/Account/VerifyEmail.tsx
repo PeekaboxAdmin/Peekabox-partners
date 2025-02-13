@@ -34,7 +34,7 @@ const dispatch = useDispatch();
 
     try {
       // API call to verify the OTP
-      const response = await axios.post('http://localhost:8100/api/v1/stores/auth/verifyOTP', {
+      const response = await axios.post('https://api-backend.peekabox.net/api/v1/stores/auth/verifyOTP', {
           purpose: "SIGNUP",
           email: email,
           OTPValue: otp,
