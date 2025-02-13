@@ -59,7 +59,6 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         <Separator />
-        <AuthButton />
         <FooterLinks text1="By continuing, you agree to our" text2="Privacy Policy" and="and" text3="Terms and Conditions" dawonLink="Can't find your store?"/>
       </div>
     </div>
