@@ -107,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
                         <FontAwesomeIcon icon={faToolbox} /> Settings
                     </li>
                     <div className="sidebar-last-section">
-                        <li onClick={() => handleNavClick('signup')}>
+                        <li onClick={() => handleNavClick('dashboard')}>
                             <FontAwesomeIcon icon={faQuestion} /> Help
                         </li>
                         <li onClick={() => handleNavClick('signup')}>
