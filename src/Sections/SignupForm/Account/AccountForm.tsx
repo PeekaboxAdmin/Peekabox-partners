@@ -26,7 +26,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     try {
       // Send email and credentials via POST request
       const response = await axios.post(
-        'http://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
+        'https://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
         { email: email.trim() },
       );
 
