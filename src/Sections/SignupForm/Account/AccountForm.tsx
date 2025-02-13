@@ -30,14 +30,26 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         { email: email.trim() },
       );
 
+      // Handle response status
       if (response.status === 404) {
+        // Navigate to password page when 404 is received
         onNext({ email: email.trim() });
         navigate('/signup/Password');
-      } else if (response.status === 200){
-        setErrorMessage('Store Found , please login');
+      } else if (response.status === 200) {
+        setErrorMessage('Store Found, please login');
+      } else {
+        // Handle unexpected response statuses (optional)
+        setErrorMessage('Unexpected response, please try again.');
       }
     } catch (error: any) {
-      setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+      // Handle errors only when there's an issue with the request
+      if (error.response) {
+        setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+      } else if (error.request) {
+        setErrorMessage('No response received from the server.');
+      } else {
+        setErrorMessage('An unexpected error occurred.');
+      }
     } finally {
       setLoading(false);
     }
@@ -51,7 +63,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
       <div className="right-section">
         <form onSubmit={handleEmailSubmit} className="login-form">
           <div className="heading-container">
-            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" className='heading-container' />
+            <Heading title="Sign up your business" subtitle="Enter your email and get started in a few minutes!" className="heading-container" />
           </div>
           <div className="input-group">
             <input
@@ -65,8 +77,8 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
               Already registered? <Link to="/signup/login">Sign in</Link>
             </div>
           </div>
-          <div className='login-button-container'>
-            <Button label="Continue" loading={loading} className='Green-button' />
+          <div className="login-button-container">
+            <Button label="Continue" loading={loading} className="Green-button" />
           </div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
