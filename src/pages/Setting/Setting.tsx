@@ -61,7 +61,6 @@ const SettingsPage: React.FC = () => {
           >
             {/* Main Content Card */}
             <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 md:p-8">
-              <h1 className="text-2xl font-semibold mb-6 md:ml-16">Settings</h1>
 
               <div className="max-w-6xl mx-auto px-4 py-4">
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
