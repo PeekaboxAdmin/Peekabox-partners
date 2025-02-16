@@ -66,12 +66,19 @@ const Password: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen">
-      <div
-        className="lg:w-3/5 w-full h-1/2 lg:h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${SignupImage})` }}
-      ></div>
-      <div className="right-section">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+      {/* Left side with logo and slogan */}
+      <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
+        <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
+        <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
+      </header>
+
+      <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
+        <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
+        <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
+      </div>
+      <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
+      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
         <form className="login-form" onSubmit={handleFormSubmit}>
           <div className="heading-container">
             <Heading
@@ -102,7 +109,10 @@ const Password: React.FC = () => {
             <Button label="Continue" className="Green-button" />
           </div>
         </form>
+
+
       </div>
+    </div>
     </div>
   );
 };

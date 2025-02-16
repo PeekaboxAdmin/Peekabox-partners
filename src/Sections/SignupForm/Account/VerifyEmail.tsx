@@ -77,12 +77,21 @@ const dispatch = useDispatch();
     };
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen">
-      <div
-        className="lg:w-3/5 w-full h-1/2 lg:h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${SignupImage})` }}
-      ></div>
-      <div className="right-section">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+       {/* Left side with logo and slogan */}
+       <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
+        <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
+        <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
+      </header>
+
+      <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
+        <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
+        <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
+      </div>
+
+
+      <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
+      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
         <form onSubmit={handleCodeSubmit} className="login-form">
           <div className="heading-container">
             <Heading
@@ -97,7 +106,7 @@ const dispatch = useDispatch();
             onChange={setVerificationCode} 
           /> */}
           <input
-        type="text"
+        type="digit"
         value={otp}
         onChange={handleOtpChange}
         maxLength={6} // OTP length, assuming it's 6 digits
@@ -110,14 +119,15 @@ const dispatch = useDispatch();
           </div>
         </form>
         
-        <FooterLinks
-          text1="Didn't get it? "
-          text2="Send me a new email"
-          and=""
-          text3=""
-          dawonLink="Try another method to verify?"
-        />
+        <div className="flex justify-between items-center mt-4 text-sm">
+            <a href="/register" className="text-black hover:underline">
+              Didn't get ? Click here to resend code.
+            </a>
+            </div>
+        
+       
       </div>
+    </div>
     </div>
   );
 };
