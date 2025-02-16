@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import MobileSidebar from './SideBarMobile';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../GlobalStateManagement/store';
 
 // Type Definitions
@@ -47,6 +48,7 @@ interface Store {
 }
 
 const StoreInfo: React.FC = () => {
+  const nav = useNavigate()
   const [isEditing, setIsEditing] = useState(false);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [store, setStore] = useState<Store | null>(null);
@@ -172,7 +174,7 @@ const StoreInfo: React.FC = () => {
   };
 //----
   if (!store) {
-    return <div>Loading...</div>; // Wait for store data to load
+    nav('/signup/login'); // Wait for store data to load
   }
 
   return (
@@ -306,7 +308,7 @@ const StoreInfo: React.FC = () => {
               ))}
             </select>
 
-            <button className="editbtnst" type="button" onClick={() => handleupdatestore}>
+            <button className="editbtnst" type="button" onClick={handleupdatestore}>
               Save
             </button>
             <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
