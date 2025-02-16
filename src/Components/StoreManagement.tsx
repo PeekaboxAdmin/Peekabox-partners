@@ -170,7 +170,7 @@ const StoreInfo: React.FC = () => {
       operatingHours: updatedHours,
     });
   };
-
+//----
   if (!store) {
     return <div>Loading...</div>; // Wait for store data to load
   }
