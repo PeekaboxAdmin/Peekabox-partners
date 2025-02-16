@@ -6,7 +6,6 @@ import Sidebar from './Sidebar';
 import MobileSidebar from './SideBarMobile';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { RootState } from '../GlobalStateManagement/store';
 
 // Type Definitions
@@ -23,7 +22,7 @@ interface ContactDetails {
 }
 
 interface BusinessHour {
-  day: string;
+  day: string; // Day as a string (e.g., "MONDAY")
   open: string;
   close: string;
 }
@@ -48,41 +47,32 @@ interface Store {
 }
 
 const StoreInfo: React.FC = () => {
-  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [store, setStore] = useState<Store | null>(null);
-  const storeId = useSelector((state: RootState) => state.storeAuth.Store_id);
-
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
   // Fetch store data from API
   useEffect(() => {
     const fetchStoreData = async () => {
-      if (!storeId) return;
       try {
-        const response = await axios.get(`${apiUrl}/api/v1/stores/store/${storeId}`, {
-          withCredentials: true,
-        });
-
+        const apiurl = process.env.REACT_APP_API_URL
+        const response = await axios.get(`${apiurl}/api/v1/stores/store/${storeId}`,
+          {
+            withCredentials: true
+          }
+        );
         if (response.data.success) {
-          console.log(response);
+          console.log(response)
           setStore(response.data.data);
         }
       } catch (error) {
-        console.error('Error fetching store data:', error);
+        console.error("Error fetching store data:", error);
       }
     };
 
     fetchStoreData();
-  }, [storeId]);
-
-  // Redirect to login if no storeId
-  useEffect(() => {
-    if (!storeId) {
-      navigate('/signup/login');
-    }
-  }, [storeId, navigate]);
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
@@ -101,11 +91,17 @@ const StoreInfo: React.FC = () => {
     'Other',
   ];
 
-  // Hardcoded data for test
+
+
+  
+  //---------------------------------------------------------------------------
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const handleupdatestore = async ()=> {
+    // hardcoded data for test 
   const hardcodedData = {
-    brandId: '60d5ecb8b392f8001f1e1d89',
+    brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
     storeId: storeId || '',
-    name: 'Sample Store',
+    storeName: 'Sample Store',
     description: 'This is a sample store.',
     category: 'Grocery',
     image: 'sample-image-url.jpg',
@@ -133,36 +129,51 @@ const StoreInfo: React.FC = () => {
     ],
     offersDelivery: false,
   };
+  
+    try{
+    const response = await axios.post(
+      `${apiUrl}/api/v1/stores/store/${storeId}`,
+      {
+        //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
+        hardcodedData,  // Use the hardcoded data
+      },
+      { withCredentials: true }
+    );
 
-  const handleUpdateStore = async () => {
-    try {
-      const response = await axios.put(
-        `${apiUrl}/api/v1/stores/store/${storeId}`,
-        hardcodedData,
-        { withCredentials: true }
-      );
+    alert('Store updated successfully!');
+    setIsEditing(false)
+    console.log('Response:', response.data);
+    
+  } catch (error) {
+    console.error('Error updating store:', error);
+    alert('Failed to update the store. Please try again.');
+  }
+}
 
-      alert('Store updated successfully!');
-      setIsEditing(false);
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error updating store:', error);
-      alert('Failed to update the store. Please try again.');
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     if (!store) return;
     const { name, value } = e.target;
-
-    setStore((prevStore) => ({
-      ...prevStore!,
-      address: {
-        ...prevStore!.address,
-        [name]: value,
-      },
-    }));
+    setStore({
+      ...store,
+      [name]: value,
+    });
   };
+
+  const handleBusinessHourChange = (index: number, field: 'open' | 'close', value: string) => {
+    if (!store) return;
+    const updatedHours = [...store.operatingHours];
+    updatedHours[index] = { ...updatedHours[index], [field]: value };
+    setStore({
+      ...store,
+      operatingHours: updatedHours,
+    });
+  };
+
+  if (!store) {
+    return <div>Loading...</div>; // Wait for store data to load
+  }
 
   return (
     <div className="store-Container-main">
@@ -171,34 +182,66 @@ const StoreInfo: React.FC = () => {
       <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
       <div className="store-container">
-        <img src={store?.image ? `${apiUrl}/${store.image}` : Logo} alt="Store Logo" className="store-logo" />
+        <img src={store.image || Logo} alt="Store Logo" className="store-logo" />
 
         {!isEditing ? (
           <div className="store-details">
             <h2>Store Management</h2>
 
-            <div className="store-detail-container">
-              <h5>Store Name</h5>
-              <p>{store?.name}</p>
-            </div>
+            <div className="flex-grid">
+              <div>
+                <h3>Store</h3>
+              </div>
 
-            <div className="store-detail-container">
-              <h5>Description</h5>
-              <p>{store?.description}</p>
-            </div>
+              <div className="StoreDinside1">
+                <h3>Store Info</h3>
 
-            <div className="store-detail-container">
-              <h5>Address</h5>
-              <p>
-                {store?.address.street}, {store?.address.area}, {store?.address.city}, {store?.address.country}
-              </p>
-            </div>
+                <div className="horizontal-flex-box">
+                  <div className="store-detail-container">
+                    <h5>Store Name</h5>
+                    <p>{store.name}</p>
+                  </div>
 
-            <div className="store-detail-container">
-              <h5>Contact</h5>
-              <p>
-                {store?.contactDetails.phone.countryCode} {store?.contactDetails.phone.number}
-              </p>
+                  <div className="store-detail-container">
+                    <h5>Description</h5>
+                    <p>{store.description}</p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Address</h5>
+                    <p>
+                      {store.address.street}, {store.address.area}, {store.address.city},{' '}
+                      {store.address.country}
+                    </p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Contact</h5>
+                    <p>
+                      {store.contactDetails.phone.countryCode} {store.contactDetails.phone.number}
+                    </p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Email</h5>
+                    <p>{store.contactDetails.email}</p>
+                  </div>
+
+                  <div className="store-detail-container">
+                    <h5>Category</h5>
+                    <p>{store.category}</p>
+                  </div>
+                </div>
+
+                <h5>Operating Hours:</h5>
+                {store.operatingHours.map((hour, index) => (
+                  <div key={index}>
+                    <p>
+                      {hour.day}: {hour.open} - {hour.close}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button className="editbtnst" onClick={() => setIsEditing(true)}>
@@ -208,19 +251,53 @@ const StoreInfo: React.FC = () => {
         ) : (
           <form className="edit-form">
             <label>Store Name:</label>
-            <input type="text" name="name" value={store?.name || ''} onChange={handleChange} />
+            <input type="text" name="name" value={store.name} onChange={handleChange} />
 
             <label>Description:</label>
-            <textarea name="description" value={store?.description || ''} onChange={handleChange} />
+            <textarea name="description" value={store.description} onChange={handleChange} />
 
             <label>Street:</label>
-            <input type="text" name="street" value={store?.address.street || ''} onChange={handleChange} />
+            <input
+              type="text"
+              name="street"
+              value={store.address.street}
+              onChange={handleChange}
+            />
+
+            <label>Area:</label>
+            <input type="text" name="area" value={store.address.area} onChange={handleChange} />
+
+            <label>City:</label>
+            <input type="text" name="city" value={store.address.city} onChange={handleChange} />
+
+            <h3>Edit Operating Hours</h3>
+            {store.operatingHours.map((hour, index) => (
+              <div key={index}>
+                <label>{hour.day} Open:</label>
+                <input
+                  type="time"
+                  value={hour.open}
+                  onChange={(e) => handleBusinessHourChange(index, 'open', e.target.value)}
+                />
+                <label>{hour.day} Close:</label>
+                <input
+                  type="time"
+                  value={hour.close}
+                  onChange={(e) => handleBusinessHourChange(index, 'close', e.target.value)}
+                />
+              </div>
+            ))}
 
             <label>Category:</label>
             <select
               name="category"
-              value={store?.category || ''}
-              onChange={(e) => setStore({ ...store!, category: e.target.value })}
+              value={store.category}
+              onChange={(e) =>
+                setStore({
+                  ...store,
+                  category: e.target.value,
+                })
+              }
             >
               {categoryOptions.map((category, index) => (
                 <option key={index} value={category}>
@@ -229,10 +306,10 @@ const StoreInfo: React.FC = () => {
               ))}
             </select>
 
-            <button type="button" onClick={handleUpdateStore}>
+            <button className="editbtnst" type="button" onClick={() => handleupdatestore}>
               Save
             </button>
-            <button type="button" onClick={() => setIsEditing(false)}>
+            <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
               Cancel
             </button>
           </form>
