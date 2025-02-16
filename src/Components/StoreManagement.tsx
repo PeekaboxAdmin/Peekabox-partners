@@ -91,6 +91,67 @@ const StoreInfo: React.FC = () => {
     'Other',
   ];
 
+
+
+
+  // hardcoded data for test 
+  const hardcodedData = {
+    brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
+    storeId: storeId || '',
+    storeName: 'Sample Store',
+    description: 'This is a sample store.',
+    category: 'Grocery',
+    image: 'sample-image-url.jpg',
+    isAvailable: true,
+    managerName: 'John Doe',
+    contactDetails: {
+      phone: { countryCode: '+1', number: '1234567890' },
+      email: 'manager@sample.com',
+    },
+    address: {
+      street: '123 Main St',
+      area: 'Central Park',
+      city: 'New York',
+      country: 'USA',
+    },
+    location: { type: 'Point', coordinates: [40.7128, -74.0060] },
+    operatingHours: [
+      { day: 'MONDAY', open: '09:00', close: '18:00' },
+      { day: 'TUESDAY', open: '09:00', close: '18:00' },
+      { day: 'WEDNESDAY', open: '09:00', close: '18:00' },
+      { day: 'THURSDAY', open: '09:00', close: '18:00' },
+      { day: 'FRIDAY', open: '09:00', close: '18:00' },
+      { day: 'SATURDAY', open: '10:00', close: '16:00' },
+      { day: 'SUNDAY', open: '10:00', close: '14:00' },
+    ],
+    offersDelivery: false,
+  };
+
+
+  //---------------------------------------------------------------------------
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const handleupdatestore = async ()=> {
+    try{
+    const response = await axios.post(
+      `${apiUrl}/api/v1/stores/store/${storeId}`,
+      {
+        //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
+        hardcodedData,  // Use the hardcoded data
+      },
+      { withCredentials: true }
+    );
+
+    alert('Store updated successfully!');
+    setIsEditing(false)
+    console.log('Response:', response.data);
+    
+  } catch (error) {
+    console.error('Error updating store:', error);
+    alert('Failed to update the store. Please try again.');
+  }
+}
+  
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -247,7 +308,7 @@ const StoreInfo: React.FC = () => {
               ))}
             </select>
 
-            <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
+            <button className="editbtnst" type="button" onClick={handleupdatestore}>
               Save
             </button>
             <button className="editbtnst" type="button" onClick={() => setIsEditing(false)}>
