@@ -18,7 +18,6 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         { withCredentials: true }
       );
       if (response.data.success) {
-        alert("Registration successful! Please log in.");
         navigate('/signup/password', { state: { email } });
       } else {
         alert("Registration failed. Please try again.");
