@@ -43,37 +43,68 @@ const IndividualStoreCreate: React.FC = () => {
       const apiUrl = process.env.REACT_APP_API_URL;
       // Hardcoded data for testing
       // Hardcoded data with correct uppercase `day` values
-    const hardcodedData = {
-      brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
-      storeId: storeId || '',
-      storeName: 'Sample Store',
-      description: 'This is a sample store.',
-      category: 'Grocery',
-      image: 'sample-image-url.jpg',
-      isAvailable: true,
-      managerName: 'John Doe',
-      contactDetails: {
-        phone: { countryCode: '+1', number: '1234567890' },
-        email: 'manager@sample.com',
-      },
-      address: {
-        street: '123 Main St',
-        area: 'Central Park',
-        city: 'New York',
-        country: 'USA',
-      },
-      location: { type: 'Point', coordinates: [40.7128, -74.0060] },
-      operatingHours: [
-        { day: 'MONDAY', open: '09:00', close: '18:00' },
-        { day: 'TUESDAY', open: '09:00', close: '18:00' },
-        { day: 'WEDNESDAY', open: '09:00', close: '18:00' },
-        { day: 'THURSDAY', open: '09:00', close: '18:00' },
-        { day: 'FRIDAY', open: '09:00', close: '18:00' },
-        { day: 'SATURDAY', open: '10:00', close: '16:00' },
-        { day: 'SUNDAY', open: '10:00', close: '14:00' },
-      ],
-      
-    };
+      const hardcodedData = {
+        "brandId": "60d5ecb8b392f8001f1e1d25",
+        "name": "Fructose Backery",
+        "description": "Indulge in a variety of gourmet pastries, artisanal coffee, and delightful desserts at Leto, conveniently located in Dubai Mall.",
+        "managerName": "Nasif",
+        "category": "Bakery",
+        "image": "https://example.com/images/leto-dubai-mall.jpg",
+        "contactDetails": {
+          "phone": {
+            "countryCode": "+971",
+            "number": "43567890"
+          },
+          "email": "contact@leto.ae"
+        },
+        "address": {
+          "street": "Financial Center Road",
+          "area": "Downtown Dubai",
+          "city": "Dubai",
+          "country": "United Arab Emirates"
+        },
+        "location": {
+          "type": "Point",
+          "coordinates": [55.2790, 25.1978]
+        },
+        "operatingHours": [
+          {
+            "day": "MONDAY",
+            "open": "09:00",
+            "close": "23:00"
+          },
+          {
+            "day": "TUESDAY",
+            "open": "09:00",
+            "close": "23:00"
+          },
+          {
+            "day": "WEDNESDAY",
+            "open": "09:00",
+            "close": "23:00"
+          },
+          {
+            "day": "THURSDAY",
+            "open": "09:00",
+            "close": "23:00"
+          },
+          {
+            "day": "FRIDAY",
+            "open": "09:00",
+            "close": "00:00"
+          },
+          {
+            "day": "SATURDAY",
+            "open": "09:00",
+            "close": "00:00"
+          },
+          {
+            "day": "SUNDAY",
+            "open": "09:00",
+            "close": "23:00"
+          }
+        ]
+    }
      
       const response = await axios.post(
         `${apiUrl}/api/v1/stores/store/${storeId}`,
@@ -86,6 +117,7 @@ const IndividualStoreCreate: React.FC = () => {
 
       alert('Store updated successfully!'+storeId);
       console.log('Response:', response.data);
+      console.log(hardcodedData)
       navigate('/dashboard');
     } catch (error) {
       console.error('Error updating store:', error);
