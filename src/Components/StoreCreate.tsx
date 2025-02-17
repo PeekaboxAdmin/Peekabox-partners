@@ -44,7 +44,7 @@ const IndividualStoreCreate: React.FC = () => {
       // Hardcoded data for testing
       // Hardcoded data with correct uppercase `day` values
       const hardcodedData = {
-        "brandId": "60d5ecb8b392f8001f1e1d25",
+        "brandId": "60d5ecb8b392f8001f1e1u89",
         "name": "Fructose Backery",
         "description": "Indulge in a variety of gourmet pastries, artisanal coffee, and delightful desserts at Leto, conveniently located in Dubai Mall.",
         "managerName": "Nasif",
