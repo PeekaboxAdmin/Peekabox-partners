@@ -72,7 +72,7 @@ const IndividualStoreCreate: React.FC = () => {
         { day: 'SATURDAY', open: '10:00', close: '16:00' },
         { day: 'SUNDAY', open: '10:00', close: '14:00' },
       ],
-      offersDelivery: false,
+      
     };
      
       const response = await axios.post(
