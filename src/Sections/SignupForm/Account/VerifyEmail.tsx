@@ -47,10 +47,12 @@ const dispatch = useDispatch();
     );
       if (response.status === 200) {
         console.log('OTP verified successfully');
-        const { message , storeAuth } = response.data.data;
-         dispatch(setStoreAuth({  Store_id: storeAuth._id }));
+        const storeId = response.data.data.storeAuth._id;
+        console.log(storeId)
+         dispatch(setStoreAuth({ Store_id: storeId }));
         // Navigate to the dashboard or success page
         navigate('/StoreCreate');
+
       }
     } catch (error: any) {
       console.error('Error verifying OTP:', error);
