@@ -44,67 +44,68 @@ const IndividualStoreCreate: React.FC = () => {
       // Hardcoded data for testing
       // Hardcoded data with correct uppercase `day` values
       const hardcodedData = {
-        "brandId": "60d5ecb8b392f8001f1e1d89",
-        "name": "Fructose Backery",
-        "description": "Indulge in a variety of gourmet pastries, artisanal coffee, and delightful desserts at Leto, conveniently located in Dubai Mall.",
-        "managerName": "Nasif",
-        "category": "Bakery",
-        "image": "https://example.com/images/leto-dubai-mall.jpg",
-        "contactDetails": {
-          "phone": {
-            "countryCode": "+971",
-            "number": "43567890"
+        brandId: "60d5ecb8b392f8001f1e1d90", // New brandId
+        name: "Sunrise Café",
+        description:
+          "A cozy café offering freshly brewed coffee, organic teas, and delicious pastries in the heart of Dubai.",
+        managerName: "Aisha Khan",
+        category: "Cafe",
+        image: "https://example.com/images/sunrise-cafe.jpg",
+        contactDetails: {
+          phone: {
+            countryCode: "+971",
+            number: "512345678",
           },
-          "email": "contact@leto.ae"
+          email: "sunrisecafe@dubai.ae", // New email to avoid duplicate key error
         },
-        "address": {
-          "street": "Financial Center Road",
-          "area": "Downtown Dubai",
-          "city": "Dubai",
-          "country": "United Arab Emirates"
+        address: {
+          street: "Sheikh Zayed Road",
+          area: "Business Bay",
+          city: "Dubai",
+          country: "United Arab Emirates",
         },
-        "location": {
-          "type": "Point",
-          "coordinates": [55.2790, 25.1978]
+        location: {
+          type: "Point",
+          coordinates: [55.2711, 25.2052], // Different coordinates
         },
-        "operatingHours": [
+        operatingHours: [
           {
-            "day": "MONDAY",
-            "open": "09:00",
-            "close": "23:00"
+            day: "MONDAY",
+            open: "07:00",
+            close: "22:00",
           },
           {
-            "day": "TUESDAY",
-            "open": "09:00",
-            "close": "23:00"
+            day: "TUESDAY",
+            open: "07:00",
+            close: "22:00",
           },
           {
-            "day": "WEDNESDAY",
-            "open": "09:00",
-            "close": "23:00"
+            day: "WEDNESDAY",
+            open: "07:00",
+            close: "22:00",
           },
           {
-            "day": "THURSDAY",
-            "open": "09:00",
-            "close": "23:00"
+            day: "THURSDAY",
+            open: "07:00",
+            close: "23:00",
           },
           {
-            "day": "FRIDAY",
-            "open": "09:00",
-            "close": "00:00"
+            day: "FRIDAY",
+            open: "08:00",
+            close: "00:00",
           },
           {
-            "day": "SATURDAY",
-            "open": "09:00",
-            "close": "00:00"
+            day: "SATURDAY",
+            open: "08:00",
+            close: "00:00",
           },
           {
-            "day": "SUNDAY",
-            "open": "09:00",
-            "close": "23:00"
-          }
-        ]
-    }
+            day: "SUNDAY",
+            open: "08:00",
+            close: "22:00",
+          },
+        ],
+      };
      
       const response = await axios.post(
         `${apiUrl}/api/v1/stores/store/${storeId}`,
