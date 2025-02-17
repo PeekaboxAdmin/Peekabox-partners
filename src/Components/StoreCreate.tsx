@@ -20,7 +20,7 @@ interface StoreData {
 }
 
 const IndividualStoreCreate: React.FC = () => {
-  const storeId = useSelector((state: any) => state.storeAuth?.Store_id); // Replace `any` with your Redux state type
+  const storeId = useSelector((state: any) => state.storeAuth.Store_id); // Replace `any` with your Redux state type
   const navigate = useNavigate();
 
   const [storeData, setStoreData] = useState<StoreData>({
@@ -74,7 +74,7 @@ const IndividualStoreCreate: React.FC = () => {
       ],
       offersDelivery: false,
     };
-
+     
       const response = await axios.post(
         `${apiUrl}/api/v1/stores/store/${storeId}`,
         {
@@ -84,7 +84,7 @@ const IndividualStoreCreate: React.FC = () => {
         { withCredentials: true }
       );
 
-      alert('Store updated successfully!');
+      alert('Store updated successfully!'+storeId);
       console.log('Response:', response.data);
       navigate('/dashboard');
     } catch (error) {
