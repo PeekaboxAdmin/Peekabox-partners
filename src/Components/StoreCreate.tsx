@@ -108,10 +108,8 @@ const IndividualStoreCreate: React.FC = () => {
      
       const response = await axios.post(
         `${apiUrl}/api/v1/stores/store/${storeId}`,
-        {
-          //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
+        //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
           hardcodedData,  // Use the hardcoded data
-        },
         { withCredentials: true }
       );
 
