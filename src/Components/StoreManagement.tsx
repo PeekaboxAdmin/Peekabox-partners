@@ -64,6 +64,7 @@ const StoreInfo: React.FC = () => {
         );
         if (response.data.success) {
           console.log(response)
+          console.log(response.data.data)
           setStore(response.data.data);
         }
       } catch (error) {
