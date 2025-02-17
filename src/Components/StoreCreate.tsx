@@ -44,7 +44,7 @@ const IndividualStoreCreate: React.FC = () => {
       // Hardcoded data for testing
       // Hardcoded data with correct uppercase `day` values
       const hardcodedData = {
-        brandId: "60d5ecb8b392f8001f1e1d90", // New brandId
+        brandId: "60d5ecb8b392f8001f1e1d88", // New brandId
         name: "Sunrise Café",
         description:
           "A cozy café offering freshly brewed coffee, organic teas, and delicious pastries in the heart of Dubai.",
@@ -56,7 +56,7 @@ const IndividualStoreCreate: React.FC = () => {
             countryCode: "+971",
             number: "512345678",
           },
-          email: "sunrisecafe@dubai.ae", // New email to avoid duplicate key error
+          email: "sunriscafy@dubai.ae", // New email to avoid duplicate key error
         },
         address: {
           street: "Sheikh Zayed Road",
