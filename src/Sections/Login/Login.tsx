@@ -4,9 +4,14 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setStoreAuth } from "../../GlobalStateManagement/storeAuthSlice";
 
+import SignupImage from '../../assets/images/Signup.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState<boolean>(false); // "Keep me logged in" state
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,6 +29,14 @@ const Login: React.FC = () => {
 
         // Dispatch an object that matches StoreAuthState
         dispatch(setStoreAuth({ Store_id: storeId }));
+
+        // Store token depending on "Keep me logged in"
+        if (rememberMe) {
+          localStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Persistent login
+        } else {
+          sessionStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Expires on browser close
+        }
+
         navigate("/");
       } else {
         alert("Login failed. Please check your credentials.");
@@ -35,63 +48,65 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    <div className="signup-container">
       {/* Left side with logo and slogan */}
-      <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
-        <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
-        <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
-      </header>
-
-      <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
-        <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
-        <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
+      <div className="signup-image">
+          <img src={SignupImage} alt="Sign up" className="signup-img" />
       </div>
 
       {/* Right side with login form */}
-      <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
+      <div className="signup-form">
+        <h1 className="signup-title">Partner Login</h1>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="input-group-login password-input">
+            <label className="signup-label">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="input-group-login password-input">
+            <label className="signup-label">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-        <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
-          <h1 className="text-2xl font-bold mb-6 text-center text-pink-500">Partner Login</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Email</label>
+          <div className="remember-me-container">
+            <label className="remember-me-label">
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-                placeholder="Enter your email"
-                required
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+                className="remember-me-checkbox"
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-pink-500 text-white py-2 border-none hover:bg-pink-700 transition"
-            >
+              Keep me logged in
+            </label>
+            <a href="/forgot-password" className="forgotpass-link">Forgot password?</a>
+            
+          </div>
+
+          <div className="login-button-container">
+            <button type="submit" className="signup-button">
               Login
             </button>
-          </form>
-
-          {/* Links for additional actions */}
-          <div className="flex justify-between items-center mt-4 text-sm">
-            <a href="/register" className="text-pink-600 hover:underline">
-              New here ?
-            </a>
-            <a href="/forgot-password" className="text-pink-600 hover:underline">
-              Forgot Password?
-            </a>
           </div>
+        </form>
+
+        {/* Links for additional actions */}
+        <div className="login-additional-links">
+          <p className="signup-link">
+            New Here? <a href="/signup">Sign Up </a>
+          </p>
         </div>
       </div>
     </div>

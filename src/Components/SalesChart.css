@@ -1,9 +1,6 @@
 .chart-container {
-    width: 100%;
     min-height: 400px;
     background-color: white; 
-    border-radius: 1.5rem;
-    overflow: hidden;
     border: 1px solid #E5E7EB;
     display: flex;
     flex-direction: column;
@@ -11,13 +8,31 @@
 
 .chart-header {
     display: flex;
-    align-items: stretch; /* Ensures equal height for header sections */
     color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     background-color: darkgreen;
     justify-content: center;
+    height: 50px;
 }
 
+.chart-header h2{
+    color: #ffffff;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
 
+.salesChart{
+    background-color: #ffffff;
+    padding: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 495px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+}
 
 .chart-right-section {
     flex: 1;

@@ -15,7 +15,7 @@ const SalesChart: React.FC = () => {
   return (
     <div className="chart-container">
       <div className="chart-header">
-        <h3>Sales</h3>
+        <h2>Sales</h2>
       </div>
 
       {/* Chart Section */}

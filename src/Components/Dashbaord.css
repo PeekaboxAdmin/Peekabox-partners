@@ -7,13 +7,45 @@
 }
 
 /* Surprise Bags section styling */
-/* Surprise Bags Section */
 .dsurprise-bags {
-    background-color: #f7f7f7;
-    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    width: 1038px;  /* Set exact width from Figma */
+    height: 345px; /* Set height */
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Ensures clean section layout */
 }
+
+.dsurprise-bags-header {
+    width: 100%;
+    background-color: #f7f7f7;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    padding: 15px;
+}
+
+.dsurprise-bags-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #e6e4e4;
+
+    flex-grow: 1; /* Fills available space */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Footer stays at the bottom */
+.dsurprise-bags-footer {
+    width: 100%;
+    background-color: #e6e4e4; /* Matches content background */
+    padding-bottom: 10px;
+}
+
+
 
 .dsurprise-bags h2 {
     font-size: 1.5em;
@@ -26,6 +58,10 @@
     display: flex;
     gap: 16px;
     width: 100%;
+
+    overflow-x: auto; /* Allow horizontal scrolling */
+    padding-bottom: 10px;
+    justify-content: center;
 }
 
 .dsurprise-bag-card {
@@ -36,6 +72,8 @@
     text-align: left;
     display: flex;
     flex-direction: column;
+    width: 300px; /* Set card width */
+    height: 100%;
     position: relative; /* Required for positioning the badge */
 }
 
@@ -146,21 +184,31 @@
 
 /* Order Management Table Styles */
 .orderdash {
-    width: 800px;
+    width: 1038px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
 }
 
-.orderdash h2 {
+.orderdash-header {
     background-color: #1b5e20; /* Dark green */
+    height: 50px!important;
+    margin: 0;
+}
+
+.orderdash-content {
+    flex-grow: 1;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.orderdash h2 {
     color: #ffffff;
     padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin: 0;
-    font-size: 1.2em;
+    
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .orderdash table {
@@ -249,14 +297,15 @@
 }
 
 .first-grid {
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: 1fr 1fr; /* Creates two equal-width columns */
-    gap: 20px; /* Optional: Adds space between columns */
+    display: flex;
+    flex-direction: row;
+    gap: 16px; 
     margin-top: 20px;
+    margin-right: 20px;
 }
 
 .surpricebagcontainer{
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
     gap: 16px;
@@ -366,14 +415,120 @@
     text-align: center;
 }
 
+/* Notifications Container */
+.notifications-container {
+    background-color: #ffffff;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 495px; /* Set exact width from Figma */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Notifications Title */
+  .notifications-header {
+    background-color: #1b5e20;
+    color: #ffffff;
+    padding: 12px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  /* Unread Notifications Count */
+  .unread-count {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #f44336;
+    margin: 10px 15px;
+  }
+  
+  /* Notifications List */
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+  
+  /* Individual Notification Item */
+  .notification-item {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    gap: 10px;
+    transition: background 0.3s ease;
+    justify-content: space-between;
+  }
+  
+  .notification-item:hover {
+    background: #f0f0f0;
+  }
+  
+  /* Notification Icon */
+  .notification-icon {
+    color: #ff80b4;
+    font-size: 1.2em;
+  }
+  
+  /* Notification Text */
+  .notification-text {
+    font-size: 0.9em;
+    color: #333;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Notification Time */
+  .notification-time {
+    font-size: 0.8em;
+    color: #777;
+  }
+  
+  /* Arrow Icon */
+  .arrow-icon {
+    color: #999;
+    font-size: 1em;
+    cursor: pointer;
+  }
 
 
+  .dashboard-footer {
+    background-color: #FDFAF7;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    margin-top: 30px;
+    margin-right: 20px;
+}
 
+.dashboard-footer::before {
+    content: "";
+    display: block;
+    max-width: 1400px;
+    height: 1px;
+    background-color: #dcdcdc; /* Light grey line separator */
+    margin: auto;
+}
 
+.dashboard-footer::after {
+    content: "";
+    display: block;
+    max-width: 1400px;
+    height: 1px;
+    background-color: #dcdcdc; /* Light grey line separator */
+    margin: auto;
+    position: relative;
+    top: -45px;
 
-
-
-
+}
 
 /* Responsivenss -------------------------------------------------------------*/
 /* General Mobile Adjustments */
@@ -417,14 +572,21 @@
     .dsurprise-bag-badge {
         top: 20px;
         left: 10px; /* Adjust positioning */
+
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        background-color: #FF80B4;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 0.9em;
+        font-weight: bold;
     }
 
   
 
     /* Order Management Table */
-    .orderdash {
-        width: 100%;
-    }
 
     .orderdash table {
         display: block; /* Make table scrollable */
@@ -475,9 +637,6 @@
     .dsurprise-bag-card h3 {
         font-size: 1em; /* Smaller font size for headings */
     }
-
-    
-
 
     .dsurprise-bag-card p {
         font-size: 10px; /* Smaller font for descriptions */

@@ -1,6 +1,7 @@
 
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 body {
     font-family: 'Lato', sans-serif;
@@ -39,7 +40,6 @@ body {
     width: 100%;
     max-width: 600px;
     text-align: center;
-    margin-top: 50px;
     padding: 0 10px;
 }
 
@@ -50,6 +50,14 @@ body {
     width: 80%;
     margin: 15px auto;
     margin-bottom: 50px;
+}
+
+.input-group-login {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80%;
+    margin: 15px auto;
 }
 
 label {
@@ -97,6 +105,71 @@ input {
     transition: font-size 0.2s ease, margin-right 0.2s ease; 
 }
 
+.login-additional-links{
+    justify-items: center;
+}
+
+/* Style for the "Keep me logged in" checkbox */
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    margin: 15px auto;
+    width: 80%;
+    justify-content: space-between;
+  }
+
+  .remember-me-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #FF80B4; /* Pink outline */
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the checkmark */
+}
+
+/* Apply background color when checked */
+.remember-me-checkbox:checked {
+    background-color: #FF80B4;
+    border-color: #FF80B4;
+}
+
+/* Use FontAwesome or Flaticon check icon */
+.remember-me-checkbox:checked::before {
+    font-family: "Font Awesome 5 Free"; /* Ensure you have FontAwesome loaded */
+    content: "\f00c"; /* Unicode for checkmark in FontAwesome */
+    font-weight: 900; /* Ensure the solid version of the icon is used */
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Label styling */
+.remember-me-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+}
+
+/* Prevents text from moving when checkbox is checked */
+.remember-me-label span {
+    flex-shrink: 0;
+}
+  
+  
 
 @media (max-width: 768px) {
     .login-page {
