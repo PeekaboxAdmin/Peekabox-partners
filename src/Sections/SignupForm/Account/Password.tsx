@@ -66,26 +66,17 @@ const Password: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    <div className="signup-container">
       {/* Left side with logo and slogan */}
-      <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
-        <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
-        <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
-      </header>
-
-      <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
-        <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
-        <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
+      <div className="signup-image">
+          <img src={SignupImage} alt="Sign up" className="signup-img" />
       </div>
-      <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
-      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
+
+      <div className="signup-form">
         <form className="login-form" onSubmit={handleFormSubmit}>
           <div className="heading-container">
-            <Heading
-              title="Create a Password"
-              subtitle="Almost Done! Set Up Your Password"
-              className="heading-container"
-            />
+            <h1 className="signup-title">Create a Password</h1>
+            <p className="signup-subtitle">Almost Done! Set Up Your Password</p>
           </div>
           <div className="input-group password-input">
             <input
@@ -106,13 +97,12 @@ const Password: React.FC = () => {
           <PasswordCriteria />
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <div className="login-button-container">
-            <Button label="Continue" className="Green-button" />
+            <Button label="Continue" className="signup-button" />
           </div>
         </form>
 
 
       </div>
-    </div>
     </div>
   );
 };

@@ -16,10 +16,10 @@ import { Provider } from 'react-redux';
 //import './Utils/authUtil';
 
 const AppContent: React.FC = () => {
+    const [selectedLanguage, setSelectedLanguage] = useState('English (United Kingdom)');
 
     return (
         <div className="App">
-        
                 <Routes>
                     <Route path="/" element={<Dashboard/>}/>
                     <Route path="/orderManagement" element={<OrderManagement/>}/> 

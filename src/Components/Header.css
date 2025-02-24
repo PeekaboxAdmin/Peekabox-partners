@@ -25,6 +25,134 @@
   text-align: center;
 }
 
+
+/* Ensure both left and right sections share space */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Adjust spacing between logo and nav */
+  flex-grow: 1;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  gap: 20px; /* Adds spacing between nav items */
+}
+
+/* Right section (search bar, language selector, dark mode toggle) */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between elements */
+  justify-content: space-between; /* Ensures elements are spaced correctly */
+}
+
+.nav-item {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #FF80B4;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.search-icon {
+  margin-right: 8px;
+  color: #999;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+/* Language Selector */
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.globe-icon {
+  color: #555;
+}
+
+.language-dropdown {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  border-radius: 25px;
+  background: #e0e0e0;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Toggle Switch Container */
+.toggle-switch {
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Default Light Mode Knob */
+.toggle-knob {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode Active */
+.toggle-switch.dark {
+  background: #333;
+}
+
+/* Move Knob to the Right in Dark Mode */
+.toggle-switch.dark .toggle-knob {
+  transform: translate(25px, -50%);
+  background: #111;
+}
+
+/* Ensure the Dark Mode Toggle Stays in Place */
+.header-right .dark-mode-toggle {
+  margin-left: auto;
+}
+
+
+
 /* Mobile Sidebar Toggle */
 @media (max-width: 768px) {
   .mainheader {
@@ -59,6 +187,20 @@
     font-size: 1.5rem;
     color: #FF80B4;
     cursor: pointer;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .language-selector {
+    justify-content: center;
   }
 }
 

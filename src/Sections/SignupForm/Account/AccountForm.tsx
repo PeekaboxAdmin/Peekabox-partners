@@ -31,7 +31,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
   
       if (response.status === 404) {
         onNext({ email: email.trim() });
-        navigate('/signup/Password', { state: { email: email.trim() } });
+        navigate('/signup/password', { state: { email: email.trim() } });
       } else if (response.status === 200) {
         setErrorMessage('User Found');
       } else {
@@ -55,63 +55,47 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
   
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    <div className="signup-container">
     {/* Left side with logo and slogan */}
-    <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
-      <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
-      <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
-    </header>
-
-    <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
-      <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
-      <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
-    </div>
+      <div className="signup-image">
+          <img src={SignupImage} alt="Sign up" className="signup-img" />
+      </div>
 
     {/* Right side with registration form */}
-    <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
-      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
-        <h1 className="text-2xl font-bold mb-6 text-start">Sign up you business today</h1>
-        <form onSubmit={handleEmailSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Email</label>
+      <div className="signup-form">
+        
+        <form onSubmit={handleEmailSubmit} className="login-form">
+          <div className="heading-container">
+            <h1 className="signup-title">Sign up your business</h1>
+            <p className="signup-subtitle">Enter your email and get started in a few minutes!</p>
+          </div>
+
+          <div className="input-group-login password-input">
+            <label className="signup-label">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+              className="signup-input"
               placeholder="Enter your email"
               required
             />
           </div>
           
-          <button
-            type="submit"
-            className="Green-button"
-          >
-            Continue
-          </button>
+
+          <div className="login-button-container">
+            <button type="submit" className="signup-button" disabled={loading}>
+              {loading ? 'Processing...' : 'Continue'}
+            </button>
+          </div>
+          
+          {errorMessage && <p className="signup-error">{errorMessage}</p>}
         </form>
-
-        {/* Links for additional actions */}
-        <div className="flex justify-between items-center mt-4 text-sm">
-          {errorMessage}
-        </div>
-
-        {/* Links for additional actions */}
-        <div className="flex justify-between items-center mt-4 text-sm">
-          <a href="/login" className="text-pink-600 hover:underline">
-            Already have an account?
-          </a>
-        </div>
-
-        <div className="flex justify-between items-center mt-8 text-sm">
-          <a href="/login" className="text-pink-600 hover:underline">
-            By continue you agree to our terms and condition
-          </a>
-        </div>
-
+        
+        <p className="signup-link">
+          Already have an account? <a href="/signup/login">Sign in</a>
+        </p>
       </div>
-    </div>
   </div>
   );
 };
