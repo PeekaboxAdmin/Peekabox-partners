@@ -104,9 +104,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
 
   const handleSubmit = async () => {
     try {
-    /*  const data = new FormData();
+      const data = new FormData();
       data.append('storeId', storeId);
-      data.append('storeName', "Leto Abu Mall");
       data.append('name', formData.bagName);
       data.append('description', formData.description);
       data.append('price', JSON.stringify({ amount: formData.price, currencyCode: "AED" }));
@@ -117,32 +116,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       data.append('isAvailable', 'true');
       if (formData.image) {
         data.append('image', formData.image);
-      } */
-
-        const data = {
-          storeId,
-          storeName: "Store Name",
-          name: formData.bagName,
-          description: formData.description,
-          price: {
-            amount: formData.price,
-            currencyCode: "AED",
-          },
-          category: formData.category,
-          quantity: formData.numberOfBags,
-          image: formData.image, // Replace with actual image URL if needed
-          allergenInfo: formData.allergens,
-          collectionSchedule: {
-            day: formData.selectedDays[0]?.day.toUpperCase(),
-            timeWindow: {
-              start: formData.selectedDays[0]?.startTime,
-              end: formData.selectedDays[0]?.endTime,
-            },
-          },
-          isAvailable: true,
-        };
-
-
+      }
       const apiurl = process.env.REACT_APP_API_URL;
       await axios.post(
         `${apiurl}/api/v1/stores/${storeId}/product`,
