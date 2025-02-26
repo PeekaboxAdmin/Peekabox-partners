@@ -106,7 +106,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     try {
       const data = new FormData();
       data.append('storeId', storeId);
-      data.append('storeName', "Store");
+      data.append('storeName', formData.bagName);
       data.append('name', formData.bagName);
       data.append('description', formData.description);
       data.append('price', JSON.stringify({ amount: formData.price, currencyCode: "AED" }));
