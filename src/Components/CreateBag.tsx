@@ -126,6 +126,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
         }
       );
       onCancel(false);
+      console.log(data);
     } catch (error) {
       console.error("Error creating bag:", error);
     }
