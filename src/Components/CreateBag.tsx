@@ -106,14 +106,27 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     try {
       const data = new FormData();
       data.append('storeId', storeId);
-      data.append('name', formData.bagName);
-      data.append('description', formData.description);
-      data.append('price', JSON.stringify({ amount: formData.price, currencyCode: "AED" }));
-      data.append('category', formData.category);
-      data.append('quantity', formData.numberOfBags);
-      data.append('allergenInfo', JSON.stringify(formData.allergens));
-      data.append('collectionSchedule', JSON.stringify(formData.selectedDays[0]));
-      data.append('isAvailable', 'true');
+    data.append('name', formData.bagName);
+    data.append('description', formData.description);
+
+    // Correct the price field: send 'amount' and 'currencyCode' separately
+    data.append('price.amount', formData.price);
+    data.append('price.currencyCode', "AED");
+
+    data.append('category', formData.category);
+    data.append('quantity', formData.numberOfBags);
+
+    // Correct allergenInfo: no need for JSON.stringify
+    formData.allergens.forEach((allergen, index) => {
+      data.append(`allergenInfo[${index}]`, allergen);
+    });
+
+    // Correct collectionSchedule: send day and timeWindow as separate fields
+    data.append('collectionSchedule.day', formData.selectedDays[0].day);
+    data.append('collectionSchedule.startTime', formData.selectedDays[0].startTime);
+    data.append('collectionSchedule.endTime', formData.selectedDays[0].endTime);
+
+    data.append('isAvailable', 'true');
       if (formData.image) {
         data.append('image', formData.image);
       }
