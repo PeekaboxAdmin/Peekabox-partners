@@ -122,7 +122,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
         `${apiurl}/api/v1/stores/${storeId}/product`,
         data,
         {
-          headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         }
       );
