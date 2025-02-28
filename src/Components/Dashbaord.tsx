@@ -210,7 +210,7 @@ const Dashboard: React.FC = () =>
             )}
           </div>
 
-          */}`
+          */}
       </div>
 
       {/* Orders and Sales Chart */}
