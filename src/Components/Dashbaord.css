@@ -4,6 +4,7 @@
     margin-left: 150px;
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-right: 20px;
 }
 
 /* Surprise Bags section styling */
@@ -11,8 +12,8 @@
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
-    width: 1038px;  /* Set exact width from Figma */
-    height: 345px; /* Set height */
+    width: 100%;  /* Set exact width from Figma */
+    height: 420px; /* Set height */
 
     display: flex;
     flex-direction: column;
@@ -20,7 +21,6 @@
 }
 
 .dsurprise-bags-header {
-    width: 100%;
     background-color: #f7f7f7;
     font-size: 1.5em;
     font-weight: bold;
@@ -59,8 +59,9 @@
     gap: 16px;
     width: 100%;
 
-    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: auto; /* Allow horizontal scrolling */
     padding-bottom: 10px;
+    padding-top: 10px;
     justify-content: center;
 }
 
@@ -72,15 +73,15 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    width: 300px; /* Set card width */
-    height: 100%;
+    width: 270px; /* Set card width */
+    height: 220px;
     position: relative; /* Required for positioning the badge */
 }
 
 /* Badge on the image */
 .dsurprise-bag-badge {
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 19px;
     background-color: #FF80B4; /* Badge color */
     color: white;
@@ -93,7 +94,7 @@
 
 .dsurprise-bag-image {
     width: 100%;
-    height: 190px;
+    height: 130px;
     border-radius: 8px;
     margin-bottom: 12px;
     object-fit: cover; /* Ensures the image fills the container without distortion */
@@ -184,11 +185,12 @@
 
 /* Order Management Table Styles */
 .orderdash {
-    width: 1038px;
+    width: 100%;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
+    min-height:400px;
 }
 
 .orderdash-header {
@@ -301,7 +303,6 @@
     flex-direction: row;
     gap: 16px; 
     margin-top: 20px;
-    margin-right: 20px;
 }
 
 .surpricebagcontainer{
@@ -421,7 +422,8 @@
     padding: 0;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 495px; /* Set exact width from Figma */
+    width: 60%; /* Set exact width from Figma */
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -532,10 +534,220 @@
 
 /* Responsivenss -------------------------------------------------------------*/
 /* General Mobile Adjustments */
-@media (max-width: 768px) {
+/* Tablet Screens (768px - 1024px) */
+
+@media (min-width:1100px) and (max-width:1400px) {
+    .dsurprise-bags {
+        width: 100%; /* Full width instead of fixed 1038px */
+        height: auto;
+    }
+
+    .notifications-container {
+        width: 50%;
+        max-width: 600px;
+    }
+
+    .orderdash {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .salesChart{
+        width: 50%;
+        max-width: 600px;  
+    }
+    
+}
+
+@media (min-width: 1040px) and (max-width: 1100px) {
+    /* Surprise Bags Section */
+    .dsurprise-bags {
+        width: 100%; /* Full width instead of fixed 1038px */
+        height: auto;
+    }
+
+    .dsurprise-bags-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+        gap: 12px;
+    }
+
+    .dsurprise-bag-card {
+        width: 100%; /* Auto width based on grid */
+        height: auto;
+    }
+
+    /* Badge Adjustment */
+    .dsurprise-bag-badge {
+        top: 15px;
+        left: 10px;
+        font-size: 0.85em;
+        padding: 4px 8px;
+    }
+
+    /* Order Management Table */
+    .orderdash {
+        width: 100%; /* Stretch to fit */
+        overflow-x: auto; /* Scrollable */
+    }
+
+    .orderdash table {
+        font-size: 0.9em;
+    }
+
+    .orderdash th, .orderdash td {
+        padding: 10px;
+    }
+
+    .salesChart{
+        width: 60%;
+        max-width: 500px;
+    }
+
+    /* First Grid Section */
+    .first-grid {
+        flex-direction: row; /* Stack vertically */
+        gap: 10px;
+    }
+
+    /* Notifications */
+    .notifications-container {
+        width: 60%;
+        max-width: 500px;
+    }
+
+    /* Buttons */
+    .seeall {
+        font-size: 14px;
+    }
+
+    /* Action Menu */
+    .action-menu {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (min-width: 940px) and (max-width: 1040px){
+    /* Surprise Bags Section */
+    .dsurprise-bags {
+        width: 100%; /* Full width instead of fixed 1038px */
+        height: auto;
+    }
+
+    .dsurprise-bags-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+        gap: 12px;
+    }
+
+    .dsurprise-bag-card {
+        width: 100%; /* Auto width based on grid */
+        height: auto;
+    }
+
+    /* Badge Adjustment */
+    .dsurprise-bag-badge {
+        top: 15px;
+        left: 10px;
+        font-size: 0.85em;
+        padding: 4px 8px;
+    }
+
+    /* Order Management Table */
+    .orderdash {
+        width: 100%; /* Stretch to fit */
+        overflow-x: auto; /* Scrollable */
+        max-width: 500px;
+    }
+
+    .orderdash table {
+        font-size: 0.9em;
+    }
+
+    .orderdash th, .orderdash td {
+        padding: 10px;
+    }
+
+    .salesChart{
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* First Grid Section */
+    .first-grid {
+        flex-direction: row; /* Stack vertically */
+        gap: 10px;
+    }
+
+    /* Notifications */
+    .notifications-container {
+        width: 65%;
+        max-width: 700px;
+    }
+    .salesChart{
+        width: 65%;
+    }
+
+    /* Buttons */
+    .seeall {
+        font-size: 14px;
+    }
+
+    /* Action Menu */
+    .action-menu {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media(min-width:770px) and (max-width:840px){
+    .dashboard{
+        margin-left: 130px;
+    }
+
+    .surpricebagcontainer{
+        flex-direction:column;
+    }
+
+    .dsurprise-bags{
+        width: 100%;;
+    }
+
+    .dsurprise-bags-header{
+        width: auto;
+    }
+
+    .notifications-container{
+        width: 100%;
+        max-width: inherit;
+    }
+
+    .first-grid{
+        flex-direction:column;
+        margin-right: 0px;
+    }
+    
+    .orderdash{
+        width: 100%;
+    }
+
+    .salesChart{
+        width: 100%;
+        max-width: inherit;
+    }
+}
+
+@media (max-width: 770px) {
+
+    .mobile-sidebar{
+        display: block;
+    }
+
     /* Dashboard container */
     .dashboard {
-      margin: 0;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     .dashboard h1{
@@ -544,18 +756,18 @@
     }
 
     .first-grid {
+        flex-direction:column;
         margin: 10px;
+        margin-top: 20px;
+        gap: 20px;
     }
-
-
-   .mobile-sidebar{
-    display: block;
-   }
 
     /* Surprise Bags Section */
 
     .surpricebagcontainer{
        margin: 10px;
+       flex-direction:column;
+       gap: 20px;
     }
 
     .dsurprise-bags-container {
@@ -584,8 +796,6 @@
         font-weight: bold;
     }
 
-  
-
     /* Order Management Table */
 
     .orderdash table {
@@ -596,12 +806,6 @@
     .orderdash th, .orderdash td {
         font-size: 0.85em;
         padding: 6px;
-    }
-
-    /* First Grid */
-    .first-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 10px;
     }
 
     .OverViewcard {
@@ -626,10 +830,23 @@
     .action-menu button {
         padding: 8px 10px;
     }
+
+    .notifications-container{
+        width: 100%;
+        max-width: inherit;
+    }
+
+    .salesChart{
+        width: 100%;
+        max-width: inherit;
+    }
 }
 
 /* Smaller screens (e.g., phones) */
 @media (max-width: 480px) {
+    .dashboard{
+        margin: 0px;
+    }
 
     .dsurprise-bags{
         overflow-y: hidden;
