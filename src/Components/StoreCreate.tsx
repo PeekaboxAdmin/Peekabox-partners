@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+import ObjectId from 'bson-objectid';
+
 interface StoreData {
   collectionSchedule: { timeWindow: { start: string; end: string }; day: string };
   storeId: string;
@@ -43,112 +45,94 @@ const IndividualStoreCreate: React.FC = () => {
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
+  const getLatLonFromAddress = async (address: StoreData["address"]) => {
+    try {
+      const formattedAddress = `${address.street}, ${address.city}, ${address.country}`;
+      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(formattedAddress)}&key=${apiKey}`;
+  
+      const response = await axios.get(url);
+      const data = response.data;
+  
+      if (data.status === "OK" && data.results.length > 0) {
+        const { lat, lng } = data.results[0].geometry.location;
+        return { lat, lon: lng };
+      } else {
+        throw new Error("Could not find location.");
+      }
+    } catch (error) {
+      console.error("Error fetching geolocation:", error);
+      return { lat: 0, lon: 0 }; // Default coordinates in case of failure
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL;
-      // Hardcoded data for testing
-      // Hardcoded data with correct uppercase `day` values
-      const hardcodedData = {
-        brandId: "60d5ecb8b392f8001f1e1d88", // New brandId
-        name: "Sunrise Café",
-        description:
-          "A cozy café offering freshly brewed coffee, organic teas, and delicious pastries in the heart of Dubai.",
-        managerName: "Aisha Khan",
-        category: "Cafe",
-        image: "https://example.com/images/sunrise-cafe.jpg",
+
+      
+      const { lat, lon } = await getLatLonFromAddress(storeData.address);
+
+      const storePayload = { // fix this
+        brandId: new ObjectId().toHexString(),
+        storeName: storeData.storeName,
+        description: storeData.description,
+        category: storeData.category,
+        image: storeData.image, // Image URL from upload
+        managerName: storeData.managerName,
         contactDetails: {
           phone: {
-            countryCode: "+971",
-            number: "512345678",
+            countryCode: storeData.contactDetails.phone.countryCode,
+            number: storeData.contactDetails.phone.number,
           },
-          email: "sunriscafy@dubai.ae", // New email to avoid duplicate key error
-        },
+          email: storeData.contactDetails.email,
+        },        
         address: {
-          street: "Sheikh Zayed Road",
-          area: "Business Bay",
-          city: "Dubai",
-          country: "United Arab Emirates",
+          street: storeData.address.street,
+          area: storeData.address.area,
+          city: storeData.address.city,
+          country: storeData.address.country,
         },
-        location: {
-          type: "Point",
-          coordinates: [55.2711, 25.2052], // Different coordinates
-        },
-        operatingHours: [
-          {
-            day: "MONDAY",
-            open: "07:00",
-            close: "22:00",
-          },
-          {
-            day: "TUESDAY",
-            open: "07:00",
-            close: "22:00",
-          },
-          {
-            day: "WEDNESDAY",
-            open: "07:00",
-            close: "22:00",
-          },
-          {
-            day: "THURSDAY",
-            open: "07:00",
-            close: "23:00",
-          },
-          {
-            day: "FRIDAY",
-            open: "08:00",
-            close: "00:00",
-          },
-          {
-            day: "SATURDAY",
-            open: "08:00",
-            close: "00:00",
-          },
-          {
-            day: "SUNDAY",
-            open: "08:00",
-            close: "22:00",
-          },
-        ],
+        location: { type: "Point", coordinates: [lon, lat] }, // Use real coordinates
+        operatingHours: storeData.operatingHours, // Operating hours input by user
       };
-     
-      const response = await axios.post(
-        `${apiUrl}/api/v1/stores/store/${storeId}`,
-        //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
-          hardcodedData,  // Use the hardcoded data
-        { withCredentials: true }
-      );
 
-      alert('Store updated successfully!'+storeId);
-      console.log('Response:', response.data);
-      console.log(hardcodedData)
-      navigate('/dashboard');
+      const response = await axios.post(`${apiUrl}/api/v1/stores/store${storeId}`, storePayload, {
+        withCredentials: true,
+      });
+
+      // console.log("Store Payload Generated:", storePayload);
+
+      alert('Store registered successfully!'+storeId);
+      // navigate('/dashboard');
     } catch (error) {
       console.error('Error updating store:', error);
       alert('Failed to update the store. Please try again.');
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
-    // Split nested fields like 'contactDetails.email'
+  
+    // Split nested fields like 'contactDetails.phone.countryCode' into an array
     const keys = name.split('.');
+  
     setStoreData((prev) => {
       let updated: any = { ...prev };
+  
       keys.reduce((obj, key, index) => {
         if (index === keys.length - 1) {
-          obj[key] = value;
+          obj[key] = value; // Set the final value
         } else {
-          obj[key] = { ...obj[key] };
+          obj[key] = { ...obj[key] }; // Keep copying existing structure
         }
         return obj[key];
       }, updated);
+  
       return updated;
     });
   };
+  
 
   const handleOperatingHoursChange = (index: number, field: keyof StoreData['operatingHours'][0], value: string) => {
     setStoreData((prev) => {
@@ -225,8 +209,6 @@ const IndividualStoreCreate: React.FC = () => {
               )}
             </div>
 
-
-            
             {/* Store Name */}
             <div className="store-field">
               <label htmlFor="storeName">Store Name</label>
@@ -288,7 +270,7 @@ const IndividualStoreCreate: React.FC = () => {
               />
             </div>
 
-            {/* Contact Details */}
+            {/* Manager Email */}
             <div className="store-field">
               <label htmlFor="description">Manager Email</label>
               <input
@@ -302,23 +284,37 @@ const IndividualStoreCreate: React.FC = () => {
               />
             </div>
 
+            {/* Country Code Input */}
             <div className="store-field">
-              <label htmlFor="description">Phone Number</label>
+              <label htmlFor="countryCode">Country Code</label>
               <input
                 type="text"
-                name="contactDetails.phone.number"
-                value={storeData.contactDetails.phone.number}
+                name="contactDetails.phone.countryCode"
+                value={storeData.contactDetails.phone.countryCode}
                 onChange={handleChange}
-                placeholder="Phone Number"
+                placeholder="e.g +971"
                 required
                 className="store-create-input"
               />
             </div>
 
+            {/* Phone Number Input */}
+            <div className="store-field">
+              <label htmlFor="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                name="contactDetails.phone.number"
+                value={storeData.contactDetails.phone.number}
+                onChange={handleChange}
+                placeholder="e.g 509642684"
+                required
+                className="store-create-input"
+              />
+            </div>
 
             {/* Store Address Fields */}
             {['street', 'area', 'city', 'country'].map((field) => (
-              <div className="store-field" key={field}>
+              <div className="store-field">
                 <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
                 <input
                   key={field}
@@ -367,16 +363,13 @@ const IndividualStoreCreate: React.FC = () => {
                 </button>
               </div>
             </div>
-
-            
-
-
-            {/* Submit Button */}
-            
           </div>
+
+          {/* Submit Button */}
           <button type="submit" className="store-create-btn">
-            Update Store
+            Create Store
           </button>
+
         </form>
       </div>
     </div>
