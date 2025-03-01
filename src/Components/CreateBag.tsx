@@ -116,7 +116,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     
     return response.data.imageUrl; // Return the uploaded image URL
   };
-
+//
   const handleSubmit = async () => {
     try {
       let imageUrl = "";
