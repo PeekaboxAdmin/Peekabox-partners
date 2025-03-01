@@ -197,10 +197,10 @@ const IndividualStoreCreate: React.FC = () => {
   
 
   return (
-    <div>
+    <div className='storeCreate'>
       <Header />
       <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
-        
+
       <div className="store-create-container">
         <h2 className="store-create-heading">Add Your Store Details</h2>
         <form
@@ -213,7 +213,7 @@ const IndividualStoreCreate: React.FC = () => {
           <div className="store-create-content">
             {/* Store Image Upload */}
             <div className="store-field">
-              <label>Store Profile Picture</label>
+              <label>Store Logo</label>
               <input
                 type="file"
                 accept="image/*"
