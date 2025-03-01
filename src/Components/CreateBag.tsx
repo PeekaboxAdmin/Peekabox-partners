@@ -11,7 +11,7 @@ interface CreateBagFormProps {
 }
 
 interface FormData {
-  bagName: string;
+  name: string;
   category: string;
   allergens: string[];
   description: string;
@@ -27,7 +27,7 @@ const STEPS = ['Name', 'Category & Allergens', 'Description', 'Price & Quantity'
 const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    bagName: '',
+    name: '',
     category: '',
     allergens: [],
     description: '',
@@ -102,48 +102,55 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     setFormData((prev) => ({ ...prev, image: null }))
   }
 
+
+// upload image function
+  const uploadImageToS3 = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const apiurl = process.env.REACT_APP_API_URL;
+    const response = await axios.post(
+      `${apiurl}/api/v1/ProductUpload`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
+    );
+    
+    return response.data.imageUrl; // Return the uploaded image URL
+  };
+
   const handleSubmit = async () => {
     try {
-      const data = new FormData();
-      data.append('storeId', storeId);
-    data.append('name', formData.bagName);
-    data.append('description', formData.description);
+      let imageUrl = "";
+    if (formData.image) {
+      imageUrl = await uploadImageToS3(formData.image);
+    }
 
-    // Correct the price field: send 'amount' and 'currencyCode' separately
-    data.append('price', JSON.stringify({ amount: formData.price, currencyCode: "AED" }));
+    const productData = {
+      storeId,
+      name: formData.name,
+      description: formData.description,
+      price: { amount: formData.price, currencyCode: "AED" },
+      category: formData.category,
+      quantity: parseInt(formData.numberOfBags, 10),
+      allergenInfo: formData.allergens,
+      collectionSchedule: formData.selectedDays.map((day) => ({
+        day: day.day,
+        timeWindow: { start: day.startTime, end: day.endTime },
+      })),
+      image: imageUrl, // Use the uploaded image URL
+      isAvailable: true,
+    };
 
-    data.append('category', formData.category);
-    data.append('quantity', formData.numberOfBags);
-
-   
-    data.append('allergenInfo', JSON.stringify(formData.allergens));
-
-    // Correct collectionSchedule: send day and timeWindow as separate fields
-    data.append(
-      "collectionSchedule",
-      JSON.stringify({
-        day: formData.selectedDays[0].day,
-        timeWindow: {
-          start: formData.selectedDays[0].startTime,
-          end: formData.selectedDays[0].endTime
-        }
-      })
-    );
-
-    data.append('isAvailable', 'true');
-      if (formData.image) {
-        data.append('image', formData.image);
-      }
       const apiurl = process.env.REACT_APP_API_URL;
       await axios.post(
         `${apiurl}/api/v1/stores/${storeId}/product`,
-        data,
+        productData,
         {
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
       onCancel(false);
-      console.log(data);
+      console.log(productData);
     } catch (error) {
       console.error("Error creating bag:", error);
     }
