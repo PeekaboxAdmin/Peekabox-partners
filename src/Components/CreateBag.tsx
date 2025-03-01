@@ -170,8 +170,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                 </p>
                 <input
                   type="text"
-                  value={formData.bagName}
-                  onChange={(e) => handleInputChange('bagName', e.target.value)}
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
                   placeholder="Type the Name of Surprise Bag"
                   className="name-input"
                 />
