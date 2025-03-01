@@ -3,6 +3,8 @@ import axios from 'axios';
 import './StoreCreate.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
 interface StoreData {
   collectionSchedule: { timeWindow: { start: string; end: string }; day: string };
@@ -22,6 +24,7 @@ interface StoreData {
 const IndividualStoreCreate: React.FC = () => {
   const storeId = useSelector((state: any) => state.storeAuth.Store_id); // Replace `any` with your Redux state type
   const navigate = useNavigate();
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
   const [storeData, setStoreData] = useState<StoreData>({
     collectionSchedule: { timeWindow: { start: '', end: '' }, day: '' },
@@ -37,6 +40,8 @@ const IndividualStoreCreate: React.FC = () => {
     location: { type: 'Point', coordinates: [40.7128, -74.006] }, // Default coordinates
     operatingHours: [],
   });
+
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     try {
@@ -160,136 +165,220 @@ const IndividualStoreCreate: React.FC = () => {
     }));
   };
 
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Get the selected file
+    if (!file) return; // If no file is selected, exit
+  
+    const formData = new FormData();
+    formData.append("image", file); // Append the image file
+  
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL; // Your backend API URL
+  
+      // Send the image to the backend API
+      const response = await axios.post(`${apiUrl}/upload-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      const imageUrl = response.data.imageUrl; // Get the image URL from the backend
+  
+      // Update store data with the uploaded image URL
+      setStoreData((prev) => ({ ...prev, image: imageUrl }));
+  
+      // Update the image preview with the actual URL from the server
+      setPreviewImage(imageUrl);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to upload image. Please try again.");
+    }
+  };
+
+  const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
+  
+
   return (
-    <div className="store-create-container">
-      <h2 className="store-create-heading">Add Your Store Details</h2>
-      <form
-        className="store-create-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <div className="store-create-content">
-          {/* Store Name */}
-          <input
-            type="text"
-            name="storeName"
-            value={storeData.storeName}
-            onChange={handleChange}
-            placeholder="Store name"
-            required
-            className="store-create-input"
-          />
+    <div>
+      <Header />
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
+        
+      <div className="store-create-container">
+        <h2 className="store-create-heading">Add Your Store Details</h2>
+        <form
+          className="store-create-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <div className="store-create-content">
+            {/* Store Image Upload */}
+            <div className="store-field">
+              <label>Store Profile Picture</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="store-image-upload"
+              />
+              {previewImage && (
+                <img src={previewImage} alt="Preview" className="store-image-preview" />
+              )}
+            </div>
 
-          {/* Description */}
-          <textarea
-            name="description"
-            value={storeData.description}
-            onChange={handleChange}
-            placeholder="Store Description"
-            required
-            className="store-create-input"
-          />
 
-          {/* Category */}
-          <select
-            name="category"
-            value={storeData.category}
-            onChange={handleChange}
-            required
-            className="store-create-input"
-          >
-            <option value="">Select Category</option>
-            <option value="Bakery">Bakery</option>
-            <option value="Cafe">Cafe</option>
-            <option value="Grocery">Grocery</option>
-          </select>
+            
+            {/* Store Name */}
+            <div className="store-field">
+              <label htmlFor="storeName">Store Name</label>
+              <input
+                type="text"
+                id="storeName"
+                name="storeName"
+                value={storeData.storeName}
+                onChange={handleChange}
+                placeholder="Enter Store Name"
+                required
+                className="store-create-input"
+              />
+            </div>
+          
+            {/* Description */}
+            <div className="store-field">
+              <label htmlFor="description">Store Description</label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value={storeData.description}
+                onChange={handleChange}
+                placeholder="Brief description of the store"
+                required
+                className="store-create-input"
+              />
+            </div>
 
-          {/* Manager Name */}
-          <input
-            type="text"
-            name="managerName"
-            value={storeData.managerName}
-            onChange={handleChange}
-            placeholder="Manager Name"
-            required
-            className="store-create-input"
-          />
+            {/* Category */}
+            <div className="store-field">
+              <label htmlFor="description">Store Category</label>
+              <select
+                name="category"
+                value={storeData.category}
+                onChange={handleChange}
+                required
+                className="store-create-input"
+              >
+                <option value="">Select Category</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Cafe">Cafe</option>
+                <option value="Grocery">Grocery</option>
+              </select>
+            </div>
+            
+            {/* Manager Name */}
+            <div className="store-field">
+              <label htmlFor="description">Manager Name</label>
+              <input
+                type="text"
+                name="managerName"
+                value={storeData.managerName}
+                onChange={handleChange}
+                placeholder="Manager Name"
+                required
+                className="store-create-input"
+              />
+            </div>
 
-          {/* Contact Details */}
-          <input
-            type="email"
-            name="contactDetails.email"
-            value={storeData.contactDetails.email}
-            onChange={handleChange}
-            placeholder="Manager Email"
-            required
-            className="store-create-input"
-          />
-          <input
-            type="text"
-            name="contactDetails.phone.number"
-            value={storeData.contactDetails.phone.number}
-            onChange={handleChange}
-            placeholder="Phone Number"
-            required
-            className="store-create-input"
-          />
+            {/* Contact Details */}
+            <div className="store-field">
+              <label htmlFor="description">Manager Email</label>
+              <input
+                type="email"
+                name="contactDetails.email"
+                value={storeData.contactDetails.email}
+                onChange={handleChange}
+                placeholder="Manager Email"
+                required
+                className="store-create-input"
+              />
+            </div>
 
-          {/* Address */}
-          {['street', 'area', 'city', 'country'].map((field) => (
-            <input
-              key={field}
-              type="text"
-              name={`address.${field}`}
-              value={(storeData.address as any)[field]}
-              onChange={handleChange}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              required
-              className="store-create-input"
-            />
-          ))}
+            <div className="store-field">
+              <label htmlFor="description">Phone Number</label>
+              <input
+                type="text"
+                name="contactDetails.phone.number"
+                value={storeData.contactDetails.phone.number}
+                onChange={handleChange}
+                placeholder="Phone Number"
+                required
+                className="store-create-input"
+              />
+            </div>
 
-          {/* Operating Hours */}
-          <div className="store-operating-hours">
-            <h3>Operating Hours</h3>
-            {storeData.operatingHours.map((hours, index) => (
-              <div className="op-content" key={index}>
+
+            {/* Store Address Fields */}
+            {['street', 'area', 'city', 'country'].map((field) => (
+              <div className="store-field" key={field}>
+                <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
                 <input
+                  key={field}
                   type="text"
-                  value={hours.day}
-                  onChange={(e) => handleOperatingHoursChange(index, 'day', e.target.value)}
-                  placeholder="Day"
+                  name={`address.${field}`}
+                  value={(storeData.address as any)[field]}
+                  onChange={handleChange}
+                  placeholder={`Enter ${field}`}
                   required
-                />
-                <input
-                  type="time"
-                  value={hours.open}
-                  onChange={(e) => handleOperatingHoursChange(index, 'open', e.target.value)}
-                  required
-                  placeholder="Open"
-                />
-                <input
-                  type="time"
-                  value={hours.close}
-                  onChange={(e) => handleOperatingHoursChange(index, 'close', e.target.value)}
-                  required
-                  placeholder="Close"
+                  className="store-create-input"
                 />
               </div>
             ))}
-            <button type="button" className="op-h-btn" onClick={addOperatingHours}>
-              Add Operating Hours
-            </button>
-          </div>
 
-          {/* Submit Button */}
+            {/* Operating Hours */}
+            <div className='store-field'>
+              <label htmlFor="description">Operating Hours</label>
+              <div className="store-operating-hours">
+                {storeData.operatingHours.map((hours, index) => (
+                  <div className="op-content" key={index}>
+                    <input
+                      type="text"
+                      value={hours.day}
+                      onChange={(e) => handleOperatingHoursChange(index, 'day', e.target.value)}
+                      placeholder="Day"
+                      required
+                    />
+                    <input
+                      type="time"
+                      value={hours.open}
+                      onChange={(e) => handleOperatingHoursChange(index, 'open', e.target.value)}
+                      required
+                      placeholder="Open"
+                    />
+                    <input
+                      type="time"
+                      value={hours.close}
+                      onChange={(e) => handleOperatingHoursChange(index, 'close', e.target.value)}
+                      required
+                      placeholder="Close"
+                    />
+                  </div>
+                ))}
+                <button type="button" className="op-h-btn" onClick={addOperatingHours}>
+                  Add Operating Hours
+                </button>
+              </div>
+            </div>
+
+            
+
+
+            {/* Submit Button */}
+            
+          </div>
           <button type="submit" className="store-create-btn">
             Update Store
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
