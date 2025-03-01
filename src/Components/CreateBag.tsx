@@ -109,7 +109,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     formData.append("image", file);
     const apiurl = process.env.REACT_APP_API_URL;
     const response = await axios.post(
-      `${apiurl}/api/v1/ProductUpload`,
+      `${apiurl}/api/v1//stores/ProductUpload`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
     );
