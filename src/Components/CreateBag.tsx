@@ -136,7 +136,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           },
           "category": "Surpise",  
           "quantity": 50,
-          "image": "https://example.com/images/chicken_bag.jpg", 
+          "image": imageUrl, 
           "allergenInfo": ["NUTS", "DAIRY"],  
           "collectionSchedule": {
             "day": "Mon",  
