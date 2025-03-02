@@ -113,10 +113,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       formData,
       { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
     );
-
-    console.log(response.data.imageUrl)
     
-    return response.data.imageUrl; // Return the uploaded image URL
+    return response.data.data.imageUrl; // Return the uploaded image URL
   };
 //
   const handleSubmit = async () => {
