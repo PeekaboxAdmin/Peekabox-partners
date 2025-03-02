@@ -124,6 +124,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       imageUrl = await uploadImageToS3(formData.image);
     }
 
+    console.log("image url : "+ imageUrl);
+
     const productData = {
       storeId,
       name: formData.name,
