@@ -127,23 +127,26 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       
 
         const productData = {
-          storeId,
-          name: formData.name,
-          description: formData.description,
-          price: { amount: formData.price, currencyCode: "AED" },
-          category: formData.category,
-          quantity: parseInt(formData.numberOfBags, 10),
-          allergenInfo: formData.allergens,
-          collectionSchedule: formData.selectedDays.length > 0 ? {
-            day: formData.selectedDays[0].day,
-            timeWindow: { 
-              start: formData.selectedDays[0].startTime, 
-              end: formData.selectedDays[0].endTime 
+          "storeId": "6785ba32f6d68eb6561cdca1",   
+          "name": "Chicken Bag",
+          "description": "A delicious chicken-filled bag, perfect for a quick meal.",
+          "price": {
+            "amount": 25.99,
+            "currencyCode": "AED"
+          },
+          "category": "Surpise",  
+          "quantity": 50,
+          "image": "https://example.com/images/chicken_bag.jpg", 
+          "allergenInfo": ["NUTS", "DAIRY"],  
+          "collectionSchedule": {
+            "day": "Mon",  
+            "timeWindow": {
+              "start": "10:00",
+              "end": "18:00"
             }
-          } : null,
-          image: imageUrl, // Use the uploaded image URL
-          isAvailable: true,
-        };
+          },
+          "isAvailable": true
+        }
 
       const apiurl = process.env.REACT_APP_API_URL;
       await axios.post(
