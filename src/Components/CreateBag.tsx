@@ -113,6 +113,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       formData,
       { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
     );
+
+    console.log(response.data.imageUrl)
     
     return response.data.imageUrl; // Return the uploaded image URL
   };
@@ -122,9 +124,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       let imageUrl = "";
     if (formData.image) {
       imageUrl = await uploadImageToS3(formData.image);
-    }
-
-    console.log("image url : "+ imageUrl);
+      if(imageUrl !==""){
+        console.log("image url : "+ imageUrl);
+      
 
     const productData = {
       storeId,
@@ -153,6 +155,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
       );
       onCancel(false);
       console.log(productData);
+    }
+  }
     } catch (error) {
       console.error("Error creating bag:", error);
     }
