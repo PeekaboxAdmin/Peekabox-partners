@@ -1,0 +1,390 @@
+/* Help.css */
+.help-page-container {
+    margin-left: 150px;
+    margin-top: 10px;
+    overflow-y: scroll;
+    }
+  
+.help-content {
+    padding: 2rem;
+    margin-left: 240px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    }
+  
+.help-content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+    }
+  
+  /* Support Options */
+/* Support Options Container */
+.support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* Card Container */
+  .support-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem 1rem; /* Adjust side padding as needed */
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    
+    /* Flex layout to keep content aligned vertically,
+       ensuring the button is always at the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .support-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Pink Circle Container */
+  .support-icon {
+    width: 80px;
+    height: 80px;
+    background: transparent; /* No colored background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    overflow: hidden; /* Ensures the image won't overflow the circle */
+  }
+  
+  /* Slightly Larger Image */
+  .support-icon img {
+    width: 100%; /* Increase this to make the image larger */
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Heading inside the card */
+  .support-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0.5rem ;
+  }
+  
+  /* Paragraph text */
+  .support-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  /* Button is placed at the bottom of the card */
+  .support-button {
+    margin-top: auto;         /* Pushes the button to the bottom */
+    background: #ff80b4;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .support-button:hover {
+    background: #ff609d;
+  }
+  
+  
+  /* Report Issue Form */
+.report-issue-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+.report-issue-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    }
+  
+.report-form {
+    max-width: 600px;
+    margin: 0 auto;
+    }
+  
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    }
+  
+.form-group {
+    margin-bottom: 1rem;
+    }
+  
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    }
+  
+.form-group textarea {
+    resize: vertical;
+    }
+  
+.submit-button {
+    background: #ff80b4;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+    }
+  
+.submit-button:hover {
+    background: #ff609d;
+    }
+  
+  /* Support Stats */
+.support-stats {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+.stat-items{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    }
+
+.support-stats h2 {
+    font-size: 1.5rem;
+    color: #ff80b4;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    }
+
+.support-stats p{
+    color: 000000;
+    font-weight: 500;
+}
+  
+.stat-item h3 {
+    font-size: 2rem;
+    color:#0B4B2C;
+    margin-bottom: 0.5rem;
+}
+  
+.stat-item p {
+    color: #0B4B2C;
+}
+  
+/* FAQ Section */
+.faq-section {
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .faq-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem; /* space before pagination controls */
+  }
+  
+  .faq-item {
+    margin: 0.4rem;
+    border: 1px solid #ff80b4; /* Pink border color */
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff; /* White background */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .faq-item.expanded {
+    background-color: #fff0f7; /* Light pink background for expanded item */
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .faq-answer {
+    margin-top: 1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .page-button {
+    border: 1px solid #ff80b4;
+    background-color: #fff;
+    color: #ff80b4;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .page-button:hover {
+    background-color: #ff80b4;
+    color: #fff;
+  }
+  
+  .page-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .page-button.active {
+    background-color: #ff80b4;
+    color: #fff;
+    border-color: #ff80b4;
+  }
+/* Training Section */
+.training-section {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .training-section h2 {
+    font-size: 1.5rem;
+    color: #FF80B4;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Container for the three cards */
+  .training-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+  }
+  
+  /* Each Training Card */
+  .training-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;           /* Fixed width to ensure side-by-side layout */
+    height: 450px;          /* Fixed height to accommodate image, text, and button */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Rectangular image at the top */
+  .training-card img {
+    width: 100%;
+    height: 30%;
+    object-fit: cover;
+  }
+  
+  /* Card Title */
+  .training-card h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Card Text */
+  .training-card p {
+    color: #666;
+    margin: 0 1rem;
+    line-height: 1.6;
+    flex: 1; /* This makes the paragraph take up remaining vertical space */
+  }
+  
+  /* Fixed Position Button at the Bottom */
+  .learn-more-button {
+    background: transparent;
+    color: #ff80b4;
+    border: 1px solid #ff80b4;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 1rem;
+    align-self: center;  /* Center the button horizontally */
+    margin-top: auto;    /* Push the button to the bottom */
+  }
+  
+  .learn-more-button:hover {
+    background: #ff80b4;
+    color: white;
+  }
+  
+  
+  /* Responsive Design */
+@media (max-width: 768px) {
+    .help-page-container {
+      margin-left: 0;
+      overflow-y: auto;
+    }
+    
+    .help-content {
+      margin-left: 0;
+      padding: 1rem;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .support-options,
+    .training-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .support-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+}
+  

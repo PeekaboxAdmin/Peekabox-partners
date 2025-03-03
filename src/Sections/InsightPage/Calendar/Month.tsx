@@ -24,7 +24,7 @@ const Month: React.FC<MonthProps> = ({ month, onMonthChange }) => {
 
   return (
     <div className="month-container">
-      {/*<div className="month" onClick={handleMonthClick}>
+      <div className="month" onClick={handleMonthClick}>
         {month}
       </div>
       {isDropdownVisible && (
@@ -40,7 +40,7 @@ const Month: React.FC<MonthProps> = ({ month, onMonthChange }) => {
           ))}
         </div>
       )}
-        */}
+    
     </div>
     
   );

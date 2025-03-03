@@ -107,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
                         <FontAwesomeIcon icon={faToolbox} /> Settings
                     </li>
                     <div className="sidebar-last-section">
-                        <li onClick={() => handleNavClick('dashboard')}>
+                        <li onClick={() => handleNavClick('help')}>
                             <FontAwesomeIcon icon={faQuestion} /> Help
                         </li>
                         <li onClick={() => handleNavClick('signup')}>
@@ -129,14 +129,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
                     <button className="menu-btn" onClick={() => handleNavClick('storeManagement')}>
                         <FontAwesomeIcon icon={faStore} />
                     </button>
-                    <button className="menu-btn" onClick={() => handleNavClick('storeManagement')}>
+                    <button className="menu-btn" onClick={() => handleNavClick('incomePayment')}>
                         <FontAwesomeIcon icon={faMoneyBill} />
                     </button>
                     <span className="main-label">Settings</span>
                     <button className="menu-btn" onClick={() => handleNavClick('signup')}>
                         <FontAwesomeIcon icon={faToolbox} />
                     </button>
-                    <button className="menu-btn" onClick={() => handleNavClick('signup')}>
+                    <button className="menu-btn" onClick={() => handleNavClick('help')}>
                         <FontAwesomeIcon icon={faQuestion} />
                     </button>
                     <button className="menu-btn" onClick={() => handleNavClick('signup')}>

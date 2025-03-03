@@ -77,7 +77,7 @@ const MobileSidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
                                 <FontAwesomeIcon icon={faUsers} /> Settings
                             </li>
                             <div className="msidebar-last-section">
-                                <li onClick={() => handleNavClick('signup')}>
+                                <li onClick={() => handleNavClick('help')}>
                                     <FontAwesomeIcon icon={faQuestion} /> Help
                                 </li>
                                 <li onClick={() => handleNavClick('signup')}>
