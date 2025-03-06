@@ -11,7 +11,7 @@ interface CreateBagFormProps {
 }
 
 interface FormData {
-  bagName: string;
+  name: string;
   category: string;
   allergens: string[];
   description: string;
@@ -27,7 +27,7 @@ const STEPS = ['Name', 'Category & Allergens', 'Description', 'Price & Quantity'
 const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    bagName: '',
+    name: '',
     category: '',
     allergens: [],
     description: '',
@@ -102,31 +102,65 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     setFormData((prev) => ({ ...prev, image: null }))
   }
 
+
+// upload image function
+  const uploadImageToS3 = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const apiurl = process.env.REACT_APP_API_URL;
+    const response = await axios.post(
+      `${apiurl}/api/v1/stores/ProductUpload`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
+    );
+    
+    return response.data.data.imageUrl; // Return the uploaded image URL
+  };
+//
   const handleSubmit = async () => {
     try {
-      const data = new FormData();
-      data.append('storeId', storeId);
-      data.append('name', formData.bagName);
-      data.append('description', formData.description);
-      data.append('price', JSON.stringify({ amount: formData.price, currencyCode: "AED" }));
-      data.append('category', formData.category);
-      data.append('quantity', formData.numberOfBags);
-      data.append('allergenInfo', JSON.stringify(formData.allergens));
-      data.append('collectionSchedule', JSON.stringify(formData.selectedDays[0]));
-      data.append('isAvailable', 'true');
-      if (formData.image) {
-        data.append('image', formData.image);
-      }
+      let imageUrl = "";
+    if (formData.image) {
+      imageUrl = await uploadImageToS3(formData.image);
+      if(imageUrl !==""){
+        console.log("image url : "+ imageUrl);
+      
+
+        const productData = {
+          "storeId": "6785ba32f6d68eb6561cdca1",   
+          "name": "Chicken Bag",
+          "description": "A delicious chicken-filled bag, perfect for a quick meal.",
+          "price": {
+            "amount": 25.99,
+            "currencyCode": "AED"
+          },
+          "category": "Surpise",  
+          "quantity": 50,
+          "image": imageUrl, 
+          "allergenInfo": ["NUTS", "DAIRY"],  
+          "collectionSchedule": {
+            "day": "Mon",  
+            "timeWindow": {
+              "start": "10:00",
+              "end": "18:00"
+            }
+          },
+          "isAvailable": true
+        }
+
       const apiurl = process.env.REACT_APP_API_URL;
       await axios.post(
         `${apiurl}/api/v1/stores/${storeId}/product`,
-        data,
+        productData,
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
       onCancel(false);
+      console.log(productData);
+    }
+  }
     } catch (error) {
       console.error("Error creating bag:", error);
     }
@@ -146,8 +180,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                 </p>
                 <input
                   type="text"
-                  value={formData.bagName}
-                  onChange={(e) => handleInputChange('bagName', e.target.value)}
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
                   placeholder="Type the Name of Surprise Bag"
                   className="name-input"
                 />

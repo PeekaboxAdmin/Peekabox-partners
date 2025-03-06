@@ -23,10 +23,6 @@ const VerifyEmail: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 const dispatch = useDispatch();
 
-  
-
-  
-
   const handleCodeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -79,57 +75,45 @@ const dispatch = useDispatch();
     };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    <div className="signup-container">
        {/* Left side with logo and slogan */}
-       <header className="flex md:hidden justify-center items-center flex-col p-4 bg-white w-full">
-        <h1 className="text-3xl font-bold text-pink-500">Peekabox</h1>
-        <p className="text-sm italic text-pink-500 mt-2 hidden md:block">"Help us reduce waste"</p>
-      </header>
-
-      <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-8">
-        <h1 className="text-4xl font-bold mb-2 p-2 text-pink-500">Peekabox</h1>
-        <p className="text-lg italic text-pink-500 hidden md:block">"Help us reduce waste"</p>
+      <div className="signup-image">
+        <img src={SignupImage} alt="Sign up" className="signup-img" />
       </div>
 
-
-      <div className="flex justify-center items-center w-full md:w-1/2 mt-12 md:mt-12">
-      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-md">
+      <div className="signup-form">
         <form onSubmit={handleCodeSubmit} className="login-form">
           <div className="heading-container">
-            <Heading
-              title="Verify Your Email"
-              subtitle="Almost There! Type in Your Verification Code"
-              className="heading-container"
-            />
+            <h1 className="signup-title">Verify Your Email</h1>
+            <p className="signup-subtitle">Almost There! Type in Your Verification Code</p>
             <span className="verifyEmailSpan">{email}</span>
           </div>
         {/*  <VerificationCodeInput 
             value={verificationCode} 
             onChange={setVerificationCode} 
           /> */}
-          <input
-        type="digit"
-        value={otp}
-        onChange={handleOtpChange}
-        maxLength={6} // OTP length, assuming it's 6 digits
-        placeholder="Enter OTP"
-        required
-      />
+          <div className="input-group-login password-input">
+            <input
+              type="digit"
+              value={otp}
+              onChange={handleOtpChange}
+              maxLength={6} // OTP length, assuming it's 6 digits
+              placeholder="Enter OTP"
+              required
+            />
+          </div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <div className="login-button-container">
-            <Button label="Verify" loading={loading} className="Green-button" />
+            <Button label="Verify" loading={loading} className="signup-button" />
           </div>
         </form>
         
-        <div className="flex justify-between items-center mt-4 text-sm">
-            <a href="/register" className="text-black hover:underline">
-              Didn't get ? Click here to resend code.
-            </a>
-            </div>
-        
-       
+        <div className="login-additional-links">
+          <p className="signup-link">
+            Didnt get a code? <a href="/register">Click here to resend code.</a>
+          </p>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

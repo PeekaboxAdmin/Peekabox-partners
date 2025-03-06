@@ -1,3 +1,149 @@
+/* Signup Page Styling */
+.signup-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* Left Side - Image */
+.signup-image {
+  width: 60%;
+  height: 100%;
+}
+
+.signup-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the whole section */
+}
+
+/* Right Side - Form */
+
+
+.signup-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  padding-top: 110px;
+}
+
+.heading-container{
+  margin-bottom: 50px;
+}
+
+.signup-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+  
+}
+
+.signup-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  color: #555;
+}
+
+.signup-form-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  gap:15px;
+}
+
+.signup-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.signup-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1b5e20;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #166c1b;
+}
+
+.signup-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.signup-error {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.signup-link {
+  font-size: 14px;
+  color: #AAAAAA;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a {
+  color: #ff80b4;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.forgotpass-link {
+  font-size: 14px;
+  color: #ff80b4;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signup-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .signup-image {
+      display: none;
+  }
+
+  .signup-form {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+  }
+}
+
+
 /* Remove default input styles (for password reveal icons) */
 .password-input input::-ms-reveal,
 .password-input input::-ms-clear {
@@ -44,6 +190,7 @@
     margin-top: -25px;
     max-width: 400px;
     margin-left: 50px;
+    padding-left: 20px;
 }
 
 .password-criteria div {
@@ -86,9 +233,6 @@
 
 
 
-
-
-
 @media (max-width: 768px) {
 
 
@@ -96,8 +240,6 @@
         font-size: 11px;
         text-align: center;
     }
-
-
 
     .password-criteria {
         max-width: 90%;
@@ -119,9 +261,6 @@
 }
 
 @media (max-width: 480px) {
-
-
-
     .password-criteria {
         max-width: 100%;
         margin-top: -30px;
@@ -136,8 +275,6 @@
         height: 10px;
         margin-right: 8px;
     }
-
-
 
     .already-registered {
         font-size: 10px;

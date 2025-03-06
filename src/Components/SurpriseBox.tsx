@@ -62,7 +62,7 @@ const SurpriseBoxManagement: React.FC = () => {
             collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
             soldOut: product.quantity === 0,
             available: product.isAvailable,
-            imageUrl: Logo, // Use default if no image
+            imageUrl: product.image, // Use default if no image
           }));
           setBags(formattedBags);
         } else {
