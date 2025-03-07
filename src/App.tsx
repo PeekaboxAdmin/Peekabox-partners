@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { io } from 'socket.io-client';
 
 import Dashboard from './Components/Dashbaord'; 
 import SurpriseBoxManagement from './Components/SurpriseBox';
@@ -24,12 +25,29 @@ import Footer from './Components/FooterLink/FooterLinks';
 import Sidebar from './Components/Sidebar';
 //import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
+const socket = io('wss://api-backend.peekabox.net', {
+  transports: ['websocket'],
+  secure: true,
+  withCredentials: true,
+});
+
 const AppContent: React.FC = () => {
   const [showNotification, setShowNotification] = useState(false);
-
-    const [selectedLanguage, setSelectedLanguage] = useState('English (United Kingdom)');
+  const [selectedLanguage, setSelectedLanguage] = useState('English (United Kingdom)');
     // const Store_id = useSelector((state: any) => state.storeAuth.Store_id); 
     // const isAuthenticated = !!Store_id; 
+
+
+    useEffect(() => {
+      socket.on('newOrderNotification', () => {
+        setShowNotification(true);
+      });
+  
+      return () => {
+        socket.off('newOrderNotification');
+      };
+    }, []);
+
 
     return (
         <div className="App">
