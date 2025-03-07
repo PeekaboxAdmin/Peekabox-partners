@@ -14,7 +14,7 @@ const FooterLinks: React.FC = () => {
           <ul>
             <li><a href="/dashboard-overview">Dashboard Overview</a></li>
             <li><a href="/features">Features</a></li>
-            <li><a href="/order-management">Order Management</a></li>
+            <li><a href="/orderManagement">Order Management</a></li>
             <li><a href="/analytics">Analytics</a></li>
             <li><a href="/manager-guidelines">Manager Guidelines</a></li>
           </ul>

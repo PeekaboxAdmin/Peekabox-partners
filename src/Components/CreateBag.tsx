@@ -5,6 +5,7 @@ import './CreateBag.css';
 import Logo from './Images/burger.jpg';
 import { useSelector } from 'react-redux';
 import TimePicker from './TimePicker/TimePicker';
+import FooterLinks from './FooterLink/FooterLinks';
 
 interface CreateBagFormProps {
   onCancel: (open: boolean) => void;
@@ -209,6 +210,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           </div>
         </div>
       </form>
+      <footer className="dashboard-footer">
+        <FooterLinks />
+      </footer>
     </div>
   );
 };
