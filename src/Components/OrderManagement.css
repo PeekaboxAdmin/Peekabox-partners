@@ -424,3 +424,52 @@ th i {
         margin-left: 20px;
     }
 } */
+
+@media(max-width:770px){
+    .orderm-main-container{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .order-table th, 
+    .order-table td{
+        font-size: 11px;
+    }
+
+    .combined-search-bar input[type="text"]{
+        font-size: 11px;
+    }
+
+    .order-management-header h3{
+        font-size: 24px;
+    }
+}
+
+@media (max-width:675px){
+    .combined-search-bar input[type="text"]{
+        max-width: 200px;
+    }
+    .combined-search-bar .search-icon{
+        right: 255px;
+        font-size: 12px;
+    }
+
+    .combined-search-bar .calendar-icon{
+        font-size: 12px;
+    }
+}
+
+@media (max-width:400px){
+    .combined-search-bar{
+        justify-content: flex-start;
+        margin-bottom: 0px;
+    }
+
+    .combined-search-bar .search-icon{
+        left: 14px;
+    }
+
+    .combined-search-bar .calendar-icon{
+        left: 255px;
+    }
+}

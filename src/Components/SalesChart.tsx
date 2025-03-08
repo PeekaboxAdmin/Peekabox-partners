@@ -1,7 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LabelList } from 'recharts';
 import './SalesChart.css'
-import FooterLinks from './FooterLink/FooterLinks';
 
 type DataPoint = {
   category: string;
@@ -79,9 +78,6 @@ const SalesChart: React.FC = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
   );
 };
