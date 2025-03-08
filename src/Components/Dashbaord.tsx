@@ -11,10 +11,12 @@ import { useSelector } from 'react-redux';
 import './Dashbaord.css';
 import FooterLinks from './FooterLink/FooterLinks';
 
+import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
+
 interface Order {
-  id: number;
+  id: string;
   status: string;
-  amount: string;
+  amount: number;
   customerName: string;
   address: string;
   datePlaced: string;
@@ -100,6 +102,32 @@ const Dashboard: React.FC = () =>
     fetchBags();
   }, [storeId]);
   
+
+  // 2) On mount, fetch the first 5 orders from the backend
+  useEffect(() => {
+    const getLatest = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchLatestOrders(storeId); // returns SurpriseOrder[]
+        // If your local "Order" interface differs, map it:
+        const mapped = data.map((o) => ({
+          id: o.id,
+          status: o.status,
+          amount: o.amount,
+          customerName: o.customerName,
+          address: o.address || "",
+          datePlaced: o.datePlaced,
+          quantity: o.quantity,
+        }));
+        setOrders(mapped);
+      } catch (err) {
+        console.error("Error fetching latest orders for dashboard:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getLatest();
+  }, [storeId]);
 
   const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
 
@@ -219,7 +247,7 @@ const Dashboard: React.FC = () =>
           <div className="orderdash-header">
             <h2>Latest Orders</h2>
           </div>
-          <div className="orderdash-content">
+          {/* <div className="orderdash-content">
             {loading ? (
               <p>Loading...</p>
             ) : orders.length > 0 ? (
@@ -266,6 +294,40 @@ const Dashboard: React.FC = () =>
                             </div>
                           )}
                         </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="no-orders">
+                <p>No orders available yet</p>
+              </div>
+            )}
+          </div> */}
+           <div className="orderdash-content">
+            {loading ? (
+              <p>Loading...</p>
+            ) : orders.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Order Date</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order.id}>
+                      <td>{order.customerName}</td>
+                      <td>{order.address}</td>
+                      <td>{order.datePlaced}</td>
+                      <td>{order.quantity}</td>
+                      <td>
+                        <span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span>
                       </td>
                     </tr>
                   ))}

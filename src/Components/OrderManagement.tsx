@@ -7,30 +7,6 @@ import FooterLinks from './FooterLink/FooterLinks';
 import { useSelector } from 'react-redux';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
-interface OrderItem {
-  productId: string;
-  productName: string;
-  quantity: number;
-  price: {
-    amount: number;
-    currencyCode: string;
-  };
-}
-
-interface SurpriseOrder {
-  id: string;
-  status: string;
-  amount: number;
-  customerName: string;
-  address?: string;
-  datePlaced: string;
-  quantity: number;
-  pickUpTime: string;
-  receipt: string;
-  orderItems: OrderItem[];
-}
-
 const dummyOrders: SurpriseOrder[] = [
   {
     id: "1",
@@ -202,6 +178,58 @@ const dummyOrders: SurpriseOrder[] = [
   },
 ];
 
+interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: {
+    amount: number;
+    currencyCode: string;
+  };
+}
+
+export interface SurpriseOrder {
+  id: string;
+  status: string;
+  amount: number;
+  customerName: string;
+  address?: string;
+  datePlaced: string;
+  quantity: number;
+  pickUpTime: string;
+  receipt: string;
+  orderItems: OrderItem[];
+}
+
+export async function fetchLatestOrders(storeId: string): Promise<SurpriseOrder[]> {
+  const apiurl = process.env.REACT_APP_API_URL as string;
+  const response = await axios.get(`${apiurl}/api/v1/stores/${storeId}/orders`, {
+    withCredentials: true,
+  });
+  const { orders } = response.data.data;
+
+  const formattedOrders: SurpriseOrder[] = orders.map((order: any) => ({
+    id: order._id,
+    status: order.status,
+    amount: order.amount,
+    customerName: order.customerName || "Unknown Customer",
+    // Convert date to "YYYY-MM-DD" for consistency
+    datePlaced: new Date(order.datePlaced).toISOString().split("T")[0],
+    quantity: order.orderItems.reduce((sum: number, item: any) => sum + item.quantity, 0),
+    address: order.address || "N/A",
+  }));
+
+  // Sort them by datePlaced descending (newest first)
+  formattedOrders.sort((a, b) => {
+    const aTime = new Date(b.datePlaced).getTime();
+    const bTime = new Date(a.datePlaced).getTime();
+    return aTime - bTime;
+  });
+
+  // Return the first 5
+  return formattedOrders.slice(0, 5);
+}
+
 const OrderManagement: React.FC = () => {
   const [combinedSearch, setCombinedSearch] = useState("");
   const [dateSearch, setDateSearch] = useState(""); 
@@ -220,52 +248,37 @@ const OrderManagement: React.FC = () => {
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
   // Fetch orders from the API
-  // const fetchOrders = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const apiurl = process.env.REACT_APP_API_URL
-  //     const response = await axios.get(
-  //       `${apiurl}/api/v1/stores/${storeId}/orders`,
-  //       { withCredentials: true }
-  //     );
-
-  //     const { orders } = response.data.data;
-
-  //     const formattedOrders = orders.map((order: any) => ({
-  //       id: order._id,
-  //       status: order.status,
-  //       amount: order.amount,
-  //       customerName: order.customerName || "Unknown Customer",
-  //       datePlaced: new Date(order.datePlaced).toISOString().split("T")[0],
-  //       quantity: order.orderItems.reduce((sum: number, item: any) => sum + item.quantity, 0),
-  //       address: order.address || "N/A",
-  //       pickUpTime: order.pickUpTime || "N/A",
-  //       receipt: `Order #${order.receipt}`,
-  //       orderItems: order.orderItems || [],
-  //       productName: order.orderItems.length > 0 ? order.orderItems[0].productName : "N/A",
-  //       priceCurrency: order.orderItems.length > 0 ? order.orderItems[0].price.currencyCode : "AED"
-  //     }));
-
-  //     setAllOrders(formattedOrders);
-  //   } catch (error) {
-  //     console.error("Failed to fetch orders:", error);
-  //     alert("Unable to fetch orders. Please try again later.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      setTimeout(() => {
+      const apiurl = process.env.REACT_APP_API_URL
+      const response = await axios.get(
+        `${apiurl}/api/v1/stores/${storeId}/orders`,
+        { withCredentials: true }
+      );
 
-        setAllOrders(dummyOrders);
-        setLoading(false);
-      }, 500);
+      const { orders } = response.data.data;
+
+      const formattedOrders = orders.map((order: any) => ({
+        id: order._id,
+        status: order.status,
+        amount: order.amount,
+        customerName: order.customerName || "Unknown Customer",
+        datePlaced: new Date(order.datePlaced).toISOString().split("T")[0],
+        quantity: order.orderItems.reduce((sum: number, item: any) => sum + item.quantity, 0),
+        address: order.address || "N/A",
+        pickUpTime: order.pickUpTime || "N/A",
+        receipt: `Order #${order.receipt}`,
+        orderItems: order.orderItems || [],
+        productName: order.orderItems.length > 0 ? order.orderItems[0].productName : "N/A",
+        priceCurrency: order.orderItems.length > 0 ? order.orderItems[0].price.currencyCode : "AED"
+      }));
+
+      setAllOrders(formattedOrders);
     } catch (error) {
       console.error("Failed to fetch orders:", error);
       alert("Unable to fetch orders. Please try again later.");
+    } finally {
       setLoading(false);
     }
   };

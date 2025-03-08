@@ -225,7 +225,7 @@
     color: #FF80B4; /* Pink color for headers */
     font-weight: bold;
     font-size: 1em;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
 }
 
 .orderdash td {
