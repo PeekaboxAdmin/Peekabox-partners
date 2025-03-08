@@ -39,14 +39,17 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
          notification.read ? "bg-gray-100" : "bg-white"
        }`}
      >
-       <td className="border px-4 py-2 text-center">{notification.id}</td>
+       {/* <td className="border px-4 py-2 text-center">{notification.id}</td>
        <td className="border px-4 py-2 text-center">{notification.type}</td>
        <td className="border px-4 py-2">{notification.message}</td>
-       <td className="border px-4 py-2 text-center">{notification.time}</td>
-       <td className="border px-4 py-2 text-center">
+       <td className="border px-4 py-2 text-center">{notification.time}</td> */}
 
-       </td>
-       <td className="border px-4 py-2 text-center">
+       <td className="notif-data">{notification.id}</td>
+       <td className="notif-data">{notification.type}</td>
+       <td className="notif-data">{notification.message}</td>
+       <td className="notif-data">{notification.time}</td>
+       
+       <td className="notif-data">
          <Button
            label="Delete"
            onClick={() => handleDelete(notification.id)}

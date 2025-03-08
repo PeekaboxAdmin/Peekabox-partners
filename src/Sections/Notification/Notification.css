@@ -13,7 +13,80 @@
   height: 15px;
   display: flex;
   align-items: center;
-  background-color: #d1d5db;
+  background-color: #d1d5db;.switch-container {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .switch-input {
+    display: none;
+  }
+  
+  .switch-track {
+    width: 30px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    background-color: #d1d5db;
+    border-radius: 50px;
+    padding: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .switch-track.checked {
+    background-color: #FF80B4;
+  }
+  
+  .switch-thumb {
+    background-color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .switch-track.checked .switch-thumb {
+    transform: translateX(20px);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .switch-track {
+      width: 25px;
+      height: 12px;
+      padding: 1px;
+    }
+  
+    .switch-thumb {
+      width: 14px;
+      height: 14px;
+    }
+  
+    .switch-track.checked .switch-thumb {
+      transform: translateX(16px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .switch-track {
+      width: 22px;
+      height: 11px;
+      padding: 1px;
+    }
+  
+    .switch-thumb {
+      width: 12px;
+      height: 12px;
+    }
+  
+    .switch-track.checked .switch-thumb {
+      transform: translateX(14px);
+    }
+  }
+  
   border-radius: 50px;
   padding: 2px;
   transition: all 0.3s ease-in-out;
