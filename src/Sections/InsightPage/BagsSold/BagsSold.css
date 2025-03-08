@@ -1,0 +1,102 @@
+.bags-sold-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.bags-sold-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.bags-sold-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1b4332;
+}
+
+.time-period-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background-color: white;
+  color: #6b7280;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.time-period-select:hover,
+.time-period-select:focus {
+  border-color: #d1d5db;
+}
+
+/* Smaller Pie Chart Container */
+.chart-container {
+  width: 100%;
+  max-width: 300px; /* Reduced from 400px for a smaller chart */
+  margin: 0 auto 2rem;
+  aspect-ratio: 1;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.category-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.category-name {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.category-percentage {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+@media (max-width: 640px) {
+  .bags-sold-container {
+    padding: 1rem;
+  }
+
+  .bags-sold-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .category-percentage {
+    font-size: 1.25rem;
+  }
+}
