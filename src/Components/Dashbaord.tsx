@@ -85,7 +85,7 @@ const Dashboard: React.FC = () =>
             collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
             soldOut: product.quantity === 0,
             available: product.isAvailable,
-            imageUrl: Logo,
+            imageUrl: product.image,
           }));
           setSurpriseBags(formattedBags);
         } else {
