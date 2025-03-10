@@ -93,8 +93,6 @@ useEffect(() => {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      {/* Display OrderNotification when a new order is received */}
-      {showNotification && <OrderNotification />}
     </div>
   );
 };
