@@ -7,9 +7,9 @@
 
 /* Hamburger Button */
 .mhamburger-btn {
-    position: absolute;
-    top: -20px; /* Adjusted from 3px to 15px for better positioning */
-    left: -30px;
+    position: fixed;
+    top: 15px; /* Adjusted from 3px to 15px for better positioning */
+    left: 15px;
     z-index: 1200; /* Ensures the button is above the sidebar overlay */
     background-color: transparent;
     border: none;

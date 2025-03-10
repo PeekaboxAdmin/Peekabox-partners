@@ -10,7 +10,6 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import MobileSidebar from './SideBarMobile';
 import { useSelector } from 'react-redux';
-import FooterLinks from './FooterLink/FooterLinks';
 
 type SurpriseBag = {
   id: number;
@@ -195,9 +194,6 @@ const SurpriseBoxManagement: React.FC = () => {
         // Show CreateBagForm when isCreatingBag is true
         <CreateBagForm onCancel={() => setIsCreatingBag(false)} />
       )}
-       <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
   );
 };

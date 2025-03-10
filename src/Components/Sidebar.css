@@ -178,7 +178,7 @@ li > svg {
 
 /* Responsivenss -------------------------------------------------------------*/
 /* General Mobile Adjustments */
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sideBar{
     display: none;
   }

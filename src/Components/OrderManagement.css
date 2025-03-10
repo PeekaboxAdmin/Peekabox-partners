@@ -5,100 +5,50 @@
     margin-top: 10px;
 }
 .order-management {
-    background-color: #fff;
+    background-color: white;
     display: flex;
     flex-direction: column;
     margin: 10px auto;
     padding: 20px;
-    border-radius: 12px;
-    min-height: 600px;
+    font-family: Arial, sans-serif;
 }
 
-.order-management-header h3 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #000000;
-}
-
-/* Container for the combined search bar */
-.combined-search-bar {
-    position: relative;
+/* Filters Section */
+.filters {
     display: flex;
     margin-bottom: 20px;
-    justify-content: flex-end; /* Aligns filters to the right */
+    margin-right: 80px;
+    justify-content: end; /* Aligns filters to the right */
     flex-wrap: wrap; /* Ensure filters wrap on smaller screens */
-    width: 100%;
-  }
-  
-  .combined-search-bar input[type="text"] {
-    width: 315px;
-    padding: 0.5rem 2.5rem; /* Extra spacing for icons */
-    border: 1px solid #D8D8D8;
-    border-radius: 20px; /* For a pill-shaped input, if desired */
-    font-size: 14px;
-    outline: none;
-    box-sizing: unset;
-  }
-  
-  .combined-search-bar input[type="text"]::placeholder {
-    color: #AAAAAA;
 }
 
-  /* Left search icon */
-  .combined-search-bar .search-icon {
-    position: absolute;
-    right: 370px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #AAAAAA;
-  }
-  
-  /* Right calendar icon */
-  .combined-search-bar .calendar-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #FF80B4;
-    cursor: pointer;
-  }
-  
-  .combined-search-bar .calendar-icon:hover {
-    color: #ce1964; /* Darken on hover */
-  }
-  
-  .hidden-date-input {
-    /* Make it visually invisible but still in layout */
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+.filters input[type="text"],
+.filters input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    font-size: 1em;
+    width: auto;
+    max-width: 250px; /* Prevents inputs from being too wide */
+}
 
-  /* Example for date/time sort icons in table headers */
-  th[style*="cursor: pointer"] i {
-    margin-left: 5px;
-    color: #555;
-  }
-  
+.filters input[type="text"]::placeholder,
+.filters input[type="date"]::placeholder {
+    color: #888;
+}
 
 /* Order Table Card */
 .order-table {
+    width: 90%;
     height: 100%;
-    min-height: 400px;
     background-color: #ffffff;
     border: none;
-    box-shadow: none; 
+    box-shadow: none; /* Ensure no shadow around the table */
     overflow-x: auto;
     padding: 20px;
     margin-top: 10px;
-    display: flex;
-    flex-direction: column;
 }
 
-/* unnecessary */
 .order-table h2 {
     background-color: white;
     color: black;
@@ -112,70 +62,53 @@
 .order-table table {
     width: 100%;
     margin: 0;
-    margin-bottom: 20px;
+    table-layout: fixed; /* Ensures the table resizes properly */
 }
 
 .order-table th,
 .order-table td {
-    padding: 10px 12px;
+    padding: 10px 15px;
     text-align: left;
     font-size: 0.95em;
-    word-wrap: break-word;
-    text-align: left;
+    word-wrap: break-word; /* Ensures long text breaks nicely */
 }
 
 .order-table th {
-    background-color: #fff;
-    color: #A3AED0; 
+    background-color: white;
+    color: gray; /* Light grey for headers */
     font-weight: bold;
-    border-bottom: 2px solid #E9EDF7;
 }
 
-.order td{
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-}
-
-/* Sorting Icons */
-th i {
-    font-size: 14px; /* Adjust icon size */
-    color: #A3AED0;
+.order-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
 }
 
 .order-table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-.status-icon {
-    width: 32px;  /* Adjust the size as needed */
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #2E2E2E; /* Default dark background */
-    color: white;
-    font-size: 17px;
+/* Status Badge Styling */
+.badge2 {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
 }
 
-/* Customize colors for different statuses */
-.status-icon.received {
-    background-color: #2E2E2E; /* Dark Gray */
-}
-.status-icon.completed {
-    background-color: #FF80B4; /* Pink */
-}
-.status-icon.preparing {
-    background-color: #FFD166; /* Yellow */
-}
-.status-icon.accepted {
-    background-color: #4CAF50; /* Green */
-}
-.status-icon.ready {
-    background-color: #E67E22; /* Orange */
+.badge2.completed {
+    background-color: #28a745; /* Green for completed */
 }
 
+.badge2.pending {
+    background-color: #ffc107; /* Yellow for pending */
+}
+
+.badge2.canceled {
+    background-color: #dc3545; /* Red for canceled */
+}
 
 /* Action Button for Dropdown */
 .action-btn {
@@ -216,42 +149,32 @@ th i {
 /* Pagination Controls */
 .pagination-controls {
     display: flex;
-    align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: auto;
-}
-
-.pagination-arrow {
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  color: #A0AEC0; 
-  cursor: pointer;
-  transition: color 0.3s;
+    margin-top: 20px;
 }
 
 .pagination-controls button {
-    padding: 10px 15px;
-    border: 1px solid #fff;
-    border-radius: 8px;
-    background-color: #fff;
-    color: #A0AEC0;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    color: #333;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 0.9em;
     transition: background-color 0.3s ease;
 }
 
 .pagination-controls button.active,
 .pagination-controls button:hover {
-    background-color: #FF80B4;
+    background-color: #333;
     color: #fff;
 }
 
 /* Responsive Design for Mobile, Tablet, and Laptop */
 
 /* For Mobile Devices (max-width: 768px) */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
     .order-management {
         padding: 10px;
     }
@@ -268,7 +191,7 @@ th i {
 
     .filters input[type="text"],
     .filters input[type="date"] {
-        width: 100%;
+        width: 100%; /* Full width for inputs */
     }
 
     .order-table {
@@ -282,7 +205,7 @@ th i {
     }
 
     .order-table table {
-        table-layout: auto;
+        table-layout: auto; /* Allow columns to resize naturally */
     }
 
     .dropdown-menu {
@@ -290,32 +213,33 @@ th i {
     }
 
     .pagination-controls {
-        flex-direction: column; 
+        flex-direction: column; /* Stack pagination controls vertically */
     }
 
     .pagination-controls button {
         width: 100%;
     }
-} */
+}
 
 /* For Tablets (max-width: 1024px) */
-/* @media (max-width: 769px) {
+@media (max-width: 769px) {
     .order-management {
         padding: 15px;
     }
 
-    .order-table table,
-    .order-table thead,
-    .order-table tbody,
-    .order-table th,
-    .order-table td,
-    .order-table tr {
-        display: block; 
+    /* Mobile Table Styling */
+.order-table table,
+.order-table thead,
+.order-table tbody,
+.order-table th,
+.order-table td,
+.order-table tr {
+    display: block; /* Make the table behave like blocks */
 }
 
 .order-table tr {
     border: 1px solid #ddd;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Space between rows */
     border-radius: 8px;
     background-color: #fff;
     padding: 10px;
@@ -323,27 +247,27 @@ th i {
 
 
 .order-table td {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 8px; 
+    display: flex; /* Align label and value */
+    justify-content: flex-start; /* Align content to the left */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 8px; /* Small spacing between label and value */
     padding: 8px 0;
-    text-align: left; 
+    text-align: left; /* Align text to the left */
     font-size: 0.9em;
     border-bottom: 1px solid #eee;
 }
 
 .order-table td:last-child {
-    border-bottom: none; 
+    border-bottom: none; /* Remove border from last cell */
 }
 
 .order-table td::before {
-    content: attr(data-label);
+    content: attr(data-label); /* Dynamically show the label */
     font-weight: bold;
     color: #555;
     flex: 1;
-    flex: 0 0 40%;
-    text-align: left; 
+    flex: 0 0 40%; /* Reserve 40% width for the label */
+    text-align: left; /* Ensure label text is also aligned left */
 }
 
 .feedback-table th{
@@ -351,7 +275,7 @@ th i {
 }
 
 .order-table td {
-    position: relative; 
+    position: relative; /* Ensures dropdown stays within its container */
 }
 
     .dropdown-menu {
@@ -361,20 +285,19 @@ th i {
     .pagination-controls button {
         font-size: 1em;
     }
-} */
+}
 
 /* For Laptops (min-width: 1025px) */
-/* used to be min-width */
-/* @media (max-width: 480px) {
+@media (min-width: 480px) {
     .filters {
         flex-direction: row;
         gap: 15px;
-        justify-content: flex-end; 
+        justify-content: flex-end; /* Right align filters */
     }
 
     .filters input[type="text"],
     .filters input[type="date"] {
-        width: 250px; 
+        width: 250px; /* Set max width for inputs */
     }
 
     .order-table {
@@ -392,84 +315,39 @@ th i {
     }
 
     .order-management h3 {
-        font-size: 1.4em; 
-        text-align: left; 
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
         margin-left: 20px;
     }
-} */
+}
+
+
 
 /* For Tablets (max-width: 1024px) */
-/* @media (max-width: 1024px) {
+@media (max-width: 1024px) {
     .filters {
+        justify-content: flex-start; /* Maintain left alignment */
         gap: 10px;
         margin-left: 20px;
     }
     .order-management h3 {
-        font-size: 1.4em; 
-        text-align: left; 
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
         margin-left: 20px;
     }
-} */
+}
 
 /* For Laptops (min-width: 1025px) */
-/* @media (min-width: 1025px) {
+@media (min-width: 1025px) {
     .filters {
+        justify-content: flex-start; /* Always align filters to the left */
         gap: 15px;
         margin-left: 20px;
     }
 
     .order-management h3 {
-        font-size: 1.4em;
-        text-align: left; 
+        font-size: 1.4em; /* Reduce heading size for smaller screens */
+        text-align: left; /* Align to left for smaller screens */
         margin-left: 20px;
-    }
-} */
-
-@media(max-width:770px){
-    .orderm-main-container{
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .order-table th, 
-    .order-table td{
-        font-size: 11px;
-    }
-
-    .combined-search-bar input[type="text"]{
-        font-size: 11px;
-    }
-
-    .order-management-header h3{
-        font-size: 24px;
-    }
-}
-
-@media (max-width:675px){
-    .combined-search-bar input[type="text"]{
-        max-width: 200px;
-    }
-    .combined-search-bar .search-icon{
-        right: 255px;
-        font-size: 12px;
-    }
-
-    .combined-search-bar .calendar-icon{
-        font-size: 12px;
-    }
-}
-
-@media (max-width:400px){
-    .combined-search-bar{
-        justify-content: flex-start;
-        margin-bottom: 0px;
-    }
-
-    .combined-search-bar .search-icon{
-        left: 14px;
-    }
-
-    .combined-search-bar .calendar-icon{
-        left: 255px;
     }
 }

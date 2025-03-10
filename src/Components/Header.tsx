@@ -36,9 +36,9 @@ const Header: React.FC = () => {
       </div>
 
       <div className="header-right">
-        <div className="search-container-header">
-          <FontAwesomeIcon icon={faSearch} className="search-icon-header" />
-          <input type="text" placeholder="Search" className="search-input-header" />
+        <div className="search-container">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input type="text" placeholder="Search" className="search-input" />
         </div>
 
         <div className="language-selector">

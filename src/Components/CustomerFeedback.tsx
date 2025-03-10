@@ -5,7 +5,6 @@ import './CustomerFeedback.css';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Logo1 from './Images/food.jpg';
-import FooterLinks from './FooterLink/FooterLinks';
 
 interface Review {
     id: number;
@@ -206,9 +205,6 @@ const CustomerFeedback: React.FC = () => {
                 </div>
             )}
         </div>
-        <footer className="dashboard-footer">
-            <FooterLinks />
-        </footer>
         </div>
     );
 };

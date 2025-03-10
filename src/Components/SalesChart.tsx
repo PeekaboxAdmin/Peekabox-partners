@@ -13,7 +13,7 @@ const data: DataPoint[] = [
 
 const SalesChart: React.FC = () => {
   return (
-    <div className="sales-chart-container">
+    <div className="chart-container">
       <div className="chart-header">
         <h2>Sales</h2>
       </div>
@@ -64,10 +64,10 @@ const SalesChart: React.FC = () => {
               barSize={30}
             >
               {data.length > 0 && 
-              data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill="url(#barGradient)" />
-              ))
-            }
+  data.map((entry, index) => (
+    <Cell key={`cell-${index}`} fill="url(#barGradient)" />
+  ))
+}
               <LabelList
                 dataKey="value"
                 fontSize={12}

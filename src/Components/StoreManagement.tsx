@@ -7,7 +7,6 @@ import MobileSidebar from './SideBarMobile';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../GlobalStateManagement/store';
-import FooterLinks from './FooterLink/FooterLinks';
 
 // Type Definitions
 interface Address {
@@ -346,9 +345,6 @@ const StoreInfo: React.FC = () => {
           </form>
         )}
       </div>
-      <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
   );
 };
