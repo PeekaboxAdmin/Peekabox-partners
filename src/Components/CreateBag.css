@@ -11,20 +11,42 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow-x: hidden; 
-  max-width: 1200px; 
+  overflow-x: hidden;
+  max-width: 1200px;
+  position: relative; /* For positioning the back button */
+}
+
+/* Back Button */
+.back-to-surprise-box {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  color: #ff80b4;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.back-to-surprise-box:hover {
+  text-decoration: underline;
 }
 
 .create-bag-container-heading {
   display: flex;
-  align-items: center; 
-  gap: 1vw; 
+  align-items: center;
+  gap: 1vw;
   margin-bottom: 2vh;
+  margin-top: 3rem;
+  margin-left: 0.8rem; 
 }
 
 /* Responsive image sizing */
 .create-bag-container img {
-  width: clamp(40px, 4vw, 90px); 
+  width: clamp(40px, 4vw, 90px);
   height: auto;
 }
 
@@ -32,9 +54,9 @@
 .create-bag-container h1 {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: clamp(0px, 5vw, 30px); 
+  font-size: clamp(0px, 5vw, 30px);
   color: #000;
-  margin: 0; 
+  margin: 0;
 }
 
 .form-content {
@@ -111,6 +133,7 @@
   align-items: center;
   gap: 0.5rem;
 }
+
 .circle-checkbox {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -147,8 +170,8 @@
 /* Description Input */
 .description-input {
   width: 100%;
-  height: clamp(6rem, 10vw, 15rem); 
-  box-sizing: border-box; 
+  height: clamp(6rem, 10vw, 15rem);
+  box-sizing: border-box;
   min-height: 150px;
   padding: 1rem;
   border: 1px solid #ddd;
@@ -263,7 +286,6 @@
   border-color: #ff80b4;
 }
 
-
 /* Progress Lines */
 .progress-lines {
   display: flex;
@@ -287,12 +309,11 @@
   background-color: #004d2a;
 }
 
-
 /* Numbering */
 .numbered-input-container {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 3rem; 
+  margin-bottom: 3rem;
 }
 
 .input-number {
@@ -310,7 +331,6 @@
   margin-right: 2rem;
   text-align: center;
 }
-
 
 /* Navigation Buttons */
 .navigation-buttons {

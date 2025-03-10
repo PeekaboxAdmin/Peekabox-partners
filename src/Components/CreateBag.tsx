@@ -1,16 +1,30 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Upload, Clock, Utensils, CroissantIcon as Bread, Fish, Beef, Carrot, Cake, Gift, Leaf, LeafyGreen } from 'lucide-react';
+import { 
+  Upload, 
+  Clock, 
+  Utensils, 
+  CroissantIcon as Bread, 
+  Fish, 
+  Beef, 
+  Carrot, 
+  Cake, 
+  Gift, 
+  Leaf, 
+  LeafyGreen 
+} from 'lucide-react';
 import TimePicker from './TimePicker/TimePicker';
 import './CreateBag.css';
 import lineImage from '../assets/images/line.png';
 
 interface CreateBagFormProps {
   onCancel: (open: boolean) => void;
+  initialData?: FormData; // Prop for editing mode
 }
 
-interface FormData {
+export interface FormData {
+  id?: number; // Optional, available in editing mode
   name: string;
   category: string;
   allergens: string[];
@@ -18,29 +32,36 @@ interface FormData {
   price: string;
   numberOfBags: string;
   image: File | null;
+  imageUrl?: string; // Optional: existing image URL when editing
   selectedDays: { day: string; startTime: string; endTime: string }[];
 }
 
-// Updated STEPS array to match the 5 cases in renderStep
 const STEPS = ['Name', 'Category & Allergens', 'Description', 'Price & Quantity', 'Image & Schedule'];
 
-const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
+const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    category: '',
-    allergens: [],
-    description: '',
-    price: '',
-    numberOfBags: '1',
-    image: null,
-    selectedDays: [],
-  });
+  const [formData, setFormData] = useState<FormData>(
+    initialData || {
+      name: '',
+      category: '',
+      allergens: [],
+      description: '',
+      price: '',
+      numberOfBags: '1',
+      image: null,
+      selectedDays: [],
+    }
+  );
+
+  // If initialData changes (i.e. in editing mode), update the form
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
-
-
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleNext = () => {
     setCurrentStep(prev => prev + 1);
@@ -79,92 +100,124 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     });
   };
 
-
   const handleTimeChange = (type: "start" | "end", value: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      selectedDays: prev.selectedDays.map((day) => ({
+      selectedDays: prev.selectedDays.map(day => ({
         ...day,
         [type === "start" ? "startTime" : "endTime"]: value,
       })),
-    }))
-  }
-  
+    }));
+  };
+
   const handleImageDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const file = e.dataTransfer.files[0]
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
-      setFormData((prev) => ({ ...prev, image: file }))
+      setFormData(prev => ({ ...prev, image: file }));
     }
-  }, [])
+  }, []);
 
   const handleRemoveImage = () => {
-    setFormData((prev) => ({ ...prev, image: null }))
-  }
+    setFormData(prev => ({ ...prev, image: null }));
+  };
 
-
-// upload image function
+  // Function to upload image if provided
   const uploadImageToS3 = async (file: File) => {
-    const formData = new FormData();
-    formData.append("image", file);
+    const data = new FormData();
+    data.append("image", file);
     const apiurl = process.env.REACT_APP_API_URL;
     const response = await axios.post(
       `${apiurl}/api/v1/stores/ProductUpload`,
-      formData,
+      data,
       { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true }
     );
-    
-    return response.data.data.imageUrl; // Return the uploaded image URL
+    return response.data.data.imageUrl;
   };
-//
+
   const handleSubmit = async () => {
     try {
-      let imageUrl = "";
-    if (formData.image) {
-      imageUrl = await uploadImageToS3(formData.image);
-      if(imageUrl !==""){
-        console.log("image url : "+ imageUrl);
-      
-
-        const productData = {
-          "storeId": "6785ba32f6d68eb6561cdca1",   
-          "name": "Chicken Bag",
-          "description": "A delicious chicken-filled bag, perfect for a quick meal.",
-          "price": {
-            "amount": 25.99,
-            "currencyCode": "AED"
+      // Upload image if provided and obtain its URL
+      let uploadedImageUrl = "";
+      if (formData.image) {
+        uploadedImageUrl = await uploadImageToS3(formData.image);
+      } else {
+        uploadedImageUrl = formData.imageUrl || "";
+      }
+  
+      // Destructure the relevant fields from formData
+      const {
+        id,
+        name,
+        description,
+        price,
+        category,
+        numberOfBags,
+        allergens,
+        selectedDays,
+      } = formData;
+  
+      // Build a JSON payload without directly using formData inline
+      const payload = {
+        storeId: storeId,
+        name,
+        description,
+        price: {
+          amount: Number(price),
+          currencyCode: "AED",
+        },
+        category,
+        quantity: Number(numberOfBags),
+        image: uploadedImageUrl,
+        allergenInfo: allergens,
+        collectionSchedule: {
+          day:
+            selectedDays && selectedDays.length > 0
+              ? selectedDays[0].day
+              : "Mon",
+          timeWindow: {
+            start:
+              selectedDays && selectedDays.length > 0
+                ? selectedDays[0].startTime
+                : "10:00",
+            end:
+              selectedDays && selectedDays.length > 0
+                ? selectedDays[0].endTime
+                : "18:00",
           },
-          "category": "Surpise",  
-          "quantity": 50,
-          "image": imageUrl, 
-          "allergenInfo": ["NUTS", "DAIRY"],  
-          "collectionSchedule": {
-            "day": "Mon",  
-            "timeWindow": {
-              "start": "10:00",
-              "end": "18:00"
-            }
-          },
-          "isAvailable": true
-        }
-
+        },
+        isAvailable: true,
+      };
+  
       const apiurl = process.env.REACT_APP_API_URL;
-      await axios.post(
-        `${apiurl}/api/v1/stores/${storeId}/product`,
-        productData,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      if (id) {
+        // Editing an existing bag – update it via a PUT request
+        await axios.put(
+          `${apiurl}/api/v1/stores/${storeId}/product/${id}`,
+          payload,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+      } else {
+        // Creating a new bag via a POST request
+        await axios.post(
+          `${apiurl}/api/v1/stores/${storeId}/product`,
+          payload,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+      }
       onCancel(false);
-      console.log(productData);
-    }
-  }
+      console.log(payload);
     } catch (error) {
-      console.error("Error creating bag:", error);
+      console.error("Error submitting bag:", error);
     }
   };
+  
 
   const renderStep = () => {
     switch (currentStep) {
@@ -181,7 +234,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  onChange={e => handleInputChange('name', e.target.value)}
                   placeholder="Type the Name of Surprise Bag"
                   className="name-input"
                 />
@@ -189,7 +242,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
             </div>
           </div>
         );
-  
       case 2:
         return (
           <div className="step-container">
@@ -208,7 +260,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                     { icon: <Beef />, name: 'Meat Bag' },
                     { icon: <LeafyGreen />, name: 'Vegan Bag' },
                     { icon: <Cake />, name: 'Pastry Bag' },
-                  ].map((category) => (
+                  ].map(category => (
                     <button
                       key={category.name}
                       className={`category-button ${formData.category === category.name ? 'selected' : ''}`}
@@ -229,7 +281,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                   Ensure a safe and enjoyable experience for everyone!
                 </p>
                 <div className="allergens-grid">
-                  {['Milk', 'Fish', 'Peanuts', 'Soybeans', 'Eggs', 'Wheat'].map((allergen) => (
+                  {['Milk', 'Fish', 'Peanuts', 'Soybeans', 'Eggs', 'Wheat'].map(allergen => (
                     <label key={allergen} className="allergen-option">
                       <input
                         type="checkbox"
@@ -245,7 +297,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
             </div>
           </div>
         );
-  
       case 3:
         return (
           <div className="step-container">
@@ -258,20 +309,17 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                 </p>
                 <textarea
                   value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  onChange={e => handleInputChange('description', e.target.value)}
                   placeholder="Describe your surprise bag..."
                   className="description-input"
                 />
                 <p className="tip">
-              Tip: Mention key highlights like freshness, variety, or special items to attract customers!
-              </p>
+                  Tip: Mention key highlights like freshness, variety, or special items to attract customers!
+                </p>
               </div>
-              
             </div>
-            
           </div>
         );
-  
       case 4:
         return (
           <div className="step-container">
@@ -286,7 +334,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                   <input
                     type="number"
                     value={formData.price}
-                    onChange={(e) => handleInputChange('price', e.target.value)}
+                    onChange={e => handleInputChange('price', e.target.value)}
                     placeholder="15.00"
                     className="price-input"
                   />
@@ -313,7 +361,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                   <input
                     type="number"
                     value={formData.numberOfBags}
-                    onChange={(e) => handleInputChange('numberOfBags', e.target.value)}
+                    onChange={e => handleInputChange('numberOfBags', e.target.value)}
                     min="1"
                     className="quantity-input"
                   />
@@ -329,7 +377,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
             </div>
           </div>
         );
-  
       case 5:
         return (
           <div className="step-container">
@@ -338,49 +385,49 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
               <div className="input-container">
                 <h2>Upload a photo to showcase your Surprise Bag and grab customers' attention!</h2>
                 <div
-                className="image-upload-area"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleImageDrop}
-                onClick={() => fileInputRef.current?.click()}
+                  className="image-upload-area"
+                  onDragOver={e => e.preventDefault()}
+                  onDrop={handleImageDrop}
+                  onClick={() => fileInputRef.current?.click()}
                 >
-                {formData.image ? (
-                  <div className="image-preview-container">
-                    <img
-                      src={URL.createObjectURL(formData.image) || "/placeholder.svg"}
-                      alt="Preview"
-                      className="image-preview"
-                    />
-                    <button
-                      type="button"
-                      className="remove-image-button"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleRemoveImage()
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <Upload size={24} />
-                    <p>Choose file or drag here</p>
-                    <span className="file-size-limit">Size Limit: 40MB</span>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      className="hidden-file-input"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0]
-                        if (file) {
-                          setFormData((prev) => ({ ...prev, image: file }))
-                        }
-                      }}
-                    />
-                  </>
-                )}
-              </div>
+                  {(formData.image || formData.imageUrl) ? (
+                    <div className="image-preview-container">
+                      <img
+                        src={formData.image ? URL.createObjectURL(formData.image) : formData.imageUrl || "/placeholder.svg"}
+                        alt="Preview"
+                        className="image-preview"
+                      />
+                      <button
+                        type="button"
+                        className="remove-image-button"
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleRemoveImage();
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload size={24} />
+                      <p>Choose file or drag here</p>
+                      <span className="file-size-limit">Size Limit: 40MB</span>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden-file-input"
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setFormData(prev => ({ ...prev, image: file }));
+                          }
+                        }}
+                      />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <div className="numbered-input-container">
@@ -392,23 +439,21 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
                 </p>
                 <div className="time-selection">
                   <div className="time-range">
-                  <TimePicker
-                    value={formData.selectedDays[0]?.startTime || "12:00"}
-                    onChange={(value) => handleTimeChange("start", value)}
-                  />
-                  <span>-</span>
-                  <TimePicker
-                    value={formData.selectedDays[0]?.endTime || "16:00"}
-                    onChange={(value) => handleTimeChange("end", value)}
-                  />
+                    <TimePicker
+                      value={formData.selectedDays[0]?.startTime || "12:00"}
+                      onChange={value => handleTimeChange("start", value)}
+                    />
+                    <span>-</span>
+                    <TimePicker
+                      value={formData.selectedDays[0]?.endTime || "16:00"}
+                      onChange={value => handleTimeChange("end", value)}
+                    />
                   </div>
                   <div className="days-selection">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
                       <button
                         key={day}
-                        className={`day-button ${
-                          formData.selectedDays.some(d => d.day === day) ? 'selected' : ''
-                        }`}
+                        className={`day-button ${formData.selectedDays.some(d => d.day === day) ? 'selected' : ''}`}
                         onClick={() => handleDaySelection(day)}
                       >
                         {day}
@@ -420,23 +465,26 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
             </div>
           </div>
         );
-  
       default:
         return null;
     }
   };
-  
-  
 
   return (
     <div className="create-bag-container">
+      {/* Back button at top left; onCancel will hide the CreateBagForm */}
+      <button
+        className="back-to-surprise-box"
+        onClick={() => onCancel(false)}
+      >
+        ← Back to Surprise Boxes
+      </button>
       <div className="create-bag-container-heading">
-        <h1>Create a New Bag</h1>
+        <h1>{formData.id ? "Edit Bag" : "Create a New Bag"}</h1>
         <img src={lineImage} alt="Line" />
       </div>
       <div className="form-content">
         {renderStep()}
-  
         <div className="navigation-buttons">
           {currentStep > 1 && (
             <button onClick={handleBack} className="back-button">
@@ -457,9 +505,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           {STEPS.map((_, index) => (
             <div
               key={index}
-              className={`progress-line ${index + 1 === currentStep ? "active" : ""} ${
-                index + 1 < currentStep ? "completed" : ""
-              }`}
+              className={`progress-line ${index + 1 === currentStep ? "active" : ""} ${index + 1 < currentStep ? "completed" : ""}`}
             />
           ))}
         </div>
@@ -469,8 +515,3 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
 };
 
 export default CreateBagForm;
-
-
-
-
-

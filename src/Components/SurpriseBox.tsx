@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faCircleCheck, faCircleXmark, faEdit, faTrash, faPlus, faCubes } from '@fortawesome/free-solid-svg-icons';
 import './SurpriseBoxManagement.css';
 import Logo1 from './Images/food.jpg';
-import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -30,7 +29,8 @@ type SurpriseBag = {
 
 const SurpriseBoxManagement: React.FC = () => {
   const [bags, setBags] = useState<SurpriseBag[]>([]);
-  const [isCreatingBag, setIsCreatingBag] = useState(false); // Track if we are in create mode
+  const [isCreatingBag, setIsCreatingBag] = useState(false); // Track if we are in create or edit mode
+  const [editingBag, setEditingBag] = useState<SurpriseBag | null>(null);
   const [loading, setLoading] = useState(true); // State for loading indicator
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
@@ -39,15 +39,12 @@ const SurpriseBoxManagement: React.FC = () => {
   // Fetch data from API
   useEffect(() => {
     const fetchBags = async () => {
-      setLoading(true); // Set loading to true before the API call
-
+      setLoading(true);
       try {
         const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
           `${apiurl}/api/v1/stores/${storeId}/products?page=1&limit=30&sort=desc`,
-          {
-            withCredentials: true, // This will include cookies in the request
-          }
+          { withCredentials: true }
         );
         if (response.data.success) {
           const products = response.data.data.products;
@@ -62,7 +59,7 @@ const SurpriseBoxManagement: React.FC = () => {
             collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
             soldOut: product.quantity === 0,
             available: product.isAvailable,
-            imageUrl: product.image, // Use default if no image
+            imageUrl: product.image,
           }));
           setBags(formattedBags);
         } else {
@@ -71,7 +68,7 @@ const SurpriseBoxManagement: React.FC = () => {
       } catch (error) {
         console.error('Error fetching surprise bags:', error);
       } finally {
-        setLoading(false); // Set loading to false after the API call
+        setLoading(false);
       }
     };
 
@@ -88,9 +85,7 @@ const SurpriseBoxManagement: React.FC = () => {
         const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.delete(
           `${apiurl}/api/v1/stores/${storeId}/product/${bagId}`,
-          {
-            withCredentials:true,
-          }
+          { withCredentials: true }
         );
 
         if (response.data.success) {
@@ -109,14 +104,49 @@ const SurpriseBoxManagement: React.FC = () => {
     }
   };
 
+  // Helper function to convert SurpriseBag to CreateBagForm's FormData format
+  const convertBagToFormData = (bag: SurpriseBag) => {
+    const parts = bag.collectionTime.split(" ");
+    // Assuming format "Monday 10:00 AM - 12:00 PM"
+    const day = parts[0].substring(0, 3); // e.g. "Mon"
+    const startTime = parts[1]; // "10:00"
+    const endTime = parts[4]; // "12:00"
+    return {
+      id: bag.id,
+      name: bag.title,
+      category: bag.catagory,
+      allergens: bag.allergen && bag.allergen !== "None" ? [bag.allergen] : [],
+      description: bag.description,
+      price: bag.price.toString(),
+      numberOfBags: bag.quantity.toString(),
+      image: null,
+      imageUrl: bag.imageUrl,
+      selectedDays: [{ day, startTime, endTime }],
+    };
+  };
+
+  // New handleEdit to set editing bag and pass its data to the form
+  const handleEdit = (bag: SurpriseBag) => {
+    setEditingBag(bag);
+    setIsCreatingBag(true);
+  };
+
   return (
     <div className="surprise-bags-management-conatiner">
       <Header />
       <MobileSidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} />
       <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
-      {/* Conditional rendering based on isCreatingBag */}
-      {!isCreatingBag ? (
+      {/* Show CreateBagForm if creating or editing */}
+      {isCreatingBag ? (
+        <CreateBagForm
+          onCancel={(open: boolean) => {
+            setIsCreatingBag(open);
+            setEditingBag(null);
+          }}
+          initialData={editingBag ? convertBagToFormData(editingBag) : undefined}
+        />
+      ) : (
         <div className="surprise-bags">
           <div className="Sbanner-image">
             <img src={Logo1} alt="Logo" className="banner-logo" />
@@ -149,19 +179,6 @@ const SurpriseBoxManagement: React.FC = () => {
                   <p>
                     <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
                   </p>
-                  <p>
-                    <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
-                  </p>
-                  <p>
-                    <FontAwesomeIcon icon={faCubes} /> {bag.description}
-                  </p>
-                  <p>
-                    <FontAwesomeIcon icon={faCubes} /> {bag.catagory}
-                  </p>
-                  <p>
-                    <FontAwesomeIcon icon={faCubes} /> allergen: {bag.allergen}
-                  </p>
-
                   <div className="price-available-section">
                     <p>
                       <FontAwesomeIcon icon={bag.soldOut ? faCircleXmark : faCircleCheck} />
@@ -178,7 +195,7 @@ const SurpriseBoxManagement: React.FC = () => {
                     </p>
                   </div>
                   <div className="card-actions">
-                    <button onClick={() => setIsCreatingBag(true)}>
+                    <button onClick={() => handleEdit(bag)}>
                       <FontAwesomeIcon icon={faEdit} />
                     </button>
                     <button onClick={() => handleDelete(bag.id)}>
@@ -190,9 +207,6 @@ const SurpriseBoxManagement: React.FC = () => {
             )}
           </div>
         </div>
-      ) : (
-        // Show CreateBagForm when isCreatingBag is true
-        <CreateBagForm onCancel={() => setIsCreatingBag(false)} />
       )}
     </div>
   );
