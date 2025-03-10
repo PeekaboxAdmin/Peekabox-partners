@@ -15,7 +15,6 @@ import StoreCreate from './Components/StoreCreate';
 import NotificationPage from './pages/NotifcationPage/NotifcationPage';
 
 import store from './GlobalStateManagement/store'; 
-import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Header from './Components/Header'; 
 import Footer from './Components/FooterLink/FooterLinks'; 
