@@ -15,6 +15,11 @@ import StoreCreate from './Components/StoreCreate';
 import NotificationPage from './pages/NotifcationPage/NotifcationPage';
 
 import store from './GlobalStateManagement/store'; 
+import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
+import Header from './Components/Header'; 
+import Footer from './Components/FooterLink/FooterLinks'; 
+//import './Utils/authUtil';
 import './App.css';
 
 // Import the functions you need from the SDKs you need
@@ -77,26 +82,30 @@ useEffect(() => {
 
 */
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/orderManagement" element={<OrderManagement />} />
-        <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
-        <Route path="/storeManagement" element={<StoreInfo />} />
-        <Route path="/userManagement" element={<SettingsPage />} />
-        <Route path="/incomePayment" element={<IncomePayment />} />
-        <Route path="/help" element={<HelpPage />} />
-        <Route path="/signup/*" element={<SignupForm />} />
-        <Route path="/notifications" element={<NotificationPage />} />
-        <Route path="/StoreCreate" element={<StoreCreate />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+    return (
+        <div className="App">
+            {/* Show Header if User is Logged In */}
+            {/* {isAuthenticated && <Header />} */}
+            <Routes>
+                <Route path="/" element={<Dashboard/>}/>
+                <Route path="/orderManagement" element={<OrderManagement/>}/> 
+                <Route path="/surpriseBox" element={<SurpriseBoxManagement />} />
+                <Route path="/customerFeedback" element={<CustomerFeedback />} />
+                <Route path="/storeManagement" element={<StoreInfo />} />
+                <Route path="/userManagement" element={<SettingsPage />} />
+                <Route path="/incomePayment" element={<IncomePayment />} />
+                <Route path="/help" element={<HelpPage />} />
+                <Route path="/signup/*" element={<SignupForm />} />
+                <Route path="/notifications" element={<NotificationPage />} />
+                <Route path="/StoreCreate" element={<StoreCreate/>} />
+                <Route path="*" element={<Navigate to="/" />} />
 
-      {/* Display OrderNotification when a new order is received */}
-      {showNotification && <OrderNotification />}
-    </div>
-  );
+                {showNotification && <OrderNotification />}
+            </Routes>
+            {/* Show Footer if User is Logged In */}
+            {/* {isAuthenticated && <Footer />} */}
+        </div>
+    );
 };
 
 const App: React.FC = () => (

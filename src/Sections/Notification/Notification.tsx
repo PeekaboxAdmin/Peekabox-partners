@@ -9,7 +9,7 @@ const NotificationSettings: React.FC = () => {
   });
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-12">
+    <div className="hello flex flex-col md:flex-row gap-4 md:gap-8 mb-8 md:mb-12">
     {/* Heading */}
     <h2 className="text-lg md:text-xl font-semibold md:w-48 lg:w-64 shrink-0 text-black md:ml-16">
       Notifications
