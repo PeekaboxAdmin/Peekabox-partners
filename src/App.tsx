@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { io } from 'socket.io-client';
 
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashbaord'; 
@@ -24,17 +23,7 @@ import './App.css';
 //import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
 const AppContent: React.FC = () => {
-  const [showNotification, setShowNotification] = useState(false);
-
-  useEffect(() => {
-    socket.on('newOrderNotification', () => {
-      setShowNotification(true);
-    });
-
-    return () => {
-      socket.off('newOrderNotification');
-    };
-  }, []);
+  
 
   return (
     <div className="App">
@@ -52,8 +41,6 @@ const AppContent: React.FC = () => {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      {/* Display OrderNotification when a new order is received */}
-      {showNotification && <OrderNotification />}
     </div>
   );
 };
