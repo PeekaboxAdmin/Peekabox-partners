@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';';
 
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashbaord'; 
@@ -23,7 +23,8 @@ import './App.css';
 //import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
 const AppContent: React.FC = () => {
-  
+  const [showNotification, setShowNotification] = useState(false);
+
 
   return (
     <div className="App">
@@ -40,7 +41,6 @@ const AppContent: React.FC = () => {
         <Route path="/StoreCreate" element={<StoreCreate />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-
     </div>
   );
 };
