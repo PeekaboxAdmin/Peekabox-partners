@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';';
+import { Provider } from 'react-redux';
 
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashbaord'; 
