@@ -99,7 +99,6 @@ useEffect(() => {
                 <Route path="/StoreCreate" element={<StoreCreate/>} />
                 <Route path="*" element={<Navigate to="/" />} />
 
-                {showNotification && <OrderNotification />}
             </Routes>
             {/* Show Footer if User is Logged In */}
             {/* {isAuthenticated && <Footer />} */}
