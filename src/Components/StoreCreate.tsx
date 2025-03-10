@@ -3,8 +3,6 @@ import axios from 'axios';
 import './StoreCreate.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from './Header';
-import Sidebar from './Sidebar';
 
 import ObjectId from 'bson-objectid';
 
@@ -182,8 +180,6 @@ const IndividualStoreCreate: React.FC = () => {
 
   return (
     <div className='storeCreate'>
-      <Header />
-      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
       <div className="store-create-container">
         <h2 className="store-create-heading">Add Your Store Details</h2>

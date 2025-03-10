@@ -60,7 +60,7 @@
 }
 
 /* Search Bar */
-.search-container {
+.search-container-header {
   display: flex;
   align-items: center;
   background: #f0f0f0;
@@ -68,12 +68,12 @@
   border-radius: 8px;
 }
 
-.search-icon {
+.search-icon-header {
   margin-right: 8px;
   color: #999;
 }
 
-.search-input {
+.search-input-header {
   border: none;
   outline: none;
   background: transparent;

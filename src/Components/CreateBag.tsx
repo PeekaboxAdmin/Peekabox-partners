@@ -5,6 +5,7 @@ import { Upload, Clock, Utensils, CroissantIcon as Bread, Fish, Beef, Carrot, Ca
 import TimePicker from './TimePicker/TimePicker';
 import './CreateBag.css';
 import lineImage from '../assets/images/line.png';
+import FooterLinks from './FooterLink/FooterLinks';
 
 interface CreateBagFormProps {
   onCancel: (open: boolean) => void;
@@ -464,6 +465,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           ))}
         </div>
       </div>
+      <footer className="dashboard-footer">
+        <FooterLinks />
+      </footer>
     </div>
   );
 };
