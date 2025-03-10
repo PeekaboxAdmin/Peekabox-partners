@@ -5,6 +5,9 @@ import { Upload, Clock, Utensils, CroissantIcon as Bread, Fish, Beef, Carrot, Ca
 import TimePicker from './TimePicker/TimePicker';
 import './CreateBag.css';
 import lineImage from '../assets/images/line.png';
+import FooterLinks from './FooterLink/FooterLinks';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
 interface CreateBagFormProps {
   onCancel: (open: boolean) => void;
@@ -25,6 +28,7 @@ interface FormData {
 const STEPS = ['Name', 'Category & Allergens', 'Description', 'Price & Quantity', 'Image & Schedule'];
 
 const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -37,6 +41,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
     selectedDays: [],
   });
 
+  const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
+  
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
 
@@ -430,6 +436,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
 
   return (
     <div className="create-bag-container">
+      <Header />
+      <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
       <div className="create-bag-container-heading">
         <h1>Create a New Bag</h1>
         <img src={lineImage} alt="Line" />
@@ -464,6 +472,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           ))}
         </div>
       </div>
+      <footer className="dashboard-footer">
+        <FooterLinks />
+      </footer>
     </div>
   );
 };

@@ -64,10 +64,10 @@ const SalesChart: React.FC = () => {
               barSize={30}
             >
               {data.length > 0 && 
-  data.map((entry, index) => (
-    <Cell key={`cell-${index}`} fill="url(#barGradient)" />
-  ))
-}
+              data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill="url(#barGradient)" />
+              ))
+            }
               <LabelList
                 dataKey="value"
                 fontSize={12}

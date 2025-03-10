@@ -22,7 +22,6 @@ const NotificationList: React.FC<NotificationListProps> = ({
 }) => {
   return (
     <>
-
       {notifications.map((notif) => (
         <NotificationItem
           key={notif.id}
