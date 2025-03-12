@@ -25,29 +25,11 @@ import Footer from './Components/FooterLink/FooterLinks';
 import Sidebar from './Components/Sidebar';
 //import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
-const socket = io('wss://api-backend.peekabox.net', {
-  transports: ['websocket'],
-  secure: true,
-  withCredentials: true,
-});
-
 const AppContent: React.FC = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English (United Kingdom)');
     // const Store_id = useSelector((state: any) => state.storeAuth.Store_id); 
     // const isAuthenticated = !!Store_id; 
-
-
-    useEffect(() => {
-      socket.on('newOrderNotification', () => {
-        setShowNotification(true);
-      });
-  
-      return () => {
-        socket.off('newOrderNotification');
-      };
-    }, []);
-
 
     return (
         <div className="App">
