@@ -52,6 +52,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
         if (response.data.success) {
           console.log(response)
           setStore(response.data.data);
+           // Save store image URL in local storage
+           if (response.data.data.imageUrl) {
+            localStorage.setItem('storeImageUrl', response.data.data.imageUrl);
+          }
         }
       } catch (error) {
         console.error("Error fetching store data:", error);
@@ -76,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
             {isOpen && <h2 className="sidebar-title">Peekabox</h2>}
 
             <div className="company-title-section" onClick={() => handleNavClick('dashboard')}>
-                <img src={Logo} alt="User" className="round-image" />
+                <img src={store.image} alt="User" className="round-image" />
                 <span className="namelabel">{store ? store.name : 'Loading...'}</span> {/* Display store name */}
             </div>
 
