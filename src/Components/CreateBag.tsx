@@ -332,7 +332,7 @@ const handleSaveSchedule = () => {
   <input
     type="number"
     value={priceAmount} // Access `amount` inside `price`
-    onChange={(e) => setPriceAmount(priceAmount)}
+    onChange={(e) => setPriceAmount(e.target.value)}
     placeholder="15.00"
     className="price-input"
   />
