@@ -31,6 +31,7 @@ const AppContent: React.FC = () => {
     // const Store_id = useSelector((state: any) => state.storeAuth.Store_id); 
     // const isAuthenticated = !!Store_id; 
 
+
     return (
         <div className="App">
             {/* Show Header if User is Logged In */}

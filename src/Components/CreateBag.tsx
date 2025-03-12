@@ -215,6 +215,7 @@ const handleSaveSchedule = () => {
     switch (currentStep) {
       case 1:
         return (
+          
           <div className="step-container">
             <div className="numbered-input-container">
               <span className="input-number">1</span>
@@ -499,10 +500,9 @@ const handleSaveSchedule = () => {
           ))}
         </div>
       </div>
-      <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
+
+  
   );
 };
 
