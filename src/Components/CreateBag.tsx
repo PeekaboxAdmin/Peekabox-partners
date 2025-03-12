@@ -134,7 +134,6 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
         `${apiurl}/api/v1/stores/${storeId}/product`,
         productData,
         {
-          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
