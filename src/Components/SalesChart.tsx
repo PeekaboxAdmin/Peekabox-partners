@@ -13,7 +13,7 @@ const data: DataPoint[] = [
 
 const SalesChart: React.FC = () => {
   return (
-    <div className="chart-container">
+    <div className="sales-chart-container">
       <div className="chart-header">
         <h2>Sales</h2>
       </div>
