@@ -34,6 +34,7 @@ const SurpriseBoxManagement: React.FC = () => {
   const [isCreatingBag, setIsCreatingBag] = useState(false); // Track if we are in create mode
   const [loading, setLoading] = useState(true); // State for loading indicator
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [storedImageUrl, setImageURL] = useState('');
 
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
@@ -41,6 +42,8 @@ const SurpriseBoxManagement: React.FC = () => {
   useEffect(() => {
     const fetchBags = async () => {
       setLoading(true); // Set loading to true before the API call
+      const simg = localStorage.getItem('storeImageUrl')
+      setImageURL(simg || Logo1);
 
       try {
         const apiurl = process.env.REACT_APP_API_URL;
@@ -110,6 +113,8 @@ const SurpriseBoxManagement: React.FC = () => {
     }
   };
 
+  
+
   return (
     <div className="surprise-bags-management-conatiner">
       <Header />
@@ -120,7 +125,7 @@ const SurpriseBoxManagement: React.FC = () => {
       {!isCreatingBag ? (
         <div className="surprise-bags">
           <div className="Sbanner-image">
-            <img src={Logo1} alt="Logo" className="banner-logo" />
+            <img src={storedImageUrl} alt="Logo" className="banner-logo" />
           </div>
 
           <div className="StitleContainer">
