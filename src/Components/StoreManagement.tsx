@@ -160,72 +160,11 @@ const StoreInfo: React.FC = () => {
 
   const handleupdatestore = async ()=> {
     // hardcoded data for test
+    try{
     let imageUrl = "";
     if (imagef) {
       imageUrl = await uploadImageToS3(imagef);}
     
-  const hardcodedDatas = {
-    "name": store.name,
-    "description": store.description,
-    "managerName": store.managerName,
-    "category": "Bakery",
-    "image": "https://example.com/images/leto-dubai-mall.jpg",
-    "contactDetails": {
-      "phone": {
-        "countryCode": "+971",
-        "number": "43567890"
-      },
-      "email": "contact@leto.ae"
-    },
-    "address": {
-      "street": "Financial Center Road",
-      "area": "Downtown Dubai",
-      "city": "Dubai",
-      "country": "United Arab Emirates"
-    },
-    "location": {
-      "type": "Point",
-      "coordinates": [55.2790, 25.1978]
-    },
-    "operatingHours": [
-      {
-        "day": "MONDAY",
-        "open": "09:00",
-        "close": "23:00"
-      },
-      {
-        "day": "TUESDAY",
-        "open": "09:00",
-        "close": "23:00"
-      },
-      {
-        "day": "WEDNESDAY",
-        "open": "09:00",
-        "close": "23:00"
-      },
-      {
-        "day": "THURSDAY",
-        "open": "09:00",
-        "close": "23:00"
-      },
-      {
-        "day": "FRIDAY",
-        "open": "09:00",
-        "close": "00:00"
-      },
-      {
-        "day": "SATURDAY",
-        "open": "09:00",
-        "close": "00:00"
-      },
-      {
-        "day": "SUNDAY",
-        "open": "09:00",
-        "close": "23:00"
-      }
-    ]
-}
-
 
 const updatedStoreData = {
   name: store.name,
@@ -249,13 +188,10 @@ const updatedStoreData = {
   location: store.location, // Assuming the location doesn't change, if it does, update accordingly
   operatingHours: store.operatingHours, // The operating hours from the updated state
 };
-
-  
-    try{
     const response = await axios.post(
       `${apiUrl}/api/v1/stores/store/${storeId}`,
       //brandId: '60d5ecb8b392f8001f1e1d89', // Replace with dynamic value if needed
-      updatedStoreData,  // Use the hardcoded data
+      updatedStoreData,  
       { withCredentials: true }
     );
 
@@ -277,16 +213,6 @@ const updatedStoreData = {
     setStore({
       ...store,
       [name]: value,
-    });
-  };
-
-  const handleBusinessHourChange = (index: number, field: 'open' | 'close', value: string) => {
-    if (!store) return;
-    const updatedHours = [...store.operatingHours];
-    updatedHours[index] = { ...updatedHours[index], [field]: value };
-    setStore({
-      ...store,
-      operatingHours: updatedHours,
     });
   };
 
