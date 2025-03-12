@@ -330,7 +330,7 @@ const handleSaveSchedule = () => {
                 </p>
                 <div className="price-input-container">
   <input
-    type="number"
+    type="text"
     value={priceAmount} // Access `amount` inside `price`
     onChange={(e) => setPriceAmount(e.target.value)}
     placeholder="15.00"
