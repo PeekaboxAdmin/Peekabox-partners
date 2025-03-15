@@ -19,69 +19,39 @@
     font-weight: 700;
     color: #000000;
 }
-
-/* Container for the combined search bar */
-.combined-search-bar {
-    position: relative;
-    display: flex;
-    margin-bottom: 20px;
-    justify-content: flex-end; /* Aligns filters to the right */
-    flex-wrap: wrap; /* Ensure filters wrap on smaller screens */
-    width: 100%;
-  }
-  
-  .combined-search-bar input[type="text"] {
-    width: 315px;
-    padding: 0.5rem 2.5rem; /* Extra spacing for icons */
-    border: 1px solid #D8D8D8;
-    border-radius: 20px; /* For a pill-shaped input, if desired */
-    font-size: 14px;
-    outline: none;
-    box-sizing: unset;
-  }
-  
-  .combined-search-bar input[type="text"]::placeholder {
-    color: #AAAAAA;
-}
-
-  /* Left search icon */
-  .combined-search-bar .search-icon {
-    position: absolute;
-    right: 370px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #AAAAAA;
-  }
-  
-  /* Right calendar icon */
-  .combined-search-bar .calendar-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #FF80B4;
-    cursor: pointer;
-  }
-  
-  .combined-search-bar .calendar-icon:hover {
-    color: #ce1964; /* Darken on hover */
-  }
-  
-  .hidden-date-input {
-    /* Make it visually invisible but still in layout */
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
   /* Example for date/time sort icons in table headers */
   th[style*="cursor: pointer"] i {
     margin-left: 5px;
     color: #555;
   }
+
+  .search-bars {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+  }
+
+  .search-bars input[type="text"],
+  .search-bars input[type="date"] {
+    flex: 1;
+    max-width: 260px;
+    padding: 8px 12px;
+    border: 1px solid #D8D8D8;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: unset;
+}
+
+.search-bars input[type="text"]::placeholder,
+.search-bars input[type="date"]::placeholder{
+    color: #AAAAAA;
+}
   
 
 /* Order Table Card */
@@ -425,18 +395,31 @@ th i {
     }
 } */
 
+
 @media(max-width:770px){
+    .order-management{
+        padding: 15px;
+    }
     .orderm-main-container{
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    .order-table{
+        padding: 10px;
     }
 
     .order-table th, 
     .order-table td{
         font-size: 11px;
     }
+    
+    .search-bars{
+        gap: 7px;
+    }
 
-    .combined-search-bar input[type="text"]{
+    .search-bars input[type="text"],
+    .search-bars input[type="date"]{
         font-size: 11px;
     }
 
@@ -446,30 +429,16 @@ th i {
 }
 
 @media (max-width:675px){
-    .combined-search-bar input[type="text"]{
+    .search-bars input[type="text"],
+    .search-bars input[type="date"]{
         max-width: 200px;
-    }
-    .combined-search-bar .search-icon{
-        right: 255px;
-        font-size: 12px;
-    }
-
-    .combined-search-bar .calendar-icon{
-        font-size: 12px;
+        font-size: 10px;
     }
 }
 
 @media (max-width:400px){
-    .combined-search-bar{
+    .search-bars input{
         justify-content: flex-start;
         margin-bottom: 0px;
-    }
-
-    .combined-search-bar .search-icon{
-        left: 14px;
-    }
-
-    .combined-search-bar .calendar-icon{
-        left: 255px;
     }
 }
