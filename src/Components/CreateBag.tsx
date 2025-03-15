@@ -500,6 +500,9 @@ const handleSaveSchedule = () => {
           ))}
         </div>
       </div>
+      <footer className="dashboard-footer">
+        <FooterLinks />
+      </footer>
     </div>
 
   
