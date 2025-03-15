@@ -20,9 +20,9 @@ type SurpriseBag = {
   quantity: number;
   quantityPerDay: number;
   packing: string;
-  collectionTime: string;
+  collectionTime: string[];
   soldOut: boolean;
-  allergen: string;
+  allergen: string[];
   catagory: string;
   description: string;
   available: boolean;
@@ -171,7 +171,7 @@ const SurpriseBoxManagement: React.FC = () => {
                   <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
                   <h3>{bag.title}</h3>
                   <p>
-                  <FontAwesomeIcon icon={faClock} />{bag.collectionTime || "No collection time available"}
+                  <FontAwesomeIcon icon={faClock} />{bag.collectionTime.join(", ") || "No collection time available"}
                   </p>
                   <p>
                     <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
@@ -183,7 +183,7 @@ const SurpriseBoxManagement: React.FC = () => {
                     <FontAwesomeIcon icon={faTags} /> {bag.catagory}
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faExclamationTriangle} /> allergen: {bag.allergen}
+                  <FontAwesomeIcon icon={faExclamationTriangle} /> Allergen: {bag.allergen.join(", ")}
                   </p>
 
                   <div className="price-available-section">
