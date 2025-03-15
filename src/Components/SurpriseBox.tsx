@@ -22,7 +22,7 @@ type SurpriseBag = {
   packing: string;
   collectionTime: string;
   soldOut: boolean;
-  allergen: string;
+  allergen: string[];
   catagory: string;
   description: string;
   available: boolean;
@@ -183,7 +183,7 @@ const SurpriseBoxManagement: React.FC = () => {
                     <FontAwesomeIcon icon={faTags} /> {bag.catagory}
                   </p>
                   <p>
-                  <FontAwesomeIcon icon={faExclamationTriangle} /> Allergen: {bag.allergen.join(", ")}
+                    <FontAwesomeIcon icon={faExclamationTriangle} /> allergen: {bag.allergen.join(',')}
                   </p>
 
                   <div className="price-available-section">
