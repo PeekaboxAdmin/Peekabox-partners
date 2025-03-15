@@ -111,7 +111,6 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
       if(imageUrl !==""){
         console.log("image url : "+ imageUrl);
       
-
         const productData = {
           name,  // From state
           description,  // From state

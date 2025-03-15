@@ -38,47 +38,65 @@ const SurpriseBoxManagement: React.FC = () => {
 
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
-  // Fetch data from API
   useEffect(() => {
     const fetchBags = async () => {
       setLoading(true); // Set loading to true before the API call
-      const simg = localStorage.getItem('storeImageUrl')
+      const simg = localStorage.getItem("storeImageUrl");
       setImageURL(simg || Logo1);
-
+  
       try {
         const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
           `${apiurl}/api/v1/stores/${storeId}/products?page=1&limit=30&sort=desc`,
           {
-            withCredentials: true, // This will include cookies in the request
+            withCredentials: true, // Include cookies in the request
           }
         );
+  
         if (response.data.success) {
           const products = response.data.data.products;
-          const formattedBags = products.map((product: any) => ({
-            id: product._id,
-            title: product.name,
-            price: product.price.amount,
-            quantity: product.quantity,
-            allergen: product.allergenInfo,
-            description: product.description,
-            catagory: product.category,
-            collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
-            soldOut: product.quantity === 0,
-            available: product.isAvailable,
-            imageUrl: product.image, // Use default if no image
-          }));
+  
+          const formattedBags = products.map((product: any) => {
+            // Check if collectionSchedule exists and has data
+            const collectionTimes =
+              product.collectionSchedule?.length > 0
+                ? product.collectionSchedule
+                    .map((schedule: any) =>
+                      schedule.timeWindow
+                        ? `${schedule.day} ${schedule.timeWindow.start || "N/A"} - ${
+                            schedule.timeWindow.end || "N/A"
+                          }`
+                        : `${schedule.day} No Time Specified`
+                    )
+                    .join(", ") // Join multiple schedules with a comma
+                : "No Schedule"; // Fallback if empty or undefined
+  
+            return {
+              id: product._id,
+              title: product.name,
+              price: product.price?.amount || 0, // Ensure price exists
+              quantity: product.quantity || 0,
+              allergen: product.allergenInfo || [],
+              description: product.description || "No description available",
+              catagory: product.category || "Uncategorized",
+              collectionTime: collectionTimes, // Updated collection schedule logic
+              soldOut: product.quantity === 0,
+              available: product.isAvailable ?? true, // Default to true if undefined
+              imageUrl: product.image || "default_image_url_here", // Fallback for missing image
+            };
+          });
+  
           setBags(formattedBags);
         } else {
-          console.error('Error fetching data:', response.data.errorMessage);
+          console.error("Error fetching data:", response.data.errorMessage);
         }
       } catch (error) {
-        console.error('Error fetching surprise bags:', error);
+        console.error("Error fetching surprise bags:", error);
       } finally {
         setLoading(false); // Set loading to false after the API call
       }
     };
-
+  
     fetchBags();
   }, [storeId]);
 
@@ -153,7 +171,7 @@ const SurpriseBoxManagement: React.FC = () => {
                   <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
                   <h3>{bag.title}</h3>
                   <p>
-                    <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+                  {bag.collectionTime || "No collection time available"}
                   </p>
                   <p>
                     <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
