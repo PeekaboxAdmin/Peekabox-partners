@@ -183,7 +183,7 @@ const SurpriseBoxManagement: React.FC = () => {
                     <FontAwesomeIcon icon={faTags} /> {bag.catagory}
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faExclamationTriangle} /> allergen: {bag.allergen.join(',')}
+                    <FontAwesomeIcon icon={faExclamationTriangle} /> allergen: {bag.allergen.join(', ')}
                   </p>
 
                   <div className="price-available-section">
