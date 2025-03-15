@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faCircleCheck, faCircleXmark, faEdit, faTrash, faPlus, faCubes } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faCircleCheck,faTags,faInfoCircle,faExclamationTriangle, faCircleXmark, faEdit, faTrash, faPlus, faCubes } from '@fortawesome/free-solid-svg-icons';
 import './SurpriseBoxManagement.css';
 import Logo1 from './Images/food.jpg';
 import Logo from './Images/burger.jpg';
@@ -171,19 +171,19 @@ const SurpriseBoxManagement: React.FC = () => {
                   <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
                   <h3>{bag.title}</h3>
                   <p>
-                  {bag.collectionTime || "No collection time available"}
+                  <FontAwesomeIcon icon={faClock} />{bag.collectionTime || "No collection time available"}
                   </p>
                   <p>
                     <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faCubes} /> {bag.description}
+                    <FontAwesomeIcon icon={faInfoCircle} /> {bag.description}
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faCubes} /> {bag.catagory}
+                    <FontAwesomeIcon icon={faTags} /> {bag.catagory}
                   </p>
                   <p>
-                    <FontAwesomeIcon icon={faCubes} /> allergen: {bag.allergen}
+                    <FontAwesomeIcon icon={faExclamationTriangle} /> allergen: {bag.allergen}
                   </p>
 
                   <div className="price-available-section">
