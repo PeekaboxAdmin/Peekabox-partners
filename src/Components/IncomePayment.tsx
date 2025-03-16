@@ -5,7 +5,7 @@ import { BarChart3, DollarSign, ShoppingBag, TrendingUp } from 'lucide-react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import MobileSidebar from './SideBarMobile'
-import BestSellingTable from '../Sections/InsightPage/BestSellingTable/BestSellingTable'
+import PaymentTable from '../Sections/InsightPage/PaymentTable'
 import CO2ReductionChart from '../Sections/InsightPage/CO2ReductionChart/CO2ReductionChart'
 import MonthlySalesChart from '../Sections/InsightPage/MonthlySalesChart/MonthlySalesChart'
 import Calendar from '../Sections/InsightPage/Calendar/Calender'
@@ -70,15 +70,13 @@ const IncomePayment: React.FC = () => {
         </div>
 
         <div className="main-grid">
+            <PaymentTable/>
             <MonthlySalesChart />
-            <Calendar />
             
         </div>
 
         <div className="bottom-section">
-            <BagsSold />
-            <BestSellingTable />
-            <CO2ReductionChart />
+            
         </div>
       </div>
     </div>
