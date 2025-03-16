@@ -184,7 +184,11 @@ const Dashboard: React.FC = () =>
                     </p>
                     <div className="price-availability-container">
                       <p className="avail-info">
-                        <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+                        <FontAwesomeIcon icon={faClock} /> {bag.collectionTime.split(',').map((time, index) => (
+                  <p key={index} className="avail-info">
+                    {time.trim()}
+                  </p>
+                ))}
                       </p>
                       <span className="price">AED {bag.price}</span>
                     </div>
