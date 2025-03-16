@@ -1,10 +1,7 @@
 
 
 .chart-container2 {
-  max-width: 850px;
-  max-height: 300px;
-
-  
+  width: fit-content;
   padding: 16px;
   background-color: white;
   border-radius: 20px;
@@ -29,8 +26,8 @@ h2.chart-title2{
 }
 
 .chart-wrapper2 {
-  width: 500px;
-  height: 280px;
+  width: 900px;
+  height: 380px;
   position: relative;
  
 }
