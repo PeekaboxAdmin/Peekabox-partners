@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
           console.log(response)
           setStore(response.data.data);
            // Save store image URL in local storage
-           if (response.data.data.imageUrl) {
+           if (response.data.data.image) {
             localStorage.setItem('storeImageUrl', response.data.data.image);
           }
         }
