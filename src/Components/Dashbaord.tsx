@@ -79,16 +79,35 @@ const Dashboard: React.FC = () =>
         );
         if (response.data.success) {
           const products = response.data.data.products;
-          const formattedBags = products.map((product: any) => ({
-            id: product._id,
-            title: product.name,
-            price: product.price.amount,
-            quantity: product.quantity,
-            collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
-            soldOut: product.quantity === 0,
-            available: product.isAvailable,
-            imageUrl: product.image,
-          }));
+          const formattedBags = products.map((product: any) => {
+            // Check if collectionSchedule exists and has data
+            const collectionTimes =
+              product.collectionSchedule?.length > 0
+                ? product.collectionSchedule
+                    .map((schedule: any) =>
+                      schedule.timeWindow
+                        ? `${schedule.day} ${schedule.timeWindow.start || "N/A"} - ${
+                            schedule.timeWindow.end || "N/A"
+                          }`
+                        : `${schedule.day} No Time Specified`
+                    )
+                    .join(", ") // Join multiple schedules with a comma
+                : "No Schedule"; // Fallback if empty or undefined
+  
+            return {
+              id: product._id,
+              title: product.name,
+              price: product.price?.amount || 0, // Ensure price exists
+              quantity: product.quantity || 0,
+              description: product.description || "No description available",
+              catagory: product.category || "Uncategorized",
+              collectionTime: collectionTimes, // Updated collection schedule logic
+              soldOut: product.quantity === 0,
+              available: product.isAvailable ?? true, // Default to true if undefined
+              imageUrl: product.image || "default_image_url_here", // Fallback for missing image
+            };
+          });
+  
           setSurpriseBags(formattedBags);
         } else {
           console.error('Error fetching data:', response.data.errorMessage);
