@@ -88,6 +88,7 @@ const OrdersTable: React.FC = () => {
           width: "100%",
           borderCollapse: "collapse",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          padding:"12px"
         }}
       >
         <thead>

@@ -22,26 +22,19 @@ const IncomePayment: React.FC = () => {
   const statsCards = [
     {
       icon: <BarChart3  />,
-      title: "Earnings",
+      title: "Total Sales",
       value: "350.4B AED",
       iconBg: "bg-pink-50",
     },
     {
       icon: <DollarSign/>,
-      title: "Spend this month",
+      title: "Total Platform Commission",
       value: "642.39 AED",
       iconBg: "bg-green-50",
     },
     {
-      icon: <TrendingUp />,
-      title: "Sales",
-      value: "574.34 AED",
-      change: "+23% since last month",
-      iconBg: "bg-green-50",
-    },
-    {
       icon: <ShoppingBag />,
-      title: "Total Sold",
+      title: "Total Bag Sold",
       value: "2935",
       iconBg: "bg-green-50",
     },
@@ -63,7 +56,6 @@ const IncomePayment: React.FC = () => {
               <div className="stat-info">
                 <h3>{card.title}</h3>
                 <p className="stat-value">{card.value}</p>
-                {card.change && <span className="stat-change positive">{card.change}</span>}
               </div>
             </div>
           ))}
