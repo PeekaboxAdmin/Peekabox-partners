@@ -17,6 +17,7 @@ import {
 import TimePicker from './TimePicker/TimePicker';
 import './CreateBag.css';
 import lineImage from '../assets/images/line.png';
+import FooterLinks from './FooterLink/FooterLinks';
 
 interface CreateBagFormProps {
   onCancel: (open: boolean) => void;
@@ -171,19 +172,10 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
         image: uploadedImageUrl,
         allergenInfo: allergens,
         collectionSchedule: {
-          day:
-            selectedDays && selectedDays.length > 0
-              ? selectedDays[0].day
-              : "Mon",
+          day: selectedDays && selectedDays.length > 0 ? selectedDays[0].day : "Mon",
           timeWindow: {
-            start:
-              selectedDays && selectedDays.length > 0
-                ? selectedDays[0].startTime
-                : "10:00",
-            end:
-              selectedDays && selectedDays.length > 0
-                ? selectedDays[0].endTime
-                : "18:00",
+            start: selectedDays && selectedDays.length > 0 ? selectedDays[0].startTime : "10:00",
+            end: selectedDays && selectedDays.length > 0 ? selectedDays[0].endTime : "18:00",
           },
         },
         isAvailable: true,
@@ -217,7 +209,57 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
       console.error("Error submitting bag:", error);
     }
   };
-  
+
+  const decrementQuantity = () => {
+    setFormData(prev => ({ ...prev, numberOfBags: String(Number(prev.numberOfBags) - 1) }));
+  };
+
+  const incrementQuantity = () => {
+    setFormData(prev => ({ ...prev, numberOfBags: String(Number(prev.numberOfBags) + 1) }));
+  };
+
+  // State to manage the current selected day and times (for schedule saving)
+  const [selectedDay, setSelectedDay] = useState<string>('');
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
+
+  const handleStartTimeChange = (time: string) => {
+    setStartTime(time);
+  };
+
+  const handleEndTimeChange = (time: string) => {
+    setEndTime(time);
+  };
+
+  const handleDaySelect = (day: string) => {
+    setSelectedDay(day);
+  };
+
+  const handleSaveSchedule = () => {
+    // Check if the day already exists in the schedule
+    const existingSchedule = formData.selectedDays.find(
+      (schedule) => schedule.day === selectedDay
+    );
+
+    if (existingSchedule) {
+      // Update the existing schedule for the selected day
+      const updatedSchedule = formData.selectedDays.map((schedule) =>
+        schedule.day === selectedDay
+          ? { ...schedule, startTime: startTime, endTime: endTime }
+          : schedule
+      );
+      setFormData(prev => ({ ...prev, selectedDays: updatedSchedule }));
+    } else {
+      // Add a new schedule entry if the day doesn't exist
+      setFormData(prev => ({
+        ...prev,
+        selectedDays: [...prev.selectedDays, { day: selectedDay, startTime, endTime }],
+      }));
+    }
+    setSelectedDay('');
+    setStartTime('');
+    setEndTime('');
+  };
 
   const renderStep = () => {
     switch (currentStep) {
@@ -260,14 +302,14 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                     { icon: <Beef />, name: 'Meat Bag' },
                     { icon: <LeafyGreen />, name: 'Vegan Bag' },
                     { icon: <Cake />, name: 'Pastry Bag' },
-                  ].map(category => (
+                  ].map(categoryObj => (
                     <button
-                      key={category.name}
-                      className={`category-button ${formData.category === category.name ? 'selected' : ''}`}
-                      onClick={() => handleInputChange('category', category.name)}
+                      key={categoryObj.name}
+                      className={`category-button ${formData.category === categoryObj.name ? 'selected' : ''}`}
+                      onClick={() => handleInputChange('category', categoryObj.name)}
                     >
-                      {category.icon}
-                      <span>{category.name}</span>
+                      {categoryObj.icon}
+                      <span>{categoryObj.name}</span>
                     </button>
                   ))}
                 </div>
@@ -351,9 +393,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                 </p>
                 <div className="quantity-input-container">
                   <button
-                    onClick={() =>
-                      handleInputChange('numberOfBags', String(Number(formData.numberOfBags) - 1))
-                    }
+                    onClick={decrementQuantity}
                     disabled={Number(formData.numberOfBags) <= 1}
                   >
                     -
@@ -365,13 +405,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                     min="1"
                     className="quantity-input"
                   />
-                  <button
-                    onClick={() =>
-                      handleInputChange('numberOfBags', String(Number(formData.numberOfBags) + 1))
-                    }
-                  >
-                    +
-                  </button>
+                  <button onClick={incrementQuantity}>+</button>
                 </div>
               </div>
             </div>
@@ -421,7 +455,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                         onChange={e => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            setFormData(prev => ({ ...prev, image: file }));
+                            handleInputChange('image', file);
                           }
                         }}
                       />
@@ -460,7 +494,10 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                       </button>
                     ))}
                   </div>
-                </div>
+                  <button onClick={handleSaveSchedule} disabled={!selectedDay || !startTime || !endTime}>
+                    Save Schedule
+                  </button>
+                </div>           
               </div>
             </div>
           </div>
@@ -510,6 +547,9 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
           ))}
         </div>
       </div>
+      <footer className="dashboard-footer">
+        <FooterLinks />
+      </footer>
     </div>
   );
 };

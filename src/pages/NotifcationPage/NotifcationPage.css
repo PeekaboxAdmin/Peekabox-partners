@@ -1,0 +1,140 @@
+.notifications-main-container{
+    margin-left: 130px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+  
+  /* Inner container for centering content */
+  .notification-main-inner {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 12px;
+}
+  
+  /* Title */
+  .notification-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+  }
+  
+  /* Filter Section */
+  .notification-filter-section {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  
+  /* Notification List Section */
+  .notification-list-section {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  /* Pagination */
+  .notification-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Pagination Container */
+.pagination-controls-notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px; /* or as needed */
+  }
+  
+  /* Arrow Buttons */
+  .pagination-arrow-notif {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #A0AEC0;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  /* Page Number Buttons */
+  .pagination-controls-notification .pagination-page {
+    padding: 10px 15px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #A0AEC0;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active / Hover States */
+  .pagination-controls-notification .pagination-page.active,
+  .pagination-controls-notification .pagination-page:hover {
+    background-color: #FF80B4;
+    color: #fff;
+  }
+  
+  /* Disabled Arrows */
+  .pagination-arrow-notif:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .notification-item{
+    padding: 10px;
+    gap:30px;
+    /* width: 100%; */
+  }
+  
+  
+  /* Responsive Styles */
+
+  @media (min-width:730px) and (max-width: 770px) {
+    .notification-item{
+        font-size: 14px !important;
+    }
+  }
+
+  /* For screens smaller than 768px */
+  @media (max-width: 770px) {
+    .notifications-main-container{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .notification-main-content {
+      padding: 10px;
+    }
+    .notification-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .notification-item{
+        font-size: 12px;
+        gap: 10px;
+    }
+    .pagination-controls-notification,
+    .pagination-page{
+        font-size: 13px!important;
+    }
+  }
+  
+  /* For screens smaller than 480px */
+  @media (max-width: 480px) {
+    .notification-main-inner {
+      padding: 0 10px;
+    }
+    .notification-title {
+      font-size: 18px;
+    }
+  }
+  

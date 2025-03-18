@@ -2,4 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.notif-data{
+    max-width: 190px;
+    width: 100%;
+    text-align: center;
+}
 
+@media (max-width: 770px) {
+    .notif-data{
+        text-align: unset;
+    }
+}
+
+@media (min-width:500px) and (max-width:770px){
+    .notif-data{
+        width: unset;
+    }
+}

@@ -84,8 +84,8 @@
   */
   .main-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr; 
-    gap: 1.5rem;
+    grid-template-columns: 1fr; 
+    gap: 1 rem;
     margin-bottom: 2rem;
   }
   

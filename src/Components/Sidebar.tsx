@@ -32,7 +32,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
     const navigate = useNavigate();
     const storeId = useSelector((state: any) => state.storeAuth.Store_id);
-    const [store, setStore] = useState<any>(null);
+    const [store, setStore] = useState<any>();
 
     const handleNavClick = (path: string) => {
         navigate(`/${path}`);
@@ -52,6 +52,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
         if (response.data.success) {
           console.log(response)
           setStore(response.data.data);
+           // Save store image URL in local storage
+           if (response.data.data.image) {
+            localStorage.setItem('storeImageUrl', response.data.data.image);
+          }
         }
       } catch (error) {
         console.error("Error fetching store data:", error);
@@ -76,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle}) => {
             {isOpen && <h2 className="sidebar-title">Peekabox</h2>}
 
             <div className="company-title-section" onClick={() => handleNavClick('dashboard')}>
-                <img src={Logo} alt="User" className="round-image" />
+                <img src={store?.image || Logo} alt="User" className="round-image" />
                 <span className="namelabel">{store ? store.name : 'Loading...'}</span> {/* Display store name */}
             </div>
 

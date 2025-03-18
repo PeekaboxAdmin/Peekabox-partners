@@ -11,10 +11,12 @@ import { useSelector } from 'react-redux';
 import './Dashbaord.css';
 import FooterLinks from './FooterLink/FooterLinks';
 
+import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
+
 interface Order {
-  id: number;
+  id: string;
   status: string;
-  amount: string;
+  amount: number;
   customerName: string;
   address: string;
   datePlaced: string;
@@ -77,16 +79,35 @@ const Dashboard: React.FC = () =>
         );
         if (response.data.success) {
           const products = response.data.data.products;
-          const formattedBags = products.map((product: any) => ({
-            id: product._id,
-            title: product.name,
-            price: product.price.amount,
-            quantity: product.quantity,
-            collectionTime: `${product.collectionSchedule.day} ${product.collectionSchedule.timeWindow.start} - ${product.collectionSchedule.timeWindow.end}`,
-            soldOut: product.quantity === 0,
-            available: product.isAvailable,
-            imageUrl: product.image,
-          }));
+          const formattedBags = products.map((product: any) => {
+            // Check if collectionSchedule exists and has data
+            const collectionTimes =
+              product.collectionSchedule?.length > 0
+                ? product.collectionSchedule
+                    .map((schedule: any) =>
+                      schedule.timeWindow
+                        ? `${schedule.day} ${schedule.timeWindow.start || "N/A"} - ${
+                            schedule.timeWindow.end || "N/A"
+                          }`
+                        : `${schedule.day} No Time Specified`
+                    )
+                    .join(", ") // Join multiple schedules with a comma
+                : "No Schedule"; // Fallback if empty or undefined
+  
+            return {
+              id: product._id,
+              title: product.name,
+              price: product.price?.amount || 0, // Ensure price exists
+              quantity: product.quantity || 0,
+              description: product.description || "No description available",
+              catagory: product.category || "Uncategorized",
+              collectionTime: collectionTimes, // Updated collection schedule logic
+              soldOut: product.quantity === 0,
+              available: product.isAvailable ?? true, // Default to true if undefined
+              imageUrl: product.image || "default_image_url_here", // Fallback for missing image
+            };
+          });
+  
           setSurpriseBags(formattedBags);
         } else {
           console.error('Error fetching data:', response.data.errorMessage);
@@ -101,13 +122,39 @@ const Dashboard: React.FC = () =>
   }, [storeId]);
   
 
+  // 2) On mount, fetch the first 5 orders from the backend
+  useEffect(() => {
+    const getLatest = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchLatestOrders(storeId); // returns SurpriseOrder[]
+        // If your local "Order" interface differs, map it:
+        const mapped = data.map((o) => ({
+          id: o.id,
+          status: o.status,
+          amount: o.amount,
+          customerName: o.customerName,
+          address: o.address || "",
+          datePlaced: o.datePlaced,
+          quantity: o.quantity,
+        }));
+        setOrders(mapped);
+      } catch (err) {
+        console.error("Error fetching latest orders for dashboard:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getLatest();
+  }, [storeId]);
+
   const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
 
   const toggleMenu = (id: number) => {
     setActiveMenu(activeMenu === id ? null : id);
   }; 
  
-
+//
   return (
     <div className="dashboard">
       <Header />
@@ -137,7 +184,11 @@ const Dashboard: React.FC = () =>
                     </p>
                     <div className="price-availability-container">
                       <p className="avail-info">
-                        <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+                        <FontAwesomeIcon icon={faClock} /> {bag.collectionTime.split(',').map((time, index) => (
+                  <p key={index} className="avail-info">
+                    {time.trim()}
+                  </p>
+                ))}
                       </p>
                       <span className="price">AED {bag.price}</span>
                     </div>
@@ -210,7 +261,7 @@ const Dashboard: React.FC = () =>
             )}
           </div>
 
-          */}`
+          */}
       </div>
 
       {/* Orders and Sales Chart */}
@@ -219,7 +270,7 @@ const Dashboard: React.FC = () =>
           <div className="orderdash-header">
             <h2>Latest Orders</h2>
           </div>
-          <div className="orderdash-content">
+          {/* <div className="orderdash-content">
             {loading ? (
               <p>Loading...</p>
             ) : orders.length > 0 ? (
@@ -266,6 +317,40 @@ const Dashboard: React.FC = () =>
                             </div>
                           )}
                         </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="no-orders">
+                <p>No orders available yet</p>
+              </div>
+            )}
+          </div> */}
+           <div className="orderdash-content">
+            {loading ? (
+              <p>Loading...</p>
+            ) : orders.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Order Date</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order.id}>
+                      <td>{order.customerName}</td>
+                      <td>{order.address}</td>
+                      <td>{order.datePlaced}</td>
+                      <td>{order.quantity}</td>
+                      <td>
+                        <span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span>
                       </td>
                     </tr>
                   ))}
