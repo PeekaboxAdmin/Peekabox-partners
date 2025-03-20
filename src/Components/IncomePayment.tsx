@@ -18,8 +18,9 @@ const IncomePayment: React.FC = () => {
   useEffect(() => {
     const fetchSalesData = async () => {
       try {
+        const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
-          `https://api-backend.peekabox.net/api/v1/stores/paymentTotalSalesDeatils/${storeId}`, 
+          `${apiurl}/api/v1/stores/paymentTotalSalesDeatils/${storeId}`, 
           { withCredentials: true }
         );
   
