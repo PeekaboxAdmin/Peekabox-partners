@@ -35,13 +35,13 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-     {/* <div className="header-right">
-        <div className="search-container-header">
+    <div className="header-right">
+       {/* <div className="search-container-header">
           <FontAwesomeIcon icon={faSearch} className="search-icon-header" />
           <input type="text" placeholder="Search" className="search-input-header" />
-        </div> */}
+        </div> 
 
-       {/* <div className="language-selector">
+        <div className="language-selector">
           <select className="language-dropdown">
             <option>English (United Kingdom)</option>
             <option>العربية</option>
