@@ -20,7 +20,7 @@ const IncomePayment: React.FC = () => {
       try {
         const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
-          `${apiurl}/api/v1/stores/paymentTotalSalesDeatils/6785ba32f6d68eb6561cdca1`, 
+          `${apiurl}/api/v1/stores/paymentTotalSalesDeatils/${storeId}`, 
           { withCredentials: true }
         );
   
@@ -43,13 +43,13 @@ const IncomePayment: React.FC = () => {
     {
       icon: <BarChart3 />,
       title: "Total Sales",
-      value: salesData?.totalGrossSales || "N/A",
+      value: salesData?.totalGrossSales + " AED" || "N/A",
       iconBg: "bg-pink-50",
     },
     {
       icon: <DollarSign />,
       title: "Total Platform Commission",
-      value: salesData?.totalNetSales || "N/A",
+      value: salesData?.totalCommission + " AED" || "N/A",
       iconBg: "bg-green-50",
     },
     {

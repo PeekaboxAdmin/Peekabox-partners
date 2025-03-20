@@ -48,7 +48,8 @@ const Password: React.FC = () => {
 
     try {
       // trigger otp
-      const response = await axios.post('https://api-backend.peekabox.net/api/v1/stores/auth/triggerOTP',
+      const apiurl = process.env.REACT_APP_API_URL;
+      const response = await axios.post(`${apiurl}/api/v1/stores/auth/triggerOTP`,
         {
           purpose: "SIGNUP",
           email: email

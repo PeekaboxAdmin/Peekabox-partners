@@ -1,43 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from "react-redux";
 
-const orders = [
-  { name: "Surprise Bag", id: "#345342", quantity: 1, date: "2025-01-24", revenue: "10", commission: "2" },
-  { name: "Seafood Bag", id: "#65434", quantity: 2, date: "2025-06-12", revenue: "10", commission: "2" },
-  { name: "Mystery Box", id: "#765432", quantity: 1, date: "2025-02-05", revenue: "15", commission: "3" },
-  { name: "Vegan Bag", id: "#897654", quantity: 3, date: "2025-03-20", revenue: "20", commission: "4" },
-];
+interface Order {
+  orderId: string;
+  productName: string;
+  quantity: number;
+  createdAt: string;
+  GrossRevenue: number;
+  NetRevenue: number;
+}
 
 const OrdersTable: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [totalOrders, setTotalOrders] = useState(0); // NEW: Total orders count
+  const itemsPerPage = 10; // Increased per page limit
 
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  // Filter orders by search query and date range
-  const filteredOrders = orders.filter((order) => {
-    const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesDate =
-      (!startDate || new Date(order.date) >= new Date(startDate)) &&
-      (!endDate || new Date(order.date) <= new Date(endDate));
-    return matchesSearch && matchesDate;
-  });
+  const storeId = useSelector((state: any) => state.storeAuth?.Store_id);
+  const apiurl = process.env.REACT_APP_API_URL;
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-  const currentOrders = filteredOrders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  // Fetch orders for the current page
+  const fetchPayments = async (page: number) => {
+    try {
+      const response = await axios.get(
+        `${apiurl}/api/v1/stores/payments/${storeId}/${page}/${itemsPerPage}`,
+        { withCredentials: true }
+      );
+
+      console.log("API Response:", response.data.data); // Debugging log
+
+      if (response.data.success && response.data.data) {
+        setOrders(response.data.data.data.payments);  // Correctly access payments
+        setTotalOrders(response.data.data.data.totalOrders); // Set totalOrders
+      } else {
+        console.error("Unexpected data format:", response.data);
+        setOrders([]);
+      }
+      
+    } catch (err) {
+      console.error('Failed to fetch payments', err);
+    }
+  };
+
+  // Fetch orders when component mounts or page changes
+  useEffect(() => {
+    fetchPayments(currentPage);
+  }, [currentPage]);
+
+  // Calculate total pages based on totalOrders
+  const totalPages = Math.ceil(totalOrders / itemsPerPage);
 
   // Pagination handlers
-  const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const goToPrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
 
-
-  
+  const goToPrevPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
 
   return (
     <div>
-        {/* Filters */}
+      {/* Filters */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "16px", alignItems: "center" }}>
         <input
           type="text"
@@ -71,19 +100,20 @@ const OrdersTable: React.FC = () => {
           }}
         />
       </div>
+
       <h2
         style={{
           fontSize: "1.5rem",
           fontWeight: "bold",
           color: "white",
-          padding:"12px",
+          padding: "12px",
           backgroundColor: "#14532d",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
           marginBottom: "0",
         }}
       >
-        Payment Records
+        Order Records
       </h2>
 
       <table
@@ -91,7 +121,7 @@ const OrdersTable: React.FC = () => {
           width: "100%",
           borderCollapse: "collapse",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          padding:"12px"
+          padding: "12px",
         }}
       >
         <thead>
@@ -100,27 +130,31 @@ const OrdersTable: React.FC = () => {
             <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Product Name</th>
             <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Quantity</th>
             <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Order Date</th>
-            <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Revenue Generated</th>
-            <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Platform Commission</th>
+            <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Gross Renevue</th>
+            <th style={{ padding: "8px", color: "#db2777", textAlign: "center" }}>Net Revenue</th>
           </tr>
         </thead>
         <tbody>
-          {currentOrders.map((order, index) => (
-            <tr
-              key={index}
-              style={{
-                backgroundColor: index % 2 === 0 ? "white" : "#f3f4f6",
-              }}
-            >
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.id}</td>
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.name}</td>
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.quantity}</td>
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.date}</td>
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.revenue}</td>
-              <td style={{ padding: "8px", textAlign: "center" }}>{order.commission}</td>
-            </tr>
-          ))}
-        </tbody>
+  {orders && orders.length > 0 ? (
+    orders.map((order, index) => (
+      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "white" : "#f3f4f6" }}>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.orderId}</td>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.productName}</td>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.quantity}</td>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.createdAt}</td>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.GrossRevenue}</td>
+        <td style={{ padding: "8px", textAlign: "center" }}>{order.NetRevenue}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={6} style={{ textAlign: "center", padding: "12px", fontSize: "1rem", color: "#666" }}>
+        No orders found.
+      </td>
+    </tr>
+  )}
+</tbody>
+
       </table>
 
       {/* Pagination Controls */}
@@ -145,15 +179,15 @@ const OrdersTable: React.FC = () => {
         </span>
         <button
           onClick={goToNextPage}
-          disabled={currentPage === totalPages || totalPages === 0}
+          disabled={currentPage >= totalPages}
           style={{
             padding: "8px 12px",
             marginLeft: "8px",
-            backgroundColor: currentPage === totalPages || totalPages === 0 ? "#d1d5db" : "#db2777",
+            backgroundColor: currentPage >= totalPages ? "#d1d5db" : "#db2777",
             color: "white",
             border: "none",
             borderRadius: "4px",
-            cursor: currentPage === totalPages || totalPages === 0 ? "not-allowed" : "pointer",
+            cursor: currentPage >= totalPages ? "not-allowed" : "pointer",
           }}
         >
           Next

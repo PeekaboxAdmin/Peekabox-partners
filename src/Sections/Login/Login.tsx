@@ -18,8 +18,9 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
+      const apiurl = process.env.REACT_APP_API_URL
       const response = await axios.post(
-        "https://api-backend.peekabox.net/api/v1/stores/auth/logIn",
+        `${apiurl}/api/v1/stores/auth/logIn`,
         { email, password },
         { withCredentials: true, }
       );

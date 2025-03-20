@@ -24,8 +24,9 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     setErrorMessage('');
   
     try {
+      const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
-        'https://api-backend.peekabox.net/api/v1/stores/auth/initAuth',
+        `${apiurl}/api/v1/stores/auth/initAuth`,
         { email: email.trim() }
       );
   
