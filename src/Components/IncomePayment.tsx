@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar";
 import MobileSidebar from "./SideBarMobile";
 import PaymentTable from "../Sections/InsightPage/PaymentTable";
 import "./IncomePayment.css";
+import axios from "axios";
 
 const IncomePayment: React.FC = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -17,20 +18,21 @@ const IncomePayment: React.FC = () => {
   useEffect(() => {
     const fetchSalesData = async () => {
       try {
-        const response = await fetch(
-          `https://api-backend.peekabox.net/api/v1/stores/paymentTotalSalesDeatils/${storeId}`
+        const response = await axios.get(
+          `https://api-backend.peekabox.net/api/v1/stores/paymentTotalSalesDeatils/${storeId}`, 
+          { withCredentials: true }
         );
-        const result = await response.json();
-        if (result.success && result.data.success) {
-          setSalesData(result.data.data);
+  
+        if (response.data.success && response.data.data.success) {
+          setSalesData(response.data.data.data);
         } else {
           throw new Error("Failed to fetch sales data");
         }
-      } catch (err) {
-        console.error("Error fetching sales data:", err);
+      } catch (error) {
+        console.error("Error fetching sales data:", error);
       }
     };
-
+  
     if (storeId) {
       fetchSalesData();
     }
