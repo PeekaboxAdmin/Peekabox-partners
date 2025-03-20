@@ -113,7 +113,7 @@ const OrdersTable: React.FC = () => {
           marginBottom: "0",
         }}
       >
-        Order Records
+        Payment Records
       </h2>
 
       <table
@@ -149,7 +149,7 @@ const OrdersTable: React.FC = () => {
   ) : (
     <tr>
       <td colSpan={6} style={{ textAlign: "center", padding: "12px", fontSize: "1rem", color: "#666" }}>
-        No orders found.
+        No payments found.
       </td>
     </tr>
   )}
