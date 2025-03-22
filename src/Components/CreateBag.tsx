@@ -210,9 +210,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
           </div>
         </div>
       </form>
-      <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
   );
 };
