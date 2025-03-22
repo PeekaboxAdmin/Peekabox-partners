@@ -29,8 +29,9 @@ const dispatch = useDispatch();
     setErrorMessage(''); 
    //
     try {
+      const apiurl = process.env.REACT_APP_API_URL;
       // API call to verify the OTP
-      const response = await axios.post('https://api-backend.peekabox.net/api/v1/stores/auth/verifyOTP', {
+      const response = await axios.post(`${apiurl}/api/v1/stores/auth/verifyOTP`, {
           purpose: "SIGNUP",
           email: email,
           OTPValue: otp,

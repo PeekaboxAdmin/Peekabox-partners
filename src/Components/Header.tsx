@@ -35,11 +35,11 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-      <div className="header-right">
-        <div className="search-container-header">
+    <div className="header-right">
+       {/* <div className="search-container-header">
           <FontAwesomeIcon icon={faSearch} className="search-icon-header" />
           <input type="text" placeholder="Search" className="search-input-header" />
-        </div>
+        </div> 
 
         <div className="language-selector">
           <select className="language-dropdown">
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
             <option>العربية</option>
             <option>Français</option>
           </select>
-        </div>
+        </div> */}
 
         {/* Dark Mode Toggle - Ensures it stays inside the flexbox */}
         <div className="dark-mode-toggle" onClick={toggleDarkMode}>
