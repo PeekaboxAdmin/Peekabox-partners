@@ -91,7 +91,7 @@ const Login: React.FC = () => {
               />
               Keep me logged in
             </label>
-            <a href="/forgot-password" className="forgotpass-link">Forgot password?</a>
+            <a href="/signup/forgot-password" className="forgotpass-link">Forgot password?</a>
             
           </div>
 
