@@ -20,15 +20,17 @@ const OrdersTable: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  // New state for period filter (week, month, year)
+  const [periodFilter, setPeriodFilter] = useState("all");
 
   const storeId = useSelector((state: any) => state.storeAuth?.Store_id);
   const apiurl = process.env.REACT_APP_API_URL;
 
-  // Fetch orders for the current page
+  // Fetch orders for the current page (including the period filter)
   const fetchPayments = async (page: number) => {
     try {
       const response = await axios.get(
-        `${apiurl}/api/v1/stores/payments/${storeId}/${page}/${itemsPerPage}`,
+        `${apiurl}/api/v1/stores/payments/${storeId}/${page}/${itemsPerPage}?period=${periodFilter}&search=${searchQuery}&startDate=${startDate}&endDate=${endDate}`,
         { withCredentials: true }
       );
 
@@ -47,10 +49,10 @@ const OrdersTable: React.FC = () => {
     }
   };
 
-  // Fetch orders when component mounts or page changes
+  // Fetch orders when component mounts or page/filters change
   useEffect(() => {
     fetchPayments(currentPage);
-  }, [currentPage]);
+  }, [currentPage, periodFilter, searchQuery, startDate, endDate]);
 
   // Calculate total pages based on totalOrders
   const totalPages = Math.ceil(totalOrders / itemsPerPage);
@@ -99,6 +101,21 @@ const OrdersTable: React.FC = () => {
             borderRadius: "4px",
           }}
         />
+        {/* New period filter dropdown */}
+        <select
+          value={periodFilter}
+          onChange={(e) => setPeriodFilter(e.target.value)}
+          style={{
+            padding: "8px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+          }}
+        >
+          <option value="all">All</option>
+          <option value="week">Week</option>
+          <option value="month">Month</option>
+          <option value="year">Year</option>
+        </select>
       </div>
 
       <h2
@@ -135,26 +152,25 @@ const OrdersTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-  {orders && orders.length > 0 ? (
-    orders.map((order, index) => (
-      <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "white" : "#f3f4f6" }}>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.orderId}</td>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.productName}</td>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.quantity}</td>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.createdAt}</td>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.GrossRevenue}</td>
-        <td style={{ padding: "8px", textAlign: "center" }}>{order.NetRevenue}</td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan={6} style={{ textAlign: "center", padding: "12px", fontSize: "1rem", color: "#666" }}>
-        No payments found.
-      </td>
-    </tr>
-  )}
-</tbody>
-
+          {orders && orders.length > 0 ? (
+            orders.map((order, index) => (
+              <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "white" : "#f3f4f6" }}>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.orderId}</td>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.productName}</td>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.quantity}</td>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.createdAt}</td>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.GrossRevenue}</td>
+                <td style={{ padding: "8px", textAlign: "center" }}>{order.NetRevenue}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} style={{ textAlign: "center", padding: "12px", fontSize: "1rem", color: "#666" }}>
+                No payments found.
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
 
       {/* Pagination Controls */}

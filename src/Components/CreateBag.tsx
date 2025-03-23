@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { 
@@ -24,6 +25,7 @@ interface CreateBagFormProps {
   initialData?: FormData; // Prop for editing mode
 }
 
+// Updated FormData: "selectedDays" now stores objects where "days" is an array.
 export interface FormData {
   id?: number; // Optional, available in editing mode
   name: string;
@@ -34,12 +36,13 @@ export interface FormData {
   numberOfBags: string;
   image: File | null;
   imageUrl?: string; // Optional: existing image URL when editing
-  selectedDays: { day: string; startTime: string; endTime: string }[];
+  selectedDays: { days: string[]; startTime: string; endTime: string }[];
 }
 
 const STEPS = ['Name', 'Category & Allergens', 'Description', 'Price & Quantity', 'Image & Schedule'];
 
 const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(
     initialData || {
@@ -64,7 +67,52 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
+  // Validate required fields for the current step
+  const validateCurrentStep = (): boolean => {
+    switch (currentStep) {
+      case 1:
+        if (!formData.name.trim()) {
+          alert("Please enter a name for your Surprise Bag.");
+          return false;
+        }
+        return true;
+      case 2:
+        if (!formData.category) {
+          alert("Please select a category for your Surprise Bag.");
+          return false;
+        }
+        return true;
+      case 3:
+        if (!formData.description.trim()) {
+          alert("Please provide a description for your Surprise Bag.");
+          return false;
+        }
+        return true;
+      case 4:
+        if (!formData.price.trim() || !formData.numberOfBags.trim()) {
+          alert("Please set both a price and the number of bags available.");
+          return false;
+        }
+        return true;
+      case 5:
+        if (!formData.image && !formData.imageUrl) {
+          alert("Please upload a photo for your Surprise Bag.");
+          return false;
+        }
+        if (formData.selectedDays.length === 0) {
+          alert("Please set a pickup schedule for your Surprise Bag.");
+          return false;
+        }
+        return true;
+      default:
+        return true;
+    }
+  };
+
   const handleNext = () => {
+    if (!validateCurrentStep()) {
+      return;
+    }
     setCurrentStep(prev => prev + 1);
   };
 
@@ -85,30 +133,23 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
     }));
   };
 
-  const handleDaySelection = (day: string) => {
-    setFormData(prev => {
-      const existingDay = prev.selectedDays.find(d => d.day === day);
-      if (existingDay) {
-        return {
-          ...prev,
-          selectedDays: prev.selectedDays.filter(d => d.day !== day)
-        };
-      }
-      return {
-        ...prev,
-        selectedDays: [...prev.selectedDays, { day, startTime: '12:00', endTime: '16:00' }]
-      };
-    });
+  // The day selection now uses a temporary array of days
+  const [tempDays, setTempDays] = useState<string[]>([]);
+  const toggleTempDay = (day: string) => {
+    setTempDays(prev =>
+      prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
+    );
   };
 
+  const [startTime, setStartTime] = useState<string>("12:00");
+  const [endTime, setEndTime] = useState<string>("16:00");
+
   const handleTimeChange = (type: "start" | "end", value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      selectedDays: prev.selectedDays.map(day => ({
-        ...day,
-        [type === "start" ? "startTime" : "endTime"]: value,
-      })),
-    }));
+    if (type === "start") {
+      setStartTime(value);
+    } else {
+      setEndTime(value);
+    }
   };
 
   const handleImageDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
@@ -138,7 +179,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
 
   const handleSubmit = async () => {
     try {
-      // Upload image if provided and obtain its URL
       let uploadedImageUrl = "";
       if (formData.image) {
         uploadedImageUrl = await uploadImageToS3(formData.image);
@@ -146,19 +186,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
         uploadedImageUrl = formData.imageUrl || "";
       }
   
-      // Destructure the relevant fields from formData
-      const {
-        id,
-        name,
-        description,
-        price,
-        category,
-        numberOfBags,
-        allergens,
-        selectedDays,
-      } = formData;
+      const { id, name, description, price, category, numberOfBags, allergens, selectedDays } = formData;
   
-      // Build a JSON payload without directly using formData inline
       const payload = {
         storeId: storeId,
         name,
@@ -172,7 +201,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
         image: uploadedImageUrl,
         allergenInfo: allergens,
         collectionSchedule: {
-          day: selectedDays && selectedDays.length > 0 ? selectedDays[0].day : "Mon",
+          day: selectedDays && selectedDays.length > 0 ? selectedDays[0].days.join(', ') : "Mon",
           timeWindow: {
             start: selectedDays && selectedDays.length > 0 ? selectedDays[0].startTime : "10:00",
             end: selectedDays && selectedDays.length > 0 ? selectedDays[0].endTime : "18:00",
@@ -183,7 +212,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
   
       const apiurl = process.env.REACT_APP_API_URL;
       if (id) {
-        // Editing an existing bag – update it via a PUT request
         await axios.put(
           `${apiurl}/api/v1/stores/${storeId}/product/${id}`,
           payload,
@@ -193,7 +221,6 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
           }
         );
       } else {
-        // Creating a new bag via a POST request
         await axios.post(
           `${apiurl}/api/v1/stores/${storeId}/product`,
           payload,
@@ -218,47 +245,42 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
     setFormData(prev => ({ ...prev, numberOfBags: String(Number(prev.numberOfBags) + 1) }));
   };
 
-  // State to manage the current selected day and times (for schedule saving)
-  const [selectedDay, setSelectedDay] = useState<string>('');
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
-
-  const handleStartTimeChange = (time: string) => {
-    setStartTime(time);
-  };
-
-  const handleEndTimeChange = (time: string) => {
-    setEndTime(time);
+  const handleSaveSchedule = () => {
+    // Basic validation: ensure end time is after start time
+    if (startTime && endTime && endTime <= startTime) {
+      alert("End time must be after start time.");
+      return;
+    }
+    if (tempDays.length === 0) {
+      alert("Please select at least one day.");
+      return;
+    }
+    // Check if a schedule with the same times already exists
+    const existingScheduleIndex = formData.selectedDays.findIndex(
+      schedule => schedule.startTime === startTime && schedule.endTime === endTime
+    );
+    if (existingScheduleIndex !== -1) {
+      // Merge the tempDays with the existing schedule's days (avoiding duplicates)
+      const existingSchedule = formData.selectedDays[existingScheduleIndex];
+      const newDays = Array.from(new Set([...existingSchedule.days, ...tempDays]));
+      const updatedSchedule = { ...existingSchedule, days: newDays };
+      const updatedSchedules = [...formData.selectedDays];
+      updatedSchedules[existingScheduleIndex] = updatedSchedule;
+      setFormData(prev => ({ ...prev, selectedDays: updatedSchedules }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        selectedDays: [...prev.selectedDays, { days: tempDays, startTime, endTime }],
+      }));
+    }
+    // Clear the temporary schedule inputs
+    setTempDays([]);
+    setStartTime("12:00");
+    setEndTime("16:00");
   };
 
   const handleDaySelect = (day: string) => {
-    setSelectedDay(day);
-  };
-
-  const handleSaveSchedule = () => {
-    // Check if the day already exists in the schedule
-    const existingSchedule = formData.selectedDays.find(
-      (schedule) => schedule.day === selectedDay
-    );
-
-    if (existingSchedule) {
-      // Update the existing schedule for the selected day
-      const updatedSchedule = formData.selectedDays.map((schedule) =>
-        schedule.day === selectedDay
-          ? { ...schedule, startTime: startTime, endTime: endTime }
-          : schedule
-      );
-      setFormData(prev => ({ ...prev, selectedDays: updatedSchedule }));
-    } else {
-      // Add a new schedule entry if the day doesn't exist
-      setFormData(prev => ({
-        ...prev,
-        selectedDays: [...prev.selectedDays, { day: selectedDay, startTime, endTime }],
-      }));
-    }
-    setSelectedDay('');
-    setStartTime('');
-    setEndTime('');
+    toggleTempDay(day);
   };
 
   const renderStep = () => {
@@ -474,29 +496,49 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel, initialData }) 
                 <div className="time-selection">
                   <div className="time-range">
                     <TimePicker
-                      value={formData.selectedDays[0]?.startTime || "12:00"}
+                      value={startTime || "12:00"}
                       onChange={value => handleTimeChange("start", value)}
                     />
                     <span>-</span>
                     <TimePicker
-                      value={formData.selectedDays[0]?.endTime || "16:00"}
-                      onChange={value => handleTimeChange("end", value)}
+                      value={endTime || "16:00"}
+                      onChange={value => {
+                        if (value <= (startTime || "12:00")) {
+                          alert("End time must be after start time.");
+                        } else {
+                          handleTimeChange("end", value);
+                        }
+                      }}
                     />
                   </div>
                   <div className="days-selection">
                     {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
                       <button
                         key={day}
-                        className={`day-button ${formData.selectedDays.some(d => d.day === day) ? 'selected' : ''}`}
-                        onClick={() => handleDaySelection(day)}
+                        className={`day-button ${tempDays.includes(day) ? 'selected' : ''}`}
+                        onClick={() => handleDaySelect(day)}
                       >
                         {day}
                       </button>
                     ))}
                   </div>
-                  <button onClick={handleSaveSchedule} disabled={!selectedDay || !startTime || !endTime}>
+                  <button 
+                    onClick={handleSaveSchedule} 
+                    disabled={tempDays.length === 0 || !startTime || !endTime}
+                    className="save-schedule-button"
+                  >
                     Save Schedule
                   </button>
+                  {/* Display the saved schedule(s) */}
+                  {formData.selectedDays.length > 0 && (
+                    <div className="schedule-display">
+                      {formData.selectedDays.map((schedule, index) => (
+                        <div key={index} className="schedule-item">
+                          {schedule.days.join(', ')}: {schedule.startTime} - {schedule.endTime}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>           
               </div>
             </div>

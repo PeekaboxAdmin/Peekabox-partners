@@ -254,6 +254,41 @@
   object-fit: contain;
 }
 
+/* Adjust heading to avoid overlap with the back button */
+.create-bag-container-heading {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  margin-bottom: 2vh;
+  margin-top: 3rem; /* Provide spacing from the back button */
+}
+
+/* Save Schedule Button */
+.save-schedule-button {
+  color: #ff80b4;
+  border: solid;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.save-schedule-button:hover {
+  text-decoration: underline;
+}
+.schedule-display {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.schedule-item {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
 /* Time Selection */
 .time-selection {
   margin-top: 1rem;

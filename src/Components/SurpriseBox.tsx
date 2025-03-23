@@ -123,10 +123,10 @@ const SurpriseBoxManagement: React.FC = () => {
     }
   };
 
-  // Helper function to convert a SurpriseBag to the initial data format expected by CreateBagForm
+  // Updated convertBagToFormData: now returns selectedDays with "days" array.
   const convertBagToFormData = (bag: SurpriseBag) => {
     const parts = bag.collectionTime.split(" ");
-    // Assuming format "Monday 10:00 AM - 12:00 PM", extract first schedule details
+    // Extract first schedule details (assumes format like "Monday 10:00 - 12:00")
     const day = parts[0].substring(0, 3); // e.g., "Mon"
     const startTime = parts[1] || "10:00";
     const endTime = parts[4] || "18:00";
@@ -140,11 +140,10 @@ const SurpriseBoxManagement: React.FC = () => {
       numberOfBags: bag.quantity.toString(),
       image: null,
       imageUrl: bag.imageUrl,
-      selectedDays: [{ day, startTime, endTime }],
+      selectedDays: [{ days: [day], startTime, endTime }],
     };
   };
 
-  // New handleEdit function: sets the bag to be edited and opens CreateBagForm with prepopulated data
   const handleEdit = (bag: SurpriseBag) => {
     setEditingBag(bag);
     setIsCreatingBag(true);
