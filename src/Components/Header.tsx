@@ -30,7 +30,7 @@ const Header: React.FC = () => {
 
         <nav className="nav-links">
           <Link to="/products" className="nav-item">Product</Link>
-          <Link to="/notifications" className="nav-item">Notifications</Link>
+        {/*  <Link to="/notifications" className="nav-item">Notifications</Link> */}
           <Link to="/faqs" className="nav-item">FAQs</Link>
         </nav>
       </div>

@@ -66,7 +66,7 @@ const SettingsPage: React.FC = () => {
                 <Sidebar isOpen={sidebarExpanded} onToggle={toggleSidebar} onNavClick={() => {}} />
 
                 <div className="bg-white rounded-lg border border-gray-200 p-2 md:px-28">
-                  <h1 className="text-2xl font-semibold mb-6 ml-1">Settings</h1>
+                {/*  <h1 className="text-2xl font-semibold mb-6 ml-1">Settings</h1> */}
 
                   {/* Uncomment based on feature priority */}
                   {/* <NotificationSettings />
@@ -78,19 +78,7 @@ const SettingsPage: React.FC = () => {
                   {/* <LanguageSettings />
                   <hr className="border-gray-200 my-8" /> */}
 
-                  <PaymentDetails />
-
-                  <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
-                    <Button
-                      label="Save Changes"
-                      className="w-full sm:w-auto px-4 py-2 bg-pinkCustom text-white border-2 border-pinkCustom rounded-lg hover:bg-pinkCustom hover:border-pinkCustom transition-colors"
-                    />
-                    <Button
-                      label="Cancel"
-                      onClick={() => nav('/dashboard')}
-                      className="w-full sm:w-auto px-4 py-2 bg-white border border-pinkCustom rounded-lg text-pinkCustom hover:bg-gray-50 transition-colors"
-                    />
-                  </div>
+              
                 </div>
               </div>
             </div>

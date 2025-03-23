@@ -11,16 +11,21 @@ import { useSelector } from 'react-redux';
 import './Dashbaord.css';
 import FooterLinks from './FooterLink/FooterLinks';
 
-import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
+//import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
 
 interface Order {
   id: string;
-  status: string;
-  amount: number;
-  customerName: string;
-  address: string;
-  datePlaced: string;
+  userId: string;
+  storeId: string;
+  productId: string;
+  productName: string;
   quantity: number;
+  salesAmount: number;
+  consumerPrice: number;
+  currencyCode: string;
+  status: string;
+  totalPrice: number;
+  datePlaced: string; 
 }
 
 interface Notification {
@@ -53,15 +58,9 @@ const Dashboard: React.FC = () =>
   const [loading, setLoading] = useState(false);
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const [completedOrdersCount, setCompletedOrdersCount] = useState(0);
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
+    const [editMode, setEditMode] = useState(false);
   
-  // Hardcoded Notifications (Temporary Until Backend is Ready)
-  const notifications: Notification[] = [
-    { id: 1, text: 'New order received: Donut Bag.', read: false, time: 'Just Now', icon: faBox },
-    { id: 2, text: 'Order Completed: Greek Salad.', read: true, time: '10 min ago', icon: faBox },
-    { id: 3, text: 'New Feedback Received: Pasta.', read: false, time: '5 min ago', icon: faBox },
-    { id: 4, text: 'New Feedback Received: Pasta.', read: false, time: '5 min ago', icon: faBox },
-  ];  
-
    // Get Store_id from Redux
     const storeId = useSelector((state: any) => state.storeAuth.Store_id);
     const navigate = useNavigate();
@@ -122,23 +121,34 @@ const Dashboard: React.FC = () =>
   }, [storeId]);
   
 
-  // 2) On mount, fetch the first 5 orders from the backend
+  
   useEffect(() => {
     const getLatest = async () => {
       setLoading(true);
       try {
-        const data = await fetchLatestOrders(storeId); // returns SurpriseOrder[]
-        // If your local "Order" interface differs, map it:
-        const mapped = data.map((o) => ({
-          id: o.id,
-          status: o.status,
-          amount: o.amount,
-          customerName: o.customerName,
-          address: o.address || "",
-          datePlaced: o.datePlaced,
-          quantity: o.quantity,
+        const apiurl = process.env.REACT_APP_API_URL;
+        const response = await axios.get(
+          `${apiurl}/api/v1/stores/${storeId}/ordersToday`,
+          { withCredentials: true }
+        );
+    
+        const orders = response.data.data;
+    
+        const formattedOrders = orders.map((order: any) => ({
+          id: order._id,
+          productId: order.productId,
+          productName: order.productName,
+          quantity: order.quantity,
+          salesAmount: order.salesAmount,
+          consumerPrice: order.consumerPrice,
+          currencyCode: order.currencyCode || "AED", // Default currency if missing
+          status: order.status,
+          totalPrice: order.totalPrice,
+          datePlaced: new Date(order.createdAt).toISOString().split("T")[0],
         }));
-        setOrders(mapped);
+
+        setOrders(formattedOrders);
+
       } catch (err) {
         console.error("Error fetching latest orders for dashboard:", err);
       } finally {
@@ -146,14 +156,50 @@ const Dashboard: React.FC = () =>
       }
     };
     getLatest();
-  }, [storeId]);
+  }, [storeId]); 
+
+
 
   const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
 
-  const toggleMenu = (id: number) => {
-    setActiveMenu(activeMenu === id ? null : id);
-  }; 
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+    setSelectedOrders([]);
+  };
  
+
+  const handleOrderSelection = (orderId : string) => {
+    setSelectedOrders((prevSelected) =>
+      prevSelected.includes(orderId)
+        ? prevSelected.filter((id) => id !== orderId)
+        : [...prevSelected, orderId]
+    );
+  };
+
+  const handleBulkAction = (action : string) => {
+    console.log(`Performing ${action} on`, selectedOrders);
+    setSelectedOrders([]);
+  };
+
+
+  const getStatusIcon = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "received":
+        return <div className="status-icon received"><i className="fas fa-money-bill-wave"></i></div>;
+      case "completed":
+        return <div className="status-icon completed"><i className="fas fa-check-circle"></i></div>;
+      case "preparing":
+        return <div className="status-icon preparing"><i className="fas fa-utensils"></i></div>;
+      case "accepted":
+        return <div className="status-icon accepted"><i className="fas fa-thumbs-up"></i></div>;
+      case "ready for pickup":
+        return <div className="status-icon ready"><i className="fas fa-shopping-bag"></i></div>;
+      default:
+        return <div className="status-icon default"><i className="fas fa-question-circle"></i></div>;
+    }
+};
+
+
 //
   return (
     <div className="dashboard">
@@ -211,148 +257,75 @@ const Dashboard: React.FC = () =>
           </div>
         </section>
 
-        
-        {/* Notifications Section */}
-        <section className="notifications-container">
-          <h2 className="notifications-header">Notifications</h2>
-          <p className="unread-count">{unreadNotificationsCount} Unread Notifications:</p>
-          <div className="notifications-list">
-            {notifications.map((note) => (
-              <div key={note.id} className="notification-item">
-                <FontAwesomeIcon icon={faBell} className="notification-icon" />
-                <span className="notification-text">{note.text}</span>
-                <span className="notification-time">{note.time}</span>
-                <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
-              </div>
-            ))}
-          </div>
-        </section>
-        {/*
-          <div className="notification-card">
-            <h2>Notifications</h2>
-            {loading ? (
-              <p>Loading...</p>
-            ) : notifications.length > 0 ? (
-              <>
-                <div className="notification-count">
-                  Unread Notifications: <span>{unreadNotificationsCount}</span>
-                </div>
-                <ul>
-                  {notifications.map((note) => (
-                    <li key={note.id} className={`notification-item ${note.read ? 'read' : 'unread'}`}>
-                      <FontAwesomeIcon icon={note.icon} className="notification-icon" />
-                      {note.text} <span className="notification-time">{note.time}</span>
-                      {note.read ? (
-                        <span className="badge">Read</span>
-                      ) : (
-                        <span className="badge unread">New</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={() => navigate('/notifications')} className="seeall">
-                  See all
-                </button>
-              </>
-            ) : (
-              <div className="no-notifications">
-                <p> No notifications yet</p>
-              </div>
-            )}
-          </div>
-
-          */}
+      
       </div>
 
       {/* Orders and Sales Chart */}
       <section className="first-grid">
         <div className="orderdash">
           <div className="orderdash-header">
-            <h2>Latest Orders</h2>
+  
+            <h2>Reservations for today</h2>
+            <button className="editbtndash" onClick={toggleEditMode}>{editMode ? "Done" : "Edit"}</button>
+            <button className="editbtndash">Refresh </button>
+            {editMode && selectedOrders.length > 0 && (
+          <div className="bulk-actionsdash">
+            <button  onClick={() => handleBulkAction("complete")}>Mark as Complete</button>
+            <button  onClick={() => handleBulkAction("cancel")}>Cancel</button>
           </div>
-          {/* <div className="orderdash-content">
-            {loading ? (
-              <p>Loading...</p>
-            ) : orders.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Customer Name</th>
-                    <th>Address</th>
-                    <th>Order Date</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map((order) => (
-                    <tr key={order.id}>
-                      <td>{order.customerName}</td>
-                      <td>{order.address}</td>
-                      <td>{order.datePlaced}</td>
-                      <td>{order.quantity}</td>
-                      <td>
-                        <span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span>
-                      </td>
-                      <td>
-                        <div className="action-menu-container">
-                          <button className="menu-btn" onClick={() => toggleMenu(order.id)}>
-                            <FontAwesomeIcon icon={faEllipsisV} />
-                          </button>
-                          {activeMenu === order.id && (
-                            <div className="action-menu">
-                              <button onClick={() => console.log(`Cancel Order ${order.id}`)}>
-                                Cancel
-                              </button>
-                              <button onClick={() => console.log(`Refund Order ${order.id}`)}>
-                                Refund
-                              </button>
-                              <button onClick={() => console.log(`Mark Order ${order.id} as Pending`)}>
-                                Pending
-                              </button>
-                              <button onClick={() => console.log(`Mark Order ${order.id} as Delivered`)}>
-                                Delivered
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="no-orders">
-                <p>No orders available yet</p>
-              </div>
-            )}
-          </div> */}
+        )}
+      
+
+          </div>
+
            <div className="orderdash-content">
             {loading ? (
               <p>Loading...</p>
             ) : orders.length > 0 ? (
               <table>
                 <thead>
-                  <tr>
-                    <th>Customer Name</th>
-                    <th>Address</th>
-                    <th>Order Date</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
+                <tr>
+                  {editMode && <th>Select</th>}
+                  <th>Order No.</th>
+                  <th>Order ID</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Sales Price</th>
+                  <th>Consumer Price</th>
+                  <th>Order Date</th>
+                  <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order) => (
+                  {orders.map((order,index) => (
                     <tr key={order.id}>
-                      <td>{order.customerName}</td>
-                      <td>{order.address}</td>
-                      <td>{order.datePlaced}</td>
-                      <td>{order.quantity}</td>
-                      <td>
-                        <span className={`badge ${order.status.toLowerCase()}`}>{order.status}</span>
+                    {editMode && (
+                    <td>
+                      <input type="checkbox" checked={selectedOrders.includes(order.id)} onChange={() => handleOrderSelection(order.id)} />
+                    </td>
+                  )}
+                    <td data-label="No">{index + 1}</td>
+                    <td data-label="order ID">{order.id}</td>
+                    <td data-label="Product Name">
+                        {order.productName || "N/A"}
                       </td>
-                    </tr>
+                      <td data-label="# of Bags">{order.quantity}</td>
+                      <td data-label="Price">
+                        {order.salesAmount}{" "}
+                        {order.currencyCode || "AED"}
+                      </td>
+                      <td data-label="Price">
+                        {order.consumerPrice}{" "}
+                        {order.currencyCode || "AED"}
+                      </td>
+                      <td data-label="Order date">
+                        {order.datePlaced || "N/A"}
+                      </td>
+                    <td data-label="Status" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      {getStatusIcon(order.status)}
+                      <span style={{ color: "#2E2E2E", fontWeight: "bold" }}>{order.status}</span>
+                    </td>
+                  </tr>
                   ))}
                 </tbody>
               </table>
