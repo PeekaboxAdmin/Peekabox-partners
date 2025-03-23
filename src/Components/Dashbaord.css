@@ -201,7 +201,7 @@
 
 .orderdash-header {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
     padding: 5px;
     background-color: #1b5e20; /* Dark green */
     height: 50px!important;
@@ -215,9 +215,49 @@
     padding: 5px;
     border-radius: 5px;
     border: none;
-    width: 50px;
+    width: 70px;
     height: 40px;
 }
+
+/*bulk action */
+.bulk-actionsdash {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .bulk-actionsdash button {
+    background-color: green;
+    margin-top: 5px;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 70px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bulk-actionsdash button:hover {
+    background-color: #0056b3;
+  }
+  
+  .bulk-actionsdash button:active {
+    background-color: #003f80;
+  }
+  
+  .bulk-actionsdash button:nth-child(2) {
+    background-color: #dc3545;
+  }
+  
+  .bulk-actionsdash button:nth-child(2):hover {
+    background-color: #a71d2a;
+  }
+  
+  .bulk-actionsdash button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
 
 .orderdash-content {
     flex-grow: 1;

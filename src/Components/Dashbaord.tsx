@@ -61,14 +61,6 @@ const Dashboard: React.FC = () =>
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
     const [editMode, setEditMode] = useState(false);
   
-  // Hardcoded Notifications (Temporary Until Backend is Ready)
-  const notifications: Notification[] = [
-    { id: 1, text: 'New order received: Donut Bag.', read: false, time: 'Just Now', icon: faBox },
-    { id: 2, text: 'Order Completed: Greek Salad.', read: true, time: '10 min ago', icon: faBox },
-    { id: 3, text: 'New Feedback Received: Pasta.', read: false, time: '5 min ago', icon: faBox },
-    { id: 4, text: 'New Feedback Received: Pasta.', read: false, time: '5 min ago', icon: faBox },
-  ];  
-
    // Get Store_id from Redux
     const storeId = useSelector((state: any) => state.storeAuth.Store_id);
     const navigate = useNavigate();
@@ -169,10 +161,6 @@ const Dashboard: React.FC = () =>
 
 
   const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
-
-  const toggleMenu = (id: number) => {
-    setActiveMenu(activeMenu === id ? null : id);
-  }; 
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -276,8 +264,18 @@ const Dashboard: React.FC = () =>
       <section className="first-grid">
         <div className="orderdash">
           <div className="orderdash-header">
+  
             <h2>Reservations for today</h2>
             <button className="editbtndash" onClick={toggleEditMode}>{editMode ? "Done" : "Edit"}</button>
+            <button className="editbtndash">Refresh </button>
+            {editMode && selectedOrders.length > 0 && (
+          <div className="bulk-actionsdash">
+            <button  onClick={() => handleBulkAction("complete")}>Mark as Complete</button>
+            <button  onClick={() => handleBulkAction("cancel")}>Cancel</button>
+          </div>
+        )}
+      
+
           </div>
 
            <div className="orderdash-content">
