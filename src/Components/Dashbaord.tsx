@@ -284,7 +284,8 @@ const Dashboard: React.FC = () =>
             ) : orders.length > 0 ? (
               <table>
                 <thead>
-                  <tr>
+                <tr>
+                  {editMode && <th>Select</th>}
                   <th>Order No.</th>
                   <th>Order ID</th>
                   <th>Product Name</th>
@@ -317,7 +318,7 @@ const Dashboard: React.FC = () =>
                         {order.consumerPrice}{" "}
                         {order.currencyCode || "AED"}
                       </td>
-                      <td data-label="Order dAte">
+                      <td data-label="Order date">
                         {order.datePlaced || "N/A"}
                       </td>
                     <td data-label="Status" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
