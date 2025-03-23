@@ -274,7 +274,7 @@ const handleSaveSchedule = () => {
                   Ensure a safe and enjoyable experience for everyone!
                 </p>
                 <div className="allergens-grid">
-                  {['Milk', 'Fish', 'Peanuts', 'Soybeans', 'Eggs', 'Wheat'].map((allergen) => (
+                  {['No Allergen', 'Milk', 'Fish', 'Peanuts', 'Soybeans', 'Eggs', 'Wheat'].map((allergen) => (
                     <label key={allergen} className="allergen-option">
                       <input
                         type="checkbox"
@@ -332,7 +332,23 @@ const handleSaveSchedule = () => {
     type="text"
     value={priceAmount} // Access `amount` inside `price`
     onChange={(e) => setPriceAmount(e.target.value)}
-    placeholder="15.00"
+    placeholder="Original Price"
+    className="price-input"
+  />
+
+<input
+    type="text"
+    value={priceAmount} // Access `amount` inside `price`
+    onChange={(e) => setPriceAmount(e.target.value)}
+    placeholder="Discount amount"
+    className="price-input"
+  />
+
+<input
+    type="text"
+    value={priceAmount} // Access `amount` inside `price`
+    onChange={(e) => setPriceAmount(e.target.value)}
+    placeholder="After Discount"
     className="price-input"
   />
   <span className="currency">{currencyCode}</span>

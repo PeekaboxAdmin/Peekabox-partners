@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import './Dashbaord.css';
 import FooterLinks from './FooterLink/FooterLinks';
 
-import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
+//import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
 
 interface Order {
   id: string;
@@ -123,7 +123,7 @@ const Dashboard: React.FC = () =>
   
 
   // 2) On mount, fetch the first 5 orders from the backend
-  useEffect(() => {
+  /*useEffect(() => {
     const getLatest = async () => {
       setLoading(true);
       try {
@@ -146,7 +146,7 @@ const Dashboard: React.FC = () =>
       }
     };
     getLatest();
-  }, [storeId]);
+  }, [storeId]); */
 
   const toggleSidebar = () => setSidebarExpanded(!sidebarExpanded);
 
@@ -211,64 +211,14 @@ const Dashboard: React.FC = () =>
           </div>
         </section>
 
-        
-        {/* Notifications Section */}
-        <section className="notifications-container">
-          <h2 className="notifications-header">Notifications</h2>
-          <p className="unread-count">{unreadNotificationsCount} Unread Notifications:</p>
-          <div className="notifications-list">
-            {notifications.map((note) => (
-              <div key={note.id} className="notification-item">
-                <FontAwesomeIcon icon={faBell} className="notification-icon" />
-                <span className="notification-text">{note.text}</span>
-                <span className="notification-time">{note.time}</span>
-                <FontAwesomeIcon icon={faArrowRight} className="arrow-icon" />
-              </div>
-            ))}
-          </div>
-        </section>
-        {/*
-          <div className="notification-card">
-            <h2>Notifications</h2>
-            {loading ? (
-              <p>Loading...</p>
-            ) : notifications.length > 0 ? (
-              <>
-                <div className="notification-count">
-                  Unread Notifications: <span>{unreadNotificationsCount}</span>
-                </div>
-                <ul>
-                  {notifications.map((note) => (
-                    <li key={note.id} className={`notification-item ${note.read ? 'read' : 'unread'}`}>
-                      <FontAwesomeIcon icon={note.icon} className="notification-icon" />
-                      {note.text} <span className="notification-time">{note.time}</span>
-                      {note.read ? (
-                        <span className="badge">Read</span>
-                      ) : (
-                        <span className="badge unread">New</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={() => navigate('/notifications')} className="seeall">
-                  See all
-                </button>
-              </>
-            ) : (
-              <div className="no-notifications">
-                <p> No notifications yet</p>
-              </div>
-            )}
-          </div>
-
-          */}
+      
       </div>
 
       {/* Orders and Sales Chart */}
       <section className="first-grid">
         <div className="orderdash">
           <div className="orderdash-header">
-            <h2>Latest Orders</h2>
+            <h2>Reservations for today</h2>
           </div>
           {/* <div className="orderdash-content">
             {loading ? (
