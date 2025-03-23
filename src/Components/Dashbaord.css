@@ -200,9 +200,23 @@
 }
 
 .orderdash-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
     background-color: #1b5e20; /* Dark green */
     height: 50px!important;
     margin: 0;
+}
+
+.editbtndash{
+    background-color: gold;
+    margin-top: 5px;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 50px;
+    height: 40px;
 }
 
 .orderdash-content {
@@ -221,7 +235,6 @@
 
 .orderdash table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 10px;
 }
 
@@ -230,13 +243,12 @@
     padding: 8px;
     color: #FF80B4; /* Pink color for headers */
     font-weight: bold;
-    font-size: 1em;
-    /* background-color: #f5f5f5; */
+    font-size: 12px;
 }
 
 .orderdash td {
     padding: 10px;
-    font-size: 0.95em;
+    font-size: 12px;
     border-bottom: 1px solid #f0f0f0;
 }
 
