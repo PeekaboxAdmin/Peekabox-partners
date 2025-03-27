@@ -40,6 +40,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [category, setCategory] = useState('');
   const [allergens, setAllergens] = useState<string[]>([]);
   const [afterDiscount, setafterDiscount] = useState('');
+  const [Discount, setDiscount] = useState(false);
   const [priceAmount, setPriceAmount] = useState('');
   const [discountAmount, setdiscountAmount] = useState('');
   const [currencyCode, setCurrencyCode] = useState('AED');
@@ -117,12 +118,13 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
           name,  // From state
           description,  // From state
           price: {
-            discount:discountAmount,
+            discount:Discount,
             amount: priceAmount,  
             discountPrice : discountAmount,
             currencyCode,  
           },
           category,  // From state
+          type: "Food",  // Static value
           quantity,  // From state
           image: imageUrl,  // The uploaded image URL from S3
           allergenInfo,  // Allergens as a comma-separated string

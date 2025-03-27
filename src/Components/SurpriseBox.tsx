@@ -16,7 +16,8 @@ type SurpriseBag = {
   id: number;
   title: string;
   price: number;
-  discount?: number;
+  discount?: boolean;
+  Dicountprice ?: number;
   quantity: number;
   quantityPerDay: number;
   packing: string;
@@ -74,13 +75,14 @@ const SurpriseBoxManagement: React.FC = () => {
             return {
               id: product._id,
               title: product.name,
+              discount : product.price?.discount || false,
+              Dicountprice: product.price?.discountPrice || 0, // Ensure price exists
               price: product.price?.amount || 0, // Ensure price exists
               quantity: product.quantity || 0,
               allergen: product.allergenInfo || [],
               description: product.description || "No description available",
               catagory: product.category || "Uncategorized",
               collectionTime: collectionTimes, // Updated collection schedule logic
-              soldOut: product.quantity === 0,
               available: product.isAvailable ?? true, // Default to true if undefined
               imageUrl: product.image || "default_image_url_here", // Fallback for missing image
             };
@@ -171,11 +173,17 @@ const SurpriseBoxManagement: React.FC = () => {
                   <img src={bag.imageUrl} alt={bag.title} className="surprise-bag-image" />
                   <h3>{bag.title}</h3>
                   <p>
-                  <FontAwesomeIcon icon={faClock} />{bag.collectionTime || "No collection time available"}
-                  </p>
-                  <p>
-                    <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
-                  </p>
+  <br />
+  {bag.collectionTime !== "No Schedule"
+    ? bag.collectionTime.split(/,\s*/).map((time, index) => (
+        <React.Fragment key={index}>
+          {time}  Selling Quantity : {bag.quantity}
+          <br />
+          <br />
+        </React.Fragment>
+      ))
+    : "No collection time available"}
+</p>
                   <p>
                     <FontAwesomeIcon icon={faInfoCircle} /> {bag.description}
                   </p>
@@ -194,10 +202,14 @@ const SurpriseBoxManagement: React.FC = () => {
                     <p className="price">
                       {bag.discount ? (
                         <>
-                          <span className="original-price">AED {bag.price}</span> AED
+                          <span className="price">AED {bag.price}</span>
+                          <span className="original-price">AED {bag.Dicountprice}</span>
                         </>
                       ) : (
-                        <>AED {bag.price}</>
+                        <>
+                         <span className="price">AED {bag.price}</span>
+                        </>
+                        
                       )}
                     </p>
                   </div>
