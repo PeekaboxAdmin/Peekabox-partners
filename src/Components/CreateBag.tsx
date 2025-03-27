@@ -40,11 +40,12 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [category, setCategory] = useState('');
   const [allergens, setAllergens] = useState<string[]>([]);
   const [priceAmount, setPriceAmount] = useState('');
+  const [discountAmount, setdiscountAmount] = useState('');
   const [currencyCode, setCurrencyCode] = useState('AED');
   const [quantity, setQuantity] = useState('1');
   const [image, setImage] = useState<File | null>(null);
   const [collectionSchedule, setCollectionSchedule] = useState<
-  { day: string; timeWindow: { start: string; end: string } }[]
+  { day: string; timeWindow: { start: string; end: string }, quantityAvailable:string }[]
 >([]);
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -200,7 +201,7 @@ const handleSaveSchedule = () => {
     // Add a new schedule entry if the day doesn't exist
     setCollectionSchedule([
       ...collectionSchedule,
-      { day: selectedDay, timeWindow: { start: startTime, end: endTime } },
+      { day: selectedDay, timeWindow: { start: startTime, end: endTime }, quantityAvailable :priceAmount },
     ]);
   }
 
@@ -209,6 +210,20 @@ const handleSaveSchedule = () => {
   setStartTime('');
   setEndTime('');
 };
+
+
+const handleDiscount = () => {
+  const originalPrice = parseFloat(priceAmount);
+  const discount = parseFloat(discountAmount);
+  
+  if (!isNaN(originalPrice) && !isNaN(discount) && originalPrice >= discount) {
+    const finalPrice = originalPrice - discount;
+    setPriceAmount(finalPrice.toFixed(2)); // Update the final price in state
+  } else {
+    alert("Please enter valid numbers. Discount must be less than or equal to the original price.");
+  }
+};
+
 
   const renderStep = () => {
     switch (currentStep) {
@@ -328,30 +343,34 @@ const handleSaveSchedule = () => {
                   Make it affordable and attractive while reflecting the value of the items inside.
                 </p>
                 <div className="price-input-container">
-  <input
+                <input
     type="text"
-    value={priceAmount} // Access `amount` inside `price`
+    value={priceAmount} 
     onChange={(e) => setPriceAmount(e.target.value)}
     placeholder="Original Price"
     className="price-input"
   />
 
-<input
+  <input
     type="text"
-    value={priceAmount} // Access `amount` inside `price`
-    onChange={(e) => setPriceAmount(e.target.value)}
-    placeholder="Discount amount"
+    value={discountAmount} 
+    onChange={(e) => setdiscountAmount(e.target.value)}
+    placeholder="Discount %"
     className="price-input"
   />
+  
 
 <input
     type="text"
-    value={priceAmount} // Access `amount` inside `price`
-    onChange={(e) => setPriceAmount(e.target.value)}
+    value={
+      !isNaN(parseFloat(priceAmount)) && !isNaN(parseFloat(discountAmount))
+        ? (parseFloat(priceAmount) - parseFloat(discountAmount)/100 * parseFloat(priceAmount)).toFixed(2)
+        : ""
+    }
+    readOnly
     placeholder="After Discount"
     className="price-input"
   />
-  <span className="currency">{currencyCode}</span>
 </div>
               </div>
             </div>

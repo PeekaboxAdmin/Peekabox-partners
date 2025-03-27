@@ -41,12 +41,12 @@ const OrderManagement: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const ORDERS_PER_PAGE = 10;
+  const ORDERS_PER_PAGE = 5;
   const [editMode, setEditMode] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
-  const fetchOrders = async (limit = ORDERS_PER_PAGE, sort = "asc") => {
+  const fetchOrders = async (limit = ORDERS_PER_PAGE, sort = "desc") => {
     setLoading(true);
     try {
       const apiurl = process.env.REACT_APP_API_URL;
@@ -83,7 +83,7 @@ const OrderManagement: React.FC = () => {
   
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [currentPage]);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
@@ -100,18 +100,66 @@ const OrderManagement: React.FC = () => {
     setSelectedOrders([]);
   };
 
-  const handleOrderSelection = (orderId : string) => {
-    setSelectedOrders((prevSelected) =>
-      prevSelected.includes(orderId)
-        ? prevSelected.filter((id) => id !== orderId)
-        : [...prevSelected, orderId]
-    );
+  const handleBulkAction = async (action: string) => {
+    if (action === "complete") {
+      const isConfirmed = window.confirm("Are you sure you want to mark these orders as complete?");
+      
+      if (!isConfirmed) return; // If the user cancels, exit the function
+  
+      try {
+        const apiurl = process.env.REACT_APP_API_URL;
+  
+        await Promise.all(
+          selectedOrders.map(async (orderId) => {
+            await axios.post(
+              `${apiurl}/api/v1/stores/${storeId}/orders/${orderId}/complete`, 
+              {}, 
+              { withCredentials: true }
+            );
+          })
+        );
+  
+        window.location.reload(); // Reload page after completion
+  
+      } catch (error) {
+        console.error("Unable to mark orders as complete", error);
+        alert("Unable to mark orders as complete.");
+      }
+    } else if(action === "cancel") {
+      const isConfirmed = window.confirm("Are you sure you want to mark these orders as cancelled, the order is going to be refunded");
+      
+      if (!isConfirmed) return; // If the user cancels, exit the function
+  
+      try {
+        const apiurl = process.env.REACT_APP_API_URL;
+  
+        await Promise.all(
+          selectedOrders.map(async (orderId) => {
+            await axios.post(
+              `${apiurl}/api/v1/stores/${storeId}/orders/${orderId}/cancel`, 
+              {}, 
+              { withCredentials: true }
+            );
+          })
+        );
+  
+        window.location.reload(); // Reload page after completion
+  
+      } catch (error) {
+        console.error("Unable to mark orders as cancelled", error);
+        alert("Unable to mark orders as cancelled");
+      }
+    }
   };
+  
 
-  const handleBulkAction = (action : string) => {
-    console.log(`Performing ${action} on`, selectedOrders);
-    setSelectedOrders([]);
-  };
+const handleOrderSelection = (orderId: string) => {
+  setSelectedOrders((prevSelected) =>
+    prevSelected.includes(orderId)
+      ? prevSelected.filter((id) => id !== orderId) // Remove from selection
+      : [...prevSelected, orderId] // Add to selection
+  );
+};
 
 
 
@@ -122,6 +170,8 @@ const OrderManagement: React.FC = () => {
         return <div className="status-icon received"><i className="fas fa-money-bill-wave"></i></div>;
       case "completed":
         return <div className="status-icon completed"><i className="fas fa-check-circle"></i></div>;
+      case "cancelled":
+        return <div className="status-icon completed"><i className="fas fa-utensils"></i></div>;
       case "preparing":
         return <div className="status-icon preparing"><i className="fas fa-utensils"></i></div>;
       case "accepted":

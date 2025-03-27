@@ -10,6 +10,9 @@ import Logo from './Images/burger.jpg'; // Default image for products
 import { useSelector } from 'react-redux';
 import './Dashbaord.css';
 import FooterLinks from './FooterLink/FooterLinks';
+import { getTodayDay, getTomorrowDay, isToday, isTomorrow, getDayDate, findNextAvailableDay } from '../Components/DayFunctions';
+
+
 
 //import { fetchLatestOrders, SurpriseOrder} from "./OrderManagement";
 
@@ -28,12 +31,10 @@ interface Order {
   datePlaced: string; 
 }
 
-interface Notification {
-  id: number;
-  text: string;
-  read: boolean;
+interface CollectionSchedule {
+  date: string;
   time: string;
-  icon: typeof faBox;
+  quantityAvailable: string;
 }
 
 interface SurpriseBag {
@@ -42,7 +43,7 @@ interface SurpriseBag {
   price: number;
   quantity: number;
   available: boolean;
-  collectionTime: string;
+  collectionTime: CollectionSchedule[];
   soldOut: boolean;
   imageUrl: string;
 }
@@ -50,14 +51,11 @@ interface SurpriseBag {
 const Dashboard: React.FC = () =>
      {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [surpriseBags, setSurpriseBags] = useState<SurpriseBag[]>([]);
   // const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [dailySales, setDailySales] = useState<{ [key: string]: string }>({});
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
-  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
-  const [completedOrdersCount, setCompletedOrdersCount] = useState(0);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
     const [editMode, setEditMode] = useState(false);
   
@@ -71,27 +69,27 @@ const Dashboard: React.FC = () =>
     const fetchBags = async () => {
       setLoading(true);
       try {
-        const apiurl = process.env.REACT_APP_API_URL
+        const apiurl = process.env.REACT_APP_API_URL;
         const response = await axios.get(
           `${apiurl}/api/v1/stores/${storeId}/products?page=1&limit=30&sort=desc`,
-          { withCredentials: true, }
+          { withCredentials: true }
         );
         if (response.data.success) {
           const products = response.data.data.products;
           const formattedBags = products.map((product: any) => {
             // Check if collectionSchedule exists and has data
-            const collectionTimes =
+            const collectionTimes: CollectionSchedule[]  =
               product.collectionSchedule?.length > 0
-                ? product.collectionSchedule
-                    .map((schedule: any) =>
-                      schedule.timeWindow
-                        ? `${schedule.day} ${schedule.timeWindow.start || "N/A"} - ${
-                            schedule.timeWindow.end || "N/A"
-                          }`
-                        : `${schedule.day} No Time Specified`
-                    )
-                    .join(", ") // Join multiple schedules with a comma
-                : "No Schedule"; // Fallback if empty or undefined
+                ? product.collectionSchedule.map((schedule: any) => {
+                  const quantity = schedule.quantityAvailable;
+                    const date = schedule.day || "No Date Specified";
+                    const time = schedule.timeWindow
+                      ? `${schedule.timeWindow.start || "N/A"} - ${schedule.timeWindow.end || "N/A"}`
+                      : "No Time Specified";
+  
+                    return { date, time ,quantity  }; // Return separate date and time
+                  })
+                : [{ date: "No Date Specified", time: "No Time Specified" }]; // Fallback
   
             return {
               id: product._id,
@@ -99,8 +97,8 @@ const Dashboard: React.FC = () =>
               price: product.price?.amount || 0, // Ensure price exists
               quantity: product.quantity || 0,
               description: product.description || "No description available",
-              catagory: product.category || "Uncategorized",
-              collectionTime: collectionTimes, // Updated collection schedule logic
+              category: product.category || "Uncategorized",
+              collectionTime: collectionTimes, // Now collectionTime is an array of objects with date and time
               soldOut: product.quantity === 0,
               available: product.isAvailable ?? true, // Default to true if undefined
               imageUrl: product.image || "default_image_url_here", // Fallback for missing image
@@ -119,6 +117,64 @@ const Dashboard: React.FC = () =>
     };
     fetchBags();
   }, [storeId]);
+
+
+
+  
+  // Fetch surprise bags from API-----------------------------------------------------------------
+    const fetchDailySold = async (productId: string): Promise<string> => {
+  const apiurl = process.env.REACT_APP_API_URL;
+  let quantity = "0"; // Default value as a string
+
+  const requestData = {
+    productId: productId,
+    storeId: storeId
+  };
+
+  try {
+    const response = await axios.post(
+      `${apiurl}/api/v1/stores/getDateSalesQuantityByProductId`,
+      requestData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }
+    );
+
+    if (response.data.success) {
+      quantity = response.data.data.totalQuantitySold.toString(); // Ensure it's a string
+    } else {
+      console.error("Error fetching data:", response.data.errorMessage);
+    }
+  } catch (error) {
+    console.error("Error fetching surprise bags:", error);
+  }
+
+  return quantity; // Ensure function returns the value
+};
+
+   
+useEffect(() => {
+  const fetchSalesData = async () => {
+    const salesData: { [key: string]: string } = {};
+    
+    await Promise.all(
+      surpriseBags.map(async (bag) => {
+        const soldQuantity = await fetchDailySold(bag.id);
+        salesData[bag.id] = soldQuantity;
+      })
+    );
+
+    setDailySales(salesData);
+  };
+
+  if (surpriseBags.length > 0) {
+    fetchSalesData();
+  }
+}, [surpriseBags]);
+  
   
 
   
@@ -176,9 +232,56 @@ const Dashboard: React.FC = () =>
     );
   };
 
-  const handleBulkAction = (action : string) => {
-    console.log(`Performing ${action} on`, selectedOrders);
-    setSelectedOrders([]);
+  const handleBulkAction = async (action: string) => {
+    if (action === "complete") {
+      const isConfirmed = window.confirm("Are you sure you want to mark these orders as complete?");
+      
+      if (!isConfirmed) return; // If the user cancels, exit the function
+  
+      try {
+        const apiurl = process.env.REACT_APP_API_URL;
+  
+        await Promise.all(
+          selectedOrders.map(async (orderId) => {
+            await axios.post(
+              `${apiurl}/api/v1/stores/${storeId}/orders/${orderId}/complete`, 
+              {}, 
+              { withCredentials: true }
+            );
+          })
+        );
+  
+        window.location.reload(); // Reload page after completion
+  
+      } catch (error) {
+        console.error("Unable to mark orders as complete", error);
+        alert("Unable to mark orders as complete.");
+      }
+    } else if(action === "cancel") {
+      const isConfirmed = window.confirm("Are you sure you want to mark these orders as cancelled, the order is going to be refunded");
+      
+      if (!isConfirmed) return; // If the user cancels, exit the function
+  
+      try {
+        const apiurl = process.env.REACT_APP_API_URL;
+  
+        await Promise.all(
+          selectedOrders.map(async (orderId) => {
+            await axios.post(
+              `${apiurl}/api/v1/stores/${storeId}/orders/${orderId}/cancel`, 
+              {}, 
+              { withCredentials: true }
+            );
+          })
+        );
+  
+        window.location.reload(); // Reload page after completion
+  
+      } catch (error) {
+        console.error("Unable to mark orders as cancelled", error);
+        alert("Unable to mark orders as cancelled");
+      }
+    }
   };
 
 
@@ -218,7 +321,7 @@ const Dashboard: React.FC = () =>
               <p>Loading...</p>
             ) : surpriseBags.length > 0 ? (
               <div className="dsurprise-bags-container">
-                {surpriseBags.slice(0, 3).map((bag) =>  (
+                {surpriseBags.map((bag) =>  (
                   <div key={bag.id} className="dsurprise-bag-card">
                     <div className={`dsurprise-bag-badge ${bag.available ? 'available' : 'sold-out'}`}>
                       {bag.available ? 'Available' : 'Sold Out'}
@@ -226,15 +329,14 @@ const Dashboard: React.FC = () =>
                     <img src={bag.imageUrl} alt={bag.title} className="dsurprise-bag-image" />
                     <h3>{bag.title}</h3>
                     <p>
-                      <FontAwesomeIcon icon={faCubes} /> Quantity selling per day {bag.quantity}
-                    </p>
+  {getTodaySalesInfo(bag, dailySales)}
+  </p>
                     <div className="price-availability-container">
                       <p className="avail-info">
-                        <FontAwesomeIcon icon={faClock} /> {bag.collectionTime.split(',').map((time, index) => (
-                  <p key={index} className="avail-info">
-                    {time.trim()}
-                  </p>
-                ))}
+                        
+    {getTodayOrTomorrowSchedule(bag.collectionTime)}
+ 
+
                       </p>
                       <span className="price">AED {bag.price}</span>
                     </div>
@@ -354,5 +456,68 @@ const Dashboard: React.FC = () =>
 
   );
 };
+
+
+const getTodayOrTomorrowSchedule = (schedules: CollectionSchedule[]) => {
+  // Find if there is a schedule for today
+  const todaySchedule = schedules.find(schedule => isToday(schedule.date));
+
+  if (todaySchedule) {
+    return (
+      <div>
+        <FontAwesomeIcon icon={faClock} />
+        <p><strong>Today</strong> {todaySchedule.time}</p>
+      </div>
+    );
+  }
+
+  // If there's no schedule for today, check for tomorrow
+  const tomorrowSchedule = schedules.find(schedule => isTomorrow(schedule.date));
+
+  if (tomorrowSchedule) {
+    return (
+      <div>
+        <FontAwesomeIcon icon={faClock} />
+        <p><strong>Tomorrow</strong> {tomorrowSchedule.time}</p>
+      </div>
+    );
+  }
+
+  // If no schedule for today or tomorrow, find the next available day
+  const nextDay = findNextAvailableDay(schedules.map(schedule => schedule.date));
+
+  if (nextDay) {
+    return (
+      <div>
+        <FontAwesomeIcon icon={faClock} />
+        <p><strong>{nextDay}</strong> (Next week available) </p>
+      </div>
+    );
+  }
+
+  // Otherwise, return nothing
+  return null;
+};
+
+
+const getTodaySalesInfo = (bag: SurpriseBag, dailySales: { [key: string]: string }) => {
+  const today = getTodayDay(); // Get today's weekday (e.g., "Mon")
+  const todaySchedule = bag.collectionTime.find(schedule => schedule.date === today);
+
+  if (todaySchedule) {
+    const soldToday = dailySales[bag.id] ?? "0"; // Get sold count or default to "0"
+    return (
+      <p>
+        <FontAwesomeIcon icon={faCubes} /> 
+        Sold today {soldToday} out of {todaySchedule.quantityAvailable}
+      </p>
+    );
+  }
+
+  return <p>No sales scheduled for today.</p>;
+};
+
+
+
 
 export default Dashboard;
