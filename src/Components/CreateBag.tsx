@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback , useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Upload, Clock, Utensils, CroissantIcon as Bread, Fish, Beef, Carrot, Cake, Gift, Leaf, LeafyGreen } from 'lucide-react';
@@ -39,6 +39,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [allergens, setAllergens] = useState<string[]>([]);
+  const [afterDiscount, setafterDiscount] = useState('');
   const [priceAmount, setPriceAmount] = useState('');
   const [discountAmount, setdiscountAmount] = useState('');
   const [currencyCode, setCurrencyCode] = useState('AED');
@@ -116,8 +117,10 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
           name,  // From state
           description,  // From state
           price: {
-            amount: priceAmount,  // From state
-            currencyCode,  // From state
+            discount:discountAmount,
+            amount: priceAmount,  
+            discountPrice : discountAmount,
+            currencyCode,  
           },
           category,  // From state
           type: "Food",  // Static value
@@ -212,17 +215,15 @@ const handleSaveSchedule = () => {
 };
 
 
-const handleDiscount = () => {
-  const originalPrice = parseFloat(priceAmount);
-  const discount = parseFloat(discountAmount);
-  
-  if (!isNaN(originalPrice) && !isNaN(discount) && originalPrice >= discount) {
-    const finalPrice = originalPrice - discount;
-    setPriceAmount(finalPrice.toFixed(2)); // Update the final price in state
-  } else {
-    alert("Please enter valid numbers. Discount must be less than or equal to the original price.");
+useEffect(() => {
+  if (!isNaN(parseFloat(priceAmount)) && !isNaN(parseFloat(discountAmount))) {
+    const discountedPrice = (
+      parseFloat(priceAmount) - (parseFloat(discountAmount) / 100) * parseFloat(priceAmount)
+    ).toFixed(2);
+    
+    setafterDiscount(discountedPrice); 
   }
-};
+}, [discountAmount]);
 
 
   const renderStep = () => {
@@ -362,11 +363,7 @@ const handleDiscount = () => {
 
 <input
     type="text"
-    value={
-      !isNaN(parseFloat(priceAmount)) && !isNaN(parseFloat(discountAmount))
-        ? (parseFloat(priceAmount) - parseFloat(discountAmount)/100 * parseFloat(priceAmount)).toFixed(2)
-        : ""
-    }
+    value={afterDiscount}
     readOnly
     placeholder="After Discount"
     className="price-input"
