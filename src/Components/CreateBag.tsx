@@ -123,7 +123,6 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
             currencyCode,  
           },
           category,  // From state
-          type: "Food",  // Static value
           quantity,  // From state
           image: imageUrl,  // The uploaded image URL from S3
           allergenInfo,  // Allergens as a comma-separated string
