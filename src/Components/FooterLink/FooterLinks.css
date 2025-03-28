@@ -133,3 +133,9 @@
     font-size: 14px;
     color: #666;
 }
+
+@media (max-width:770px){
+    .footer-container{
+        display:none;
+    }
+}

@@ -12,6 +12,8 @@ import VerifyEmail from '../Sections/SignupForm/Account/VerifyEmail';
 import Password from '../Sections/SignupForm/Account/Password';
 import SurpriseBagCreated from '../pages/SurpriseBagCreated';
 import Login from '../Sections/Login/Login';
+import ForgotPassword from '../Sections/Login/ForgotPassword';
+import ResetPassword from '../Sections/Login/ResetPassword';
 
 
 const SignupForm: React.FC = () => {
@@ -50,6 +52,8 @@ const SignupForm: React.FC = () => {
                 <Route path="brand-created" element={<BrandCreated />} />
                 <Route path="store_surprisebag" element={<SurpriseBagCreated />} />
                 <Route path="login" element={<Login />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="reset-password" element={<ResetPassword />} />
             </Route>
         </Routes>
     );

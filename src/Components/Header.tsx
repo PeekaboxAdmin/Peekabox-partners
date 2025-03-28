@@ -9,16 +9,16 @@ import { useState } from 'react';
 
 const Header: React.FC = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
   };
 
   // This function now ONLY moves the toggle, without changing the page
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setDarkMode(!darkMode);
+  // };
 
   return (
     <header className="mainheader">
@@ -35,8 +35,8 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-    <div className="header-right">
-       {/* <div className="search-container-header">
+      {/* <div className="header-right">
+       <div className="search-container-header">
           <FontAwesomeIcon icon={faSearch} className="search-icon-header" />
           <input type="text" placeholder="Search" className="search-input-header" />
         </div> 
@@ -47,15 +47,14 @@ const Header: React.FC = () => {
             <option>العربية</option>
             <option>Français</option>
           </select>
-        </div> */}
+        </div>
 
-        {/* Dark Mode Toggle - Ensures it stays inside the flexbox */}
         <div className="dark-mode-toggle" onClick={toggleDarkMode}>
           <div className={`toggle-switch ${darkMode ? "dark" : ""}`}>
             <div className="toggle-knob"></div>
           </div>
         </div>
-      </div>
+      </div> */}
     </header>
 
   );

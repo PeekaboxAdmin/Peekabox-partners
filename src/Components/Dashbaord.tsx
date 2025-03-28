@@ -64,7 +64,7 @@ const Dashboard: React.FC = () =>
     const navigate = useNavigate();
 
 
-  // Fetch surprise bags from API-----------------------------------------------------------------
+  // Fetch surprise bags from API
   useEffect(() => {
     const fetchBags = async () => {
       setLoading(true);
@@ -301,9 +301,50 @@ useEffect(() => {
         return <div className="status-icon default"><i className="fas fa-question-circle"></i></div>;
     }
 };
+ 
+  function getDayLabel(dayAbbrev: string): string {
+    if (!dayAbbrev || dayAbbrev.length !== 3) {
+      return dayAbbrev;
+    }
+    
+    const dayMapping: Record<string, number> = {
+      Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6
+    };
+  
+    const todayIndex = new Date().getDay();
+    const scheduleDayIndex = dayMapping[dayAbbrev] ?? -1;
+  
+    if (scheduleDayIndex === todayIndex) {
+      return "Today";
+    } else if (scheduleDayIndex === (todayIndex + 1) % 7) {
+      return "Tomorrow";
+    } else {
+      return dayAbbrev;
+    }
+  }
 
+  function parseAndFormatCollectionTime(rawString: string): string {
+    const pattern = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s\d{2}:\d{2}\s-\s\d{2}:\d{2}/g;
+  
+    const matches = rawString.match(pattern);
+    if (!matches) {
+      return rawString;
+    }
+  
+    // Transform each match into "Today 15:31 - 17:31", etc.
+    const transformed = matches.map((dayTime) => {
+      const dayAbbrev = dayTime.slice(0, 3);
+      const times = dayTime.slice(4);
+  
+      const label = getDayLabel(dayAbbrev);
+      return `${label} ${times}`;
+    });
+  
+    // Join them with commas
+    return transformed.join(", ");
+  }
+  
 
-//
   return (
     <div className="dashboard">
       <Header />
@@ -329,14 +370,14 @@ useEffect(() => {
                     <img src={bag.imageUrl} alt={bag.title} className="dsurprise-bag-image" />
                     <h3>{bag.title}</h3>
                     <p>
-  {getTodaySalesInfo(bag, dailySales)}
-  </p>
+                      {getTodaySalesInfo(bag, dailySales)}
+                    </p>
                     <div className="price-availability-container">
                       <p className="avail-info">
-                        
-    {getTodayOrTomorrowSchedule(bag.collectionTime)}
- 
+                        {getTodayOrTomorrowSchedule(bag.collectionTime)}
 
+                        {/* <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+                        <FontAwesomeIcon icon={faClock} /> {parseAndFormatCollectionTime(bag.collectionTime)} */}
                       </p>
                       <span className="price">AED {bag.price}</span>
                     </div>

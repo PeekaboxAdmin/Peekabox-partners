@@ -536,13 +536,10 @@ useEffect(() => {
         <FooterLinks />
       </footer>
     </div>
-
-  
   );
 };
 
 export default CreateBagForm;
-
 
 
 
