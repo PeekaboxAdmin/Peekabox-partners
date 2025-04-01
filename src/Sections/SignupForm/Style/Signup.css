@@ -217,7 +217,7 @@
     color: #ff80b4;
     position: relative;
     font-size: 12px;
-    top: -30px;
+    /* top: -30px; */
   }
 
   .verifyEmailSpan::after {

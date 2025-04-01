@@ -1,0 +1,50 @@
+/* Container wrapping Triangle */
+.brand-form-container {
+  width: 1200px;
+  margin: 75px auto;
+}
+
+/* Main form content grid */
+.brand-form-body {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px 40px;
+}
+
+/* Label styling */
+.brand-form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff69b4; /* Matches pinkCustom */
+  margin-bottom: 6px;
+}
+
+/* Inputs, textarea, file upload */
+.brand-form-input,
+.brand-form-textarea,
+.brand-form-file {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.brand-form-input:focus,
+.brand-form-textarea:focus,
+.brand-form-file:focus {
+  border-color: #004225;
+  outline: none;
+}
+
+/* Form bottom button row */
+.brand-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin: 30px 40px 40px;
+}

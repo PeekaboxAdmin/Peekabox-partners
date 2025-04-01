@@ -27,7 +27,7 @@ const dispatch = useDispatch();
     e.preventDefault();
     setLoading(true);
     setErrorMessage(''); 
-   //
+
     try {
       const apiurl = process.env.REACT_APP_API_URL;
       // API call to verify the OTP
@@ -48,7 +48,8 @@ const dispatch = useDispatch();
         console.log(storeId)
          dispatch(setStoreAuth({ Store_id: storeId }));
         // Navigate to the dashboard or success page
-        navigate('/StoreCreate');
+        // navigate('/StoreCreate');
+        navigate('/signup/Created-Account');
 
       }
     } catch (error: any) {
