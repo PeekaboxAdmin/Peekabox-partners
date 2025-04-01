@@ -41,6 +41,8 @@ interface SurpriseBag {
   id: string;
   title: string;
   price: number;
+  discount?: boolean;
+  discountPrice?: number;
   quantity: number;
   available: boolean;
   collectionTime: CollectionSchedule[];
@@ -48,8 +50,7 @@ interface SurpriseBag {
   imageUrl: string;
 }
 
-const Dashboard: React.FC = () =>
-     {
+const Dashboard: React.FC = () =>{
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [surpriseBags, setSurpriseBags] = useState<SurpriseBag[]>([]);
   // const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -74,6 +75,7 @@ const Dashboard: React.FC = () =>
           `${apiurl}/api/v1/stores/${storeId}/products?page=1&limit=30&sort=desc`,
           { withCredentials: true }
         );
+        console.log("API Response:", response.data);
         if (response.data.success) {
           const products = response.data.data.products;
           const formattedBags = products.map((product: any) => {
@@ -95,6 +97,8 @@ const Dashboard: React.FC = () =>
               id: product._id,
               title: product.name,
               price: product.price?.amount || 0, // Ensure price exists
+              discount: product.price?.discount || false,
+              discountPrice: product.price?.discountPrice || 0,
               quantity: product.quantity || 0,
               description: product.description || "No description available",
               category: product.category || "Uncategorized",
@@ -379,7 +383,16 @@ useEffect(() => {
                         {/* <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
                         <FontAwesomeIcon icon={faClock} /> {parseAndFormatCollectionTime(bag.collectionTime)} */}
                       </p>
-                      <span className="price">AED {bag.price}</span>
+                      <span className="price">
+                        {bag.discount ? (
+                          <>
+                            <span className="discounted-price">AED {bag.discountPrice}</span>
+                            <span className="original-price">AED {bag.price}</span>
+                          </>
+                        ) : (
+                          <span className="regular-price">AED {bag.price}</span>
+                        )}
+                      </span>
                     </div>
                   </div>
                 ))}

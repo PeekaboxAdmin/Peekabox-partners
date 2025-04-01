@@ -116,7 +116,8 @@
     height: 150px;
     border-radius: 35px 35px 0 0;
     /* margin-bottom: 12px; */
-    object-fit: cover; /* Ensures the image fills the container without distortion */
+    /* object-fit: cover; */
+    object-fit: scale-down;
     object-position: center; /* Centers the image */
 }
 
@@ -171,6 +172,25 @@
     bottom: 15px;
     right: 20px;
 }
+
+.discounted-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #FF80B4; /* Highlighted color for discounted price */
+  }
+  
+  .original-price {
+    font-size: 0.9em;
+    text-decoration: line-through;
+    color: #888; /* Grey color for original price */
+    margin-left: 8px;
+  }
+  
+  .regular-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333; /* Default color for regular price */
+  }
 
 /* Availability Badge */
 .badge {

@@ -130,10 +130,29 @@
 }
 
 /* Original Price */
-.original-price {
+/* .original-price {
   text-decoration: line-through;
   color: #888;
   margin-right: 8px;
+} */
+
+.discounted-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF80B4; /* Highlighted color for discounted price */
+}
+
+.original-price {
+  font-size: 0.9em;
+  text-decoration: line-through;
+  color: #888; /* Grey color for original price */
+  margin-left: 8px;
+}
+
+.regular-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333; /* Default color for regular price */
 }
 
 /* Badge */
