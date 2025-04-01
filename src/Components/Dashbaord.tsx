@@ -238,9 +238,19 @@ useEffect(() => {
 
   const handleBulkAction = async (action: string) => {
     if (action === "complete") {
+      // Check if any selected orders are already "Cancelled"
+      const invalidOrders = selectedOrders.filter((orderId) => {
+        const order = orders.find((o) => o.id === orderId);
+        return order?.status.toLowerCase() === "cancelled";
+      });
+
+      if (invalidOrders.length > 0) {
+        alert("Some orders are already cancelled and cannot be marked as completed.");
+        return; // Exit the function
+      }
+
       const isConfirmed = window.confirm("Are you sure you want to mark these orders as complete?");
-      
-      if (!isConfirmed) return; // If the user cancels, exit the function
+      if (!isConfirmed) return;
   
       try {
         const apiurl = process.env.REACT_APP_API_URL;
@@ -262,9 +272,21 @@ useEffect(() => {
         alert("Unable to mark orders as complete.");
       }
     } else if(action === "cancel") {
-      const isConfirmed = window.confirm("Are you sure you want to mark these orders as cancelled, the order is going to be refunded");
-      
-      if (!isConfirmed) return; // If the user cancels, exit the function
+       // Check if any selected orders are already "Completed"
+      const invalidOrders = selectedOrders.filter((orderId) => {
+        const order = orders.find((o) => o.id === orderId);
+        return order?.status.toLowerCase() === "completed";
+      });
+
+      if (invalidOrders.length > 0) {
+        alert("Some orders are already completed and cannot be cancelled.");
+        return; // Exit the function
+      }
+
+      const isConfirmed = window.confirm(
+        "Are you sure you want to mark these orders as cancelled? The order will be refunded."
+      );
+      if (!isConfirmed) return;
   
       try {
         const apiurl = process.env.REACT_APP_API_URL;
