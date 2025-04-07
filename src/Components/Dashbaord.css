@@ -116,8 +116,7 @@
     height: 150px;
     border-radius: 35px 35px 0 0;
     /* margin-bottom: 12px; */
-    /* object-fit: cover; */
-    object-fit: scale-down;
+    object-fit: cover;
     object-position: center; /* Centers the image */
 }
 
