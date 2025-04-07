@@ -195,10 +195,10 @@ const SurpriseBoxManagement: React.FC = () => {
                   </p>
 
                   <div className="price-available-section">
-                    <p>
+                  {/*  <p>
                       <FontAwesomeIcon icon={bag.soldOut ? faCircleXmark : faCircleCheck} />
                       {bag.soldOut ? 'Sold Out' : `Available: ${bag.quantity} of 5 sold`}
-                    </p>
+                    </p> */}
                     <span className="price">
                         {bag.discount ? (
                           <>
