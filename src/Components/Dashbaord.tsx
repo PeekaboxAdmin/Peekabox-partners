@@ -41,6 +41,8 @@ interface SurpriseBag {
   id: string;
   title: string;
   price: number;
+  discount?: boolean;
+  discountPrice?: number;
   quantity: number;
   available: boolean;
   collectionTime: CollectionSchedule[];
@@ -48,8 +50,7 @@ interface SurpriseBag {
   imageUrl: string;
 }
 
-const Dashboard: React.FC = () =>
-     {
+const Dashboard: React.FC = () =>{
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [surpriseBags, setSurpriseBags] = useState<SurpriseBag[]>([]);
   // const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -64,7 +65,7 @@ const Dashboard: React.FC = () =>
     const navigate = useNavigate();
 
 
-  // Fetch surprise bags from API-----------------------------------------------------------------
+  // Fetch surprise bags from API
   useEffect(() => {
     const fetchBags = async () => {
       setLoading(true);
@@ -74,6 +75,7 @@ const Dashboard: React.FC = () =>
           `${apiurl}/api/v1/stores/${storeId}/products?page=1&limit=30&sort=desc`,
           { withCredentials: true }
         );
+        console.log("API Response:", response.data);
         if (response.data.success) {
           const products = response.data.data.products;
           const formattedBags = products.map((product: any) => {
@@ -95,6 +97,8 @@ const Dashboard: React.FC = () =>
               id: product._id,
               title: product.name,
               price: product.price?.amount || 0, // Ensure price exists
+              discount: product.price?.discount || false,
+              discountPrice: product.price?.discountPrice || 0,
               quantity: product.quantity || 0,
               description: product.description || "No description available",
               category: product.category || "Uncategorized",
@@ -234,9 +238,19 @@ useEffect(() => {
 
   const handleBulkAction = async (action: string) => {
     if (action === "complete") {
+      // Check if any selected orders are already "Cancelled"
+      const invalidOrders = selectedOrders.filter((orderId) => {
+        const order = orders.find((o) => o.id === orderId);
+        return order?.status.toLowerCase() === "cancelled";
+      });
+
+      if (invalidOrders.length > 0) {
+        alert("Some orders are already cancelled and cannot be marked as completed.");
+        return; // Exit the function
+      }
+
       const isConfirmed = window.confirm("Are you sure you want to mark these orders as complete?");
-      
-      if (!isConfirmed) return; // If the user cancels, exit the function
+      if (!isConfirmed) return;
   
       try {
         const apiurl = process.env.REACT_APP_API_URL;
@@ -258,9 +272,21 @@ useEffect(() => {
         alert("Unable to mark orders as complete.");
       }
     } else if(action === "cancel") {
-      const isConfirmed = window.confirm("Are you sure you want to mark these orders as cancelled, the order is going to be refunded");
-      
-      if (!isConfirmed) return; // If the user cancels, exit the function
+       // Check if any selected orders are already "Completed"
+      const invalidOrders = selectedOrders.filter((orderId) => {
+        const order = orders.find((o) => o.id === orderId);
+        return order?.status.toLowerCase() === "completed";
+      });
+
+      if (invalidOrders.length > 0) {
+        alert("Some orders are already completed and cannot be cancelled.");
+        return; // Exit the function
+      }
+
+      const isConfirmed = window.confirm(
+        "Are you sure you want to mark these orders as cancelled? The order will be refunded."
+      );
+      if (!isConfirmed) return;
   
       try {
         const apiurl = process.env.REACT_APP_API_URL;
@@ -301,9 +327,50 @@ useEffect(() => {
         return <div className="status-icon default"><i className="fas fa-question-circle"></i></div>;
     }
 };
+ 
+  function getDayLabel(dayAbbrev: string): string {
+    if (!dayAbbrev || dayAbbrev.length !== 3) {
+      return dayAbbrev;
+    }
+    
+    const dayMapping: Record<string, number> = {
+      Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6
+    };
+  
+    const todayIndex = new Date().getDay();
+    const scheduleDayIndex = dayMapping[dayAbbrev] ?? -1;
+  
+    if (scheduleDayIndex === todayIndex) {
+      return "Today";
+    } else if (scheduleDayIndex === (todayIndex + 1) % 7) {
+      return "Tomorrow";
+    } else {
+      return dayAbbrev;
+    }
+  }
 
+  function parseAndFormatCollectionTime(rawString: string): string {
+    const pattern = /(Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s\d{2}:\d{2}\s-\s\d{2}:\d{2}/g;
+  
+    const matches = rawString.match(pattern);
+    if (!matches) {
+      return rawString;
+    }
+  
+    // Transform each match into "Today 15:31 - 17:31", etc.
+    const transformed = matches.map((dayTime) => {
+      const dayAbbrev = dayTime.slice(0, 3);
+      const times = dayTime.slice(4);
+  
+      const label = getDayLabel(dayAbbrev);
+      return `${label} ${times}`;
+    });
+  
+    // Join them with commas
+    return transformed.join(", ");
+  }
+  
 
-//
   return (
     <div className="dashboard">
       <Header />
@@ -329,16 +396,25 @@ useEffect(() => {
                     <img src={bag.imageUrl} alt={bag.title} className="dsurprise-bag-image" />
                     <h3>{bag.title}</h3>
                     <p>
-  {getTodaySalesInfo(bag, dailySales)}
-  </p>
+                      {getTodaySalesInfo(bag, dailySales)}
+                    </p>
                     <div className="price-availability-container">
                       <p className="avail-info">
-                        
-    {getTodayOrTomorrowSchedule(bag.collectionTime)}
- 
+                        {getTodayOrTomorrowSchedule(bag.collectionTime)}
 
+                        {/* <FontAwesomeIcon icon={faClock} /> {bag.collectionTime}
+                        <FontAwesomeIcon icon={faClock} /> {parseAndFormatCollectionTime(bag.collectionTime)} */}
                       </p>
-                      <span className="price">AED {bag.price}</span>
+                      <span className="price">
+                        {bag.discount ? (
+                          <>
+                            <span className="discounted-price">AED {bag.discountPrice}</span>
+                            <span className="original-price">AED {bag.price}</span>
+                          </>
+                        ) : (
+                          <span className="regular-price">AED {bag.price}</span>
+                        )}
+                      </span>
                     </div>
                   </div>
                 ))}

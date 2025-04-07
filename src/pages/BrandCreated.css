@@ -1,0 +1,26 @@
+.brand-created-container {
+    width: 1200px;
+    margin: 75px auto;
+  }
+  
+  .brand-created-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .brand-created-subtitle {
+    font-size: 24px;
+    color: #ff69b4;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .brand-created-button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  

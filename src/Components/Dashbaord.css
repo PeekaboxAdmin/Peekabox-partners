@@ -13,7 +13,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
     width: 100%;  /* Set exact width from Figma */
-    height: 440px; /* Set height */
+    height: 465px; /* Set height */
 
     display: flex;
     flex-direction: column;
@@ -30,12 +30,11 @@
 }
 
 .dsurprise-bags-content {
+    align-items: center;
+    background-color: #e6e4e4;
     display: flex;
     flex-direction: column;
-    background-color: #e6e4e4;
-
     flex-grow: 1; /* Fills available space */
-    align-items: center;
     justify-content: center;
     padding: 15px;
     padding-top: 0px;
@@ -44,9 +43,8 @@
 
 /* Footer stays at the bottom */
 .dsurprise-bags-footer {
-    width: 100%;
     background-color: #e6e4e4; /* Matches content background */
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-left: 10px;
 }
 
@@ -62,33 +60,48 @@
 .dsurprise-bags-container {
     display: flex;
     gap: 16px;
-    width: 100%;
-
-    overflow-y: hidden;
-    overflow-x: auto;
     justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
     scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 15px;
 }
+
+/* Chrome, Safari, Edge (WebKit-based) */
+.dsurprise-bags-container::-webkit-scrollbar {
+    height: 8px; /* Set the scrollbar thickness */
+  }
+  
+  .dsurprise-bags-container::-webkit-scrollbar-track {
+    /* background: #f0f0f0; Track background color */
+    border-radius: 4px;
+  }
+  
+  .dsurprise-bags-container::-webkit-scrollbar-thumb {
+    background-color: #1b5e20; /* Scroll thumb color */
+    border-radius: 4px;     /* Rounded corners */
+  }
 
 .dsurprise-bag-card {
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: left;
     display: flex;
     flex-direction: column;
-    width: 270px; /* Set card width */
-    height: 240px;
-    position: relative; /* Required for positioning the badge */
-    /* flex: 0 0 auto; */
+    height: 285px;
+    width: 370px;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    flex: 0 0 auto;
 }
 
 /* Badge on the image */
 .dsurprise-bag-badge {
     position: absolute;
-    top: 20px;
-    left: 19px;
+    top: 40px;
+    /* left: 19px; */
     background-color: #FF80B4; /* Badge color */
     color: white;
     padding: 5px 10px;
@@ -100,10 +113,11 @@
 
 .dsurprise-bag-image {
     width: 100%;
-    height: 130px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    object-fit: cover; /* Ensures the image fills the container without distortion */
+    height: 150px;
+    border-radius: 35px 35px 0 0;
+    /* margin-bottom: 12px; */
+    /* object-fit: cover; */
+    object-fit: scale-down;
     object-position: center; /* Centers the image */
 }
 
@@ -114,7 +128,7 @@
 }
 
 .dsurprise-bag-card p {
-    font-size: 12px;
+    font-size: 13px;
     color: #555;
     margin: 5px 0;
     display: flex;
@@ -134,11 +148,13 @@
 .price-availability-container {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
+    /* gap: 8px; */
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .price-availability-container p {
-    white-space: nowrap; /* Ensures content stays on one line */
+    white-space: normal; /* Ensures content stays on one line */
     text-overflow: ellipsis; /* Adds ellipsis to truncated content */
     display: inline-block; /* Maintains inline behavior */
     max-width: calc(100% - 20px); /* Adjust as necessary for padding or margins */
@@ -151,7 +167,30 @@
     font-weight: bold;
     color: #FF80B4; /* Pink color for the price */
     display: inline-block; /* Ensures inline behavior */
+
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
 }
+
+.discounted-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #FF80B4; /* Highlighted color for discounted price */
+  }
+  
+  .original-price {
+    font-size: 0.9em;
+    text-decoration: line-through;
+    color: #888; /* Grey color for original price */
+    margin-left: 8px;
+  }
+  
+  .regular-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333; /* Default color for regular price */
+  }
 
 /* Availability Badge */
 .badge {

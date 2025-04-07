@@ -43,33 +43,32 @@ const IndividualStoreCreate: React.FC = () => {
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const getLatLonFromAddress = async (address: StoreData["address"]) => {
-    try {
-      const formattedAddress = `${address.street}, ${address.city}, ${address.country}`;
-      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(formattedAddress)}&key=${apiKey}`;
+  // const getLatLonFromAddress = async (address: StoreData["address"]) => {
+  //   try {
+  //     const formattedAddress = `${address.street}, ${address.city}, ${address.country}`;
+  //     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+  //     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(formattedAddress)}&key=${apiKey}`;
   
-      const response = await axios.get(url);
-      const data = response.data;
+  //     const response = await axios.get(url);
+  //     const data = response.data;
   
-      if (data.status === "OK" && data.results.length > 0) {
-        const { lat, lng } = data.results[0].geometry.location;
-        return { lat, lon: lng };
-      } else {
-        throw new Error("Could not find location.");
-      }
-    } catch (error) {
-      console.error("Error fetching geolocation:", error);
-      return { lat: 0, lon: 0 }; // Default coordinates in case of failure
-    }
-  };
+  //     if (data.status === "OK" && data.results.length > 0) {
+  //       const { lat, lng } = data.results[0].geometry.location;
+  //       return { lat, lon: lng };
+  //     } else {
+  //       throw new Error("Could not find location.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching geolocation:", error);
+  //     return { lat: 0, lon: 0 }; // Default coordinates in case of failure
+  //   }
+  // };
 
   const handleSubmit = async () => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL;
 
-      
-      const { lat, lon } = await getLatLonFromAddress(storeData.address);
+      // const { lat, lon } = await getLatLonFromAddress(storeData.address);
 
       const storePayload = { // fix this
         brandId: new ObjectId().toHexString(),
@@ -91,7 +90,7 @@ const IndividualStoreCreate: React.FC = () => {
           city: storeData.address.city,
           country: storeData.address.country,
         },
-        location: { type: "Point", coordinates: [lon, lat] }, // Use real coordinates
+        // location: { type: "Point", coordinates: [lon, lat] }, // Use real coordinates
         operatingHours: storeData.operatingHours, // Operating hours input by user
       };
 
@@ -158,7 +157,7 @@ const IndividualStoreCreate: React.FC = () => {
       const apiUrl = process.env.REACT_APP_API_URL; // Your backend API URL
   
       // Send the image to the backend API
-      const response = await axios.post(`${apiUrl}/upload-image`, formData, {
+      const response = await axios.post(`${apiUrl}/api/v1/store/ProductUpload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
   

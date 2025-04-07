@@ -4,7 +4,7 @@ import Triangle from "../../../Components/Triangle/Triangle";
 import HeaderBar from "../../../Components/HeaderBar/HeaderBar";
 import Button from "../../../Components/Button/Button";
 import Indicators from "../../../Components/indicators/indicators";
-
+import './BrandForm.css';
 
 export interface BrandData {
   brandName: string;
@@ -97,147 +97,120 @@ const BrandForm1: React.FC<{ onNext: (brand: BrandData) => void }> = ({ onNext }
   };
 
   return (
-       <div className="space-y-6 px-4 sm:px-6 lg:px-8 mt-10">
-    <Triangle>
-      <HeaderBar>
-       Create a Brand
-      </HeaderBar>
+    <div className="brand-form-container">
+      <Triangle>
+        <HeaderBar>Create a Brand</HeaderBar>
 
-      <div className="max-w-4xl mx-auto p-8">
-  <form onSubmit={handleSubmit}>
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {/* Brand Name */}
-      <div>
-        <label htmlFor="brandName" className="block text-sm font-medium text-pinkCustom">Brand Name</label>
-        <input
-          id="brandName"
-          type="text"
-          value={brandName}
-          onChange={(e) => setBrandName(e.target.value)}
-          placeholder="Enter brand name"
-          className="mt-1 block w-full sm:w-3/4 h-8 px-3 py-1 text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-        />
-      </div>
+        <form onSubmit={handleSubmit}>
+          <div className="brand-form-body">
+            <div>
+              <label htmlFor="brandName" className="brand-form-label">Brand Name</label>
+              <input
+                id="brandName"
+                type="text"
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
+                placeholder="Enter brand name"
+                className="brand-form-input"
+              />
+            </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-pinkCustom">Brand/Operations Manager Email</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter manager email"
-          className="mt-1 block w-full sm:w-3/4 h-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-        />
-      </div>
+            <div>
+              <label htmlFor="email" className="brand-form-label">Brand/Operations Manager Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter manager email"
+                className="brand-form-input"
+              />
+            </div>
 
-      {/* Business Registration Number */}
-      <div>
-        <label htmlFor="businessRegNum" className="block text-sm font-medium text-pinkCustom">Business Registration Number</label>
-        <input
-          id="businessRegNum"
-          type="text"
-          value={businessRegNum}
-          onChange={(e) => setBusinessRegNum(e.target.value)}
-          placeholder="Enter registration number"
-          className="mt-1 block w-full sm:w-3/4 h-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-        />
-      </div>
+            <div>
+              <label htmlFor="businessRegNum" className="brand-form-label">Business Registration Number</label>
+              <input
+                id="businessRegNum"
+                type="text"
+                value={businessRegNum}
+                onChange={(e) => setBusinessRegNum(e.target.value)}
+                placeholder="Enter registration number"
+                className="brand-form-input"
+              />
+            </div>
 
-      {/* Banner */}
-      <div>
-        <label htmlFor="banner" className="block text-sm font-medium text-pinkCustom">Brand Banner</label>
-        <input
-          id="banner"
-          type="file"
-          onChange={handleFileChange(setBanner, "banner")}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-        />
-      </div>
+            <div>
+              <label htmlFor="banner" className="brand-form-label">Brand Banner</label>
+              <input
+                id="banner"
+                type="file"
+                onChange={handleFileChange(setBanner, "banner")}
+                className="brand-form-file"
+              />
+            </div>
 
-      {/* Description */}
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-pinkCustom">Brand Description</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter brand description"
-          className="mt-1 block w-full sm:w-3/4 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-        />
-      </div>
+            <div>
+              <label htmlFor="description" className="brand-form-label">Brand Description</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter brand description"
+                className="brand-form-textarea"
+              />
+            </div>
 
-      {/* Logo */}
-      <div>
-        <label htmlFor="logo" className="block text-sm font-medium text-pinkCustom">Brand Logo</label>
-        <input
-          id="logo"
-          type="file"
-          onChange={handleFileChange(setLogo, "logo")}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-      </div>
+            <div>
+              <label htmlFor="logo" className="brand-form-label">Brand Logo</label>
+              <input
+                id="logo"
+                type="file"
+                onChange={handleFileChange(setLogo, "logo")}
+                className="brand-form-file"
+              />
+            </div>
 
-      {/* HQ Location */}
-      <div>
-        <label htmlFor="hqLocation" className="block text-sm font-medium text-pinkCustom">HQ Location</label>
-        <input
-          id="hqLocation"
-          type="text"
-          value={hqLocation}
-          onChange={(e) => setHqLocation(e.target.value)}
-          placeholder="Enter HQ location"
-          className="mt-1 block w-full sm:w-3/4 h-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-        />
-      </div>
+            <div>
+              <label htmlFor="hqLocation" className="brand-form-label">HQ Location</label>
+              <input
+                id="hqLocation"
+                type="text"
+                value={hqLocation}
+                onChange={(e) => setHqLocation(e.target.value)}
+                placeholder="Enter HQ location"
+                className="brand-form-input"
+              />
+            </div>
 
-      {/* Total Stores */}
-      <div>
-        <label htmlFor="totalStores" className="block text-sm font-medium text-pinkCustom">Total Number of Stores (Dubai only)</label>
-        <input
-          id="totalStores"
-          type="number"
-          value={totalStores}
-          onChange={handleTotalStore}
-          placeholder="e.g., 10"
-          className="mt-1 block w-full sm:w-3/4 h-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-        />
-      </div>
+            <div>
+              <label htmlFor="totalStores" className="brand-form-label">Total Number of Stores (Dubai only)</label>
+              <input
+                id="totalStores"
+                type="number"
+                value={totalStores}
+                onChange={handleTotalStore}
+                placeholder="e.g., 10"
+                className="brand-form-input"
+              />
+            </div>
+          </div>
+
+          <div className="brand-form-buttons">
+            <Button
+              label="Discard"
+              onClick={handleDiscard}
+              className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md transition duration-200"
+            />
+            <Button
+              label="Next"
+              type="submit"
+              className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"
+            />
+          </div>
+        </form>
+      </Triangle>
     </div>
-
-    {/* Buttons */}
-    <div className="flex justify-end space-x-4 mt-4 px-4 pb-4">
-
-
-
-     {/** */}
-
-     <Button  label="Discard"
-
-        onClick={handleDiscard}
-            className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md  transition duration-200"
-
-
-
-          />
-
-          <Button  label="Next"
-
-            type='submit'
-          className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md  transition duration-200"
-
-        />
-
-    </div>
-
-
-  </form>
-</div>
-
-    </Triangle>
-    </div>
-  );
+  );  
 };
 
 export default BrandForm1;

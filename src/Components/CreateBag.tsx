@@ -19,6 +19,8 @@ interface FormData {
   description: string;
   price: {
     amount: string;
+    discount: boolean;
+    discountPrice: string;
     currencyCode: string;
   };
   quantity: string; 
@@ -40,8 +42,8 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [category, setCategory] = useState('');
   const [allergens, setAllergens] = useState<string[]>([]);
   const [afterDiscount, setafterDiscount] = useState('');
-  const [Discount, setDiscount] = useState(false);
   const [priceAmount, setPriceAmount] = useState('');
+  const [discountPrice, setDiscountPrice] = useState('');
   const [discountAmount, setdiscountAmount] = useState('');
   const [currencyCode, setCurrencyCode] = useState('AED');
   const [quantity, setQuantity] = useState('1');
@@ -139,15 +141,15 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
       imageUrl = await uploadImageToS3(image);
       if(imageUrl !==""){
         console.log("image url : "+ imageUrl);
-      
+
         const productData = {
           name,  // From state
           description,  // From state
           price: {
-            discount:Discount,
-            amount: priceAmount,  
-            discountPrice : discountAmount,
-            currencyCode,  
+            discount: discountAmount && parseFloat(discountAmount) > 0, // Derive discount dynamically
+            amount: parseFloat(priceAmount), // Original price
+            discountPrice: parseFloat(discountPrice), // Final discounted price
+            currencyCode,
           },
           category,  // From state
           quantity,  // From state
@@ -156,7 +158,8 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
           collectionSchedule,  // Collection schedule from state
           isAvailable,  // Availability status from state
         };
-
+        
+      console.log("Product Data being sent to backend:", productData);
 
       const apiurl = process.env.REACT_APP_API_URL;
       await axios.post(
@@ -241,16 +244,18 @@ const handleSaveSchedule = () => {
   setEndTime('');
 };
 
-
 useEffect(() => {
   if (!isNaN(parseFloat(priceAmount)) && !isNaN(parseFloat(discountAmount))) {
-    const discountedPrice = (
-      parseFloat(priceAmount) - (parseFloat(discountAmount) / 100) * parseFloat(priceAmount)
+    const calculatedDiscountPrice = (
+      parseFloat(priceAmount) -
+      (parseFloat(discountAmount) / 100) * parseFloat(priceAmount)
     ).toFixed(2);
-    
-    setafterDiscount(discountedPrice); 
+
+    setDiscountPrice(calculatedDiscountPrice); // Update discountPrice state
+  } else {
+    setDiscountPrice(''); // Reset if inputs are invalid
   }
-}, [discountAmount]);
+}, [priceAmount, discountAmount]);
 
 
   const renderStep = () => {
@@ -371,6 +376,7 @@ useEffect(() => {
                   Make it affordable and attractive while reflecting the value of the items inside.
                 </p>
                 <div className="price-input-container">
+<<<<<<< HEAD
 
                 <div className="discount-toggle">
         <input
@@ -415,6 +421,32 @@ useEffect(() => {
       )}
   
 </div>
+=======
+                  <input
+                    type="text"
+                    value={priceAmount} 
+                    onChange={(e) => setPriceAmount(e.target.value)}
+                    placeholder="Original Price"
+                    className="price-input"
+                  />
+
+                  <input
+                    type="text"
+                    value={discountAmount}
+                    onChange={(e) => setdiscountAmount(e.target.value)}
+                    placeholder="Discount %"
+                    className="price-input"
+                  />
+                  
+                  <input
+                    type="text"
+                    value={discountPrice}
+                    readOnly
+                    placeholder="After Discount"
+                    className="price-input"
+                  />
+              </div>
+>>>>>>> e1935943894a2708e5405d587fce8c6b3e65900e
               </div>
             </div>
             <div className="numbered-input-container">
@@ -596,17 +628,11 @@ useEffect(() => {
           ))}
         </div>
       </div>
-      <footer className="dashboard-footer">
-        <FooterLinks />
-      </footer>
     </div>
-
-  
   );
 };
 
 export default CreateBagForm;
-
 
 
 

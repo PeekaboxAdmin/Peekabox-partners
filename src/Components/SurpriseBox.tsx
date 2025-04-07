@@ -199,19 +199,16 @@ const SurpriseBoxManagement: React.FC = () => {
                       <FontAwesomeIcon icon={bag.soldOut ? faCircleXmark : faCircleCheck} />
                       {bag.soldOut ? 'Sold Out' : `Available: ${bag.quantity} of 5 sold`}
                     </p>
-                    <p className="price">
-                      {bag.discount ? (
-                        <>
-                          <span className="price">AED {bag.price}</span>
-                          <span className="original-price">AED {bag.Dicountprice}</span>
-                        </>
-                      ) : (
-                        <>
-                         <span className="price">AED {bag.price}</span>
-                        </>
-                        
-                      )}
-                    </p>
+                    <span className="price">
+                        {bag.discount ? (
+                          <>
+                            <span className="discounted-price">AED {bag.Dicountprice}</span>
+                            <span className="original-price">AED {bag.price}</span>
+                          </>
+                        ) : (
+                          <span className="regular-price">AED {bag.price}</span>
+                        )}
+                      </span>
                   </div>
                   <div className="card-actions">
                     <button onClick={() => setIsCreatingBag(true)}>
