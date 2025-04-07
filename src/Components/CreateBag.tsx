@@ -42,6 +42,7 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
   const [category, setCategory] = useState('');
   const [allergens, setAllergens] = useState<string[]>([]);
   const [afterDiscount, setafterDiscount] = useState('');
+  const [Discount, setDiscount] = useState(false);
   const [priceAmount, setPriceAmount] = useState('');
   const [discountPrice, setDiscountPrice] = useState('');
   const [discountAmount, setdiscountAmount] = useState('');
@@ -376,7 +377,6 @@ useEffect(() => {
                   Make it affordable and attractive while reflecting the value of the items inside.
                 </p>
                 <div className="price-input-container">
-<<<<<<< HEAD
 
                 <div className="discount-toggle">
         <input
@@ -412,7 +412,7 @@ useEffect(() => {
 
 <input
     type="text"
-    value={afterDiscount}
+    value={discountPrice}
     readOnly
     placeholder="After Discount"
     className="price-input"
@@ -421,32 +421,6 @@ useEffect(() => {
       )}
   
 </div>
-=======
-                  <input
-                    type="text"
-                    value={priceAmount} 
-                    onChange={(e) => setPriceAmount(e.target.value)}
-                    placeholder="Original Price"
-                    className="price-input"
-                  />
-
-                  <input
-                    type="text"
-                    value={discountAmount}
-                    onChange={(e) => setdiscountAmount(e.target.value)}
-                    placeholder="Discount %"
-                    className="price-input"
-                  />
-                  
-                  <input
-                    type="text"
-                    value={discountPrice}
-                    readOnly
-                    placeholder="After Discount"
-                    className="price-input"
-                  />
-              </div>
->>>>>>> e1935943894a2708e5405d587fce8c6b3e65900e
               </div>
             </div>
             <div className="numbered-input-container">
