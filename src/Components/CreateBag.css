@@ -98,6 +98,31 @@
   margin-bottom: 0.5rem;
 }
 
+
+button.saveschedule {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 8px ;
+  font-size: 12px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.saveschedule:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+button.saveschedule:disabled {
+  background-color: #ccc; /* Grey background when disabled */
+  color: #666; /* Darker grey text */
+  cursor: not-allowed;
+  transform: none; /* Prevent scale effect when disabled */
+}
+
 /* Allergens Grid */
 .allergens-grid {
   display: grid;
@@ -335,6 +360,18 @@
   background: #ff80b4;
   color: white;
   cursor: pointer;
+}
+
+.error-message {
+  color: #ff4d4d; /* Red color for visibility */
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: bold;
+  background-color: #ffe6e6; /* Light red background */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ff4d4d;
+  text-align: center;
 }
 
 /* Responsive Design */

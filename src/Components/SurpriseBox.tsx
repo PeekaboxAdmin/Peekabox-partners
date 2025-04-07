@@ -66,7 +66,7 @@ const SurpriseBoxManagement: React.FC = () => {
                       schedule.timeWindow
                         ? `${schedule.day} ${schedule.timeWindow.start || "N/A"} - ${
                             schedule.timeWindow.end || "N/A"
-                          }`
+                          } Selling Quantity : ${schedule.quantityAvailable}` 
                         : `${schedule.day} No Time Specified`
                     )
                     .join(", ") // Join multiple schedules with a comma
@@ -177,9 +177,9 @@ const SurpriseBoxManagement: React.FC = () => {
   {bag.collectionTime !== "No Schedule"
     ? bag.collectionTime.split(/,\s*/).map((time, index) => (
         <React.Fragment key={index}>
-          {time}  Selling Quantity : {bag.quantity}
-          <br />
-          <br />
+          {time} 
+          <br/>
+          <br/>
         </React.Fragment>
       ))
     : "No collection time available"}

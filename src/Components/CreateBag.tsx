@@ -51,6 +51,32 @@ const CreateBagForm: React.FC<CreateBagFormProps> = ({ onCancel }) => {
 >([]);
   const [isAvailable, setIsAvailable] = useState(true);
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+const validateFields = () => {
+  if (!name.trim()) return "Name is required.";
+  if (!category.trim()) return "Category is required.";
+  if (allergens.length === 0) return "Please select at least one allergen.";
+  if (!description.trim()) return "Description is required.";
+  if (!priceAmount.trim() || isNaN(Number(priceAmount)) || Number(priceAmount) <= 0) return "Enter a valid price.";
+  if (Discount && (!discountAmount.trim() || isNaN(Number(discountAmount)) || Number(discountAmount) <= 0))
+    return "Enter a valid discount percentage.";
+  if (!quantity.trim() || isNaN(Number(quantity)) || Number(quantity) < 1) return "Quantity must be at least 1.";
+  if (!image) return "Please upload an image.";
+  if (collectionSchedule.length === 0) return "Please add at least one collection schedule.";
+  return null;
+};
+
+const handleDoneClick = () => {
+  const error = validateFields();
+  if (error) {
+    setErrorMessage(error);
+    return;
+  }
+  setErrorMessage(null);
+  handleSubmit();
+};
+
 
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
@@ -124,7 +150,6 @@ const allergenInfo = allergens.length > 0 ? allergens.join(", ") : "No allergens
             currencyCode,  
           },
           category,  // From state
-          type: "Food",  // Static value
           quantity,  // From state
           image: imageUrl,  // The uploaded image URL from S3
           allergenInfo,  // Allergens as a comma-separated string
@@ -197,6 +222,7 @@ const handleSaveSchedule = () => {
         ? {
             ...schedule,
             timeWindow: { start: startTime, end: endTime },
+            quantityAvailable: quantity,
           }
         : schedule
     );
@@ -205,7 +231,7 @@ const handleSaveSchedule = () => {
     // Add a new schedule entry if the day doesn't exist
     setCollectionSchedule([
       ...collectionSchedule,
-      { day: selectedDay, timeWindow: { start: startTime, end: endTime }, quantityAvailable :priceAmount },
+      { day: selectedDay, timeWindow: { start: startTime, end: endTime }, quantityAvailable :quantity },
     ]);
   }
 
@@ -345,6 +371,18 @@ useEffect(() => {
                   Make it affordable and attractive while reflecting the value of the items inside.
                 </p>
                 <div className="price-input-container">
+
+                <div className="discount-toggle">
+        <input
+          type="checkbox"
+          id="enableDiscount"
+          checked={Discount}
+          onChange={() => setDiscount(!Discount)}
+        />
+        <label htmlFor="enableDiscount">Apply Discount</label>
+      </div>
+
+
                 <input
     type="text"
     value={priceAmount} 
@@ -352,6 +390,10 @@ useEffect(() => {
     placeholder="Original Price"
     className="price-input"
   />
+
+
+  {Discount && (
+        <>
 
   <input
     type="text"
@@ -369,6 +411,9 @@ useEffect(() => {
     placeholder="After Discount"
     className="price-input"
   />
+ </>
+      )}
+  
 </div>
               </div>
             </div>
@@ -480,9 +525,26 @@ useEffect(() => {
                      </button>
                     ))}
                   </div>
-        <button onClick={handleSaveSchedule} disabled={!selectedDay || !startTime || !endTime}>
+        <button className='saveschedule' onClick={handleSaveSchedule} disabled={!selectedDay || !startTime || !endTime}>
           Save Schedule
         </button>
+
+        {/* Display saved collection schedule */}
+{collectionSchedule.length > 0 && (
+  <div className="collection-schedule-list">
+    <h3>Saved Collection Schedule:</h3>
+    <ul>
+      {collectionSchedule.map((schedule, index) => (
+        <li key={index} className="schedule-item">
+          <strong>{schedule.day}:</strong> {schedule.timeWindow.start} - {schedule.timeWindow.end} 
+          <span> (Qty: {quantity})</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+        
       </div>           
                 </div>
               </div>
@@ -516,11 +578,13 @@ useEffect(() => {
               Next
             </button>
           ) : (
-            <button onClick={handleSubmit} className="done-button">
-              Done
-            </button>
+            <button onClick={handleDoneClick} className="done-button">
+             Done
+           </button>
           )}
         </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        
         <div className="progress-lines">
           {STEPS.map((_, index) => (
             <div

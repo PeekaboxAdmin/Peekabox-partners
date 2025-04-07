@@ -6,6 +6,8 @@ import Sidebar from "./Sidebar";
 import FooterLinks from './FooterLink/FooterLinks'; 
 import { useSelector } from 'react-redux';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import mongoose from "mongoose";
+import { AxiosError } from 'axios'; // Import AxiosError type
 
 
 interface OrderItem {
@@ -45,6 +47,9 @@ const OrderManagement: React.FC = () => {
   const [editMode, setEditMode] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
+  const [searchOrderId, setSearchOrderId] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const fetchOrders = async (limit = ORDERS_PER_PAGE, sort = "desc") => {
     setLoading(true);
@@ -87,11 +92,6 @@ const OrderManagement: React.FC = () => {
 
   const toggleSidebar = () => {
     setSidebarExpanded(!sidebarExpanded);
-  };
-
-  const handleCombinedSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCombinedSearch(e.target.value);
-    setCurrentPage(1);
   };
 
 
@@ -163,6 +163,82 @@ const handleOrderSelection = (orderId: string) => {
 
 
 
+const handleSearch = async () => {
+  setLoading(true);
+  try {
+    const apiurl = process.env.REACT_APP_API_URL;
+
+    // Create the search query based on what's available
+    let query = '';
+
+    // Add orderId if provided
+    if (searchOrderId) {
+      if (!mongoose.Types.ObjectId.isValid(searchOrderId)) {
+        alert("Invalid Order ID format");
+        setLoading(false);
+        return;
+      }
+      query = `orderId=${searchOrderId}`;
+    }
+
+    // Add startDate and endDate if provided
+    if (startDate && endDate) {
+      query += `${query ? '&' : ''}startDate=${startDate}&endDate=${endDate}`;
+    }
+
+    // Call the API with query parameters
+    const response = await axios.get(`${apiurl}/api/v1/stores/orders/search?${query}`, {
+      withCredentials: true
+    });
+
+    console.log(response);
+
+    const orders = response.data?.data?.data?.orders; // Safe optional chaining
+
+    if (orders && orders.length > 0) {
+      const formattedOrders = orders.map((order: any) => ({
+        id: order._id,
+        productId: order.productId,
+        productName: order.productName,
+        quantity: order.quantity,
+        salesAmount: order.salesAmount,
+        consumerPrice: order.consumerPrice,
+        currencyCode: order.currencyCode || "AED",
+        status: order.status,
+        totalPrice: order.totalPrice,
+        datePlaced: new Date(order.createdAt).toISOString().split("T")[0],
+      }));
+      setAllOrders(formattedOrders);
+    } else {
+      alert("No orders found with the given criteria.");
+    }
+
+  } catch (error: unknown) {
+    console.error("Failed to fetch orders:", error);
+
+    // Check if the error is an AxiosError
+    if (error instanceof AxiosError) {
+      if (error.response) {
+        if (error.response.status === 404) {
+          alert("No orders found with the given criteria.");
+        } else {
+          alert("Unable to fetch orders. Please try again later.");
+        }
+      } else {
+        alert("Unable to fetch orders. Please check your internet connection or try again later.");
+      }
+    } else {
+      alert("An unknown error occurred. Please try again later.");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
+
   
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
@@ -199,12 +275,21 @@ const handleOrderSelection = (orderId: string) => {
           <input
             type="text"
             placeholder="Search by Order ID"
-            value={combinedSearch}
-            onChange={handleCombinedSearchChange}
+            value={searchOrderId}
+      onChange={(e) => {
+        setSearchOrderId(e.target.value);
+        setStartDate("");
+        setEndDate("");
+      }}
           />
 
 <input
           type="date"
+          value={startDate}
+          onChange={(e) => {
+            setStartDate(e.target.value);
+            setSearchOrderId("");
+          }}
           style={{
             padding: "8px",
             border: "1px solid #ccc",
@@ -213,13 +298,18 @@ const handleOrderSelection = (orderId: string) => {
         />
         <input
           type="date"
+          value={endDate}
+          onChange={(e) => {
+            setEndDate(e.target.value);
+            setSearchOrderId("");
+          }}
           style={{
             padding: "8px",
             border: "1px solid #ccc",
             borderRadius: "4px",
           }}
         />
-
+<button className="seeall" onClick={handleSearch}>Search</button>
 <button className="seeall" onClick={toggleEditMode}>{editMode ? "Done" : "Edit"}</button>
 <button className="seeall">Refresh </button>
         </div>

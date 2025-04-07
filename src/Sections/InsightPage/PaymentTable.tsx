@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import mongoose from "mongoose";
+import { AxiosError } from 'axios'; // Import AxiosError type
+
 
 interface Order {
   orderId: string;
@@ -16,8 +19,9 @@ const OrdersTable: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [totalOrders, setTotalOrders] = useState(0); // NEW: Total orders count
   const itemsPerPage = 10; // Increased per page limit
-
+ const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchOrderId, setSearchOrderId] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -47,6 +51,67 @@ const OrdersTable: React.FC = () => {
     }
   };
 
+
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const apiurl = process.env.REACT_APP_API_URL;
+  
+      // Create the search query based on what's available
+      let query = '';
+  
+      // Add orderId if provided
+      if (searchOrderId) {
+        if (!mongoose.Types.ObjectId.isValid(searchOrderId)) {
+          alert("Invalid Order ID format");
+          setLoading(false);
+          return;
+        }
+        query = `orderId=${searchOrderId}`;
+      }
+  
+      // Add startDate and endDate if provided
+      if (startDate && endDate) {
+        query += `${query ? '&' : ''}startDate=${startDate}&endDate=${endDate}`;
+      }
+  
+      // Call the API with query parameters
+      const response = await axios.get(`${apiurl}/api/v1/stores/payment/search?${query}`, {
+        withCredentials: true
+      });
+  
+      console.log(response);
+  
+      const payment = response.data?.data?.data?.payment; // Safe optional chaining
+  
+      if (payment && payment.length > 0) {
+        setOrders(response.data.data.data.payment);
+      } else {
+        alert("No orders found with the given criteria.");
+      }
+  
+    } catch (error: unknown) {
+      console.error("Failed to fetch orders:", error);
+  
+      // Check if the error is an AxiosError
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          if (error.response.status === 404) {
+            alert("No orders found with the given criteria.");
+          } else {
+            alert("Unable to fetch orders. Please try again later.");
+          }
+        } else {
+          alert("Unable to fetch orders. Please check your internet connection or try again later.");
+        }
+      } else {
+        alert("An unknown error occurred. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Fetch orders when component mounts or page changes
   useEffect(() => {
     fetchPayments(currentPage);
@@ -71,8 +136,12 @@ const OrdersTable: React.FC = () => {
         <input
           type="text"
           placeholder="Search by Order ID"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchOrderId}
+          onChange={(e) => {
+            setSearchOrderId(e.target.value);
+            setStartDate("");
+            setEndDate("");
+          }}
           style={{
             padding: "8px",
             border: "1px solid #ccc",
@@ -82,7 +151,10 @@ const OrdersTable: React.FC = () => {
         <input
           type="date"
           value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          onChange={(e) => {
+            setStartDate(e.target.value);
+            setSearchOrderId("");
+          }}
           style={{
             padding: "8px",
             border: "1px solid #ccc",
@@ -92,13 +164,18 @@ const OrdersTable: React.FC = () => {
         <input
           type="date"
           value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          onChange={(e) => {
+            setEndDate(e.target.value);
+            setSearchOrderId("");
+          }}
           style={{
             padding: "8px",
             border: "1px solid #ccc",
             borderRadius: "4px",
           }}
         />
+
+<button className="seeall" onClick={handleSearch}>Search</button>
       </div>
 
       <h2
