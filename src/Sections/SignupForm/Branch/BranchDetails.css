@@ -1,0 +1,28 @@
+.input-field-branchDetails{
+    width: 100% !important;
+    padding: 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 10px !important;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.description-field {
+    width: 100% !important;
+    max-width: 864px;
+    padding: 10px !important;
+    border: 1px solid #ccc;
+    border-radius: 10px !important;
+    box-sizing: border-box;
+    resize: vertical;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.changeBorderColor{
+    border:#ccc !important;
+}
+
+.fontWeightChange{
+    font-weight: 600 !important;
+}

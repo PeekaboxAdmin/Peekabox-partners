@@ -1,0 +1,119 @@
+.view-branches-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .view-branches-content {
+    padding: 30px 20px;
+  }
+  
+  .loading-text,
+  .error-text {
+    text-align: center;
+    margin: 40px 0;
+    font-size: 18px;
+  }
+  
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .no-branches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  
+  .branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .branch-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .branch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .branch-image {
+    height: 160px;
+    overflow: hidden;
+  }
+  
+  .branch-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .branch-details {
+    padding: 15px;
+  }
+  
+  .branch-details h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .branch-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  
+  .branch-manager,
+  .branch-address,
+  .branch-contact {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .branches-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .retry-button {
+    background-color: #FF80B4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 768px) {
+    .branches-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .branches-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .branches-actions button {
+      width: 100%;
+      margin: 5px 0 !important;
+    }
+  }

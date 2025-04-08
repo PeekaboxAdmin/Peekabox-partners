@@ -24,37 +24,44 @@ const storeTypes = [
   'Other',
 ];
 
-const BranchForm: React.FC<{ totalStores: number; onNext: (branches: BranchData[]) => void }> = ({ totalStores, onNext }) => {
-  const navigate = useNavigate();
+const BranchForm: React.FC<{ onNext: (branches: BranchData[]) => void }> = ({ onNext }) => {  const navigate = useNavigate();
 
-  const HandleBack=()=>{
-    navigate('/signup/brandform')
+  // const HandleBack=()=>{
+  //   navigate('/signup/brandform')
+  // }
 
-}
+  // const HandleNext=()=>{
+  //   navigate('/')
+  // }
 
-const HandleNext=()=>{
-  navigate('/')
+  const HandleBack = () => {
+    navigate('/signup/brand-created');
+  }
 
-}
+  const HandleNext = () => {
+    navigate('/signup/brand-created');
+  }
 
-
-
-
-
-
-  const [branches, setBranches] = useState<BranchData[]>(Array.from({ length: totalStores }, () => ({
+  const [branches, setBranches] = useState<BranchData[]>([{
     branchName: '',
     managerName: '',
     managerEmail: '',
     password: '',
     phone: '',
-    address: '',
+    address: {
+      street: '',
+      area: '',
+      city: '',
+      country: '',
+    },
     description: '',
     storeType: '',
     surpriseBags: [],
-  })));
+    storeLogo: null,
+    operatingHours: [],
+  }]);
 
-  const [expandedBranches, setExpandedBranches] = useState<boolean[]>(Array(totalStores).fill(false));
+  const [expandedBranches, setExpandedBranches] = useState<boolean[]>([true]);
 
   const handleBranchChange = (index: number, field: keyof BranchData, value: any) => {
     const updatedBranches = [...branches];
@@ -109,7 +116,7 @@ const HandleNext=()=>{
     localStorage.removeItem('banner');
     localStorage.removeItem('description');
     localStorage.removeItem('hqLocation');
-    localStorage.removeItem('totalStores');
+    // localStorage.removeItem('totalStores');
 
     navigate('/signup/login');
   };

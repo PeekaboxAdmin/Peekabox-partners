@@ -21,7 +21,7 @@ const VerifyEmail: React.FC = () => {
   const [otp, setOtp] = useState<string>(''); // State to store OTP value
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleCodeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
