@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import Triangle from '../../../Components/Triangle/Triangle';
 import HeaderBar from '../../../Components/HeaderBar/HeaderBar';
-import './BranchDetailsForm.css'; // Import the CSS file for styling
+import './BrandDetailsForm.css'; // Import the CSS file for styling
 
-const BranchDetailsForm: React.FC<{ onNext: (data: any) => void; branchNumber: number; totalStores: number }> = ({ onNext, branchNumber, totalStores }) => {
-  const [branchName, setBranchName] = useState('');
-  const [branchAddress, setBranchAddress] = useState('');
+const BrandDetailsForm: React.FC<{ onNext: (data: any) => void }> = ({ onNext }) => {
+  const [brandName, setBrandName] = useState('');
+  const [brandAddress, setBrandAddress] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onNext({ branchName, branchAddress });
+    onNext({ brandName, brandAddress });
   };
 
   return (
     <div className="branch-details-wrapper">
       <Triangle>
-        <HeaderBar>Create Branch ({branchNumber} of {totalStores})</HeaderBar>
+        <HeaderBar>Create Brand</HeaderBar>
 
         <form className="brand-details-form" onSubmit={handleSubmit}>
           <div className="form-step">
@@ -27,8 +27,8 @@ const BranchDetailsForm: React.FC<{ onNext: (data: any) => void; branchNumber: n
                 id="branchName"
                 type="text"
                 placeholder="Type the name of your brand"
-                value={branchName}
-                onChange={(e) => setBranchName(e.target.value)}
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
                 className="form-input"
                 required
               />
@@ -40,16 +40,16 @@ const BranchDetailsForm: React.FC<{ onNext: (data: any) => void; branchNumber: n
           <div className="form-step">
             <div className="step-badge">2</div>
             <div className="form-group">
-              <h2 className="form-title">Branch Address</h2>
+              <h2 className="form-title">Brand Address</h2>
               <p className="form-description">
-                Provide the complete address of your branch, including street, city, and country.
+                Provide the complete address of your brand, including street, city, and country.
               </p>
               <input
                 id="branchAddress"
                 type="text"
                 placeholder="Type the Branch Address"
-                value={branchAddress}
-                onChange={(e) => setBranchAddress(e.target.value)}
+                value={brandAddress}
+                onChange={(e) => setBrandAddress(e.target.value)}
                 className="form-input"
                 required
               />
@@ -63,4 +63,4 @@ const BranchDetailsForm: React.FC<{ onNext: (data: any) => void; branchNumber: n
   );
 };
 
-export default BranchDetailsForm;
+export default BrandDetailsForm;

@@ -2,62 +2,69 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { setStoreAuth } from "../../GlobalStateManagement/storeAuthSlice";
+import { setBrandAuth } from "../../GlobalStateManagement/brandAuthSlice";
 
 import SignupImage from '../../assets/images/Signup.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import './Style/Login.css';
 
-const Login: React.FC = () => {
+const BrandLogin: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [rememberMe, setRememberMe] = useState<boolean>(false); // "Keep me logged in" state
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    
     try {
-      const apiurl = process.env.REACT_APP_API_URL
+      const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
-        `${apiurl}/api/v1/stores/auth/logIn`,
+        `${apiurl}/api/v1/brands/auth/login`,
         { email, password },
-        { withCredentials: true, }
+        { withCredentials: true }
       );
+
       if (response.data.success) {
-        alert("Login successful!");
-        const storeId = response.data.data.storeAuth._id;
+        const brandId = response.data.data.brandAuth._id;
 
-        // Dispatch an object that matches StoreAuthState
-        dispatch(setStoreAuth({ Store_id: storeId }));
+        // Store brand authentication info in Redux
+        dispatch(setBrandAuth({ Brand_id: brandId }));
 
-        // Store token depending on "Keep me logged in"
+        // Save auth info based on "remember me" choice
         if (rememberMe) {
-          localStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Persistent login
+          localStorage.setItem("brandAuth", JSON.stringify(response.data.data.brandAuth));
         } else {
-          sessionStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Expires on browser close
+          sessionStorage.setItem("brandAuth", JSON.stringify(response.data.data.brandAuth));
         }
 
-        navigate("/");
+        // Navigate to brand created page where they can add branches
+        navigate("/signup/brand-created");
       } else {
-        alert("Login failed. Please check your credentials.");
+        setError(response.data.errorMessage || "Login failed. Please check your credentials.");
       }
-    } catch (error) {
-      alert("An error occurred during login. Please try again later.");
+    } catch (error: any) {
+      setError(error.response?.data?.errorMessage || "An error occurred during login. Please try again.");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="signup-container">
-      {/* Left side with logo and slogan */}
       <div className="signup-image">
-          <img src={SignupImage} alt="Sign up" className="signup-img" />
+        <img src={SignupImage} alt="Brand Login" className="signup-img" />
       </div>
 
-      {/* Right side with login form */}
       <div className="signup-form">
-        <h1 className="signup-title">Branch Login</h1>
+        <h1 className="signup-title">Brand Login</h1>
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group-login password-input">
             <label className="signup-label">Email</label>
@@ -65,22 +72,25 @@ const Login: React.FC = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-              placeholder="Enter your email"
+              className="w-full px-4 py-2 border rounded-md"
+              placeholder="Enter your brand email"
               required
             />
           </div>
+          
           <div className="input-group-login password-input">
             <label className="signup-label">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md"
               placeholder="Enter your password"
               required
             />
           </div>
+
+          {error && <p className="text-red-500 mt-2">{error}</p>}
 
           <div className="remember-me-container">
             <label className="remember-me-label">
@@ -92,24 +102,26 @@ const Login: React.FC = () => {
               />
               Keep me logged in
             </label>
-            <a href="/signup/forgot-password" className="forgotpass-link">Forgot password?</a>
-            
+            <a href="/signup/forgot-brand-password" className="forgotpass-link">Forgot password?</a>
           </div>
 
           <div className="login-button-container">
-            <button type="submit" className="signup-button">
-              Login
+            <button 
+              type="submit" 
+              className="signup-button"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
         </form>
 
-        {/* Links for additional actions */}
         <div className="login-additional-links">
           <p className="signup-link">
-            New Here? <a href="/signup">Sign Up </a>
+            Need to register? <a href="/signup">Sign Up</a>
           </p>
           <p className="signup-link mt-2">
-            Brand Login? <a href="/signup/brand-login">Login as Brand</a>
+            Branch/Store Login? <a href="/signup/login">Login as Store</a>
           </p>
         </div>
       </div>
@@ -117,4 +129,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default BrandLogin;

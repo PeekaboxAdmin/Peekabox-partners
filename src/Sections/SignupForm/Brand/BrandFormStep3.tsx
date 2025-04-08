@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './BranchFormStep3.css';
+import './BrandFormStep3.css';
 import Button from '../../../Components/Button/Button';
 import Triangle from '../../../Components/Triangle/Triangle';
 import HeaderBar from '../../../Components/HeaderBar/HeaderBar';
 
-const BranchFormStep3: React.FC<{onNext: (data: any) => void;onBack: () => void;branchNumber: number;totalStores: number;}> = ({ onNext, onBack, branchNumber, totalStores }) => {
-  const [managerEmail, setManagerEmail] = useState('');
+const BrandFormStep3: React.FC<{ onNext: (data: { managerEmail: string; password: string }) => void; onBack: () => void;}> = ({ onNext, onBack }) => {  const [managerEmail, setManagerEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -16,8 +15,6 @@ const BranchFormStep3: React.FC<{onNext: (data: any) => void;onBack: () => void;
       setError('Passwords do not match');
       return;
     }
-    // Show success alert
-    alert('Branches created successfully. Redirecting to login.');
 
     setError('');
     onNext({ managerEmail, password });
@@ -26,7 +23,7 @@ const BranchFormStep3: React.FC<{onNext: (data: any) => void;onBack: () => void;
   return (
     <div className="branch-form-step3-wrapper">
       <Triangle>
-        <HeaderBar>Create Branch ({branchNumber} of {totalStores})</HeaderBar>
+        <HeaderBar>Create Brand</HeaderBar>
 
         <form className="branch-form-step3" onSubmit={handleSubmit}>
           <div className="form-step">
@@ -84,4 +81,4 @@ const BranchFormStep3: React.FC<{onNext: (data: any) => void;onBack: () => void;
   );
 };
 
-export default BranchFormStep3;
+export default BrandFormStep3;
