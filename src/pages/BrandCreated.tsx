@@ -13,7 +13,7 @@ const BrandCreated: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleAddBranches = () => {
-    navigate('/signup/branches/BrandDetails');
+    navigate('/signup/branches');
   };
 
   const handleViewBranches = () => {

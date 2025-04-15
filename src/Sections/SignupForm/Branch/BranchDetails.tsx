@@ -71,17 +71,16 @@ interface BranchDetailsProps {
 
 
 const hardcodedData: Store = {
-  _id: "12345",
-  name: "Leto Abu Dubai Mall Center",
-  description:
-    "Indulge in a variety of gourmet pastries, artisanal coffee, and delightful desserts at Leto, conveniently located in Dubai Mall.",
-    managerName: "Sarah",
-    brandId: "60d5ecb8b392f8001f1e1d25",
+  _id: "",
+  name: "",
+  description: "",
+    managerName: "",
+    brandId: "",
   address: {
-    street: "Financial Center Road",
-    area: "Downtown Dubai",
-    city: "Dubai",
-    country: "United Arab Emirates",
+    street: "",
+    area: "",
+    city: "",
+    country: "",
   },
   location: {
     type: "Point",
@@ -90,21 +89,21 @@ const hardcodedData: Store = {
   contactDetails: {
     phone: {
       countryCode: "+971",
-      number: "43567890",
+      number: "",
     },
-    email: "contact@leto.ae",
+    email: "",
   },
   operatingHours: [
-    { day: "MONDAY", open: "09:00", close: "23:00" },
-    { day: "TUESDAY", open: "09:00", close: "23:00" },
-    { day: "WEDNESDAY", open: "09:00", close: "23:00" },
-    { day: "THURSDAY", open: "09:00", close: "23:00" },
-    { day: "FRIDAY", open: "09:00", close: "00:00" },
-    { day: "SATURDAY", open: "09:00", close: "00:00" },
-    { day: "SUNDAY", open: "09:00", close: "23:00" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
+    { day: "", open: "", close: "" },
   ],
-  category: "Bakery",
-  image: "https://example.com/images/leto-dubai-mall.jpg",
+  category: "",
+  image: "",
   isDeleted: false,
 };
 
@@ -115,17 +114,19 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
   const navigate = useNavigate();
   const [store, setStore] = useState<Store>(hardcodedData);
 
-  // Dummy email, otp, password, and error message
-  // Replace with your actual state/logic
-  const email = '';
-  const password = '';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [activeMessage, setActiveMessage] = useState('');
   const [expanded, setExpanded] = useState(false);
   const apiurl = process.env.REACT_APP_API_URL;
-   const [imagef, setImagef] = useState<File | null>(null);
+  const [imagef, setImagef] = useState<File | null>(null);
 
-  
+  const formatDayName = (day: string): string => {
+    if (!day) return "";
+    return day.toUpperCase();
+  };
+   
   const verifiedHandle = async () => {
     try {
       
@@ -175,11 +176,31 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
 
       const handleupdatestore = async ()=> {
         // hardcoded data for test
+
+        // Get the store ID from your Redux store or from the response of verifyOTP
+        const storeId = localStorage.getItem('Store_id');
+        
+        if (!storeId) {
+          alert('Store ID not found. Please verify your email and password first.');
+          return;
+        }
+
         try{
           let imageUrl = "";
           if (imagef) {
             imageUrl = await uploadImageToS3(imagef);}
         
+    const formattedOperatingHours = store.operatingHours.map(hour => {
+      if (!hour.day) { // Skip empty entries
+        return null;
+      }
+      
+      return {
+        day: hour.day.trim().toUpperCase(), // Convert to uppercase
+        open: hour.open,
+        close: hour.close
+      };
+    }).filter(hour => hour !== null); // Remove any null entries
     
     const updatedStoreData = {
       name: store.name,
@@ -201,18 +222,18 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
         country: store.address.country,
       },
       location: store.location, // Assuming the location doesn't change, if it does, update accordingly
-      operatingHours: store.operatingHours, // The operating hours from the updated state
+      operatingHours: formattedOperatingHours, // The operating hours from the updated state
     };
 
-
       const response = await axios.post(
-        `${apiurl}/api/v1/stores/store`,
+        `${apiurl}/api/v1/stores/store/${storeId}`,
         updatedStoreData,
         { withCredentials: true }
       );
 
       alert('Store updated successfully!');
       console.log('Response:', response.data);
+      navigate('/signup/brand-created');
     } catch (error) {
       console.error('Error updating store:', error);
       alert('Failed to update the store. Please try again.');
@@ -234,6 +255,8 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
             type="email"
             placeholder="Login Email"     
             disabled={verifiedEmail}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             className="flex-1 p-2 border border-gray-300 rounded-md"
           />
@@ -241,6 +264,8 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
             type="password"
             placeholder="Password"
             disabled={verifiedEmail}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
             className="flex-1 p-2 border border-gray-300 rounded-md"
           />
@@ -262,14 +287,16 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="Branch Name"
               disabled={verified}
-              onChange={()=>store.name}
               value={store.name}
+              onChange={(e) => setStore({...store, name: e.target.value})}
               required
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
             <div className="input-container flex-1 p-2">
               <select
                 disabled={verified}
+                value={store.category}
+                onChange={(e) => setStore({...store, category: e.target.value})}
                 required
                 className="input-field-branchDetails w-full p-2 border border-gray-300 rounded-md"
               >
@@ -286,6 +313,17 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="Branch Phone Number"
               disabled={verified}
+              value={store.contactDetails.phone.number}
+              onChange={(e) => setStore({
+                ...store, 
+                contactDetails: {
+                  ...store.contactDetails,
+                  phone: {
+                    ...store.contactDetails.phone,
+                    number: e.target.value
+                  }
+                }
+              })}
               required
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
@@ -293,6 +331,8 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="Manager's Name"
               disabled={verified}
+              value={store.managerName}
+              onChange={(e) => setStore({...store, managerName: e.target.value})}
               required
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
@@ -301,6 +341,14 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="Branch Email"
               disabled={verified}
+              value={store.contactDetails.email}
+              onChange={(e) => setStore({
+                ...store, 
+                contactDetails: {
+                  ...store.contactDetails,
+                  email: e.target.value
+                }
+              })}
               required
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
@@ -311,12 +359,28 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="Street"
               disabled={verified}
+              value={store.address.street}
+              onChange={(e) => setStore({
+                ...store, 
+                address: {
+                  ...store.address,
+                  street: e.target.value
+                }
+              })}
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
             <input
               type="text"
               placeholder="Area"
               disabled={verified}
+              value={store.address.area}
+              onChange={(e) => setStore({
+                ...store, 
+                address: {
+                  ...store.address,
+                  area: e.target.value
+                }
+              })}
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
           </div>
@@ -326,12 +390,28 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
               type="text"
               placeholder="City"
               disabled={verified}
+              value={store.address.city}
+              onChange={(e) => setStore({
+                ...store, 
+                address: {
+                  ...store.address,
+                  city: e.target.value
+                }
+              })}
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
             <input
               type="text"
               placeholder="Country"
               disabled={verified}
+              value={store.address.country}
+              onChange={(e) => setStore({
+                ...store, 
+                address: {
+                  ...store.address,
+                  country: e.target.value
+                }
+              })}
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
           </div>
@@ -339,6 +419,8 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
           <textarea
             placeholder="Description"
             disabled={verified}
+            value={store.description}
+            onChange={(e) => setStore({...store, description: e.target.value})}
             className="description-field w-full p-2 border border-gray-300 rounded-md"
           />
 
@@ -347,6 +429,10 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
             type="file"
             disabled={verified}
             accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) setImagef(file);
+            }}
             className="w-full p-2 border border-gray-300 rounded-md"
           />
 
@@ -357,19 +443,36 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
                 type="text"
                 placeholder="Day"
                 disabled={verified}
+                value={hours.day}
+                onChange={(e) => {
+                  const updatedHours = [...store.operatingHours];
+                  updatedHours[idx].day = e.target.value.trim().toUpperCase(); 
+                  setStore({...store, operatingHours: updatedHours});
+                }}
               
               />
               <input
                 type="time"
                 placeholder="Open"
                 disabled={verified}
+                value={hours.open}
+                onChange={(e) => {
+                  const updatedHours = [...store.operatingHours];
+                  updatedHours[idx].open = e.target.value;
+                  setStore({...store, operatingHours: updatedHours});
+                }}
                 
               />
               <input
                 type="time"
                 placeholder="Close"
                 disabled={verified}
-               
+                value={hours.close}
+                onChange={(e) => {
+                  const updatedHours = [...store.operatingHours];
+                  updatedHours[idx].close = e.target.value;
+                  setStore({...store, operatingHours: updatedHours});
+                }}
               />
             </div>
           ))}
@@ -388,6 +491,7 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
             className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md transition duration-200"/>
 
           <Button label="Submit & Join"
+            onClick={handleupdatestore}
             className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"/>
             
         </div>
