@@ -71,17 +71,17 @@ interface BranchDetailsProps {
 
 
 const hardcodedData: Store = {
-  _id: "12345",
-  name: "Leto Abu Dubai Mall Center",
+  _id: "",
+  name: "",
   description:
-    "Indulge in a variety of gourmet pastries, artisanal coffee, and delightful desserts at Leto, conveniently located in Dubai Mall.",
-    managerName: "Sarah",
-    brandId: "60d5ecb8b392f8001f1e1d25",
+    "",
+    managerName: "",
+    brandId: "",
   address: {
-    street: "Financial Center Road",
-    area: "Downtown Dubai",
-    city: "Dubai",
-    country: "United Arab Emirates",
+    street: "",
+    area: "",
+    city: "",
+    country: "",
   },
   location: {
     type: "Point",
@@ -90,9 +90,9 @@ const hardcodedData: Store = {
   contactDetails: {
     phone: {
       countryCode: "+971",
-      number: "43567890",
+      number: "",
     },
-    email: "contact@leto.ae",
+    email: "",
   },
   operatingHours: [
     { day: "MONDAY", open: "09:00", close: "23:00" },
