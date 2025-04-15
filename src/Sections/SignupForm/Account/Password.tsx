@@ -49,7 +49,7 @@ const Password: React.FC = () => {
     try {
       // trigger otp
       const apiurl = process.env.REACT_APP_API_URL;
-      const response = await axios.post(`${apiurl}/api/v1/stores/auth/triggerOTP`,
+      const response = await axios.post(`${apiurl}/api/v1/internal/brand/auth/triggerOTP`,
         {
           purpose: "SIGNUP",
           email: email

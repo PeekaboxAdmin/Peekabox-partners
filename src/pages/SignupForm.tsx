@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import AccountForm from '../Sections/SignupForm/Account/AccountForm';
 import BrandForm1 from '../Sections/SignupForm/Brand/BrandForm';
-
-import BranchForm from '../Sections/SignupForm/Branch/BranchForm';
-
+import { useSelector } from 'react-redux';
+import BranchDetails from '../Sections/SignupForm/Branch/BranchDetails';
 import SurpriseBagForm from '../Sections/SignupForm/SurpriseBag/SurpriseBagForm';
 import AccountPage from './AccountPage';
 import BrandCreated from './BrandCreated';
@@ -15,7 +14,7 @@ import Login from '../Sections/Login/Login';
 import BrandLogin from '../Sections/Login/BrandLogin';
 import ForgotPassword from '../Sections/Login/ForgotPassword';
 import ResetPassword from '../Sections/Login/ResetPassword';
-
+import axios from 'axios';
 import BrandDetailsForm from '../Sections/SignupForm/Brand/BrandDetailsForm';
 import BrandFormStep2 from '../Sections/SignupForm/Brand/BrandFormStep2';
 import BrandFormStep3 from '../Sections/SignupForm/Brand/BrandFormStep3';
@@ -28,7 +27,6 @@ interface BrandData {
     brandName?: string;
     brandAddress?: string;
     phoneNumber?: string;
-    brandCode?: string;
     totalStores?: number;
     managerEmail?: string;
     password?: string;
@@ -42,6 +40,8 @@ const SignupForm: React.FC = () => {
     const [branchData, setBranchData] = useState<any>(null);
     const [totalStores, setTotalStores] = useState<number | null>(null);
     const navigate = useNavigate();
+
+    const brandId = useSelector((state: any) => state.brandAuth.Brand_id);
 
     const handleAccountNext = (data: any) => {
         setAccountData(data);
@@ -62,20 +62,47 @@ const SignupForm: React.FC = () => {
     //     setCurrentBrandStep((prev) => prev + 1);
     // };
 
-    const handleBrandNext = (data: Partial<BrandData>) => {
-        setBrandData((prev) => {
-          const updated = { ...prev, ...data };
+    const handleBrandNext = async (data: Partial<BrandData>) => {
+        const updated = { ...brandData, ...data }; // Assuming `brandData` is available from state
+        setBrandData(updated);
       
-          if (currentBrandStep === 4) {
-            console.log('Final Brand Data:', updated);
-            navigate('/signup/brand-created');
-          } else {
-            setCurrentBrandStep((prevStep) => prevStep + 1);
+        if (currentBrandStep === 4) {
+          console.log('Final Brand Data:', updated);
+      
+          try {
+            const apiurl = process.env.REACT_APP_API_URL;
+            const response = await axios.post(
+              `${apiurl}/api/v1/internal/brand/Update/${brandId}`,
+              {
+                name: updated.brandName,
+                address: updated.brandAddress,
+                ManagerEmail: updated.managerEmail,
+                phoneNumber: updated.phoneNumber,
+                totalStores: updated.totalStores,
+                image: 'Default/PATH', 
+              },
+              {
+                withCredentials: true
+              }
+            );
+
+            if (response.status === 200) {
+                navigate('/signup/brand-created');
+            }
+      
+            // Handle response if needed
+            console.log('Server response:', response.data);
+      
+          } catch (error) {
+            console.error('Error updating brand:', error);
           }
       
-          return updated;
-        });
-    };
+          
+        } else {
+          setCurrentBrandStep((prevStep) => prevStep + 1);
+        }
+      };
+      
     
     const handleBrandBack = () => {
     setCurrentBrandStep((prev) => Math.max(prev - 1, 1));
@@ -85,26 +112,7 @@ const SignupForm: React.FC = () => {
         setBranchData(data);
     };
 
-    // const handleBranchNext = (data: any) => {
-    //     // setBranchData(data);
-    //     // setBranchData((prev: any) => ({ ...prev, ...data }));
-      
-    //     // if (currentBranchStep < 3) {
-    //     //   setCurrentBranchStep((prev) => prev + 1);
-    //     // } else if (totalStores && currentBranchIndex < totalStores) {
-    //     //   // Finished one branch, reset step and go to next branch
-    //     //   setCurrentBranchIndex((prev) => prev + 1);
-    //     //   setCurrentBranchStep(1);
-    //     // } else {
-    //     //   // All branches done — redirect
-    //     //   navigate('/signup/login');
-    //     // }
-    //   };
-      
 
-    // const handleBranchBack = () => {
-    //     setCurrentBranchStep((prev) => prev - 1);
-    // };
 
     return (
         <Routes>
@@ -139,35 +147,7 @@ const SignupForm: React.FC = () => {
 
                 <Route path="brand-created" element={<BrandCreated />} />
 
-                {/* Branch Creation Steps */}
-                {/* <Route
-                path="branches"
-                element={
-                    currentBranchStep === 1 ? (
-                    <BranchDetailsForm
-                        onNext={handleBranchNext}
-                        branchNumber={currentBranchIndex}
-                        totalStores={totalStores!}
-                    />
-                    ) : currentBranchStep === 2 ? (
-                    <BranchFormStep2
-                        onNext={handleBranchNext}
-                        onBack={handleBranchBack}
-                        branchNumber={currentBranchIndex}
-                        totalStores={totalStores!}
-                    />
-                    ) : (
-                    <BranchFormStep3
-                        onNext={handleBranchNext}
-                        onBack={handleBranchBack}
-                        branchNumber={currentBranchIndex}
-                        totalStores={totalStores!}
-                    />
-                    )
-                }
-                /> */}
-
-                <Route path="branches" element={<BranchForm onNext={handleBranchNext} />} />
+                <Route path="branches" element={<BranchDetails/>} />
                 <Route path="view-branches" element={<ViewBranches />} />
 
                 <Route path="Created-Account" element={<AccountPage/>} />

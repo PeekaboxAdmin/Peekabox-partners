@@ -10,6 +10,7 @@ import '../Style/Signup.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setStoreAuth } from '../../../GlobalStateManagement/storeAuthSlice';
+import { setBrandAuth } from '../../../GlobalStateManagement/brandAuthSlice';
 
 const VerifyEmail: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const VerifyEmail: React.FC = () => {
     try {
       const apiurl = process.env.REACT_APP_API_URL;
       // API call to verify the OTP
-      const response = await axios.post(`${apiurl}/api/v1/stores/auth/verifyOTP`, {
+      const response = await axios.post(`${apiurl}/api/v1/internal/brand/auth/verifyOTP`, {
           purpose: "SIGNUP",
           email: email,
           OTPValue: otp,
@@ -44,11 +45,9 @@ const VerifyEmail: React.FC = () => {
     );
       if (response.status === 200) {
         console.log('OTP verified successfully');
-        const storeId = response.data.data.storeAuth._id;
-        console.log(storeId)
-         dispatch(setStoreAuth({ Store_id: storeId }));
-        // Navigate to the dashboard or success page
-        // navigate('/StoreCreate');
+        const brandId = response.data.data.brandAuth._id;
+        console.log(brandId)
+         dispatch(setBrandAuth({ Brand_id: brandId }));
         navigate('/signup/Created-Account');
 
       }

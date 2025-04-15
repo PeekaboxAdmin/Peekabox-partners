@@ -26,7 +26,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     try {
       const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
-        `${apiurl}/api/v1/stores/auth/initAuth`,
+        `${apiurl}/api/v1/internal/brand/auth/initAuth`,
         { email: email.trim() }
       );
   
@@ -68,7 +68,7 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         <form onSubmit={handleEmailSubmit} className="login-form">
           <div className="heading-container">
             <h1 className="signup-title">Sign up your business</h1>
-            <p className="signup-subtitle">Enter your email and get started in a few minutes!</p>
+            <p className="signup-subtitle">Enter your email to sign up your brand !</p>
           </div>
 
           <div className="input-group-login password-input">
