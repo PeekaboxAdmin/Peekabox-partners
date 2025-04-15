@@ -26,3 +26,16 @@
 .fontWeightChange{
     font-weight: 600 !important;
 }
+
+.paddingChangeTitle{
+    padding: 15px !important;
+}
+
+.paddingChangeBody{
+    padding: 25px !important;
+}
+
+.marginTopChange{
+    width: 1200px !important;
+    margin: 75px auto !important;
+}
