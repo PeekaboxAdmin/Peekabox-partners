@@ -6,6 +6,7 @@ import './SurpriseBoxManagement.css';
 import Logo1 from './Images/food.jpg';
 import Logo from './Images/burger.jpg';
 import CreateBagForm from './CreateBag';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import MobileSidebar from './SideBarMobile';
@@ -36,7 +37,7 @@ const SurpriseBoxManagement: React.FC = () => {
   const [loading, setLoading] = useState(true); // State for loading indicator
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [storedImageUrl, setImageURL] = useState('');
-
+  const navigate = useNavigate();
   const storeId = useSelector((state: any) => state.storeAuth.Store_id);
 
   useEffect(() => {
@@ -211,9 +212,9 @@ const SurpriseBoxManagement: React.FC = () => {
                       </span>
                   </div>
                   <div className="card-actions">
-                    <button onClick={() => setIsCreatingBag(true)}>
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
+                  <button onClick={() => navigate('/ProductEdit', { state: { bagId: bag.id } })}>
+                   <FontAwesomeIcon icon={faEdit} />
+                  </button>
                     <button onClick={() => handleDelete(bag.id)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>

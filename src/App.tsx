@@ -13,6 +13,7 @@ import SignupForm from './pages/SignupForm';
 import SettingsPage from './pages/Setting/Setting';
 import StoreCreate from './Components/StoreCreate';
 import NotificationPage from './pages/NotifcationPage/NotifcationPage';
+import ProductEditor from './Components/ProductEdit';
 
 import store from './GlobalStateManagement/store'; 
 import './App.css';
@@ -48,6 +49,8 @@ const AppContent: React.FC = () => {
                     <Route path="/signup/*" element={<SignupForm />} />
                     <Route path="/notifications" element={<NotificationPage />} />
                     <Route path="/StoreCreate" element={<StoreCreate/>} />
+                    <Route path="/ProductEdit" element={<ProductEditor/>} />
+                    
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
               {/* Show Footer if User is Logged In */}

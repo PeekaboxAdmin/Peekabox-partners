@@ -1,0 +1,142 @@
+/* ProductEditor.css */
+product-editor-container-main{
+    
+}
+
+.header-product-edit{
+    visibility: hidden;
+}
+/* Show on tablet/mobile (max-width: 1024px or 768px) */
+@media (max-width: 1024px) {
+    .header-product-edit {
+      visibility: visible;
+    }
+  }
+
+.product-editor-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .product-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .full-width {
+    flex: 1 1 100%;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #222;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline-color: #0077ff;
+  }
+  
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  .checkbox-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .day-schedule {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .day-schedule h4 {
+    margin-bottom: 0.5rem;
+    color: #555;
+  }
+  
+  .day-inputs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .day-inputs input {
+    flex: 1 1 100px;
+  }
+  
+  .save-button {
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+    background-color: pink;
+    color: #fff;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .image-preview {
+    width: 100%;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    max-height: 300px;
+    object-fit:contain;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .save-button:hover {
+    background-color: pink;
+  }
+  
+  @media (max-width: 600px) {
+    .form-group {
+      flex: 1 1 100%;
+    }
+  }
+  
