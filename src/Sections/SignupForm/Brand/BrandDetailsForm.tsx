@@ -47,7 +47,7 @@ const BrandDetailsForm: React.FC<{ onNext: (data: any) => void }> = ({ onNext })
               <input
                 id="branchAddress"
                 type="text"
-                placeholder="Type the Branch Address"
+                placeholder="Type the Brand Address"
                 value={brandAddress}
                 onChange={(e) => setBrandAddress(e.target.value)}
                 className="form-input"

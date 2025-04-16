@@ -47,21 +47,6 @@ const SignupForm: React.FC = () => {
         setAccountData(data);
     };
 
-    // const handleBrandNext = (data: any) => {
-    //     setBrandData(data);
-    //     setTotalStores(data.totalStores);
-    // };
-
-    // const handleBrandNext = (data: any) => {
-    //     setBrandData((prev) => ({ ...prev, ...data }));
-        
-    //     if (data.totalStores) {
-    //         setTotalStores(data.totalStores); // Still supports setting totalStores if passed
-    //     }
-    
-    //     setCurrentBrandStep((prev) => prev + 1);
-    // };
-
     const handleBrandNext = async (data: Partial<BrandData>) => {
         const updated = { ...brandData, ...data }; // Assuming `brandData` is available from state
         setBrandData(updated);
@@ -120,8 +105,6 @@ const SignupForm: React.FC = () => {
                 <Route index element={<AccountForm onNext={handleAccountNext} />} />
                 <Route path="password" element={<Password/>} />
                 <Route path="verify-email" element={<VerifyEmail/>} />
-
-                {/* <Route path="brandform2" element={<BrandForm1 onNext={handleBrandNext} />} /> */}
 
                 <Route path="brandform" element={
                     currentBrandStep === 1 ? (
