@@ -110,6 +110,7 @@ const hardcodedData: Store = {
 };
 
 const BranchDetails: React.FC<BranchDetailsProps> = () => {
+  const [currentStep, setCurrentStep] = useState(1);
   const [verified, setVerified] = useState(true);
   const [verifiedEmail, setVerifiedEmail] = useState(false);
   const dispatch = useDispatch();
@@ -120,7 +121,6 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [activeMessage, setActiveMessage] = useState('');
-  const [expanded, setExpanded] = useState(false);
   const apiurl = process.env.REACT_APP_API_URL;
   const [imagef, setImagef] = useState<File | null>(null);
 
@@ -148,6 +148,8 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
         setActiveMessage('Email and password are added you may proceed with adding other store details');
         setErrorMessage('')
         setVerifiedEmail(true)
+        setStore({ ...store, contactDetails: { ...store.contactDetails, email } }); // Set branch email to login email
+        setCurrentStep(2); // Move to the next step
       }
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
@@ -243,269 +245,585 @@ const BranchDetails: React.FC<BranchDetailsProps> = () => {
     navigate('/signup/brand-created')
   }
 
+  // return (
+  //   <div className="space-y-6 px-4 sm:px-6 lg:px-8 mt-10 marginTopChange">
+  //     <Triangle>
+
+  //       <div className="w-full max-w-4xl">
+  //         <HeaderBar>
+  //           Add Branch
+  //         </HeaderBar>
+  //       </div>
+
+  //       <div className="mt-4 space-y-6 paddingChangeBody">
+  //         <input
+  //           type="email"
+  //           placeholder="Login Email"     
+  //           disabled={verifiedEmail}
+  //           value={email}
+  //           onChange={(e) => setEmail(e.target.value)}
+  //           required
+  //           className="flex-1 p-2 border border-gray-300 rounded-md"
+  //         />
+  //         <input
+  //           type="password"
+  //           placeholder="Password"
+  //           disabled={verifiedEmail}
+  //           value={password}
+  //           onChange={(e) => setPassword(e.target.value)}
+  //           required
+  //           className="flex-1 p-2 border border-gray-300 rounded-md"
+  //         />
+
+  //         <div className='flex flex-col gap-4'>
+  //           <Button
+  //             label="Add email and password"
+  //             type="button"
+  //             className="mt-2 w-1/4 ml-2 bg-pinkCustom border-none text-white py-2 px-4 rounded-md"
+  //             onClick={verifiedHandle}
+  //           />
+  //           <label className='ml-2 mb-2 text-red-900'>{errorMessage}</label>
+  //           <label className='ml-2 mb-2 text-gray-600'>Add email and password first to input other details</label>
+  //           <label className='ml-2 text-green-500'>{activeMessage}</label>
+  //         </div>
+
+  //         <div className="flex flex-wrap gap-4">
+  //           <input
+  //             type="text"
+  //             placeholder="Branch Name"
+  //             disabled={verified}
+  //             value={store.name}
+  //             onChange={(e) => setStore({...store, name: e.target.value})}
+  //             required
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //           <div className="input-container flex-1">
+  //             <select
+  //               disabled={verified}
+  //               value={store.category}
+  //               onChange={(e) => setStore({...store, category: e.target.value})}
+  //               required
+  //               className="input-field-branchDetails w-full p-2 border border-gray-300 rounded-md"
+  //             >
+  //               <option value="">Select Store Type</option>
+  //               {storeTypes.map((type, i) => (
+  //                 <option key={i} value={type.toLowerCase()}>{type}</option>
+  //               ))}
+  //             </select>
+  //           </div>
+  //         </div>
+
+  //         <div className="flex flex-wrap gap-4">
+  //           <input
+  //             type="text"
+  //             placeholder="Branch Phone Number"
+  //             disabled={verified}
+  //             value={store.contactDetails.phone.number}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               contactDetails: {
+  //                 ...store.contactDetails,
+  //                 phone: {
+  //                   ...store.contactDetails.phone,
+  //                   number: e.target.value
+  //                 }
+  //               }
+  //             })}
+  //             required
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //           <input
+  //             type="text"
+  //             placeholder="Manager's Name"
+  //             disabled={verified}
+  //             value={store.managerName}
+  //             onChange={(e) => setStore({...store, managerName: e.target.value})}
+  //             required
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+
+  //           <input
+  //             type="text"
+  //             placeholder="Branch Email"
+  //             disabled={verified}
+  //             value={store.contactDetails.email}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               contactDetails: {
+  //                 ...store.contactDetails,
+  //                 email: e.target.value
+  //               }
+  //             })}
+  //             required
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //         </div>
+
+  //         <div className="flex flex-wrap gap-4">
+  //           <input
+  //             type="text"
+  //             placeholder="Street"
+  //             disabled={verified}
+  //             value={store.address.street}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               address: {
+  //                 ...store.address,
+  //                 street: e.target.value
+  //               }
+  //             })}
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //           <input
+  //             type="text"
+  //             placeholder="Area"
+  //             disabled={verified}
+  //             value={store.address.area}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               address: {
+  //                 ...store.address,
+  //                 area: e.target.value
+  //               }
+  //             })}
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //         </div>
+
+  //         <div className="flex flex-wrap gap-4">
+  //           <input
+  //             type="text"
+  //             placeholder="City"
+  //             disabled={verified}
+  //             value={store.address.city}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               address: {
+  //                 ...store.address,
+  //                 city: e.target.value
+  //               }
+  //             })}
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //           <input
+  //             type="text"
+  //             placeholder="Country"
+  //             disabled={verified}
+  //             value={store.address.country}
+  //             onChange={(e) => setStore({
+  //               ...store, 
+  //               address: {
+  //                 ...store.address,
+  //                 country: e.target.value
+  //               }
+  //             })}
+  //             className="flex-1 p-2 border border-gray-300 rounded-md"
+  //           />
+  //         </div>
+
+  //         <textarea
+  //           placeholder="Description"
+  //           disabled={verified}
+  //           value={store.description}
+  //           onChange={(e) => setStore({...store, description: e.target.value})}
+  //           className="description-field w-full p-2 border border-gray-300 rounded-md"
+  //         />
+
+  //         <h4 className="mt-4 text-lg fontWeightChange">Store Logo</h4>
+  //         <input
+  //           type="file"
+  //           disabled={verified}
+  //           accept="image/*"
+  //           onChange={(e) => {
+  //             const file = e.target.files?.[0];
+  //             if (file) setImagef(file);
+  //           }}
+  //           className="w-full p-2 border border-gray-300 rounded-md"
+  //         />
+
+  //         <h4 className="mt-4 text-lg fontWeightChange">Operating Hours</h4>
+  //         {store.operatingHours.map((hours, idx) => (
+  //           <div key={idx} className="flex gap-4 items-center mb-2">
+  //             <input
+  //               type="text"
+  //               placeholder="Day"
+  //               disabled={verified}
+  //               value={hours.day}
+  //               onChange={(e) => {
+  //                 const updatedHours = [...store.operatingHours];
+  //                 updatedHours[idx].day = e.target.value.trim().toUpperCase(); 
+  //                 setStore({...store, operatingHours: updatedHours});
+  //               }}
+              
+  //             />
+  //             <input
+  //               type="time"
+  //               placeholder="Open"
+  //               disabled={verified}
+  //               value={hours.open}
+  //               onChange={(e) => {
+  //                 const updatedHours = [...store.operatingHours];
+  //                 updatedHours[idx].open = e.target.value;
+  //                 setStore({...store, operatingHours: updatedHours});
+  //               }}
+                
+  //             />
+  //             <input
+  //               type="time"
+  //               placeholder="Close"
+  //               disabled={verified}
+  //               value={hours.close}
+  //               onChange={(e) => {
+  //                 const updatedHours = [...store.operatingHours];
+  //                 updatedHours[idx].close = e.target.value;
+  //                 setStore({...store, operatingHours: updatedHours});
+  //               }}
+  //             />
+  //           </div>
+  //         ))}
+  //         <Button
+  //           label="Add Operating Hour"
+  //           className="mt-4 bg-pinkCustom changeBorderColor text-white py-2 px-4 rounded-md"
+  //           type="button"
+  //           onClick={addOperatingHour}
+  //         />
+  //       </div>
+      
+  //       <div className="flex justify-end space-x-4 mt-4 px-4 pb-4">
+  //         <Button label="Back"
+  //           className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md transition duration-200"
+  //           onClick={HandleBack}/>
+
+  //         <Button label="Submit & Join"
+  //           onClick={handleupdatestore}
+  //           className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"/>
+            
+  //       </div>
+  //     </Triangle>
+  //   </div>
+  // );
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <div className="mt-4 space-y-6">
+            <div className="form-step-branch">
+              <div className="step-badge-branch">1</div>
+              <div className='form-group-branch'>
+                <h2 className="form-title-branch">Brand Address</h2>
+                <input
+                  type="email"
+                  placeholder="Branch Email"
+                  disabled={verifiedEmail}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="form-input-branch"
+                />
+              </div>
+            </div>
+
+            <div className="form-separator-branch"></div>
+
+            <div className="form-step-branch">
+              <div className="step-badge-branch">2</div>
+              <div className='form-group-branch'>
+              <h2 className="form-title-branch">Brand Email Password</h2>
+              <input
+                  type="password"
+                  placeholder="Password"
+                  disabled={verifiedEmail}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="form-input-branch"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <Button
+                label="Next"
+                type="button"
+                className="form-button-branch"
+                onClick={verifiedHandle}
+              />
+              <label className="ml-2 mb-2 text-red-900">{errorMessage}</label>
+              <label className="ml-2 text-green-500">{activeMessage}</label>
+            </div>
+          </div>
+        );
+  
+      case 2:
+        return (
+            <div className="mt-4 space-y-6">
+              <div className="form-step-branch">
+                <div className="step-badge-branch">3</div>
+                <div className='form-group-branch'>
+                  <h2 className="form-title-branch">Branch Name</h2>
+                  <input
+                    type="text"
+                    placeholder="Branch Name"
+                    disabled={verified}
+                    value={store.name}
+                    onChange={(e) => setStore({ ...store, name: e.target.value })}
+                    required
+                    className="form-input-branch"
+                  />
+                </div>
+              </div>
+            
+              <div className="form-separator-branch"></div>
+            
+              <div className="form-step-branch">
+                <div className="step-badge-branch">4</div>
+                <div className='form-group-branch'>
+                  <h2 className="form-title-branch">Branch Description</h2>
+                  <textarea
+                  placeholder="Description"
+                  disabled={verified}
+                  value={store.description}
+                  onChange={(e) => setStore({ ...store, description: e.target.value })}
+                  className="description-field w-full p-2 border border-gray-300 rounded-md"
+                />
+                </div>
+              </div>
+
+              <div className="form-separator-branch"></div>
+
+              <div className="form-step-branch">
+                <div className="step-badge-branch">5</div>
+                <div className='form-group-branch'>
+                  <h2 className="form-title-branch">Select Store Type</h2>
+                  <select
+                    disabled={verified}
+                    value={store.category}
+                    onChange={(e) => setStore({...store, category: e.target.value})}
+                    required
+                    className="input-field-branchDetails w-full p-2 border border-gray-300 rounded-md"
+                  >
+                    <option value="">Select Store Type</option>
+                    {storeTypes.map((type, i) => (
+                      <option key={i} value={type.toLowerCase()}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-separator-branch"></div>
+            
+              <div className="form-step-branch">
+                <div className="step-badge-branch">6</div>
+                <div className='form-group-branch'>
+                  <h2 className="form-title-branch">Branch Phone Number</h2>
+                  <input
+                    type="text"
+                    placeholder="Branch Phone Number"
+                    disabled={verified}
+                    value={store.contactDetails.phone.number}
+                    onChange={(e) => setStore({
+                      ...store,
+                      contactDetails: {
+                        ...store.contactDetails,
+                        phone: { ...store.contactDetails.phone, number: e.target.value },
+                      },
+                    })}
+                    required
+                    className="form-input-branch"
+                  />
+                </div>
+              </div>
+  
+              <div className="form-separator-branch"></div>
+  
+              <div className="form-step-branch">
+                <div className="step-badge-branch">7</div>
+                <div className="form-group-branch">
+                  <h2 className="form-title-branch">Branch Address</h2>
+                  
+                  <div className="flex flex-wrap gap-4">
+                    <input
+                      type="text"
+                      placeholder="Street"
+                      disabled={verified}
+                      value={store.address.street}
+                      onChange={(e) => setStore({
+                        ...store,
+                        address: { ...store.address, street: e.target.value },
+                      })}
+                      className="flex-1 p-2 border border-gray-300 rounded-md"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Area"
+                      disabled={verified}
+                      value={store.address.area}
+                      onChange={(e) => setStore({
+                        ...store,
+                        address: { ...store.address, area: e.target.value },
+                      })}
+                      className="flex-1 p-2 border border-gray-300 rounded-md"
+                    />
+                  </div>
+
+                  <div className="flex flex-wrap gap-4 mt-4">
+                    <input
+                      type="text"
+                      placeholder="City"
+                      disabled={verified}
+                      value={store.address.city}
+                      onChange={(e) => setStore({
+                        ...store,
+                        address: { ...store.address, city: e.target.value },
+                      })}
+                      className="flex-1 p-2 border border-gray-300 rounded-md"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Country"
+                      disabled={verified}
+                      value={store.address.country}
+                      onChange={(e) => setStore({
+                        ...store,
+                        address: { ...store.address, country: e.target.value },
+                      })}
+                      className="flex-1 p-2 border border-gray-300 rounded-md"
+                    />
+                  </div>
+
+                </div>
+              </div>
+
+              <div className="form-separator-branch"></div>
+
+              <div className="form-step-branch">
+                <div className="step-badge-branch">8</div>
+                <div className="form-group-branch">
+                  <h2 className="form-title-branch">Manager's Name</h2>
+                  <input
+                    type="text"
+                    placeholder="Manager's Name"
+                    disabled={verified}
+                    value={store.managerName}
+                    onChange={(e) => setStore({...store, managerName: e.target.value})}
+                    required
+                    className="form-input-branch"
+                  />
+                </div>
+              </div>
+
+              <div className="button-container">
+                <Button
+                  label="Back"
+                  type="button"
+                  className="form-button-branch-case2"
+                  onClick={() => setCurrentStep(1)}
+                />
+                <Button
+                  label="Next"
+                  type="button"
+                  className="form-button-branch-case2"
+                  onClick={() => setCurrentStep(3)}
+                />
+              </div>
+
+          </div>  
+        );
+        case 3:
+          return (
+            <div className="mt-4 space-y-6 paddingChangeBody">
+        
+              <div className="form-step-branch">
+                <div className="step-badge-branch">9</div>
+                <div className="form-group-branch">
+                  <h2 className="form-title-branch">Operating Hours</h2>
+        
+                  {store.operatingHours.map((hours, idx) => (
+                    <div key={idx} className="flex flex-wrap gap-4 mb-4">
+                      <select
+                        disabled={verified}
+                        value={hours.day}
+                        onChange={(e) => {
+                          const updatedHours = [...store.operatingHours];
+                          updatedHours[idx].day = e.target.value;
+                          setStore({ ...store, operatingHours: updatedHours });
+                        }}
+                        className="form-input-branch operating-hours-width"
+                      >
+                        <option value="">Select Day</option>
+                        <option value="Sunday">SUNDAY</option>
+                        <option value="Monday">MONDAY</option>
+                        <option value="Tuesday">TUESDAY</option>
+                        <option value="Thursday">THURSDAY</option>
+                        <option value="Friday">FRIDAY</option>
+                        <option value="Saturday">SATURDAY</option>
+                      </select>
+
+                      <input
+                        type="time"
+                        placeholder="Open"
+                        disabled={verified}
+                        value={hours.open}
+                        onChange={(e) => {
+                          const updatedHours = [...store.operatingHours];
+                          updatedHours[idx].open = e.target.value;
+                          setStore({ ...store, operatingHours: updatedHours });
+                        }}
+                        className="form-input-branch operating-hours-width"
+                      />
+                      <input
+                        type="time"
+                        placeholder="Close"
+                        disabled={verified}
+                        value={hours.close}
+                        onChange={(e) => {
+                          const updatedHours = [...store.operatingHours];
+                          updatedHours[idx].close = e.target.value;
+                          setStore({ ...store, operatingHours: updatedHours });
+                        }}
+                        className="form-input-branch operating-hours-width"
+                      />
+                    </div>
+                  ))}
+
+                  <Button
+                    label="Add Operating Hour"
+                    className="mt-4 changeBorderColor text-white py-2 px-4 rounded-md button-pink-color"
+                    type="button"
+                    onClick={addOperatingHour}
+                  />
+                </div>
+              </div>
+        
+              <div className="button-container">
+                <Button
+                  label="Back"
+                  type="button"
+                  className="form-button-branch-case3"
+                  onClick={() => setCurrentStep(2)} // Go back to Case 2
+                />
+                <Button
+                  label="Submit & Join"
+                  onClick={handleupdatestore}
+                  className="form-button-branch-case3"
+                />
+              </div>
+        
+            </div>
+          );        
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="space-y-6 px-4 sm:px-6 lg:px-8 mt-10 marginTopChange">
       <Triangle>
-
         <div className="w-full max-w-4xl">
-          <HeaderBar>
-            Add Branch
-          </HeaderBar>
+          <HeaderBar>Add Branch</HeaderBar>
         </div>
-
-        <h3
-          onClick={()=>setExpanded(true)}
-          className="paddingChangeTitle text-xl font-semibold text-black-600 cursor-pointer"
-        >
-          Branch {expanded ? '▲' : '▼'}
-        </h3>
-
-        {expanded && (
-          <div className="mt-4 space-y-6 paddingChangeBody">
-            <input
-              type="email"
-              placeholder="Login Email"     
-              disabled={verifiedEmail}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1 p-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              disabled={verifiedEmail}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="flex-1 p-2 border border-gray-300 rounded-md"
-            />
-
-            <div className='flex flex-col gap-4'>
-              <Button
-                label="Add email and password"
-                type="button"
-                className="mt-2 w-1/4 ml-2 bg-pinkCustom border-none text-white py-2 px-4 rounded-md"
-                onClick={verifiedHandle}
-              />
-              <label className='ml-2 mb-2 text-red-900'>{errorMessage}</label>
-              <label className='ml-2 mb-2 text-gray-600'>Add email and password first to input other details</label>
-              <label className='ml-2 text-green-500'>{activeMessage}</label>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <input
-                type="text"
-                placeholder="Branch Name"
-                disabled={verified}
-                value={store.name}
-                onChange={(e) => setStore({...store, name: e.target.value})}
-                required
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-              <div className="input-container flex-1">
-                <select
-                  disabled={verified}
-                  value={store.category}
-                  onChange={(e) => setStore({...store, category: e.target.value})}
-                  required
-                  className="input-field-branchDetails w-full p-2 border border-gray-300 rounded-md"
-                >
-                  <option value="">Select Store Type</option>
-                  {storeTypes.map((type, i) => (
-                    <option key={i} value={type.toLowerCase()}>{type}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <input
-                type="text"
-                placeholder="Branch Phone Number"
-                disabled={verified}
-                value={store.contactDetails.phone.number}
-                onChange={(e) => setStore({
-                  ...store, 
-                  contactDetails: {
-                    ...store.contactDetails,
-                    phone: {
-                      ...store.contactDetails.phone,
-                      number: e.target.value
-                    }
-                  }
-                })}
-                required
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                placeholder="Manager's Name"
-                disabled={verified}
-                value={store.managerName}
-                onChange={(e) => setStore({...store, managerName: e.target.value})}
-                required
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-
-              <input
-                type="text"
-                placeholder="Branch Email"
-                disabled={verified}
-                value={store.contactDetails.email}
-                onChange={(e) => setStore({
-                  ...store, 
-                  contactDetails: {
-                    ...store.contactDetails,
-                    email: e.target.value
-                  }
-                })}
-                required
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <input
-                type="text"
-                placeholder="Street"
-                disabled={verified}
-                value={store.address.street}
-                onChange={(e) => setStore({
-                  ...store, 
-                  address: {
-                    ...store.address,
-                    street: e.target.value
-                  }
-                })}
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                placeholder="Area"
-                disabled={verified}
-                value={store.address.area}
-                onChange={(e) => setStore({
-                  ...store, 
-                  address: {
-                    ...store.address,
-                    area: e.target.value
-                  }
-                })}
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <input
-                type="text"
-                placeholder="City"
-                disabled={verified}
-                value={store.address.city}
-                onChange={(e) => setStore({
-                  ...store, 
-                  address: {
-                    ...store.address,
-                    city: e.target.value
-                  }
-                })}
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                placeholder="Country"
-                disabled={verified}
-                value={store.address.country}
-                onChange={(e) => setStore({
-                  ...store, 
-                  address: {
-                    ...store.address,
-                    country: e.target.value
-                  }
-                })}
-                className="flex-1 p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <textarea
-              placeholder="Description"
-              disabled={verified}
-              value={store.description}
-              onChange={(e) => setStore({...store, description: e.target.value})}
-              className="description-field w-full p-2 border border-gray-300 rounded-md"
-            />
-
-            <h4 className="mt-4 text-lg fontWeightChange">Store Logo</h4>
-            <input
-              type="file"
-              disabled={verified}
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) setImagef(file);
-              }}
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
-
-            <h4 className="mt-4 text-lg fontWeightChange">Operating Hours</h4>
-            {store.operatingHours.map((hours, idx) => (
-              <div key={idx} className="flex gap-4 items-center mb-2">
-                <input
-                  type="text"
-                  placeholder="Day"
-                  disabled={verified}
-                  value={hours.day}
-                  onChange={(e) => {
-                    const updatedHours = [...store.operatingHours];
-                    updatedHours[idx].day = e.target.value.trim().toUpperCase(); 
-                    setStore({...store, operatingHours: updatedHours});
-                  }}
-                
-                />
-                <input
-                  type="time"
-                  placeholder="Open"
-                  disabled={verified}
-                  value={hours.open}
-                  onChange={(e) => {
-                    const updatedHours = [...store.operatingHours];
-                    updatedHours[idx].open = e.target.value;
-                    setStore({...store, operatingHours: updatedHours});
-                  }}
-                  
-                />
-                <input
-                  type="time"
-                  placeholder="Close"
-                  disabled={verified}
-                  value={hours.close}
-                  onChange={(e) => {
-                    const updatedHours = [...store.operatingHours];
-                    updatedHours[idx].close = e.target.value;
-                    setStore({...store, operatingHours: updatedHours});
-                  }}
-                />
-              </div>
-            ))}
-            <Button
-              label="Add Operating Hour"
-              className="mt-4 bg-pinkCustom changeBorderColor text-white py-2 px-4 rounded-md"
-              type="button"
-              onClick={addOperatingHour}
-            />
-          </div>
-        )}
-
-        <div className="flex justify-end space-x-4 mt-4 px-4 pb-4">
-          <Button label="Back"
-            className="px-4 py-2 bg-white text-pinkCustom border-2 border-pinkCustom rounded-md transition duration-200"
-            onClick={HandleBack}/>
-
-          <Button label="Submit & Join"
-            onClick={handleupdatestore}
-            className="px-6 py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"/>
-            
-        </div>
+        {renderStep()}
       </Triangle>
     </div>
   );

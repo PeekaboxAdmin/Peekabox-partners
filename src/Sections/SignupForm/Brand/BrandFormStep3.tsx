@@ -22,7 +22,7 @@ const BrandFormStep3: React.FC<{ onNext: (data: { managerEmail: string }) => voi
 
         <form className="branch-form-step3" onSubmit={handleSubmit}>
           <div className="form-step">
-            <div className="step-badge">5</div>
+            <div className="step-badge">4</div>
             <div className="form-group">
               <h2 className="form-title">Create Manager Email to contact</h2>
               <p className="form-description">

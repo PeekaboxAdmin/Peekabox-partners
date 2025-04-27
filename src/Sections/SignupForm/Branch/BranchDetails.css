@@ -39,3 +39,128 @@
     width: 1200px !important;
     margin: 75px auto !important;
 }
+
+.form-step-branch {
+    display: flex;
+    gap: 20px;
+    padding: 30px 40px 0 40px;
+    margin-top: 0px !important;
+}
+
+.form-separator-branch {
+    border-top: 1px solid #ddd;
+    margin: 0 40px;
+}
+
+.step-badge-branch{
+    width: 28px;
+    height: 28px;
+    background-color: #004225;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.form-group-branch {
+    flex: 1;
+}
+
+.form-title-branch {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 0 6px 0;
+    padding-bottom: 20px;
+}
+
+.form-input-branch {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #000;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* border-bottom: 1px solid #ccc; */
+    background-color: transparent;
+}
+  
+.form-input-branch::placeholder {
+color: #bbb;
+}
+  
+.form-input-branch:focus {
+    outline: none;
+    border-bottom-color: #004225;
+}
+
+.form-button-branch {
+    align-self: flex-end;
+    margin: 30px;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #ff69b4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .form-button-branch:hover {
+    background-color: #ff82c4;
+  }
+
+  .form-button-branch-case2 {
+    align-self: flex-end;
+    margin: 15px;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #ff69b4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .form-button-branch-case2:hover {
+    background-color: #ff82c4;
+  }
+
+  .form-button-branch-case3 {
+    align-self: flex-end;
+    margin: 5px;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #ff69b4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .form-button-branch-case3:hover {
+    background-color: #ff82c4;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the end */
+  }
+  
+  .button-pink-color{
+    background-color: #ff69b4;
+  }
+
+  .operating-hours-width{
+    width: 200px;
+  }
