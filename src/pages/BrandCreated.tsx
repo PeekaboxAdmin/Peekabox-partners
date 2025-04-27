@@ -39,7 +39,7 @@ const BrandCreated: React.FC = () => {
 
         <div className="brand-created-body">
           <p className="brand-created-subtitle">
-            Add a new branch or view existing ones.
+            Do you want to add additional branches?
           </p>
 
           <div className="brand-created-button-row">
@@ -58,7 +58,7 @@ const BrandCreated: React.FC = () => {
             <Button
               label="Logout"
               onClick={handleLogout}
-              className="px-4 py-2 bg-gray-200 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-300 transition duration-200"
+              className="px-4 sm:px-6 py-2 sm:py-3 bg-pinkCustom text-white border-2 border-pinkCustom rounded-md transition duration-200"
             />
           </div>
         </div>

@@ -7,7 +7,6 @@
   padding: 0;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -79,11 +78,6 @@
 .form-input:focus {
   outline: none;
   border-bottom-color: #004225;
-}
-
-.form-separator {
-  border-top: 1px solid #ddd;
-  margin: 0 40px;
 }
 
 .form-buttons {

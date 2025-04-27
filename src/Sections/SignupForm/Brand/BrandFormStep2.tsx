@@ -44,8 +44,6 @@ const BrandFormStep2: React.FC<{onNext: (data: { phoneNumber: string }) => void;
             </div>
           </div>
 
-          <div className="form-separator"></div>
-
           <div className="form-buttons">
             <Button label="Back" onClick={onBack} className="back-button" />
             <Button label="Next" type="submit" className="next-button" />
