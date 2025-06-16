@@ -1,31 +1,63 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { setStoreAuth } from "../../GlobalStateManagement/storeAuthSlice";
+'use client';
+
+import type React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { setStoreAuth } from '../../GlobalStateManagement/storeAuthSlice';
 
 import SignupImage from '../../assets/images/Signup.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [rememberMe, setRememberMe] = useState<boolean>(false); // "Keep me logged in" state
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
+
+    // Reset errors
+    setErrors({});
+
+    // Validate inputs
+    const newErrors: { email?: string; password?: string } = {};
+
+    if (!email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    }
+
+    // If there are errors, set them and return
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
-      const apiurl = process.env.REACT_APP_API_URL
+      const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
         `${apiurl}/api/v1/stores/auth/logIn`,
         { email, password },
-        { withCredentials: true, }
+        { withCredentials: true }
       );
       if (response.data.success) {
-        alert("Login successful!");
+        alert('Login successful!');
         const storeId = response.data.data.storeAuth._id;
 
         // Dispatch an object that matches StoreAuthState
@@ -33,83 +65,102 @@ const Login: React.FC = () => {
 
         // Store token depending on "Keep me logged in"
         if (rememberMe) {
-          localStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Persistent login
+          localStorage.setItem(
+            'storeAuth',
+            JSON.stringify(response.data.data.storeAuth)
+          ); // Persistent login
         } else {
-          sessionStorage.setItem("storeAuth", JSON.stringify(response.data.data.storeAuth)); // Expires on browser close
+          sessionStorage.setItem(
+            'storeAuth',
+            JSON.stringify(response.data.data.storeAuth)
+          ); // Expires on browser close
         }
 
-        navigate("/");
+        navigate('/');
       } else {
-        alert("Login failed. Please check your credentials.");
+        setErrors({ password: 'Login failed. Please check your credentials.' });
       }
     } catch (error) {
-      alert("An error occurred during login. Please try again later.");
+      setErrors({
+        password: 'An error occurred during login. Please try again later.',
+      });
       console.error(error);
     }
   };
 
   return (
-    <div className="signup-container">
+    <div className='signup-container'>
       {/* Left side with logo and slogan */}
-      <div className="signup-image">
-          <img src={SignupImage} alt="Sign up" className="signup-img" />
+      <div className='signup-image'>
+        <img
+          src={SignupImage || '/placeholder.svg'}
+          alt='Sign up'
+          className='signup-img'
+        />
       </div>
 
       {/* Right side with login form */}
-      <div className="signup-form">
-        <h1 className="signup-title">Branch Login</h1>
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="input-group-login password-input">
-            <label className="signup-label">Email</label>
+      <div className='signup-form'>
+        <h1 className='signup-title'>Branch Login</h1>
+        <form onSubmit={handleSubmit} className='login-form'>
+          <div className='input-group-login password-input'>
+            <label className='signup-label'>Email</label>
             <input
-              type="email"
+              type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-              placeholder="Enter your email"
+              className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500'
+              placeholder='Enter your email'
               required
             />
+            {errors.email && (
+              <p className='text-red-500 text-sm mt-1'>{errors.email}</p>
+            )}
           </div>
-          <div className="input-group-login password-input">
-            <label className="signup-label">Password</label>
+          <div className='input-group-login password-input'>
+            <label className='signup-label'>Password</label>
             <input
-              type="password"
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-              placeholder="Enter your password"
+              className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500'
+              placeholder='Enter your password'
               required
             />
+            {errors.password && (
+              <p className='text-red-500 text-sm mt-1'>{errors.password}</p>
+            )}
           </div>
 
-          <div className="remember-me-container">
-            <label className="remember-me-label">
+          <div className='remember-me-container'>
+            <label className='remember-me-label'>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
-                className="remember-me-checkbox"
+                className='remember-me-checkbox'
               />
               Keep me logged in
             </label>
-            <a href="/signup/forgot-password" className="forgotpass-link">Forgot password?</a>
-            
+            <a href='/signup/forgot-password' className='forgotpass-link'>
+              Forgot password?
+            </a>
           </div>
 
-          <div className="login-button-container">
-            <button type="submit" className="signup-button">
+          <div className='login-button-container'>
+            <button type='submit' className='signup-button'>
               Login
             </button>
           </div>
         </form>
 
         {/* Links for additional actions */}
-        <div className="login-additional-links">
-          <p className="signup-link">
-            New Here? <a href="/signup">Sign Up </a>
+        <div className='login-additional-links'>
+          <p className='signup-link'>
+            New Here? <a href='/signup'>Sign Up </a>
           </p>
-          <p className="signup-link mt-2">
-            Brand Login? <a href="/signup/brand-login">Login as Brand</a>
+          <p className='signup-link mt-2'>
+            Brand Login? <a href='/signup/brand-login'>Login as Brand</a>
           </p>
         </div>
       </div>

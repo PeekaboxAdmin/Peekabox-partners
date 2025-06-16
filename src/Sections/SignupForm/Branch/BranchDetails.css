@@ -1,166 +1,205 @@
-.input-field-branchDetails{
-    width: 100% !important;
-    padding: 10px !important;
-    border: 1px solid #ccc !important;
-    border-radius: 10px !important;
-    margin: 0;
-    box-sizing: border-box;
+.input-field-branchDetails {
+  width: 100% !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 10px !important;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .description-field {
-    width: 100% !important;
-    max-width: 864px;
-    padding: 10px !important;
-    border: 1px solid #ccc;
-    border-radius: 10px !important;
-    box-sizing: border-box;
-    resize: vertical;
-    font-size: 1rem;
-    background-color: #fff;
+  width: 100% !important;
+  max-width: 864px;
+  padding: 10px !important;
+  border: 1px solid #ccc;
+  border-radius: 10px !important;
+  box-sizing: border-box;
+  resize: vertical;
+  font-size: 1rem;
+  background-color: #fff;
 }
 
-.changeBorderColor{
-    border:#ccc !important;
+.changeBorderColor {
+  border: #ccc !important;
 }
 
-.fontWeightChange{
-    font-weight: 600 !important;
+.fontWeightChange {
+  font-weight: 600 !important;
 }
 
-.paddingChangeTitle{
-    padding: 15px !important;
+.paddingChangeTitle {
+  padding: 15px !important;
 }
 
-.paddingChangeBody{
-    padding: 25px !important;
+.paddingChangeBody {
+  padding: 25px !important;
 }
 
-.marginTopChange{
-    width: 1200px !important;
-    margin: 75px auto !important;
+.marginTopChange {
+  width: 1200px !important;
+  margin: 75px auto !important;
 }
 
 .form-step-branch {
-    display: flex;
-    gap: 20px;
-    padding: 30px 40px 0 40px;
-    margin-top: 0px !important;
+  display: flex;
+  gap: 20px;
+  padding: 30px 40px 0 40px;
+  margin-top: 0px !important;
 }
 
 .form-separator-branch {
-    border-top: 1px solid #ddd;
-    margin: 0 40px;
+  border-top: 1px solid #ddd;
+  margin: 0 40px;
 }
 
-.step-badge-branch{
-    width: 28px;
-    height: 28px;
-    background-color: #004225;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 6px;
+.step-badge-branch {
+  width: 28px;
+  height: 28px;
+  background-color: #004225;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
 }
 
 .form-group-branch {
-    flex: 1;
+  flex: 1;
 }
 
 .form-title-branch {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
-    margin: 0 0 6px 0;
-    padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 6px 0;
+  padding-bottom: 20px;
 }
 
 .form-input-branch {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    color: #000;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    /* border-bottom: 1px solid #ccc; */
-    background-color: transparent;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #000;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /* border-bottom: 1px solid #ccc; */
+  background-color: transparent;
 }
-  
+
 .form-input-branch::placeholder {
-color: #bbb;
+  color: #bbb;
 }
-  
+
 .form-input-branch:focus {
-    outline: none;
-    border-bottom-color: #004225;
+  outline: none;
+  border-bottom-color: #004225;
 }
 
 .form-button-branch {
-    align-self: flex-end;
-    margin: 30px;
-    padding: 10px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    background-color: #ff69b4;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .form-button-branch:hover {
-    background-color: #ff82c4;
-  }
+  align-self: flex-end;
+  margin: 30px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-  .form-button-branch-case2 {
-    align-self: flex-end;
-    margin: 15px;
-    padding: 10px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    background-color: #ff69b4;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .form-button-branch-case2:hover {
-    background-color: #ff82c4;
-  }
+.form-button-branch:hover {
+  background-color: #ff82c4;
+}
 
-  .form-button-branch-case3 {
-    align-self: flex-end;
-    margin: 5px;
-    padding: 10px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    background-color: #ff69b4;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .form-button-branch-case3:hover {
-    background-color: #ff82c4;
-  }
+.form-button-branch-case2 {
+  align-self: flex-end;
+  margin: 15px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-  .button-container {
-    display: flex;
-    justify-content: flex-end; /* Aligns the button to the end */
-  }
-  
-  .button-pink-color{
-    background-color: #ff69b4;
-  }
+.form-button-branch-case2:hover {
+  background-color: #ff82c4;
+}
 
-  .operating-hours-width{
-    width: 200px;
-  }
+.form-button-branch-case3 {
+  align-self: flex-end;
+  margin: 5px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-button-branch-case3:hover {
+  background-color: #ff82c4;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the end */
+}
+
+.button-pink-color {
+  background-color: #ff69b4;
+}
+
+.operating-hours-width {
+  width: 200px;
+}
+
+/* Google Maps related styles */
+.map-container {
+  height: 300px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.map-search-box {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.map-button {
+  margin-bottom: 16px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.map-button:hover {
+  background-color: #3367d6;
+}
+
+.map-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

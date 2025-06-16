@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+'use client';
+
+import type React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Image from '../../../Components/Image/Image';
-import Heading from '../../../Components/Heading/Heading';
-import Button from '../../../Components/Button/Button';
 
 import SignupImage from '../../../assets/images/Signup.png';
-import Separator from '../../../Components/Separator/Separator';
-import AuthButton from '../../../Components/AuthButton/AuthButton';
-import FooterLinks from '../../../Components/FooterLink/FooterLinks';
 
 import '../Style/Signup.css';
 
-const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = ({ onNext }) => {
+const AccountForm: React.FC<{
+  onNext: (account: { email: string }) => void;
+}> = ({ onNext }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,14 +21,27 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
     e.preventDefault();
     setLoading(true);
     setErrorMessage('');
-  
+
+    // Validate email
+    if (!email.trim()) {
+      setErrorMessage('Email is required');
+      setLoading(false);
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email.trim())) {
+      setErrorMessage('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+
     try {
       const apiurl = process.env.REACT_APP_API_URL;
       const response = await axios.post(
         `${apiurl}/api/v1/internal/brand/auth/initAuth`,
         { email: email.trim() }
       );
-  
+
       if (response.status === 404) {
         onNext({ email: email.trim() });
         navigate('/signup/password', { state: { email: email.trim() } });
@@ -45,7 +57,10 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
         navigate('/signup/Password', { state: { email: email.trim() } });
       } else {
         // Handle other errors
-        setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+        setErrorMessage(
+          error.response?.data?.message ||
+            'Something went wrong. Please try again.'
+        );
       }
     } finally {
       setLoading(false);
@@ -53,51 +68,54 @@ const AccountForm: React.FC<{ onNext: (account: { email: string }) => void }> = 
   };
 
   //
-  
 
   return (
-    <div className="signup-container">
-    {/* Left side with logo and slogan */}
-      <div className="signup-image">
-          <img src={SignupImage} alt="Sign up" className="signup-img" />
+    <div className='signup-container'>
+      {/* Left side with logo and slogan */}
+      <div className='signup-image'>
+        <img
+          src={SignupImage || '/placeholder.svg'}
+          alt='Sign up'
+          className='signup-img'
+        />
       </div>
 
-    {/* Right side with registration form */}
-      <div className="signup-form">
-        
-        <form onSubmit={handleEmailSubmit} className="login-form">
-          <div className="heading-container">
-            <h1 className="signup-title">Sign up your business</h1>
-            <p className="signup-subtitle">Enter your email to sign up your brand !</p>
+      {/* Right side with registration form */}
+      <div className='signup-form'>
+        <form onSubmit={handleEmailSubmit} className='login-form'>
+          <div className='heading-container'>
+            <h1 className='signup-title'>Sign up your business</h1>
+            <p className='signup-subtitle'>
+              Enter your email to sign up your brand !
+            </p>
           </div>
 
-          <div className="input-group-login password-input">
-            <label className="signup-label">Email</label>
+          <div className='input-group-login password-input'>
+            <label className='signup-label'>Email</label>
             <input
-              type="email"
+              type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="signup-input"
-              placeholder="Enter your email"
+              className='signup-input'
+              placeholder='Enter your email'
               required
             />
           </div>
-          
 
-          <div className="login-button-container">
-            <button type="submit" className="signup-button" disabled={loading}>
+          <div className='login-button-container'>
+            <button type='submit' className='signup-button' disabled={loading}>
               {loading ? 'Processing...' : 'Continue'}
             </button>
           </div>
-          
-          {errorMessage && <p className="signup-error">{errorMessage}</p>}
+
+          {errorMessage && <p className='signup-error'>{errorMessage}</p>}
         </form>
-        
-        <p className="signup-link">
-          Already have an account? <a href="/signup/login">Sign in</a>
+
+        <p className='signup-link'>
+          Already have an account? <a href='/signup/login'>Sign in</a>
         </p>
       </div>
-  </div>
+    </div>
   );
 };
 

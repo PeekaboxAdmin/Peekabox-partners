@@ -1,974 +1,693 @@
 /* Dashboard container */
 .dashboard {
-    position: relative;
-    margin-left: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 20px;
+  position: relative;
+  margin-left: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 /* Surprise Bags section styling */
 .dsurprise-bags {
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-    width: 100%;  /* Set exact width from Figma */
-    height: 465px; /* Set height */
-
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* Ensures clean section layout */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .dsurprise-bags-header {
-    background-color: #1b5e20;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    padding-top: 15px;
-    padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+.dsurprise-bags-header h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #18191f;
+  margin: 0;
 }
 
 .dsurprise-bags-content {
-    align-items: center;
-    background-color: #e6e4e4;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Fills available space */
-    justify-content: center;
-    padding: 15px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+  margin-bottom: 16px;
 }
 
-/* Footer stays at the bottom */
-.dsurprise-bags-footer {
-    background-color: #e6e4e4; /* Matches content background */
-    padding-bottom: 10px;
-    padding-left: 10px;
+/* Add these styles for the slider */
+.slider-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-
-
-.dsurprise-bags h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 20px;
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #dfe1e5;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.dsurprise-bags-container {
-    display: flex;
-    gap: 16px;
-    justify-content: flex-start;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    width: 100%;
-    padding-bottom: 15px;
+.slider-arrow:hover {
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Chrome, Safari, Edge (WebKit-based) */
-.dsurprise-bags-container::-webkit-scrollbar {
-    height: 8px; /* Set the scrollbar thickness */
-  }
-  
-  .dsurprise-bags-container::-webkit-scrollbar-track {
-    /* background: #f0f0f0; Track background color */
-    border-radius: 4px;
-  }
-  
-  .dsurprise-bags-container::-webkit-scrollbar-thumb {
-    background-color: #1b5e20; /* Scroll thumb color */
-    border-radius: 4px;     /* Rounded corners */
-  }
-
-.dsurprise-bag-card {
-    background-color: #ffffff;
-    border-radius: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    height: 285px;
-    width: 370px;
-    padding: 10px;
-    text-align: left;
-    position: relative;
-    flex: 0 0 auto;
+.slider-arrow-left {
+  left: -20px;
 }
 
-/* Badge on the image */
-.dsurprise-bag-badge {
-    position: absolute;
-    top: 40px;
-    /* left: 19px; */
-    background-color: #FF80B4; /* Badge color */
-    color: white;
-    padding: 5px 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    font-size: 0.9em;
-    font-weight: bold;
+.slider-arrow-right {
+  right: -20px;
 }
 
-.dsurprise-bag-image {
-    width: 100%;
-    height: 150px;
-    border-radius: 35px 35px 0 0;
-    /* margin-bottom: 12px; */
-    object-fit: cover;
-    object-position: center; /* Centers the image */
+/* Update the CSS to match SurpriseBoxManagement.css exactly */
+
+/* Add these styles to match SurpriseBox.tsx styling */
+.surprise-bags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-top: 20px;
 }
 
-.dsurprise-bag-card h3 {
-    font-size: 1.2em;
-    color: #333;
-    margin: 10px 0 6px;
+.surprise-bag-card {
+  width: 260px;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 0 0 260px;
+  position: relative;
 }
 
-.dsurprise-bag-card p {
-    font-size: 13px;
-    color: #555;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
+.surprise-bag-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.dsurprise-bag-card p svg {
-    margin-right: 6px;
-    color: #888;
+.surprise-bag-image-container {
+  position: relative;
+  width: 100%;
+  height: 120px; /* Adjusted for the new card height */
+  padding: 12px;
+  box-sizing: border-box;
 }
 
-.dsurprise-bag-card .price-container {
-    font-size: 12px;
-    width: 50%;
+.surprise-bag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
 }
 
-.price-availability-container {
-    display: flex;
-    justify-content: space-between;
-    /* gap: 8px; */
-    flex-direction: column;
-    flex-wrap: wrap;
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
 }
 
-.price-availability-container p {
-    white-space: normal; /* Ensures content stays on one line */
-    text-overflow: ellipsis; /* Adds ellipsis to truncated content */
-    display: inline-block; /* Maintains inline behavior */
-    max-width: calc(100% - 20px); /* Adjust as necessary for padding or margins */
+.badge-popular {
+  background-color: #ff6b6b;
 }
 
-/* Price Styling */
-.price {
-    white-space: nowrap; /* Prevents line break */
-    font-size: 15px;
-    font-weight: bold;
-    color: #FF80B4; /* Pink color for the price */
-    display: inline-block; /* Ensures inline behavior */
+.badge-new {
+  background-color: #4ecdc4;
+}
 
-    position: absolute;
-    bottom: 15px;
-    right: 20px;
+.badge-limited {
+  background-color: #ffd166;
+}
+
+.badge-available {
+  background-color: #ff80b4;
+  color: white;
+}
+
+.badge-sold-out {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Image Container */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Image Styling */
+.surprise-bag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Card Content */
+.card-content {
+  padding: 8px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+/* New layout for details and price in same row */
+.card-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Quantity and Time Info */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.card-info-item svg {
+  color: #999;
+  width: 14px;
+  height: 14px;
+}
+
+/* Price Display - Updated for horizontal layout */
+.card-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.original-price {
+  font-size: 0.85em;
+  text-decoration: line-through;
+  color: #999;
+  margin-bottom: 0;
 }
 
 .discounted-price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #FF80B4; /* Highlighted color for discounted price */
-  }
-  
-  .original-price {
-    font-size: 0.9em;
-    text-decoration: line-through;
-    color: #888; /* Grey color for original price */
-    margin-left: 8px;
-  }
-  
-  .regular-price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333; /* Default color for regular price */
-  }
-
-/* Availability Badge */
-.badge {
-    display: inline-block;
-    padding: 4px 8px;
-    font-size: 0.8em;
-    border-radius: 12px;
-    color: #ffffff;
-    font-weight: bold;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ff80b4;
 }
 
-/* Badge Colors */
-.badge.available {
-    background-color: #4caf50; /* Green for available */
+.dsurprise-bags-container::-webkit-scrollbar {
+  display: none;
 }
 
-.badge.sold-out {
-    background-color: #f44336; /* Red for sold out */
+.dsurprise-bags-container {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 0;
+  width: 100%;
 }
 
-/* Date and Availability Section */
-.availability-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #888;
-    margin-top: 8px;
+.surprise-bags-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
-/* Example of small icons with text */
-.dsurprise-bag-card .small-icon {
-    margin-right: 5px;
-    color: #888;
+/* Pagination dots */
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
 }
 
+.pagination-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d0d5dd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.pagination-dot.active {
+  width: 24px;
+  border-radius: 12px;
+  background-color: #0b4b2c;
+}
+
+.surprise-bags-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.no-surprise-bags {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+/* Improved Dashboard Buttons */
+.dashboard-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 28px;
+  letter-spacing: 0.5px;
+}
+
+.sb-btn{
+  display:block;         
+  margin:0 auto;  
+  background-color: #1b5e20;
+  color: white;
+}
+
+.dashboard-btn-primary {
+  background-color: #1b5e20;
+  color: white;
+}
+
+.dashboard-btn-primary:hover {
+  background-color: #2e7d32;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(27, 94, 32, 0.3);
+}
+
+.dashboard-btn-secondary {
+  background-color: #ffffff;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #d0d0d0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-btn-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.dashboard-btn-success:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.dashboard-btn-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.dashboard-btn-danger:hover {
+  background-color: #da190b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
 
 /* Order Management Table Styles */
 .orderdash {
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    min-height:400px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 400px;
 }
 
 .orderdash-header {
-    display: flex;
-    gap: 10px;
-    padding: 5px;
-    background-color: #1b5e20; /* Dark green */
-    height: 50px!important;
-    margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1b5e20;
+  color: white;
 }
 
-.editbtndash{
-    background-color: gold;
-    margin-top: 5px;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    width: 70px;
-    height: 40px;
+.orderdash-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 }
 
-/*bulk action */
+.orderdash-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 .bulk-actionsdash {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .bulk-actionsdash button {
-    background-color: green;
-    margin-top: 5px;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    width: 70px;
-    height: 40px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .bulk-actionsdash button:hover {
-    background-color: #0056b3;
-  }
-  
-  .bulk-actionsdash button:active {
-    background-color: #003f80;
-  }
-  
-  .bulk-actionsdash button:nth-child(2) {
-    background-color: #dc3545;
-  }
-  
-  .bulk-actionsdash button:nth-child(2):hover {
-    background-color: #a71d2a;
-  }
-  
-  .bulk-actionsdash button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-
+  display: flex;
+  gap: 8px;
+  margin-left: 12px;
+}
 
 .orderdash-content {
-    flex-grow: 1;
-    overflow-x: auto;
-    padding: 10px;
+  padding: 20px;
+  overflow-x: auto;
 }
 
-.orderdash h2 {
-    color: #ffffff;
-    padding: 10px;
-    
-    font-size: 24px;
-    font-weight: bold;
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.orderdash table {
-    width: 100%;
-    margin-top: 10px;
+.orders-table th {
+  text-align: left;
+  padding: 12px;
+  color: #ff80b4;
+  font-weight: bold;
+  font-size: 14px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
-.orderdash th {
-    text-align: left;
-    padding: 8px;
-    color: #FF80B4; /* Pink color for headers */
-    font-weight: bold;
-    font-size: 12px;
+.orders-table td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
 }
 
-.orderdash td {
-    padding: 10px;
-    font-size: 12px;
-    border-bottom: 1px solid #f0f0f0;
+.orders-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 
-.orderdash tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-.no-orders{
-    margin-left: 13px;
-    margin-top: 30px;
+.orders-table tbody tr:hover {
+  background-color: #f5f5f5;
 }
 
 /* Status Badge Styles */
-.badge {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    color: black;
-    font-size: 0.85em;
-    text-align: center;
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+  min-width: 70px;
 }
 
-/* Status Colors */
-.badge.collected {
-    background-color: #4caf50; /* Green for collected */
+.status-collected {
+  background-color: #e8f5e8;
+  color: #2e7d32;
 }
 
-.badge.pending {
-    background-color: #ff9800; /* Orange for pending */
+.status-pending {
+  background-color: #fff3e0;
+  color: #f57c00;
 }
 
-.badge.canceled {
-    background-color: #f44336; /* Red for canceled */
+.status-canceled {
+  background-color: #ffebee;
+  color: #d32f2f;
 }
 
-/* Complete Button Style */
-.complete-btn {
-    padding: 6px 12px;
-    background-color: transparent;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.status-default {
+  background-color: #f5f5f5;
+  color: #666;
 }
 
-.complete-btn:hover {
-    background-color: #1565c0; /* Darker blue */
+.orderdash-footer {
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
 }
 
-/* Action Button */
-.orderdash .action-btn {
-    padding: 6px 12px;
-    border: none;
-    background-color: #4caf50;
-    color: white;
-    border-radius: 5px;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.orderdash .action-btn:hover {
-    background-color: #388e3c; /* Darker green */
+.no-orders {
+  text-align: center;
+  padding: 40px;
+  color: #666;
 }
 
 .first-grid {
-    display: flex;
-    flex-direction: row;
-    gap: 16px; 
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.surpricebagcontainer{
-    margin-top: 30px;
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    margin-bottom: 10px;
+.surpricebagcontainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-bottom: 10px;
 }
 
-.OverViewcard {
-    width: 90%;
-    height: 100%;
-    padding: 10px;
-    margin-top: 20px;
+.salesChart {
+  width: 50%;
+  max-width: 600px;
 }
 
-.OverViewcard h2 {
-    background-color: #1b5e20; /* Dark green */
-    color: #ffffff;
-    padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin: 0;
-    font-size: 1.2em;
-}
-
-.seeall {
-    padding: 8px;
-    font-size: 12px;
-    margin-top: 10px;
-    border-radius: 10px;
-    background-color: #FF80B4;
-    color: white;
-    padding: 10px;
-    cursor: pointer; 
-    font-weight: bold;
-    border: none;
-    margin-left: 10px;
-}
-
-
-/*menu button */
-.menu-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-.action-menu-container {
-    position: relative;
-}
-
-.action-menu {
-    position: absolute;
-    top: 20px;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    z-index: 10;
-}
-
-.action-menu button {
-    display: block;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 10px 15px;
-    text-align: left;
-    cursor: pointer;
-}
-
-.action-menu button:hover {
-    background-color: #f5f5f5;
-}
-
-.quantityb-btn {
-    background-color: #ff80b4;
-    color: white;
-    border: none;
-    padding: 4px 8px; /* Reduced padding */
-    font-size: 10px; /* Smaller font size */
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.quantityb-btn:hover {
-    background-color: #ff80b4;
-}
-
-.quantityb-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-.quantityb-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Add spacing between buttons and number */
-}
-
-.quantityb-controls span {
-    font-size: 12px; /* Optionally reduce the span font size */
-    font-weight: bold;
-    color: #333;
-    min-width: 20px;
-    text-align: center;
-}
-
-/* Notifications Container */
-.notifications-container {
-    background-color: #ffffff;
-    padding: 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 60%; /* Set exact width from Figma */
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  /* Notifications Title */
-  .notifications-header {
-    background-color: #1b5e20;
-    color: #ffffff;
-    padding: 12px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    font-size: 24px;
-    text-align: center;
-  }
-  
-  /* Unread Notifications Count */
-  .unread-count {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: #f44336;
-    margin: 10px 15px;
-  }
-  
-  /* Notifications List */
-  .notifications-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 15px;
-  }
-  
-  /* Individual Notification Item */
-  .notification-item {
-    display: flex;
-    align-items: center;
-    background: #f9f9f9;
-    padding: 12px;
-    border-radius: 8px;
-    gap: 10px;
-    transition: background 0.3s ease;
-    justify-content: space-between;
-  }
-  
-  .notification-item:hover {
-    background: #f0f0f0;
-  }
-  
-  /* Notification Icon */
-  .notification-icon {
-    color: #ff80b4;
-    font-size: 1.2em;
-  }
-  
-  /* Notification Text */
-  .notification-text {
-    font-size: 0.9em;
-    color: #333;
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  /* Notification Time */
-  .notification-time {
-    font-size: 0.8em;
-    color: #777;
-  }
-  
-  /* Arrow Icon */
-  .arrow-icon {
-    color: #999;
-    font-size: 1em;
-    cursor: pointer;
-  }
-
-
-  .dashboard-footer {
-    background-color: #FDFAF7;
-    padding: 20px 0;
-    position: relative;
-    bottom: 0;
-    margin-top: 30px;
-    width: 100%;
+.dashboard-footer {
+  background-color: #fdfaf7;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  margin-top: 30px;
+  width: 100%;
 }
 
 .dashboard-footer::before {
-    content: "";
-    display: block;
-    max-width: 1400px;
-    height: 1px;
-    background-color: #dcdcdc; /* Light grey line separator */
-    margin: auto;
+  content: "";
+  display: block;
+  max-width: 1400px;
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: auto;
 }
 
 .dashboard-footer::after {
-    content: "";
-    display: block;
-    max-width: 1400px;
-    height: 1px;
-    background-color: #dcdcdc; /* Light grey line separator */
-    margin: auto;
-    position: relative;
-    top: -45px;
-
+  content: "";
+  display: block;
+  max-width: 1400px;
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: auto;
+  position: relative;
+  top: -45px;
 }
 
-/* Responsivenss -------------------------------------------------------------*/
-/* General Mobile Adjustments */
-/* Tablet Screens (768px - 1024px) */
+/* Responsive Design */
+@media (min-width: 1100px) and (max-width: 1400px) {
+  .dsurprise-bags {
+    width: 100%;
+    height: auto;
+  }
 
-@media (min-width:1100px) and (max-width:1400px) {
-    .dsurprise-bags {
-        width: 100%; /* Full width instead of fixed 1038px */
-        height: auto;
-    }
+  .orderdash {
+    width: 100%;
+    overflow-x: auto;
+  }
 
-    .notifications-container {
-        width: 50%;
-        max-width: 600px;
-    }
-
-    .orderdash {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .salesChart{
-        width: 50%;
-        max-width: 600px;  
-    }
-    
+  .salesChart {
+    width: 50%;
+    max-width: 600px;
+  }
 }
 
-@media (min-width: 1040px) and (max-width: 1100px) {
-    /* Surprise Bags Section */
-    .dsurprise-bags {
-        width: 100%; /* Full width instead of fixed 1038px */
-        height: auto;
-    }
+@media (min-width: 770px) and (max-width: 1100px) {
+  .dashboard {
+    margin-left: 130px;
+  }
 
-    .dsurprise-bags-container {
-        /* display: grid; */
-        /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  */
-        gap: 12px;
-    }
+  .surpricebagcontainer {
+    flex-direction: column;
+  }
 
-    .dsurprise-bag-card {
-        width: 100%; /* Auto width based on grid */
-        height: auto;
-    }
+  .dsurprise-bags {
+    width: 100%;
+  }
 
-    /* Badge Adjustment */
-    .dsurprise-bag-badge {
-        top: 15px;
-        left: 10px;
-        font-size: 0.85em;
-        padding: 4px 8px;
-    }
+  .first-grid {
+    flex-direction: column;
+    margin-right: 0px;
+  }
 
-    /* Order Management Table */
-    .orderdash {
-        width: 100%; /* Stretch to fit */
-        overflow-x: auto; /* Scrollable */
-    }
+  .orderdash {
+    width: 100%;
+  }
 
-    .orderdash table {
-        font-size: 0.9em;
-    }
+  .salesChart {
+    width: 100%;
+    max-width: inherit;
+  }
 
-    .orderdash th, .orderdash td {
-        padding: 10px;
-    }
+  .orderdash-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
 
-    .salesChart{
-        width: 60%;
-        max-width: 500px;
-    }
-
-    /* First Grid Section */
-    .first-grid {
-        flex-direction: row; /* Stack vertically */
-        gap: 10px;
-    }
-
-    /* Notifications */
-    .notifications-container {
-        width: 60%;
-        max-width: 500px;
-    }
-
-    /* Buttons */
-    .seeall {
-        font-size: 14px;
-    }
-
-    /* Action Menu */
-    .action-menu {
-        top: 15px;
-        right: 15px;
-    }
-}
-
-@media (min-width: 940px) and (max-width: 1040px){
-    /* Surprise Bags Section */
-    .dsurprise-bags {
-        width: 100%; /* Full width instead of fixed 1038px */
-        height: auto;
-    }
-
-    .dsurprise-bags-container {
-        /* display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-        gap: 12px;
-    }
-
-    .dsurprise-bag-card {
-        width: 100%; /* Auto width based on grid */
-        height: auto;
-    }
-
-    /* Badge Adjustment */
-    .dsurprise-bag-badge {
-        top: 15px;
-        left: 10px;
-        font-size: 0.85em;
-        padding: 4px 8px;
-    }
-
-    /* Order Management Table */
-    .orderdash {
-        width: 100%; /* Stretch to fit */
-        overflow-x: auto; /* Scrollable */
-        max-width: 500px;
-    }
-
-    .orderdash table {
-        font-size: 0.9em;
-    }
-
-    .orderdash th, .orderdash td {
-        padding: 10px;
-    }
-
-    .salesChart{
-        width: 80%;
-        max-width: 700px;
-    }
-
-    /* First Grid Section */
-    .first-grid {
-        flex-direction: row; /* Stack vertically */
-        gap: 10px;
-    }
-
-    /* Notifications */
-    .notifications-container {
-        width: 65%;
-        max-width: 700px;
-    }
-    .salesChart{
-        width: 65%;
-    }
-
-    /* Buttons */
-    .seeall {
-        font-size: 14px;
-    }
-
-    /* Action Menu */
-    .action-menu {
-        top: 15px;
-        right: 15px;
-    }
-}
-
-@media(min-width:770px) and (max-width:840px){
-    .dashboard{
-        margin-left: 130px;
-    }
-
-    .surpricebagcontainer{
-        flex-direction:column;
-    }
-
-    .dsurprise-bags{
-        width: 100%;;
-    }
-
-    .dsurprise-bags-header{
-        width: auto;
-    }
-
-    .notifications-container{
-        width: 100%;
-        max-width: inherit;
-    }
-
-    .first-grid{
-        flex-direction:column;
-        margin-right: 0px;
-    }
-    
-    .orderdash{
-        width: 100%;
-    }
-
-    .salesChart{
-        width: 100%;
-        max-width: inherit;
-    }
+  .orderdash-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 770px) {
+  .dashboard {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
-    .mobile-sidebar{
-        display: block;
-    }
+  .first-grid {
+    flex-direction: column;
+    margin: 10px;
+    margin-top: 20px;
+    gap: 20px;
+  }
 
-    /* Dashboard container */
-    .dashboard {
-      margin-left: 10px;
-      margin-right: 10px;
-    }
+  .surpricebagcontainer {
+    margin: 10px;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .dashboard h1{
-        font-size: 1.9rem;
-        margin-left: 20px;
-    }
+  .dsurprise-bags-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 0;
+    width: 100%;
+  }
 
-    .first-grid {
-        flex-direction:column;
-        margin: 10px;
-        margin-top: 20px;
-        gap: 20px;
-    }
+  .surprise-bag-card {
+    width: 90%;
+    height: fit-content;
+  }
 
-    /* Surprise Bags Section */
+  .orderdash-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 15px;
+  }
 
-    .surpricebagcontainer{
-       margin: 10px;
-       flex-direction:column;
-       gap: 20px;
-    }
+  .orderdash-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 
-    .dsurprise-bags-container {
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: auto;
-    }
+  .bulk-actionsdash {
+    margin-left: 0;
+    margin-top: 8px;
+  }
 
-    .dsurprise-bag-card {
-        width: 90%; /* Full width for mobile */
-        height: fit-content;
-    }
+  .orders-table {
+    font-size: 12px;
+  }
 
-    /* Badge */
-    .dsurprise-bag-badge {
-        top: 20px;
-        left: 10px; /* Adjust positioning */
+  .orders-table th,
+  .orders-table td {
+    padding: 8px;
+  }
 
-        position: absolute;
-        top: 20px;
-        left: 15px;
-        background-color: #FF80B4;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 10px;
-        font-size: 0.9em;
-        font-weight: bold;
-    }
+  .dashboard-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    min-width: 70px;
+    height: 32px;
+  }
 
-    /* Order Management Table */
-
-    .orderdash table {
-        display: block; /* Make table scrollable */
-        overflow-x: auto;
-    }
-
-    .orderdash th, .orderdash td {
-        font-size: 0.85em;
-        padding: 6px;
-    }
-
-    .OverViewcard {
-        width: 100%;
-    }
-
-    /* Action Menu */
-    .action-menu {
-        top: 10px;
-        right: 10px;
-    }
-
-    /* Buttons */
-    .seeall {
-        font-size: 13px;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        cursor: hand;
-    }
-
-    .action-menu button {
-        padding: 8px 10px;
-    }
-
-    .notifications-container{
-        width: 100%;
-        max-width: inherit;
-    }
-
-    .salesChart{
-        width: 100%;
-        max-width: inherit;
-    }
+  .salesChart {
+    width: 100%;
+    max-width: inherit;
+  }
 }
 
-/* Smaller screens (e.g., phones) */
 @media (max-width: 480px) {
-    .dashboard{
-        margin: 0px;
-    }
+  .dashboard {
+    margin: 0px;
+  }
 
-    .dsurprise-bags{
-        overflow-y: hidden;
-    }
-    .dsurprise-bag-card h3 {
-        font-size: 1em; /* Smaller font size for headings */
-    }
+  .orderdash-content {
+    padding: 10px;
+    overflow-x: auto;
+  }
 
-    .dsurprise-bag-card p {
-        font-size: 10px; /* Smaller font for descriptions */
-    }
+  .orders-table {
+    min-width: 500px;
+  }
 
-    .price-availability-container p {
-        max-width: calc(100% - 10px);
-    }
+  .card-content h3 {
+    font-size: 1em;
+  }
 
-    .menu-btn {
-        top: 5px;
-        right: 5px;
-    }
+  .card-info-item {
+    font-size: 10px;
+  }
+
+  .dashboard-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    min-width: 60px;
+    height: 28px;
+  }
 }
 
-@media (max-width:550px){
-    .footer-container {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
+.scrollLeft,
+.scrollRight {
+  width: 40px;
+  height: 40px;
 }

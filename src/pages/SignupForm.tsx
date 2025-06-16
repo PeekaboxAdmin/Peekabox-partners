@@ -24,127 +24,123 @@ import { useNavigate } from 'react-router-dom';
 import ViewBranches from './ViewBranches';
 
 interface BrandData {
-    brandName?: string;
-    brandAddress?: string;
-    phoneNumber?: string;
-    totalStores?: number;
-    managerEmail?: string;
-    password?: string;
-    brandLogo?: File | null;
+  brandName?: string;
+  brandAddress?: string;
+  phoneNumber?: string;
+  totalStores?: number;
+  managerEmail?: string;
+  password?: string;
+  brandLogo?: File | null;
 }
-  
+
 const SignupForm: React.FC = () => {
-    const [accountData, setAccountData] = useState<any>(null);
-    const [brandData, setBrandData] = useState<BrandData>({});
-    const [currentBrandStep, setCurrentBrandStep] = useState(1);
-    const [branchData, setBranchData] = useState<any>(null);
-    const [totalStores, setTotalStores] = useState<number | null>(null);
-    const navigate = useNavigate();
+  const [accountData, setAccountData] = useState<any>(null);
+  const [brandData, setBrandData] = useState<BrandData>({});
+  const [currentBrandStep, setCurrentBrandStep] = useState(1);
+  const [branchData, setBranchData] = useState<any>(null);
+  const [totalStores, setTotalStores] = useState<number | null>(null);
+  const navigate = useNavigate();
 
-    const brandId = useSelector((state: any) => state.brandAuth.Brand_id);
+  const brandId = useSelector((state: any) => state.brandAuth.Brand_id);
 
-    const handleAccountNext = (data: any) => {
-        setAccountData(data);
-    };
+  const handleAccountNext = (data: any) => {
+    setAccountData(data);
+  };
 
-    const handleBrandNext = async (data: Partial<BrandData>) => {
-        const updated = { ...brandData, ...data }; // Assuming `brandData` is available from state
-        setBrandData(updated);
-      
-        if (currentBrandStep === 4) {
-          console.log('Final Brand Data:', updated);
-      
-          try {
-            const apiurl = process.env.REACT_APP_API_URL;
-            const response = await axios.post(
-              `${apiurl}/api/v1/internal/brand/Update/${brandId}`,
-              {
-                name: updated.brandName,
-                address: updated.brandAddress,
-                ManagerEmail: updated.managerEmail,
-                phoneNumber: updated.phoneNumber,
-                totalStores: updated.totalStores,
-                image: 'Default/PATH', 
-              },
-              {
-                withCredentials: true
-              }
-            );
+  const handleBrandNext = async (data: Partial<BrandData>) => {
+    const updated = { ...brandData, ...data }; // Assuming `brandData` is available from state
+    setBrandData(updated);
 
-            if (response.status === 200) {
-                navigate('/signup/brand-created');
-            }
-      
-            // Handle response if needed
-            console.log('Server response:', response.data);
-      
-          } catch (error) {
-            console.error('Error updating brand:', error);
+    if (currentBrandStep === 4) {
+      console.log('Final Brand Data:', updated);
+
+      try {
+        const apiurl = process.env.REACT_APP_API_URL;
+        const response = await axios.post(
+          `${apiurl}/api/v1/internal/brand/Update/${brandId}`,
+          {
+            name: updated.brandName,
+            address: updated.brandAddress,
+            ManagerEmail: updated.managerEmail,
+            phoneNumber: updated.phoneNumber,
+            totalStores: updated.totalStores,
+            image: 'Default/PATH',
+          },
+          {
+            withCredentials: true,
           }
-      
-          
-        } else {
-          setCurrentBrandStep((prevStep) => prevStep + 1);
+        );
+
+        if (response.status === 200) {
+          navigate('/signup/brand-created');
         }
-      };
-      
-    
-    const handleBrandBack = () => {
+
+        // Handle response if needed
+        console.log('Server response:', response.data);
+      } catch (error) {
+        console.error('Error updating brand:', error);
+      }
+    } else {
+      setCurrentBrandStep((prevStep) => prevStep + 1);
+    }
+  };
+
+  const handleBrandBack = () => {
     setCurrentBrandStep((prev) => Math.max(prev - 1, 1));
-    };
+  };
 
-    const handleBranchNext = (data: any) => {
-        setBranchData(data);
-    };
+  const handleBranchNext = (data: any) => {
+    setBranchData(data);
+  };
 
+  return (
+    <Routes>
+      <Route path='/' element={<Outlet />}>
+        <Route index element={<AccountForm onNext={handleAccountNext} />} />
+        <Route path='password' element={<Password />} />
+        <Route path='verify-email' element={<VerifyEmail />} />
 
+        <Route
+          path='brandform'
+          element={
+            currentBrandStep === 1 ? (
+              <BrandDetailsForm onNext={handleBrandNext} />
+            ) : currentBrandStep === 2 ? (
+              <BrandFormStep2
+                onNext={handleBrandNext}
+                onBack={handleBrandBack}
+              />
+            ) : currentBrandStep === 3 ? (
+              <BrandFormStep3
+                onNext={handleBrandNext}
+                onBack={handleBrandBack}
+              />
+            ) : (
+              <BrandFormStep4
+                onNext={handleBrandNext}
+                onBack={handleBrandBack}
+              />
+            )
+          }
+        />
 
-    return (
-        <Routes>
-            <Route path="/" element={<Outlet />}>
-                <Route index element={<AccountForm onNext={handleAccountNext} />} />
-                <Route path="password" element={<Password/>} />
-                <Route path="verify-email" element={<VerifyEmail/>} />
+        <Route path='brand-created' element={<BrandCreated />} />
 
-                <Route path="brandform" element={
-                    currentBrandStep === 1 ? (
-                        <BrandDetailsForm onNext={handleBrandNext} />
-                    ) : currentBrandStep === 2 ? (
-                        <BrandFormStep2
-                        onNext={handleBrandNext}
-                        onBack={handleBrandBack}
-                        />
-                    ) : currentBrandStep === 3 ? (
-                        <BrandFormStep3
-                        onNext={handleBrandNext}
-                        onBack={handleBrandBack}
-                        />
-                    ) : (
-                        <BrandFormStep4
-                        onNext={handleBrandNext}
-                        onBack={handleBrandBack}
-                        />
-                    )
-                    } 
-                />
+        <Route path='branches' element={<BranchDetails />} />
+        <Route path='view-branches' element={<ViewBranches />} />
 
-                <Route path="brand-created" element={<BrandCreated />} />
+        <Route path='Created-Account' element={<AccountPage />} />
 
-                <Route path="branches" element={<BranchDetails/>} />
-                <Route path="view-branches" element={<ViewBranches />} />
+        <Route path='brand-created' element={<BrandCreated />} />
+        <Route path='store_surprisebag' element={<SurpriseBagCreated />} />
 
-                <Route path="Created-Account" element={<AccountPage/>} />
-
-                <Route path="brand-created" element={<BrandCreated />} />
-                <Route path="store_surprisebag" element={<SurpriseBagCreated />} />
-
-                <Route path="login" element={<Login />} />
-                <Route path="brand-login" element={<BrandLogin />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="reset-password" element={<ResetPassword />} />
-            </Route>
-        </Routes>
-    );
+        <Route path='login' element={<Login />} />
+        <Route path='brand-login' element={<BrandLogin />} />
+        <Route path='forgot-password' element={<ForgotPassword />} />
+        <Route path='reset-password' element={<ResetPassword />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default SignupForm;

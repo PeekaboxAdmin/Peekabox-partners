@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import type React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,12 +16,17 @@ const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
+  const [errors, setErrors] = useState<{
+    password?: string;
+    confirmPassword?: string;
+  }>({});
 
   // Extract token from URL query parameters
   useEffect(() => {
@@ -28,7 +36,9 @@ const ResetPassword: React.FC = () => {
       setToken(resetToken);
     } else {
       setIsError(true);
-      setMessage('Invalid or missing reset token. Please request a new password reset.');
+      setMessage(
+        'Invalid or missing reset token. Please request a new password reset.'
+      );
     }
   }, [location.search]);
 
@@ -44,32 +54,41 @@ const ResetPassword: React.FC = () => {
     setLoading(true);
     setMessage('');
     setIsError(false);
+    setErrors({});
 
     // Validate passwords
-    if (!isPasswordValid(password)) {
-      setIsError(true);
-      setMessage('Password must be at least 12 characters and include both letters and numbers.');
-      setLoading(false);
-      return;
+    const newErrors: { password?: string; confirmPassword?: string } = {};
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (!isPasswordValid(password)) {
+      newErrors.password =
+        'Password must be at least 12 characters and include both letters and numbers.';
     }
 
-    if (password !== confirmPassword) {
-      setIsError(true);
-      setMessage('Passwords do not match.');
+    if (!confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    // If there are errors, set them and return
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       setLoading(false);
       return;
     }
 
     try {
       const response = await axios.post(
-        'https://api-backend.peekabox.net/api/v1/stores/auth/resetPassword', 
-        { 
-          token, 
-          password 
+        'https://api-backend.peekabox.net/api/v1/stores/auth/resetPassword',
+        {
+          token,
+          password,
         },
         { withCredentials: true }
       );
-      
+
       if (response.data.success) {
         setIsSubmitted(true);
         setMessage('Password has been reset successfully!');
@@ -80,7 +99,10 @@ const ResetPassword: React.FC = () => {
       }
     } catch (error: any) {
       setIsError(true);
-      setMessage(error.response?.data?.errorMessage || 'An error occurred. Please try again later.');
+      setMessage(
+        error.response?.data?.errorMessage ||
+          'An error occurred. Please try again later.'
+      );
       console.error('Password reset error:', error);
     } finally {
       setLoading(false);
@@ -88,84 +110,96 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="signup-container">
+    <div className='signup-container'>
       {/* Left side with logo and slogan */}
-      <div className="signup-image">
-        <img src={SignupImage} alt="Reset Password" className="signup-img" />
+      <div className='signup-image'>
+        <img
+          src={SignupImage || '/placeholder.svg'}
+          alt='Reset Password'
+          className='signup-img'
+        />
       </div>
 
       {/* Right side with form */}
-      <div className="signup-form">
-        <h1 className="signup-title">Reset Password</h1>
+      <div className='signup-form'>
+        <h1 className='signup-title'>Reset Password</h1>
         {!isSubmitted ? (
           <>
-            <p className="signup-subtitle">
+            <p className='signup-subtitle'>
               Please enter your new password below.
             </p>
             {token ? (
-              <form onSubmit={handleSubmit} className="login-form">
-                <div className="input-group-login password-input">
-                  <label className="signup-label">New Password</label>
+              <form onSubmit={handleSubmit} className='login-form'>
+                <div className='input-group-login password-input'>
+                  <label className='signup-label'>New Password</label>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your new password"
+                    placeholder='Enter your new password'
                     required
                   />
                   <button
-                    type="button"
-                    className="toggle-password"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
+                    type='button'
+                    className='toggle-password'
+                    onClick={() => setShowPassword(!showPassword)}>
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                   </button>
                 </div>
-                
-                <div className="input-group-login password-input">
-                  <label className="signup-label">Confirm Password</label>
+                {errors.password && (
+                  <p className='text-red-500 text-sm mt-1'>{errors.password}</p>
+                )}
+
+                <div className='input-group-login password-input'>
+                  <label className='signup-label'>Confirm Password</label>
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Confirm your new password"
+                    placeholder='Confirm your new password'
                     required
                   />
                   <button
-                    type="button"
-                    className="toggle-password"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                    type='button'
+                    className='toggle-password'
+                    onClick={() =>
+                      setShowConfirmPassword(!showConfirmPassword)
+                    }>
+                    <FontAwesomeIcon
+                      icon={showConfirmPassword ? faEyeSlash : faEye}
+                    />
                   </button>
                 </div>
-                
+                {errors.confirmPassword && (
+                  <p className='text-red-500 text-sm mt-1'>
+                    {errors.confirmPassword}
+                  </p>
+                )}
+
                 <PasswordCriteria />
-                
+
                 {message && (
                   <p className={`message ${isError ? 'error' : 'success'}`}>
                     {message}
                   </p>
                 )}
-                
-                <div className="login-button-container">
-                  <button 
-                    type="submit" 
-                    className="signup-button"
-                    disabled={loading}
-                  >
+
+                <div className='login-button-container'>
+                  <button
+                    type='submit'
+                    className='signup-button'
+                    disabled={loading}>
                     {loading ? 'Resetting...' : 'Reset Password'}
                   </button>
                 </div>
               </form>
             ) : (
-              <div className="error-container">
-                <p className="error-message">{message}</p>
-                <div className="login-button-container">
-                  <button 
-                    onClick={() => navigate('/signup/forgot-password')} 
-                    className="signup-button"
-                  >
+              <div className='error-container'>
+                <p className='error-message'>{message}</p>
+                <div className='login-button-container'>
+                  <button
+                    onClick={() => navigate('/signup/forgot-password')}
+                    className='signup-button'>
                     Request New Reset Link
                   </button>
                 </div>
@@ -173,15 +207,15 @@ const ResetPassword: React.FC = () => {
             )}
           </>
         ) : (
-          <div className="success-message">
-            <p className="success-text">{message}</p>
+          <div className='success-message'>
+            <p className='success-text'>{message}</p>
             <p>Redirecting to login page...</p>
           </div>
         )}
 
-        <div className="login-additional-links">
-          <p className="signup-link">
-            Remembered your password? <a href="/signup/login">Login</a>
+        <div className='login-additional-links'>
+          <p className='signup-link'>
+            Remembered your password? <a href='/signup/login'>Login</a>
           </p>
         </div>
       </div>
